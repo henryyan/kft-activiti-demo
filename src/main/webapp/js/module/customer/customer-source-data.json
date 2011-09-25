@@ -1,0 +1,24 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+			{"id": "1", "name": "合作方客户", "description": "该来源包括AAAAAA以及BBBBBBBB"},
+			{"id": "2", "name": "转介绍客户", "description": "该来源包括EEEEEE和PPPPPPPPP"}
+	],
+	"search":false,
+	"totalCount":5,
+	"totalPages":1
+	}
+}

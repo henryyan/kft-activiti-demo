@@ -1,0 +1,24 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "policyNumber": "CP-201100001", "GroupName": "上海中智集团", "cpaMan": "王小利", "buildDate": "1988-09-11", "cpaProperty": "股份有限公司",  "insureDate": "2011-05-10", "address": "上海市普陀区1102号",  "mobilePhone": "13573648579", "effectiveDate": "2009-5-11", "invalidationDate": "2010-12-11", "email": "zhangsan@hotmail.com", "verify": ""},
+		{"id": "2", "policyNumber": "CP-201100001", "GroupName": "阿里巴巴",    "cpaMan": "彭真",  "buildDate": "1990-09-09", "cpaProperty": "中外合资企业",  "insureDate": "2011-03-10", "address": "上海市静安区109号",  "mobilePhone": "13573321459", "effectiveDate": "2009-3-11", "invalidationDate": "2010-12-10", "email": "wanglimi@hotmail.com", "verify": ""}
+	],
+	"search":false,
+	"totalCount":2,
+	"totalPages":1
+	}
+}

@@ -1,0 +1,24 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "name": "张三", "sex": "male", "birthday": "1988-09-22",     "ID-card": "411121198809122345", "insuranceDate": "2011-07-10", "health-Condition": "合格", "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "file": ""},
+		{"id": "2", "name": "王丽敏", "sex": "female", "birthday": "1990-03-14", "ID-card": "411121199003142345", "insuranceDate": "2011-07-10", "health-Condition": "合格", "mobilePhone": "15837463847", "email": "wanglimin@163.com",     "file": ""}
+	],
+	"search":false,
+	"totalCount":2,
+	"totalPages":1
+	}
+}

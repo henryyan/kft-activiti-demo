@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.convention.default.parent.package" value="crud-default" />
+	<constant name="struts.convention.action.packages" value="com.runchain.arch.web,com.runchain.zy.insurance.web"></constant>
+	<constant name="struts.convention.action.includeJars" value=".*/*web-extension*.*?jar(!/)?"/>
+	
+	<constant name="struts.devMode" value="true"/>
+    <constant name="struts.i18n.reload" value="true"/>
+    <constant name="struts.configuration.xml.reload" value="true"/>
+    <constant name="struts.convention.classes.reload" value="true" /> 
+    <constant name="struts.multipart.maxSize" value="10485760"></constant>
+
+	<!-- 用于CRUD Action的parent package -->
+	<package name="crud-default" extends="convention-default, json-default">
+		<!-- 基于paramsPrepareParamsStack,
+			增加store interceptor保证actionMessage在redirect后不会丢失-->
+		<interceptors>
+			<interceptor-stack name="crudStack">
+				<interceptor-ref name="store">
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
+				<interceptor-ref name="paramsPrepareParamsStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="crudStack" />
+	</package>
+
+	<!-- 
+		使用Convention插件,实现约定大于配置的零配置文件风格.
+	           特殊的Result路径在Action类中使用@Result设定. 
+	-->
+</struts>

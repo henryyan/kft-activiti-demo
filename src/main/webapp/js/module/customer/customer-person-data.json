@@ -1,0 +1,42 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"code": "3483294", "name": "张福", "source": "自拓展", "contact": "张庆", "phone": "13586923040", "fax": "021-65938029", "address": "上海市华山路888号606", "email": "zhangfu@gmail.com","isBigCustomer":"true", "potential":"有投保车险意向","insure":false, "remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483643", "name": "李广", "source": "转介绍", "contact": "李雷", "phone": "13586923040", "fax": "021-65938029", "address": "上海市衡山路999号306", "email": "liguang@gmail.com", "isBigCustomer": "false","potential":"","insure":false,"remark":"","putin":"阿宝", "documents": "2"},
+		{"code": "3483456", "name": "赵峰", "source": "合作方", "contact": "赵阳", "phone": "13586923040", "fax": "021-65938029", "address": "上海市嵩山路666号106", "email": "zhaofeng@gmail.com","isBigCustomer": "true", "potential":"正在考虑是否投保","insure":false,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3485344", "name": "周辛", "source": "自拓展", "contact": "周灵", "phone": "13586923040", "fax": "021-65938029", "address": "上海市华山路888号306", "email": "zhouxin@gmail.com","isBigCustomer": "true","potential":"","insure":false,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3434267", "name": "金鑫", "source": "转介绍", "contact": "金辉", "phone": "13586923040", "fax": "021-65938029", "address": "上海市衡山路999号406", "email": "jinxin@gmail.com","isBigCustomer": "false","potential":"","insure":false,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3484548", "name": "孙兴", "source": "合作方", "contact": "孙昱", "phone": "13586923040", "fax": "021-65938029", "address": "上海市嵩山路666号506", "email": "sunxin@gmail.com","isBigCustomer": "false","potential":"","insure":false,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483294", "name": "宋健", "source": "自拓展", "contact": "张庆", "phone": "13586923040", "fax": "021-65938029", "address": "上海市华山路888号606", "email": "zhangfu@gmail.com","isBigCustomer": "false","potential":"","insure":false, "remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483643", "name": "潘彪", "source": "转介绍", "contact": "李雷", "phone": "13586923040", "fax": "021-65938029", "address": "上海市衡山路999号306", "email": "liguang@gmail.com","isBigCustomer": "false","potential":"","insure":false, "remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483456", "name": "马兵", "source": "合作方", "contact": "赵阳", "phone": "13586923040", "fax": "021-65938029", "address": "上海市嵩山路666号106", "email": "zhaofeng@gmail.com","isBigCustomer": "false","potential":"","insure":false,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3485344", "name": "朱豹", "source": "自拓展", "contact": "周灵", "phone": "13586923040", "fax": "021-65938029", "address": "上海市华山路888号306", "email": "zhouxin@gmail.com","isBigCustomer": "false","potential":"", "insure":true,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3434267", "name": "宣宣", "source": "转介绍", "contact": "金辉", "phone": "13586923040", "fax": "021-65938029", "address": "上海市衡山路999号406", "email": "jinxin@gmail.com", "isBigCustomer": "true","potential":"","insure":true,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3484548", "name": "陈洋", "source": "合作方", "contact": "孙昱", "phone": "13586923040", "fax": "021-65938029", "address": "上海市嵩山路666号506", "email": "sunxin@gmail.com", "isBigCustomer": "false","potential":"","insure":true,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483294", "name": "李雪", "source": "自拓展", "contact": "张庆", "phone": "13586923040", "fax": "021-65938029", "address": "上海市华山路888号606", "email": "zhangfu@gmail.com","isBigCustomer": "false","potential":"","insure":true, "remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483643", "name": "韩英", "source": "转介绍", "contact": "李雷", "phone": "13586923040", "fax": "021-65938029", "address": "上海市衡山路999号306", "email": "liguang@gmail.com","isBigCustomer": "false","potential":"", "insure":true,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483456", "name": "陆游", "source": "合作方", "contact": "赵阳", "phone": "13586923040", "fax": "021-65938029", "address": "上海市嵩山路666号106", "email": "zhaofeng@gmail.com","isBigCustomer": "false","potential":"","insure":true, "remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3485344", "name": "张伟", "source": "自拓展", "contact": "周灵", "phone": "13586923040", "fax": "021-65938029", "address": "上海市华山路888号306", "email": "zhouxin@gmail.com","isBigCustomer": "false", "potential":"","insure":true,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3434267", "name": "薛斌", "source": "转介绍", "contact": "金辉", "phone": "13586923040", "fax": "021-65938029", "address": "上海市衡山路999号406", "email": "jinxin@gmail.com","isBigCustomer": "false","potential":"","insure":true,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3484548", "name": "乔挺", "source": "合作方", "contact": "孙昱", "phone": "13586923040", "fax": "021-65938029", "address": "上海市嵩山路666号506", "email": "sunxin@gmail.com", "isBigCustomer": "false","potential":"","insure":true,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483294", "name": "李莎", "source": "自拓展", "contact": "张庆", "phone": "13586923040", "fax": "021-65938029", "address": "上海市华山路888号606", "email": "zhangfu@gmail.com","isBigCustomer": "false", "potential":"","insure":true,"remark": "","putin":"阿宝", "documents": "2"},
+		{"code": "3483643", "name": "卫东", "source": "转介绍", "contact": "李雷", "phone": "13586923040", "fax": "021-65938029", "address": "上海市衡山路999号306", "email": "liguang@gmail.com", "isBigCustomer": "false","potential":"","insure":true,"remark": "","putin":"阿宝", "documents": "2"}
+	],
+	"search":false,
+	"totalCount":20,
+	"totalPages":1
+	}
+}

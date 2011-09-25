@@ -1,0 +1,26 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"number":"1930491","code":"999", "name":"李一", "sex":"男","phone":"13304958606","address":"李家村1号","email":"liyi@gmail.com" ,"status":"","scheme":"1"},
+		{"number":"1930492","code":"888", "name":"李二", "sex":"女","phone":"13304953306","address":"李家村2号","email":"lier@gmail.com" ,"status":"toVerify","scheme":"1"},
+		{"number":"1930493","code":"777", "name":"李三", "sex":"男","phone":"13304958080","address":"李家村3号","email":"lisan@gmail.com" ,"status":"verifyTrue","scheme":"1"},
+		{"number":"1930494","code":"666", "name":"李四", "sex":"女","phone":"13304959000","address":"李家村4号","email":"lisi@gmail.com" ,"status":"verifyFalse","scheme":"1"}
+	],
+	"search":false,
+	"totalCount":4,
+	"totalPages":1
+	}
+}

@@ -1,0 +1,132 @@
+/*======================================
+      WELCOME TO THE STYLESHEET
+--------------------------------------      
+     Copyright Mike Crittenden
+      Author: Mike Crittenden
+======================================*/
+ 
+/**************************************\
+|------------COLOR SCHEME--------------|
+|--------------------------------------|
+- black		#000
+- white		#fff
+\**************************************/
+
+
+/**************************************/
+/*              GLOBALS               */
+/**************************************/
+body {margin:0;padding:0;background:#eee}
+.normal {background:#eee}
+.darker {background:#777 url(g/actionMin.png)}
+.dark {background:#aaa url(g/actionMax.png)}
+.lighter {background:#f6f6f6}
+.left  {float:left}
+.right {float:right}
+
+/**************************************/
+/*              HEADER                */
+/**************************************/
+#header {position:relative; width:950px; background:#f7f7f7; border:1px solid #bbb; margin:1em auto; padding:15px 0 0; -moz-box-shadow: 0pt 0pt 1em #bbb;}
+#logo {background:url(g/logo.png) no-repeat; position:absolute; left:20px; top:0; width:122px; height:50px}
+#title {display:none; padding-left:160px; color:#fff; font-size:1.5em; height:50px; line-height:50px; font-weight:bold; font-style:italic}
+
+#info_bar {clear:left; color:#aaa; background-color:#fff; border-top:1px solid #bbb; padding:4px 6px; margin-top:15px; overflow:hidden; height:1.2em}
+#info_bar .hint {display:none;padding:0 5px;line-height:16px}
+#info_bar:hover .hint {display:inline}
+#info_bar b {cursor:pointer;display:block;width:16px;height:16px;float:left}
+#menu_btn {cursor:pointer;float:left;background:url(g/icon.gif)}
+#loading {visibility:hidden;background:url(../img/loading.gif);margin-right:4px}
+#maxAll {background:url(g/expandAll.png)}
+#minAll {background:url(g/collapseAll.png)}
+
+
+/**************************************/
+/*             NAVIGATION             */
+/**************************************/
+/* JPolite Native Navigation Tab */
+#main_nav {list-style-type:none; margin:0 0 0 160px; position:relative; height:25px}
+#main_nav li {overflow:visible;float:left; width:6em; text-align:center; font-size:1.2em; font-weight:bold; height:2em; line-height:2em; color:#333;
+				padding:0 1em; border-right:1px dotted #ccc;
+				margin:0; cursor:pointer; white-space:nowrap; position:relative; z-index:9}
+#main_nav .hover {opacity:0; filter:alpha(opacity=0); display:block; background:url(g/tabon.gif) repeat-x; position:absolute; left:0; top:0; width:100%; height:100%; text-align:center; margin:0;color:#333}
+#main_nav li.on {color:#c23;}
+#main_nav li.on .hover {color:#e33}
+#main_nav li:hover {color:#e33}
+#main_nav li.backLava {background:#f2a04E; padding:0; position:absolute; z-index:1; border:0}
+#main_nav li span:after {content:url(g/expandAll.png)}
+#main_nav li dl {display:none; background:#777; width:200px; color:#eee; margin-left:-1em}
+#main_nav li dd {text-align:left; padding:0 5px}
+#main_nav li dd.on {border:1px solid #f73}
+#main_nav li dd.on:before {content:"»  "}
+#main_nav li dd:hover {background:#555; text-align:left; padding:0 5px}
+#main_nav li:hover dl {display:block}
+/**************************************/
+/*            MAIN CONTENT            */
+/**************************************/
+#content {
+	/*
+	 * width:950px ==> this is the default value set by bluetrip .container class
+	 * You can adjust the width manually with a value = 950 +/- n*40
+	 */
+}
+.module_template {display:none}
+.cc {padding-bottom:1px}
+.dragging {padding-bottom:20px; margin-bottom:10px; background:url(g/stripe1.png)}
+.ui-sortable-placeholder { margin:10px 0; border: 1px dotted #f00; background:#faa; visibility: visible !important; height: 20px !important}
+
+/* Module Components */
+.module {background:#fff; margin-bottom:10px; border:1px solid #ddd; display:none; -moz-box-shadow:0pt 0pt 1em #bbb}
+.module:hover {border-color: #bbb}
+.max {float:none !important; width:100% !important}
+.min {display:none}
+.moduleFrame {border:0; overflow:hidden;}
+.moduleHeader {margin:10px; padding:2px; background:#888; color:#fff; cursor:move; overflow:hidden;
+				border-width:1px; border-style:solid; border-color: #777 #eee #eee #777}
+.moduleTitle {background:url(g/icon.gif) no-repeat; height:1.4em; line-height:1.4em; float:left; padding-left:18px; font-weight:bold}
+.moduleActions {display:none; float:right}
+.moduleActions b {cursor:pointer;width:16px;height:16px;display:block;float:left}
+	.actionRefresh {background:url('g/actionRefresh.png')}
+	.moduleActions .actionMax {display:none;background:url('g/actionMax.png')}
+	.actionMin {background:url('g/actionMin.png')}
+	.actionClose	{background:url('g/actionClose.png')}
+.moduleHeader:hover .moduleActions {display:block}
+.moduleContent {background:#fff; margin:10px}
+
+/* Simple Theme for Modules */
+.red .moduleHeader{background:#e24e61 url(g/module-orange.gif) repeat-x; border-color:#c94758 #F6A7B8 #F6A7B8 #c94758}
+.orange .moduleHeader{background:#E2584E url(g/module-red.gif) repeat-x; border-color:#c94f47 #F6A7A8 #F6A7A8 #c94f47}
+.yellow .moduleHeader{background:#E2904E url(g/module-yellow.gif) repeat-x; border-color:#c98147 #F6C4A7 #F6C4A7 #c98147}
+.green .moduleHeader{background:#66B161 url(g/module-green.gif) repeat-x; border-color:#579653 #ABCFA5 #ABCFA5 #579653}
+.blue .moduleHeader{background:#4E8EE2 url(g/module-header.gif) repeat-x; }
+.white .moduleHeader{background:#9E9E9E url(g/module-white.gif) repeat-x; border-color:#888 #D9D9D9 #D9D9D9 #888}
+
+
+/**************************************/
+/*               CONTROLS             */
+/**************************************/
+/* Tabs Control */
+.tabs {border:1px solid #ccc}
+.tabsul {overflow:hidden;padding-top:1px;background:#ccc; list-style-type:none; margin:0}
+.tabsul li {float:left; font-weight:bold; color:#777; background:#fff; border:1px solid #bbb; text-align:center; margin-left:2px; padding:4px 6px; cursor:pointer; white-space:nowrap}
+.tabsul li:hover {background:#f0f0f0;color:#333}
+.tabsul li.on {background:#fff url(g/tabon.gif) repeat-x; border-bottom-color:#fff; color:#333; padding-bottom:6px}
+.tabsdiv {padding:4px; background:#fff}
+
+/* Accordion Control */
+.accordion {background:#ccc; padding:1px 3px 3px; margin:0}
+.accordion dt {background:#fff;font-weight:bold; color:#777; border:1px solid #bbb; padding:4px 6px; cursor:pointer; margin:2px 0 0}
+.accordion dt:hover {background:#f0f0f0;color:#333}
+.accordion dt.on {background:url(g/tabon.gif) repeat-x; color:#333}
+.accordion dd {background:#fff; overflow-x:auto; padding:3px; border-width:0px 1px 1px 1px; border-style:solid; border-color:#bbb; display:none}
+
+.menu li {cursor:pointer}
+.menu li:hover {background:#ddd}
+.menu li.on {background:#aaa}
+/**************************************/
+/*               FOOTER               */
+/**************************************/
+#footer {margin:1em auto; border:1px solid #bbb; color:#777; bottom:0; width:950px; height:5em; background:#f7f7f7; text-align:center; -moz-box-shadow: 0pt 0pt 1em #bbb;}
+#footer_bar {color:#999; border-bottom:1px solid #ccc; padding:4px 6px; height:1.2em; margin-bottom:10px; background:#fff}
+#footer_bar a {color:#999}
+#footer_bar a:hover {color:#333}

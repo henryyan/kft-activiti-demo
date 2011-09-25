@@ -1,0 +1,30 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "prepDate": "2011-09-23", "business": "上海市普陀区中山北路", "prepform": "现金", "prepmoney": "总计：10000.00", "state": "已到账", "operationman": "王红丽", "establish": "李丽"},
+		{"id": "2", "prepDate": "2010-02-13", "business": "上海市静安区湖南路", "prepform": "未知", "prepmoney": "总计：20000.00", "state": "未到帐", "operationman": "周东磊", "establish": "刘洪"},
+		{"id": "3", "prepDate": "2011-10-15", "business": "上海市浦东新区锦绣路", "prepform": "支票", "prepmoney": "总计：1000.00", "state": "已到账", "operationman": "黄婷婷", "establish": "李丽"},
+		{"id": "4", "prepDate": "2011-11-05", "business": "上海市徐汇区乐山路", "prepform": "现金", "prepmoney": "总计：50000.00", "state": "已到账", "operationman": "范星乾", "establish": "刘洪"},
+		{"id": "1", "prepDate": "2011-09-23", "business": "上海市普陀区中山北路", "prepform": "现金", "prepmoney": "总计：10000.00", "state": "已到账", "operationman": "王红丽", "establish": "李丽"},
+		{"id": "2", "prepDate": "2010-02-13", "business": "上海市静安区湖南路", "prepform": "未知", "prepmoney": "总计：20000.00", "state": "未到帐", "operationman": "周东磊", "establish": "刘洪"},
+		{"id": "3", "prepDate": "2011-10-15", "business": "上海市浦东新区锦绣路", "prepform": "支票", "prepmoney": "总计：1000.00", "state": "已到账", "operationman": "黄婷婷", "establish": "李丽"},
+		{"id": "4", "prepDate": "2011-11-05", "business": "上海市徐汇区乐山路", "prepform": "现金", "prepmoney": "总计：50000.00", "state": "已到账", "operationman": "范星乾", "establish": "刘洪"}
+	],
+	"search":false,
+	"totalCount":6,
+	"totalPages":1
+	}
+}

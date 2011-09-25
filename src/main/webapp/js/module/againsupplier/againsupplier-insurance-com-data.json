@@ -1,0 +1,28 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "name": "aaaaaaa", "code": "C-00051", "type": "保险公司", "contact" : "王国强", "address": "乐山路115号",    "mobilePhone": "13738275937", "email": "wangguoqiang@gmail.com", "customerManager": "张强威", "cusomerHashslinger": "李丽"},
+		{"id": "2", "name": "bbbbbbb", "code": "C-00052", "type": "保险公司", "contact" : "周东磊", "address": "锦绣路56号",     "mobilePhone": "15837237564", "email": "zhoudonglei@gmail.com", "customerManager": "张强威", "cusomerHashslinger": "李丽", "remark": "长期合作伙伴"},
+		{"id": "3", "name": "ccccccc", "code": "C-00053", "type": "保险公司", "contact" : "李月英", "address": "芳华路100号4弄",  "mobilePhone": "13758327463", "email": "liyueying@163.com", "customerManager": "白琳", "cusomerHashslinger": "李丽"},
+		{"id": "4", "name": "ddddddd", "code": "C-00054", "type": "保险公司", "contact" : "王建民", "address": "小木桥8号4#303", "mobilePhone": "15927375836", "email": "wangjianmin@yahoo.com", "customerManager": "张强威", "cusomerHashslinger": "李丽", "remark": "合作过一次"},
+		{"id": "4", "name": "eeeeeee", "code": "C-00055", "type": "保险公司", "contact" : "邢世", "address": "小木桥8号4#313", "mobilePhone": "15927375836", "email": "xingshi@yahoo.com", "customerManager": "张强威", "cusomerHashslinger": "李丽", "remark": "合作过一次"},
+		{"id": "4", "name": "fffffff", "code": "C-00056", "type": "保险公司", "contact" : "马广伟", "address": "小木桥8号4#3023", "mobilePhone": "15927375836", "email": "maguangwei@yahoo.com", "customerManager": "张强威", "cusomerHashslinger": "李丽", "remark": "合作过一次"}
+	],
+	"search":false,
+	"totalCount":4,
+	"totalPages":1
+	}
+}

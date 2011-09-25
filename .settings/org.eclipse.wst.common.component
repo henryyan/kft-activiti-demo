@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="kft-activiti-demo">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <dependent-module archiveName="rc-web-extension-1.3.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-web-extension/rc-web-extension">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="rc-common-1.3.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-common/rc-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="kft-activiti-demo"/>
+        <property name="java-output-path" value="/kft-activiti-demo/target/classes"/>
+    </wb-module>
+</project-modules>

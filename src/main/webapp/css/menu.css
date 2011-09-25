@@ -1,0 +1,178 @@
+ul#css3menu, ul#css3menu ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    background-color: #dedede;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #5f5f5f;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+ul#css3menu ul {
+    display: none;
+    position: absolute;
+    left: -1px;
+    top: 98%;
+    -moz-box-shadow: 3.5px 4px 5px #000000;
+    -webkit-box-shadow: 3.5px 4px 5px #000000;
+    box-shadow: 3.5px 4px 5px #000000;
+    padding: 0 10px 10px;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-color: #d4d4d4;
+}
+
+ul#css3menu li:hover > * {
+    display: block;
+}
+
+ul#css3menu li:hover {
+    position: relative;
+}
+
+ul#css3menu ul ul {
+    position: absolute;
+    left: 98%;
+    top: -2px;
+}
+
+ul#css3menu {
+    display: block;
+    font-size: 0;
+    position: absolute;
+    z-index: 1000;
+    left: 10px;
+    top: 10px;
+}
+
+ul#css3menu li {
+    display: block;
+    white-space: nowrap;
+    font-size: 0;
+    float: left;
+}
+
+ul#css3menu > li, ul#css3menu li {
+    margin: 0;
+}
+
+ul#css3menu a:active, ul#css3menu a:focus {
+    outline-style: none;
+}
+
+ul#css3menu a {
+    display: block;
+    vertical-align: middle;
+    text-align: left;
+    text-decoration: none;
+    font: bold 12px Trebuchet MS, sans-serif;
+    color: #000000;
+    text-shadow: #FFF 0 0 1px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #c1c1c1;
+    background-image: url("../images/menu/mainbk.png");
+    background-position: 0 0;
+    border-width: 0 0 0 1px;
+    border-style: solid;
+    border-color: #C0C0C0;
+}
+
+ul#css3menu ul li {
+    float: none;
+    margin: 10px 0 0;
+}
+
+ul#css3menu ul a {
+    text-align: left;
+    padding: 4px;
+    background-color: #FFFFFF;
+    background-image: none;
+    border-width: 0;
+    font: 14px Tahoma, serif;
+    color: #000;
+    text-decoration: none;
+}
+
+ul#css3menu li:hover > a {
+    background-color: #0c97e2;
+    border-color: #C0C0C0;
+    border-style: solid;
+    font: bold 12px Trebuchet MS, sans-serif;
+    color: #000000;
+    text-decoration: none;
+    text-shadow: #FFF 0 0 1px;
+    background-image: url("../images/menu/mainbk.png");
+    background-position: 0 100%;
+	z-index: 99999;
+}
+
+ul#css3menu li a.active {
+    background-color: #7BD729;
+    border-color: #C0C0C0;
+    border-style: solid;
+    font: bold 12px Trebuchet MS, sans-serif;
+    color: #000000;
+    text-decoration: none;
+    text-shadow: #FFF 0 0 1px;
+    background-image: url("../images/menu/mainbk.png");
+    background-position: 0 100%;
+}
+
+ul#css3menu img {
+    border: none;
+    vertical-align: middle;
+    margin-right: 20px;
+    width: 16px;
+    height: 16px;
+}
+
+ul#css3menu ul img {
+    width: 16px;
+    height: 16px;
+}
+
+ul#css3menu img.over {
+    display: none;
+}
+
+ul#css3menu li:hover > a img.def {
+    display: none;
+}
+
+ul#css3menu li:hover > a img.over {
+    display: inline;
+}
+
+ul#css3menu span {
+    display: block;
+    overflow: visible;
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 0px;
+}
+
+ul#css3menu ul li:hover > a {
+    background-color: #FFFFFF;
+    background-image: none;
+    font: 14px Tahoma, serif;
+    color: #0978b3;
+    text-decoration: none;
+}
+
+ul#css3menu li.topfirst > a {
+    border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+}
+
+ul#css3menu li.toplast > a {
+    border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+}

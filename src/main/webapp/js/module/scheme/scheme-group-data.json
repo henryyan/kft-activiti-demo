@@ -1,0 +1,25 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"client_code":"100000","company":"Oracle","legal_rep":"tom","source":"自拓展客户","capital":"40000000000","address":"America","ps":"","contact":"阿花","telephone":"439857483","phone":"13389450395","email":"ahua@139.com"},
+		{"client_code":"100003","company":"Microsoft","legal_rep":"tim","source":"合作方客户","capital":"300000000","address":"America","ps":"","contact":"小强","telephone":"5438095843","phone":"13389450395","email":"xiaoqiang@139.com"},
+		{"client_code":"100006","company":"Google","legal_rep":"mike","source":"转介绍客户","capital":"10000000","address":"America","ps":"","contact":"阿宝","telephone":"458739459","phone":"13389450395","email":"abao@139.com"}
+	],
+	"search":false,
+	"totalCount":3,
+	"totalPages":1
+	}
+}

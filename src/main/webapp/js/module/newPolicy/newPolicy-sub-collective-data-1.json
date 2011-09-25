@@ -1,0 +1,27 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+			{"id": "1", "policyNum": "PK-10000",  "Co-name": "上海中智项目外包咨询服务有限公司",  "cpaMan": "王天翔",  "sex": "0", "cpaProperty": "国有独资公司",  "address": "上海市黄浦区",         "remark": "该公司成立于2000年",  "verify": "",  "documents": "2"},
+			{"id": "2", "policyNum": "PK-10001",  "Co-name": "中智人力资源管理咨询有限公司",     "cpaMan": "刘惠萍", "sex": "1", "cpaProperty": "股份有限公司",   "address": "上海市漕河泾开发区",      "remark": "该公司成立于2000年",  "verify": "", "documents": "2"},
+			{"id": "3", "policyNum": "PK-10002",  "Co-name": "上海中智财务咨询有限公司",       "cpaMan": "周羽",   "sex": "0", "cpaProperty": "责任有限公司",   "address": "上海市闵行区",         "remark": "该公司成立于2000年",  "verify": "", "documents": "2"},
+			{"id": "4", "policyNum": "PK-10003",  "Co-name": "上海市科技人才资源中心",        "cpaMan": "高文君",  "sex": "1", "cpaProperty": "个人有限公司",   "address": "上海市长宁区1022号",     "remark": "该公司成立于2000年", "verify": "", "documents": "2"},
+			{"id": "5", "policyNum": "PK-10004",  "Co-name": "上海中智广告有限公司",         "cpaMan": "左木木",  "sex": "0", "cpaProperty": "中外合资企业",   "address": "上海市徐汇区",          "remark": "该公司成立于2000年",  "verify": "", "documents": "2"}
+	],
+	"search":false,
+	"totalCount":6,
+	"totalPages":1
+	}
+}

@@ -1,0 +1,26 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"number":"1930491","code":"999", "name":"谢灵华", "sex":"男","phone":"13304958606","address":"上海市崇明县横沙岛","email":"xielh@gmail.com" ,"status":"","scheme":"0"},
+		{"number":"1930492","code":"888", "name":"孟韵基", "sex":"男","phone":"13304953306","address":"上海市浦东新区浦东南路332弄9号","email":"mengyj@gmail.com" ,"status":"toVerify","scheme":"1"},
+		{"number":"1930493","code":"777", "name":"魏文俊", "sex":"男","phone":"13304958080","address":"上海市浦东新区潍坊路1400弄8号","email":"weiwj@gmail.com" ,"status":"verifyTrue","scheme":"1"},
+		{"number":"1930494","code":"666", "name":"吴峥嵘", "sex":"男","phone":"13304959000","address":"上海市杨浦区景星路323弄14号","email":"wuzr@gmail.com" ,"status":"verifyFalse","scheme":"1"}
+	],
+	"search":false,
+	"totalCount":4,
+	"totalPages":1
+	}
+}

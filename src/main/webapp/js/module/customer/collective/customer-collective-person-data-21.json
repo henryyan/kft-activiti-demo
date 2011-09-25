@@ -1,0 +1,24 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"code": "3434267", "name": "马云", "source": "转介绍", "contact": "马云", "phone": "13586923040", "fax": "021-65938029", "address": "上海市衡山路999号406", "email": "jinxin@gmail.com","isOldCustomer": "false","remark": "","putin":"李力", "documents": "2"},
+		{"code": "3484548", "name": "孙昱", "source": "合作方", "contact": "孙昱", "phone": "13586923040", "fax": "021-65938029", "address": "上海市嵩山路666号506", "email": "sunxin@gmail.com","isOldCustomer": "false","remark": "","putin":"李力", "documents": "2"}
+	],
+	"search":false,
+	"totalCount":2,
+	"totalPages":1
+	}
+}

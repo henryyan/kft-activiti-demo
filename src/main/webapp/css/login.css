@@ -1,0 +1,36 @@
+body {
+	background-color: #aed2ff;
+	margin:0px;
+}
+.login-z {
+   width:570px;
+   height:275px;
+   top:50%;
+   left:50%;
+   margin:0px;
+   margin-top: -137px;
+   margin-left: -285px;
+   position:absolute;
+   background:url(${ctx}/images/login/login.jpg);
+}
+.login-z .dlk {
+	padding-top:90px;
+	padding-left:320px;
+	font-size:14px;
+	font-family:"微软雅黑",Arial,"宋体";
+	color:#6d6d6d;
+}
+.login-z .dan{background:url(../images/login/h_an.gif); width:62px; height:27px;float:left; margin:5px 0 0 25px; }
+.login-z span{ float:left;margin:4px 0 0 16px;color:#ffffff;}
+.login-z a:link, a:visited,a:active{color:#ffffff;TEXT-DECORATION: none;}
+.login-z a:hover {color:#fdff57;TEXT-DECORATION: none;}
+.login-z .bq {
+	width:570px;
+	text-align:center;
+	font-size:12px;
+	color:#4f4f4f;
+	font-family:"微软雅黑",Arial,"宋体";	
+	position:absolute;
+	top: 250px;
+	left: 0px;
+}

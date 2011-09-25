@@ -1,0 +1,25 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "cnName": "中国太平洋财产保险有限公司上海分公司", "code": "C-0001", "shortName": "太保"},
+		{"id": "2", "cnName": "天平汽车保险有限公司上海营业总部", "code": "C-0002", "shortName": "天平"},
+		{"id": "3", "cnName": "太平保险有限公司上海分公司", "code": "C-0003", "shortName": "太平"}
+	],
+	"search":false,
+	"totalCount":4,
+	"totalPages":1
+	}
+}

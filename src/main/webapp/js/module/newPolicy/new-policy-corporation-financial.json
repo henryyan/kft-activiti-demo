@@ -1,0 +1,28 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "policyNumber": "CP-201100001", "cpaName": "上海中智集团",          "cpaMan": "张三", "cpaProperty": "股份有限公司", "buildDate": "1998-09-12", "insurePrice": "帐面原值",     "insureMoney": "20万（人民币）", "insureProject": "AAAAAAA",  "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "affix": "2", "verify": ""},
+		{"id": "1", "policyNumber": "CP-201100001", "cpaName": "中智人力资源管理咨询有限公司", "cpaMan": "张三", "cpaProperty": "股份有限公司", "buildDate": "1998-09-12", "insurePrice": "帐面原值加成数", "insureMoney": "100万（日元）", "insureProject": "BBBBBBBB",  "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "affix": "2", "verify": ""},
+		{"id": "1", "policyNumber": "CP-201100001", "cpaName": "上海市科技人才资源中心",    "cpaMan": "张三", "cpaProperty": "股份有限公司", "buildDate": "1998-09-12", "insurePrice": "重置价值",     "insureMoney": "30万（人民币）", "insureProject": "CCCCCCCC",  "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "affix": "2", "verify": ""},
+		{"id": "1", "policyNumber": "CP-201100001", "cpaName": "上海中智财务咨询有限公司",   "cpaMan": "张三", "cpaProperty": "股份有限公司", "buildDate": "1998-09-12", "insurePrice": "帐面原值加成数", "insureMoney": "200万（日元）", "insureProject": "DDDDDDD",  "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "affix": "2", "verify": ""},
+		{"id": "1", "policyNumber": "CP-201100001", "cpaName": "上海中智广告有限公司",     "cpaMan": "张三", "cpaProperty": "股份有限公司", "buildDate": "1998-09-12", "insurePrice": "重置价值",      "insureMoney": "10万（人民币）", "insureProject": "EEEEEEEEE",  "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "affix": "2", "verify": ""},
+		{"id": "1", "policyNumber": "CP-201100001", "cpaName": "上海中智媒体宣传公司",     "cpaMan": "张三", "cpaProperty": "股份有限公司", "buildDate": "1998-09-12", "insurePrice": "帐面原值加成数", "insureMoney": "20万（人民币）", "insureProject": "FFFFFFFFF",  "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "affix": "2", "verify": ""}
+	],
+	"search":false,
+	"totalCount":4,
+	"totalPages":1
+	}
+}

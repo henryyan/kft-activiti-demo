@@ -1,0 +1,25 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "itemCode": "C0000301001", "itemName": "车辆损失险", "itemRate1": "0.0000", "itemRate2": "0.0000", "itemRate3": "0.0000", "itemRate4": "0.0000", "itemRate5": "0.0000", "isMajor": "是"},
+		{"id": "2", "itemCode": "C0000301002", "itemName": "第三者责任险", "itemRate1": "0.0000", "itemRate2": "0.0000", "itemRate3": "0.0000", "itemRate4": "0.0000", "itemRate5": "0.0000", "isMajor": "是"},
+		{"id": "3", "itemCode": "C0000301003", "itemName": "不计免赔险", "itemRate1": "0.0000", "itemRate2": "0.0000", "itemRate3": "0.0000", "itemRate4": "0.0000", "itemRate5": "0.0000", "isMajor": "是"}
+	],
+	"search":false,
+	"totalCount":6,
+	"totalPages":1
+	}
+}

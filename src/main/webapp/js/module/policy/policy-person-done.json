@@ -1,0 +1,24 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "policyNumber": "CP-201100001", "name": "张三", "sex": "male", "birthday": "1988-09-11", "ID-card": "453222129056324567", "health-Condition": "合格", "insureDate": "2011-05-10", "address": "上海市普陀区1102号",  "mobilePhone": "13573648579", "effectiveDate": "2009-5-11", "invalidationDate": "2010-12-11", "email": "zhangsan@hotmail.com", "notify": ""},
+		{"id": "2", "policyNumber": "CP-201100001", "name": "王利敏", "sex": "female", "birthday": "1990-09-09", "ID-card": "453222199005621234", "health-Condition": "合格", "insureDate": "2011-03-10", "address": "上海市静安区109号",  "mobilePhone": "13573321459", "effectiveDate": "2009-3-11", "invalidationDate": "2010-12-10", "email": "wanglimi@hotmail.com", "notify": ""}
+	],
+	"search":false,
+	"totalCount":2,
+	"totalPages":1
+	}
+}

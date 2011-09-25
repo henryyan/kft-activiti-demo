@@ -1,0 +1,137 @@
+/*======================================
+      WELCOME TO THE STYLESHEET
+--------------------------------------      
+     Copyright Mike Crittenden
+      Author: Mike Crittenden
+======================================*/
+ 
+/**************************************\
+|------------COLOR SCHEME--------------|
+|--------------------------------------|
+- black		#000
+- white		#fff
+\**************************************/
+
+
+/**************************************/
+/*              GLOBALS               */
+/**************************************/
+body {margin:0;padding:0;background:#ddd;padding-bottom:5em}
+.normal {background:#eee}
+.darker {background:#777 url(g/actionMin.png)}
+.dark {background:#aaa url(g/actionMax.png)}
+.lighter {background:#f6f6f6}
+.left  {float:left}
+.right {float:right}
+
+/**************************************/
+/*              HEADER                */
+/**************************************/
+#header {background:#0e4cbc url(g/header.png) repeat-x}
+#logo {background:url(g/logo.png) no-repeat; position:absolute; left:20px; top:10px; width:132px; height:50px}
+#title {padding-left:160px; color:#fff; font-size:1.5em; height:50px; line-height:50px; font-weight:bold; font-style:italic}
+
+#info_bar {clear:left; color:#aaa; background-color:#fefefe; border-bottom:1px solid #bbb; padding:4px 6px; overflow:hidden; height:1.2em}
+#info_bar .hint {display:none;padding:0 5px;line-height:16px}
+#info_bar:hover .hint {display:inline}
+#info_bar b {cursor:pointer;display:block;width:16px;height:16px;float:left}
+#menu_btn {cursor:pointer;float:left;background:url(g/icon.gif)}
+#loading {visibility:hidden;background:url(../img/loading.gif);margin-right:4px}
+#maxAll {background:url(g/expandAll.png)}
+#minAll {background:url(g/collapseAll.png)}
+
+
+/**************************************/
+/*             NAVIGATION             */
+/**************************************/
+/* JPolite Native Navigation Tab */
+#main_nav {list-style-type:none; margin:0 0 0 160px; position:relative; height:2em}
+#main_nav li {overflow:visible; width:9em; text-align:center; float:left; font-size:1.2em; font-weight:bold; height:2em; line-height:2em; color:#eee;
+				background:#6ae url(g/header.png) 0 -8px; border-width:1px 1px 0 1px; border-style:solid; border-color:#acf #05b #000 #acf;
+				margin:0 3px; cursor:pointer; white-space:nowrap; position:relative; z-index:9}
+#main_nav .hover {opacity:0; filter:alpha(opacity=0); display:block; background:url(g/tabon.gif) repeat-x; position:absolute; left:0; top:0; width:100%; height:100%; text-align:center; margin:0;color:#333}
+#main_nav li.on {color:#09f; background:#f8f8f8 url(g/tabon.gif) repeat-x;}
+#main_nav li.on .hover {color:#e33}
+#main_nav li.backLava {background:#f2a04E; position:absolute; width:0; z-index:1; border:0}
+#main_nav li span:after {content:url(g/expandAll.png); margin-top:1em}
+#main_nav li dl {display:none; background:#fff; border:1px solid #777; width:200px; color:#555}
+#main_nav li dd {text-align:left; padding:0 5px}
+#main_nav li dd.on {border:1px solid #37f}
+#main_nav li dd.on:before {content:"»  "}
+#main_nav li dd:hover {background:#555; color:#eee; text-align:left; padding:0 5px}
+#main_nav li:hover dl {display:block}
+
+/**************************************/
+/*            MAIN CONTENT            */
+/**************************************/
+#content {
+	padding-top:10px
+	/*
+	 * width:950px ==> this is the default value set by bluetrip .container class
+	 * You can adjust the width manually with a value = 950 +/- n*40
+	 */
+}
+.module_template {display:none}
+.cc {padding-bottom:1px}
+.dragging {padding-bottom:20px; margin-bottom:10px; background:url(g/stripe0.png)}
+.ui-sortable-placeholder {margin:10px 0; border: 1px dotted #f00; background:#faa; visibility: visible !important; height: 20px !important}
+
+/* Module Components */
+.module {background:#fff; margin-bottom:10px; border:3px solid #bbb; display:none}
+.module:hover {border-color: #999}
+.max {float:none !important; width:100% !important}
+.min {display:none}
+.moduleFrame {border:1px solid #4E8EE2; overflow:hidden;}
+.moduleHeader {background:#4E8EE2 url(g/module-header.gif) repeat-x; padding:2px; border-width:1px; border-style:solid; border-color: #A7D0F6 #A7D0F6 #4E8EE2 #4E8EE2; color:#fff; cursor:move; overflow:hidden}
+.moduleTitle {background:url(g/icon.gif) no-repeat; height:1.4em; line-height:1.4em; float:left; padding-left:18px; font-weight:bold}
+.moduleActions {display:none; float:right; height:16px}
+.moduleActions b {cursor:pointer;width:16px;height:16px;display:block;float:left}
+	.actionRefresh {background:url('g/actionRefresh.png')}
+	.moduleActions .actionMax {display:none;background:url('g/actionMax.png')}
+	.actionMin {background:url('g/actionMin.png')}
+	.actionClose	{background:url('g/actionClose.png')}
+
+.moduleHeader:hover .moduleActions {display:block}
+.moduleContent {border-top:1px solid #ddd; background:#fff url(g/tabon.gif) 0 -5px repeat-x; padding:5px; }
+
+/* Simple Theme for Modules */
+.red .moduleHeader{background:#e24e61 url(g/module-orange.gif) repeat-x; border-color:#F6A7B8 #e24e61 #e24e61 #F6A7B8;}
+.red .moduleFrame{border-color:#E2584E;}
+.orange .moduleHeader{background:#E2584E url(g/module-red.gif) repeat-x; border-color:#F6A7A8 #E2584E #E2584E #F6A7A8}
+.orange .moduleFrame{border-color:#E2584E;}
+.yellow .moduleHeader{background:#E2904E url(g/module-yellow.gif) repeat-x; border-color:#F6C4A7 #E2904E #E2904E #F6C4A7;}
+.yellow .moduleFrame{border-color:#E2904E;}
+.green .moduleHeader{background:#66B161 url(g/module-green.gif) repeat-x; border-color:#ABCFA5 #66B161 #66B161 #ABCFA5}
+.green .moduleFrame{border-color:#66B161;}
+.white .moduleHeader{background:#9E9E9E url(g/module-white.gif) repeat-x; border-color:#D9D9D9 #9E9E9E #9E9E9E #D9D9D9}
+.white .moduleFrame{border-color:#9E9E9E;}
+
+
+/**************************************/
+/*               CONTROLS             */
+/**************************************/
+/* Tabs Control */
+.tabs {border:1px solid #ccc}
+.tabsul {overflow:hidden;padding-top:1px;background:#ccc; list-style-type:none; margin:0}
+.tabsul li {float:left; font-weight:bold; color:#777; background:#fff; border:1px solid #bbb; text-align:center; margin-left:2px; padding:4px 6px; cursor:pointer; white-space:nowrap}
+.tabsul li:hover {background:#f0f0f0;color:#333}
+.tabsul li.on {background:#fff url(g/tabon.gif) repeat-x; border-bottom-color:#fff; color:#333; padding-bottom:6px}
+.tabsdiv {padding:4px; background:#fff}
+
+/* Accordion Control */
+.accordion {background:#ccc; padding:1px 3px 3px; margin:0}
+.accordion dt {background:#fff;font-weight:bold; color:#777; border:1px solid #bbb; padding:4px 6px; cursor:pointer; margin:2px 0 0}
+.accordion dt:hover {background:#f0f0f0;color:#333}
+.accordion dt.on {background:url(g/tabon.gif) repeat-x; color:#333}
+.accordion dd {background:#fff; overflow-x:auto; padding:3px; border-width:0px 1px 1px 1px; border-style:solid; border-color:#bbb; display:none}
+
+.menu li {cursor:pointer}
+.menu li:hover {background:#ddd}
+.menu li.on {background:#aaa}
+/**************************************/
+/*               FOOTER               */
+/**************************************/
+#footer {position:fixed; color:#eee; bottom:0; width:100%; height:5em; background:#757495 url(g/header.png) 0 16px; text-align:center}
+#footer_bar {color:#999; background-color:#fefefe; border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding:4px 6px; height:1.2em; margin-bottom:10px}
+#footer_bar a {color:#999}
+#footer_bar a:hover {color:#333}

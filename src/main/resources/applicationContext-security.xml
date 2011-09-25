@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:s="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd"
+	default-lazy-init="true">
+
+	<description>SpringSecurity安全配置</description>
+	
+	<!-- 定义受环境影响易变的变量 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<!-- 标准配置 -->
+				<value>classpath*:/application.properties</value>
+				<!-- 和环境相关 -->
+				<value>${env.application.file}</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- http安全配置 -->
+	<s:http auto-config="true" use-expressions="true">
+		<s:intercept-url pattern="/css/**" filters="none" />
+		<s:intercept-url pattern="/imgages/**" filters="none" />
+		<s:intercept-url pattern="/js/**" filters="none" />
+		<s:intercept-url pattern="/venue/pictures/**" filters="none" />
+
+		<!-- 用户管理 -->
+		<s:intercept-url pattern="/account/user!save*" access="hasAnyRole('ROLE_修改用户')" />
+		<s:intercept-url pattern="/account/user!delete*" access="hasAnyRole('ROLE_修改用户')" />
+		<s:intercept-url pattern="/account/user*" access="hasAnyRole('ROLE_浏览用户')" />
+		<s:intercept-url pattern="/account/role!save*" access="hasAnyRole('ROLE_修改角色')" />
+		<s:intercept-url pattern="/account/role!delete*" access="hasAnyRole('ROLE_修改角色')" />
+		<s:intercept-url pattern="/account/role*" access="hasAnyRole('ROLE_浏览角色')" />
+		
+		<!-- 系统管理 -->
+		<s:intercept-url pattern="/main/main.action" access="hasAnyRole('ROLE_浏览用户')" />
+		<s:intercept-url pattern="/field/type/*.action" access="hasAnyRole('ROLE_浏览用户')" />
+
+		<s:form-login login-page="/login.action" default-target-url="/" authentication-failure-url="/login.action?error=true" />
+		<s:logout logout-success-url="/" />
+		
+		<s:custom-filter after="SECURITY_CONTEXT_FILTER" ref="autoLoginFilter" />
+	</s:http>
+
+	<!-- 认证配置, 使用userDetailsService提供的用户信息 -->
+	<s:authentication-manager alias="authenticationManager">
+		<s:authentication-provider user-service-ref="userDetailsService">
+			<s:password-encoder hash="plaintext" />
+		</s:authentication-provider>
+	</s:authentication-manager>
+
+	<!-- 项目实现的用户查询服务 -->
+	<bean id="userDetailsService" class="com.runchain.exercise.admin.service.account.UserDetailsServiceImpl" />
+	
+	<!-- 开发时自动登录的filter -->
+	<bean id="autoLoginFilter" class="com.runchain.exercise.admin.web.security.AutoLoginFilter">
+		<property name="enabled" value="${security.autologin.enabled}" />
+		<property name="defaultUserName" value="${security.autologin.username}" />
+	</bean>
+</beans>

@@ -1,0 +1,24 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1", "name": "张三", "sex": "male", "age": "30", "carNumber": "浙G7035E", "registeDate": "2011-07-10", "driveCity": "上海", "buyCarDate": "2011-01-01", "carPrice": "23.5", "contact": "张三", "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "affix": "2", "activity": "投保方案审批", "verify": ""},
+		{"id": "2", "name": "王丽敏", "sex": "female", "age": "27", "carNumber": "鲁VJ1703", "registeDate": "2011-07-10", "driveCity": "上海", "buyCarDate": "2009-06-03", "carPrice": "45.7", "contact": "王丽敏", "mobilePhone": "15837463847", "email": "wanglimin@163.com", "affix": "0", "activity": "客户投保确认", "verify": ""}
+	],
+	"search":false,
+	"totalCount":2,
+	"totalPages":1
+	}
+}

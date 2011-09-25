@@ -1,0 +1,23 @@
+{"page":{
+	"autoCount":true,
+	"filters":{
+		"groupOp":null,"rules":[]
+	},
+	"first":1,
+	"hasNext":false,
+	"hasPre":false,
+	"nextPage":1,
+	"order":"desc",
+	"orderBy":"name",
+	"orderBySetted":true,
+	"pageNo":1,
+	"pageSize":20,
+	"prePage":1,
+	"result":[
+		{"id": "1","policyNumber": "CP-201100001", "name": "张三", "sex": "male", "age": "30", "carNumber": "浙G7035E", "registeDate": "2011-07-10", "driveCity": "上海", "buyCarDate": "2011-01-01", "carPrice": "23.5", "contact": "张三", "mobilePhone": "13573648579", "email": "zhangsan@hotmail.com", "affix": "2", "verify": ""}
+	],
+	"search":false,
+	"totalCount":2,
+	"totalPages":1
+	}
+}
