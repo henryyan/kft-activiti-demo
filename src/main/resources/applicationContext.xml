@@ -18,13 +18,13 @@
 				<!-- 标准配置 -->
 				<value>classpath*:/application.properties</value>
 				<!-- 和环境相关 -->
-				<value>${env.application.file}</value>
+				<value>${env.spring.application.file}</value>
 			</list>
 		</property>
 	</bean>
 
 	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
-	<context:component-scan base-package="com.runchain.zhongying" />
+	<context:component-scan base-package="com.wsria.demo.activiti" />
 	<!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -42,10 +42,8 @@
 	</bean>
 
 	<!-- 数据源配置,使用应用服务器的数据库连接池 -->
-	<!--
-		<jee:jndi-lookup id="dataSource"
-		jndi-name="java:comp/env/jdbc/ExampleDB" />
-	-->
+	<!-- <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" 
+		/> -->
 
 	<!-- Hibernate配置 -->
 	<bean id="sessionFactory"
@@ -63,8 +61,12 @@
 				<prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache/ehcache-hibernate-local.xml</prop>
 			</props>
 		</property>
-		<property name="packagesToScan" value="com.runchain.exercise.admin.entity" />
+		<property name="packagesToScan" value="com.wsria.demo.activiti.entity" />
 	</bean>
+
+	<!-- 注入SpringContextHolder -->
+	<bean class="org.springside.modules.utils.spring.SpringContextHolder"
+		lazy-init="false"></bean>
 
 	<!-- 事务管理器配置,单数据源事务 -->
 	<bean id="transactionManager"

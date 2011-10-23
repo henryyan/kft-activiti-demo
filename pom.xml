@@ -12,13 +12,13 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Activiti demo</name>
-	<description>activiti demo for version 5.7 with jquery ui theme</description>
+	<description>activiti demo for version 5.8 with jquery ui theme</description>
 
 	<!-- 项目属性 -->
 	<properties>
-		<jdbc.driver.groupId>mysql</jdbc.driver.groupId>
-		<jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
-		<jdbc.driver.version>5.1.11</jdbc.driver.version>
+		<jdbc.driver.groupId>com.oracle</jdbc.driver.groupId>
+		<jdbc.driver.artifactId>ojdbc14</jdbc.driver.artifactId>
+		<jdbc.driver.version>10.2.0.5.0</jdbc.driver.version>
 	</properties>
 
 	<!-- 依赖项定义 -->
@@ -62,6 +62,10 @@
 		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-tools</artifactId>
 		</dependency>
 
 		<!-- spring -->
@@ -249,19 +253,6 @@
 			<artifactId>jsp-2.1-jetty</artifactId>
 		</dependency>
 		<!-- testing end -->
-
-
-		<!-- hibernate tools -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-tools</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>net.coobird</groupId>
-			<artifactId>thumbnailator</artifactId>
-			<version>0.2.4</version>
-		</dependency>
 
 	</dependencies>
 

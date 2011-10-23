@@ -228,6 +228,8 @@
 		autoResize: function(options) {
 			var defaults = {
 				gridContainer: 'body',
+				filterToolbar: false,
+				groupHeaders: false, 
 				enableAutoResize : true,
 				beforeAutoResize: null,
 				afterAutoResize: null
@@ -302,7 +304,7 @@
 					}
 				}
 				// firefox
-				else if ($.common.browser.isMozila()) {
+				else if ($.common.browser.isMozila() || $.common.browser.isOpera()) {
 					if (hasToolbar) {
 						if (toolbarType == 'top') {
 							iframeWidth -= 10;
@@ -312,10 +314,10 @@
 							iframeHeight -= 145;
 						}
 					} else {
-						iframeWidth -= 10;
-						iframeHeight -= 90;
+						iframeWidth -= 6;
+						iframeHeight -= 88;
 					}
-				} 
+				}
 				// IE
 				else {
 					if (hasToolbar) {
@@ -326,15 +328,15 @@
 									iframeHeight -= (options.toolbarHeight.top.ie - 21) - 15;
 								}
 							}
-							iframeHeight -= 128;
-							iframeWidth -= 15;
+							iframeHeight -= 133;
+							iframeWidth -= 6;
 							setTimeout(function() {
 								// 设置上方的toolbar
 								$('#t_' + options.dataGrid.substr(1)).width(iframeWidth - 11);
 							});
 						} else if (toolbarType == 'both') {
-							iframeWidth -= 14;
-							iframeHeight -= 151;
+							iframeWidth -= 6;
+							iframeHeight -= 156;
 							setTimeout(function() {
 								// 设置上方的toolbar
 								$('#t_' + options.dataGrid.substr(1)).width(iframeWidth - 11);
@@ -342,8 +344,18 @@
 						}
 					} else {
 						iframeWidth -= 6;
-						iframeHeight -= 87;
+						iframeHeight -= 93;
 					}
+				}
+				
+				// 是否有搜索工具条
+				if (options.filterToolbar) {
+					iframeHeight -= 22;
+				}
+				
+				// 是否开启标头分组
+				if (options.groupHeaders) {
+					iframeHeight -= 22;
 				}
 				return {width: iframeWidth, height: iframeHeight};
 			}
@@ -412,6 +424,24 @@
 					}
 					$('#' + listId).data('gridComplete', true);
 				}, 500);
+			}
+		},
+		
+		/**
+		 * 顶部的搜索条
+		 */
+		filterToolbar: {
+			settings: {
+				stringResult: true
+			}
+		},
+		
+		/**
+		 * 标头分组
+		 */
+		groupHeaders: {
+			settings: {
+				useColSpanStyle: true
 			}
 		}
 	};
@@ -657,6 +687,40 @@
 	/*******************************************/
 	
 	/*******************************************/
+	/**			workflow --开始	  			  **/
+	/*******************************************/
+	var _plugin_workflow = {
+		setButtonIcons: function() {
+			_plugin_jqui.dialog.button.setIcons({
+                提交: {
+                    primary: 'ui-icon-arrowthick-1-e'
+                },
+                退回: {
+                    primary: 'ui-icon-arrowreturnthick-1-w'
+                },
+                流程跟踪: {
+                    primary: 'ui-icon-flag'
+                },
+				启动: {
+                    primary: 'ui-icon-play'
+                },
+				签收: {
+                    primary: 'ui-icon-check'
+                },
+				保存: {
+					primary: 'ui-icon-disk'
+				},
+				关闭: {
+					primary: 'ui-icon-cancel'
+				}
+            });
+		}
+	};
+	/*******************************************/
+	/**			workflow --开始	  			  **/
+	/*******************************************/
+	
+	/*******************************************/
 	/**			$.common--开始	  			  **/
 	/*******************************************/
 	var _common_plugins = {
@@ -664,7 +728,8 @@
 		jqGrid : _plugin_jqGrid,
 		validator : _plugin_validator,
 		jqui : _plugin_jqui,
-		jstree : _plugin_jstree	
+		jstree : _plugin_jstree,
+		workflow: _plugin_workflow
 	};
 	
 	// 插件扩展
@@ -689,6 +754,23 @@
 				return tempParent;
 			} else {
 				return window;
+			}
+		},
+		// 获取可见区域的宽度
+		getClientWidth: function() {
+			return document.documentElement.clientWidth;
+		},
+		// 获取可见区域的高度
+		getClientHeight: function(options) {
+			var defaults = {
+				autoSuit: true, // 自动适应高度，因为在firefox下面不减10会出现滚动条
+				autoSuitValue: -13
+			};
+			options = $.extend({}, defaults, options);
+			if (options.autoSuit) {
+				return document.documentElement.clientHeight + options.autoSuitValue;
+			} else {
+				return document.documentElement.clientHeight;
 			}
 		}
 	};
@@ -766,6 +848,16 @@
 			var _uaMatch = $.uaMatch(navigator.userAgent);
 			var _browser = _uaMatch.browser;
 			if (_browser == 'mozilla') {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		// 检测是否是Firefox浏览器
+		isOpera : function() {
+			var _uaMatch = $.uaMatch(navigator.userAgent);
+			var _browser = _uaMatch.browser;
+			if (_browser == 'opera') {
 				return true;
 			} else {
 				return false;

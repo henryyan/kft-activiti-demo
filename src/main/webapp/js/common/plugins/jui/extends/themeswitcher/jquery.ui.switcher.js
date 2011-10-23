@@ -59,17 +59,28 @@ $.fn.themeswitcher = function(settings){
 		var cssUrl = $(this).attr('href');
 		cssUrl = ctx + "/js/common/plugins/jui/themes/" + themeName.toLowerCase().replace(' ', '-') + "/jquery-ui-" + themeVersion + ".custom.css";
         updateCSS(cssUrl);
-		// 切换后设置样式，因为要覆盖jqueryui的style
-		$('.ui-tabs .ui-tabs-panel').css('padding', '0px');
+		updateCustomCss();
 		// 更新子框架中的css
-		if ($.isFunction(centerIframe.window.updateCSS)) {
+		$('.module-iframe').each(function() {
+			var st = window.frames[$(this).attr('name')];
+			if ($.isFunction(st.window.updateCSS)) {
+				st.window.updateCSS(cssUrl);
+				st.window.updateCustomCss();
+			}
+		});
+		
+		// 单个tab时
+		/*if ($.isFunction(centerIframe.window.updateCSS)) {
 			centerIframe.window.updateCSS(cssUrl);
 			centerIframe.window.updateCustomCss();
-		}
+		}*/
+		
 		// 关闭主题选择对话框
 		//$('#themeswitcherDialog').dialog('close');
         button.find('.jquery-ui-themeswitcher-title').text(options.buttonPreText + themeName);
-        $.cookie(options.cookieName, themeName);
+        $.cookie(options.cookieName, themeName, {
+			expires: 31 // 保持一月有效
+		});
         options.onSelect();
         if (options.closeOnSelect && switcherpane.is(':visible')) {
             switcherpane.spHide();

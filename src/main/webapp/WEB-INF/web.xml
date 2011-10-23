@@ -8,7 +8,7 @@
 		此参数用于后面的Spring Context Loader -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:/applicationContext-no-database.xml</param-value>
+		<param-value>classpath*:/applicationContext*.xml</param-value>
 	</context-param>
 	
 	<!-- Filter 定义  -->
@@ -26,17 +26,17 @@
 		</init-param>
 	</filter>
 
-	<!-- Hibernate Open Session In View filter
+	<!-- Hibernate Open Session In View filter -->
 	<filter>
 		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
 		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-	</filter>-->
+	</filter>
 
-	<!-- SpringSecurity filter
+	<!-- SpringSecurity filter -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter> -->
+	</filter>
 
 	<!-- Struts2 filter -->
 	<filter>
@@ -55,7 +55,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-<!-- 
 	<filter-mapping>
 		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
 		<url-pattern>*.action</url-pattern>
@@ -66,10 +65,10 @@
 	</filter-mapping>
 	 -->
 
-	<!-- <filter-mapping>
+	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>struts2CleanupFilter</filter-name>
@@ -96,6 +95,21 @@
 	</listener>
 	
 	<!-- 业务数据初始化  开始 -->
+	<!-- 数据字典 -->
+	<servlet>
+		<servlet-name>DataLibraryServlet</servlet-name>
+		<servlet-class>com.wsria.demo.activiti.web.servlet.SystemDictionaryServlet</servlet-class>
+		<load-on-startup>5</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>PropertiesServlet</servlet-name>
+		<servlet-class>com.runchain.arch.web.servlet.PropertiesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PropertiesServlet</servlet-name>
+		<url-pattern>/properties-servlet</url-pattern>
+	</servlet-mapping>
 	<!-- 业务数据初始化  结束 -->
 
 	<!-- session超时定义,单位为分钟 -->

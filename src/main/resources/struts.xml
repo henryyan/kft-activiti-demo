@@ -3,7 +3,7 @@
         "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<constant name="struts.convention.default.parent.package" value="crud-default" />
-	<constant name="struts.convention.action.packages" value="com.runchain.arch.web,com.runchain.zy.insurance.web"></constant>
+	<constant name="struts.convention.action.packages" value="com.runchain.arch.web,com.wsria.demo.activiti.web"></constant>
 	<constant name="struts.convention.action.includeJars" value=".*/*web-extension*.*?jar(!/)?"/>
 	
 	<constant name="struts.devMode" value="true"/>

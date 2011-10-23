@@ -17,7 +17,7 @@
 				<!-- 标准配置 -->
 				<value>classpath*:/application.properties</value>
 				<!-- 和环境相关 -->
-				<value>${env.application.file}</value>
+				<value>${env.spring.application.file}</value>
 			</list>
 		</property>
 	</bean>
@@ -27,21 +27,13 @@
 		<s:intercept-url pattern="/css/**" filters="none" />
 		<s:intercept-url pattern="/imgages/**" filters="none" />
 		<s:intercept-url pattern="/js/**" filters="none" />
-		<s:intercept-url pattern="/venue/pictures/**" filters="none" />
 
-		<!-- 用户管理 -->
-		<s:intercept-url pattern="/account/user!save*" access="hasAnyRole('ROLE_修改用户')" />
-		<s:intercept-url pattern="/account/user!delete*" access="hasAnyRole('ROLE_修改用户')" />
-		<s:intercept-url pattern="/account/user*" access="hasAnyRole('ROLE_浏览用户')" />
-		<s:intercept-url pattern="/account/role!save*" access="hasAnyRole('ROLE_修改角色')" />
-		<s:intercept-url pattern="/account/role!delete*" access="hasAnyRole('ROLE_修改角色')" />
-		<s:intercept-url pattern="/account/role*" access="hasAnyRole('ROLE_浏览角色')" />
+		<s:intercept-url pattern="/index.jsp" filters="none" />
+		<s:intercept-url pattern="/login.jsp" filters="none" />
 		
-		<!-- 系统管理 -->
-		<s:intercept-url pattern="/main/main.action" access="hasAnyRole('ROLE_浏览用户')" />
-		<s:intercept-url pattern="/field/type/*.action" access="hasAnyRole('ROLE_浏览用户')" />
+		<s:intercept-url pattern="/**" access="isAuthenticated()" />
 
-		<s:form-login login-page="/login.action" default-target-url="/" authentication-failure-url="/login.action?error=true" />
+		<s:form-login login-page="/login.jsp" default-target-url="/" authentication-failure-url="/login.jsp?error=true" />
 		<s:logout logout-success-url="/" />
 		
 		<s:custom-filter after="SECURITY_CONTEXT_FILTER" ref="autoLoginFilter" />
@@ -55,10 +47,10 @@
 	</s:authentication-manager>
 
 	<!-- 项目实现的用户查询服务 -->
-	<bean id="userDetailsService" class="com.runchain.exercise.admin.service.account.UserDetailsServiceImpl" />
+	<bean id="userDetailsService" class="com.wsria.demo.activiti.service.account.UserDetailsServiceImpl" />
 	
 	<!-- 开发时自动登录的filter -->
-	<bean id="autoLoginFilter" class="com.runchain.exercise.admin.web.security.AutoLoginFilter">
+	<bean id="autoLoginFilter" class="com.wsria.demo.activiti.web.security.AutoLoginFilter">
 		<property name="enabled" value="${security.autologin.enabled}" />
 		<property name="defaultUserName" value="${security.autologin.username}" />
 	</bean>

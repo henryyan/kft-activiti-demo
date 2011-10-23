@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,org.apache.commons.lang.StringUtils" %>
+<%@ page import="com.wsria.demo.activiti.util.account.UserUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -26,14 +27,14 @@ pageContext.setAttribute("strCpSystemDate", strCpSystemDate);
 //jquery.ui主题
 String defaultTheme = "redmond";
 String themeVersion = "1.8.16";
-String themeName = session.getAttribute("themeName") == null ? "" : session.getAttribute("themeName").toString();
-String userTheme = StringUtils.defaultIfEmpty(themeName, defaultTheme);
-pageContext.setAttribute("themeName", userTheme.toLowerCase().replace(" ", "-"));
-pageContext.setAttribute("themeVersion", themeVersion);
+String userTheme = StringUtils.defaultIfEmpty(UserUtil.getUserTheme(), defaultTheme);
+
+session.setAttribute("themeName", userTheme.toLowerCase().replace(" ", "-"));
+session.setAttribute("themeVersion", themeVersion);
+session.setAttribute("role", UserUtil.getCurrentUser() != null ? UserUtil.getCurrentUser().getMajorRoleName() : "");
 %>
 <c:set var="okGif" value="<img src='${ctx }/images/tip/ok.gif'/>" />
 <c:set var="errGif" value="<img src='${ctx }/images/tip/err.gif'/>" />
-<c:set var="role" value="${empty param.role ? 'systemManager' : param.role }" />
 <script type="text/javascript">
 	var ctx = '<%=request.getContextPath() %>';
 	
