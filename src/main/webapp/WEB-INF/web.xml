@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
 	<display-name>activiti demo with jquery ui created by kafeitu</display-name>
 	<description>blog:http://www.wsria.com</description>
-	<!-- Spring ApplicationContext配置文件的路径,可使用通配符,多个路径用,号分隔
-		此参数用于后面的Spring Context Loader -->
+	<!-- Spring ApplicationContext配置文件的路径,可使用通配符,多个路径用,号分隔 此参数用于后面的Spring Context Loader -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:/applicationContext*.xml</param-value>
+		<param-value>classpath*:/applicationContext*.xml,classpath*:/activiti-context.xml</param-value>
 	</context-param>
-	
-	<!-- Filter 定义  -->
+
+	<!-- Filter 定义 -->
 	<!-- Character Encoding filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -63,7 +62,7 @@
 		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
 		<url-pattern>/j_spring_security_check</url-pattern>
 	</filter-mapping>
-	 -->
+	-->
 
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -93,8 +92,11 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
-	
-	<!-- 业务数据初始化  开始 -->
+
+	<!-- Workflow Activiti <listener> <listener-class>com.wsria.demo.activiti.web.listener.ProcessEnginesServletContextListener</listener-class> 
+		</listener> -->
+
+	<!-- 业务数据初始化 开始 -->
 	<!-- 数据字典 -->
 	<servlet>
 		<servlet-name>DataLibraryServlet</servlet-name>
@@ -110,7 +112,7 @@
 		<servlet-name>PropertiesServlet</servlet-name>
 		<url-pattern>/properties-servlet</url-pattern>
 	</servlet-mapping>
-	<!-- 业务数据初始化  结束 -->
+	<!-- 业务数据初始化 结束 -->
 
 	<!-- session超时定义,单位为分钟 -->
 	<session-config>
@@ -134,9 +136,9 @@
 		<error-code>403</error-code>
 		<location>/common/403.jsp</location>
 	</error-page>
-	
+
 	<mime-mapping>
-        <extension>xhtml</extension>
-        <mime-type>application/vnd.wap.xhtml+xml</mime-type>
-    </mime-mapping> 
+		<extension>xhtml</extension>
+		<mime-type>application/vnd.wap.xhtml+xml</mime-type>
+	</mime-mapping>
 </web-app>

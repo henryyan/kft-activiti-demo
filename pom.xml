@@ -16,9 +16,13 @@
 
 	<!-- 项目属性 -->
 	<properties>
-		<jdbc.driver.groupId>com.oracle</jdbc.driver.groupId>
+		<!-- <jdbc.driver.groupId>com.oracle</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>ojdbc14</jdbc.driver.artifactId>
-		<jdbc.driver.version>10.2.0.5.0</jdbc.driver.version>
+		<jdbc.driver.version>10.2.0.5.0</jdbc.driver.version>-->
+		
+		<jdbc.driver.groupId>mysql</jdbc.driver.groupId>
+		<jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
+		<jdbc.driver.version>5.1.11</jdbc.driver.version>
 	</properties>
 
 	<!-- 依赖项定义 -->
@@ -28,6 +32,16 @@
 			<groupId>com.runchain.arch</groupId>
 			<artifactId>rc-web-extension</artifactId>
 			<version>${project.parent.version}</version>
+		</dependency>
+
+		<!-- activiti begin -->
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
 		</dependency>
 
 		<!-- spring begin -->
