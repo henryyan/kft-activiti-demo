@@ -10,7 +10,6 @@
 	<li>
 		<a rel="#">系统管理</a>
 		<ul>
-			<li><a rel="#">系统配置</a></li>
 			<li><a title="数据字典管理" rel="common/system-dict-list.action"><span>数据字典管理</span></a></li>
 			<li>
 				<a rel="#">组织及权限</a>
@@ -19,7 +18,12 @@
 			        <li><a title="角色管理" rel="account/role-list.action"><span>角色管理</span></a></li>
 				</ul>
 			</li>
-			<li><a rel="#">系统日志</a></li>
+		</ul>
+	</li>
+	<li>
+		<a rel='#'>流程管理</a>
+		<ul>
+			<li><a rel='activiti/activiti-manager.action'>流程列表</a></li>
 		</ul>
 	</li>
 </ul>

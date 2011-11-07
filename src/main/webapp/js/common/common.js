@@ -9,6 +9,46 @@
 	//-- 初始化方法 --//
 	_initFunction();
 	
+	//-- 窗口工具 --//
+	$.common.window = {
+		//-- 获得最上层的window对象 --//
+		getTopWin: function() {
+			if(parent) {
+				var tempParent = parent;
+				while(true) {
+					if(tempParent.parent) {
+						if(tempParent.parent == tempParent) {
+							break;
+						}
+						tempParent = tempParent.parent;
+					} else {
+						break;
+					}
+				}
+				return tempParent;
+			} else {
+				return window;
+			}
+		},
+		// 获取可见区域的宽度
+		getClientWidth: function() {
+			return document.documentElement.clientWidth;
+		},
+		// 获取可见区域的高度
+		getClientHeight: function(options) {
+			var defaults = {
+				autoSuit: true, // 自动适应高度，因为在firefox下面不减10会出现滚动条
+				autoSuitValue: -13
+			};
+			options = $.extend({}, defaults, options);
+			if (options.autoSuit) {
+				return document.documentElement.clientHeight + options.autoSuitValue;
+			} else {
+				return document.documentElement.clientHeight;
+			}
+		}
+	};
+	
 	/*******************************************/
 	/**				jqGrid插件--开始			  **/
 	/*******************************************/
@@ -165,7 +205,19 @@
 				closeOnEscape: true,
 				savekey : [true, 13],
 				navkeys : [true, 38,40],
-				bottominfo: "带 <span class='must'>*</span> 为必填(选)项。"
+				bottominfo: "带 <span class='must'>*</span> 为必填(选)项。",
+				onInitializeForm: function(formObj) {
+					
+					// 如果对话框的高度超过了列表的高度则出现滚动条，延迟20毫秒执行
+					setTimeout(function() {
+						var formDialogHeight = $(formObj).parents('.ui-jqdialog').height();
+						var listId = $(formObj).attr('id').replace('FrmGrid_', '');
+						var gridHeight = $('#gview_' + listId).height();
+						if (formDialogHeight > gridHeight) {
+							$(formObj).height($.common.window.getClientHeight() - $(formObj).next('.EditTable').height() - 38);
+						}
+					}, 20);
+				}
 			},
 			// 编辑设置
 			edit: {
@@ -174,10 +226,22 @@
 				closeOnEscape: true,
 				savekey : [true, 13],
 				navkeys : [true, 38,40],
-				bottominfo: "带 <span class='must'>*</span> 为必填(选)项。"
+				bottominfo: "带 <span class='must'>*</span> 为必填(选)项。",
+				onInitializeForm: function(formObj) {
+					
+					// 如果对话框的高度超过了列表的高度则出现滚动条，延迟20毫秒执行
+					setTimeout(function() {
+						var formDialogHeight = $(formObj).parents('.ui-jqdialog').height();
+						var listId = $(formObj).attr('id').replace('FrmGrid_', '');
+						var gridHeight = $('#gview_' + listId).height();
+						if (formDialogHeight > gridHeight) {
+							$(formObj).height($.common.window.getClientHeight() - $(formObj).next('.EditTable').height() - 38);
+						}
+					}, 20);
+				}
 			},
-			// 删除设置，因为delete是关键字，改为remove
-			remove: {
+			// 删除设置
+			del: {
 				// empty
 			},
 			// 搜索设置
@@ -210,7 +274,13 @@
 			},
 			// 查看设置
 			view: {
-				// empty
+				beforeShowForm: function(formid) {
+		            $.common.plugin.jqGrid.navGrid.showAllField(formid);
+					setTimeout(function() {
+						// 隐藏编辑按钮
+						$('#trv_options').hide();
+					}, 10);
+		        }
 			}
 		},
 		/**
@@ -277,7 +347,7 @@
 				if (hasToolbar) {
 					var toolbarType = options.toolbar[1];
 					if (!toolbarType) {
-						alert('请设置工具栏的属性，toolbar ： [true, [top, both]]');
+						alert('请设置工具栏的属性，toolbar ： [true, [top, both, bottom]]');
 					}
 				}
 				
@@ -291,7 +361,7 @@
 				// chrome
 				if ($.common.browser.isChrome()) {
 					if (hasToolbar) {
-						if (toolbarType == 'top') {
+						if (toolbarType == 'top' || toolbarType == 'bottom') {
 							iframeWidth -= 8;
 							iframeHeight -= 128;
 						} else if (toolbarType == 'both') {
@@ -306,7 +376,7 @@
 				// firefox
 				else if ($.common.browser.isMozila() || $.common.browser.isOpera()) {
 					if (hasToolbar) {
-						if (toolbarType == 'top') {
+						if (toolbarType == 'top' || toolbarType == 'bottom') {
 							iframeWidth -= 10;
 							iframeHeight -= 122;
 						} else if (toolbarType == 'both') {
@@ -314,14 +384,14 @@
 							iframeHeight -= 145;
 						}
 					} else {
-						iframeWidth -= 6;
-						iframeHeight -= 88;
+						iframeWidth -= 4;
+						iframeHeight -= 85;
 					}
 				}
 				// IE
 				else {
 					if (hasToolbar) {
-						if (toolbarType == 'top') {
+						if (toolbarType == 'top' || toolbarType == 'bottom') {
 							if ($.common.browser.isIE() && options.toolbarHeight) {
 								if (options.toolbarHeight.top && options.toolbarHeight.top.ie) {
 									// 减去jqGrid的t_list默认高度和IE的兼容高度
@@ -350,7 +420,7 @@
 				
 				// 是否有搜索工具条
 				if (options.filterToolbar) {
-					iframeHeight -= 22;
+					iframeHeight -= 23;
 				}
 				
 				// 是否开启标头分组
@@ -712,6 +782,15 @@
 				},
 				关闭: {
 					primary: 'ui-icon-cancel'
+				},
+				同意: {
+					primary: 'ui-icon-check'
+				},
+				不同意: {
+					primary: 'ui-icon-closethick'
+				},
+				通知付费: {
+					primary: 'ui-icon-mail-closed'
 				}
             });
 		}
@@ -734,46 +813,6 @@
 	
 	// 插件扩展
 	$.common.plugin = _common_plugins;
-	
-	//-- 窗口工具 --//
-	$.common.window = {
-		//-- 获得最上层的window对象 --//
-		getTopWin: function() {
-			if(parent) {
-				var tempParent = parent;
-				while(true) {
-					if(tempParent.parent) {
-						if(tempParent.parent == tempParent) {
-							break;
-						}
-						tempParent = tempParent.parent;
-					} else {
-						break;
-					}
-				}
-				return tempParent;
-			} else {
-				return window;
-			}
-		},
-		// 获取可见区域的宽度
-		getClientWidth: function() {
-			return document.documentElement.clientWidth;
-		},
-		// 获取可见区域的高度
-		getClientHeight: function(options) {
-			var defaults = {
-				autoSuit: true, // 自动适应高度，因为在firefox下面不减10会出现滚动条
-				autoSuitValue: -13
-			};
-			options = $.extend({}, defaults, options);
-			if (options.autoSuit) {
-				return document.documentElement.clientHeight + options.autoSuitValue;
-			} else {
-				return document.documentElement.clientHeight;
-			}
-		}
-	};
 	
 	//-- frame工具 --//
 	$.common.frame = {
