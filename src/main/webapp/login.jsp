@@ -27,9 +27,19 @@
 				resizable: false,
 				closeOnEscape: false,
 				modal: true,
+				open: function() {
+					$.common.plugin.jqui.dialog.button.setIcons({
+						登录: {primary: 'ui-icon-person'}
+					})
+				},
 				buttons: [{
 					text: "登录",
 					click: loginForm
+				}, {
+					text: "?",
+					click: function() {
+						alert('忘记密码功能未实现！');
+					}
 				}]
 			});
 			
@@ -45,8 +55,6 @@
 			if ($('#j_username').val() == '') {
 				alert('请输入工号！');
 				$('#j_username').focus();
-			} else if ($('#j_username').val() != '1' && $('#j_username').val().length != 6 ) {
-				alert($('#j_username').attr('title'));
 			} else if ($('#j_password').val() == '') {
 				alert('请输入密码！');
 				$('#j_password').focus();

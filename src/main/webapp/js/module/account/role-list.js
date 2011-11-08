@@ -24,7 +24,7 @@ function listDatas(size) {
         size: size
     }), {
         url: moduleAction + '!list.action',
-        colNames: ['主键ID', '名称', '优先级'],
+        colNames: ['主键ID', 'EN_ID', '名称', '优先级'],
         colModel: [{
             name: 'id',
             hidden: true,
@@ -36,6 +36,9 @@ function listDatas(size) {
                 hidden: true
             }
         }, {
+			name: 'label',
+			align: 'center'
+		}, {
             name: 'name',
             align: 'center',
             editable: true,

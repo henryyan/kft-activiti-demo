@@ -32,10 +32,7 @@ import com.google.common.collect.Lists;
 /**
  * 用户.
  * 
- * 使用JPA annotation定义ORM关系.
- * 使用Hibernate annotation定义JPA 1.0未覆盖的部分.
- * 
- * @author calvin
+ * @author HenryYan
  */
 @Entity
 //表名与类名不相同时重新定义表名.
@@ -52,13 +49,11 @@ public class User implements Serializable {
 	@GenericGenerator(name = "theUserGenerator", strategy = "assigned")
 	private String id;//手动设置Id
 
-	private String loginName;
 	private String password;//为简化演示使用明文保存的密码
 	private String name;
 	private String email;
 	private String active;
 	private String orgName;
-	private String employeeId;
 	private String theme;
 	private List<Role> roleList = Lists.newArrayList();//有序的关联对象集合
 	private Organization org;
@@ -89,16 +84,6 @@ public class User implements Serializable {
 
 	public void setOrg(Organization org) {
 		this.org = org;
-	}
-
-	//字段非空且唯一, 用于提醒Entity使用者及生成DDL.
-	@Column(nullable = false)
-	public String getLoginName() {
-		return loginName;
-	}
-
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
 	}
 
 	public String getPassword() {
@@ -148,15 +133,6 @@ public class User implements Serializable {
 
 	public void setActive(String active) {
 		this.active = active;
-	}
-
-	@Column(name = "EMPLOYEE_ID")
-	public String getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
 	}
 
 	@Column(name = "ORG_NAME")

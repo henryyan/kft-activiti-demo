@@ -18,12 +18,8 @@
 			        <li><a title="角色管理" rel="account/role-list.action"><span>角色管理</span></a></li>
 				</ul>
 			</li>
-		</ul>
-	</li>
-	<li>
-		<a rel='#'>流程管理</a>
-		<ul>
 			<li><a rel='activiti/activiti-manager.action'>流程列表</a></li>
+			<li><a rel='activiti/activiti-test.action'>流程功能测试</a></li>
 		</ul>
 	</li>
 </ul>

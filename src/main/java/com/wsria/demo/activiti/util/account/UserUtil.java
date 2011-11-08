@@ -44,7 +44,7 @@ public class UserUtil {
 		if (sessionUser == null) {
 			String userId = SpringSecurityUtils.getCurrentUserName();
 			AccountManager manager = SpringContextHolder.getBean("accountManager");
-			if (StringUtils.isNotBlank(userId) && StringUtils.isNumeric(userId)) {
+			if (StringUtils.isNotBlank(userId) /*&& StringUtils.isNumeric(userId)*/) {
 				user = manager.getEntity(userId);
 				session.setAttribute(USER, user);
 			}

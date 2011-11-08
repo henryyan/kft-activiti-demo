@@ -369,8 +369,8 @@
 							iframeHeight -= 140;
 						}
 					} else {
-						iframeWidth -= 13;
-						iframeHeight -= 87;
+						iframeWidth -= 5;
+						iframeHeight -= 82;
 					}
 				}
 				// firefox

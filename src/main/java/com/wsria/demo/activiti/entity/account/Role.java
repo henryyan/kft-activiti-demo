@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 import com.runchain.arch.util.orm.SeqIdEntity;
 
 /**
@@ -19,15 +17,15 @@ import com.runchain.arch.util.orm.SeqIdEntity;
  * 
  * 注释见{@link User}.
  * 
- * @author calvin
+ * @author HenryYan
  */
 @Entity
 @Table(name = "ACCT_ROLE")
-@JsonIgnoreProperties(value = { "userList" })
 public class Role extends SeqIdEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
+	private String label;
 	private String priority;
 
 	public Role() {
@@ -55,6 +53,16 @@ public class Role extends SeqIdEntity implements Serializable {
 		this.name = name;
 	}
 
+	@Column
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	@Column
 	public String getPriority() {
 		return priority;
 	}
@@ -63,8 +71,4 @@ public class Role extends SeqIdEntity implements Serializable {
 		this.priority = priority;
 	}
 
-	@Override
-	public String toString() {
-		return "role-" + name;
-	}
 }

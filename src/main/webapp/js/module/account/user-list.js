@@ -54,7 +54,7 @@ function listDatas(size) {
 		pagerpos: 'center',
 		colNames: ['工号', '姓名', '密码', '电子邮件', '部门', '角色', '操作'],
         colModel: [{
-            name: 'employeeId',
+            name: 'id',
 			width: 50,
 			align: 'center',
 			searchoptions : {

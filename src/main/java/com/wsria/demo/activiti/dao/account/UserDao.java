@@ -19,7 +19,7 @@ import com.wsria.demo.activiti.entity.account.User;
 /**
  * 用户对象的泛型DAO类.
  * 
- * @author calvin
+ * @author HenryYan
  */
 @Component
 public class UserDao extends BaseHibernateDao<User, String> {
@@ -103,13 +103,6 @@ public class UserDao extends BaseHibernateDao<User, String> {
 		createCriteria.add(Restrictions.ne("active", "-1"));
 		List<User> users = createCriteria.list();
 		return users;
-	}
-	
-	public void insertValueUser(User pojo) {
-		String insertSql = "insert into acct_user (ID,NAME,LOGIN_NAME,ACTIVE,PASSWORD,EMPLOYEE_ID) values('" + pojo.getId() + "','"
-				+ pojo.getName() + "','" + pojo.getLoginName() + "','" + pojo.getActive() + "','" + pojo.getPassword()
-				+ "','" + pojo.getEmployeeId() + "')";
-		new JdbcTemplate().execute(insertSql);
 	}
 
 	public void insertValueUserAndOrg(long org_id, String user_id) {
