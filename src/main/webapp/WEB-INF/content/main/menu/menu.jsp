@@ -4,7 +4,7 @@
 	<li>
 		<a rel="#">考勤管理</a>
 		<ul>
-			<li><a rel="workLeave/work-leave-list.action">请假流程</a></li>
+			<li><a rel="oa/leave/leave-list.action">请假流程</a></li>
 		</ul>
 	</li>
 	<li>

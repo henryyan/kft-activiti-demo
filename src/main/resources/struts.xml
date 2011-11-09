@@ -6,7 +6,6 @@
 	<constant name="struts.convention.action.packages" value="com.runchain.arch.web,com.wsria.demo.activiti.web"></constant>
 	<constant name="struts.convention.action.includeJars" value=".*/*web-extension*.*?jar(!/)?"/>
 	
-	<constant name="struts.devMode" value="true"/>
     <constant name="struts.i18n.reload" value="true"/>
     <constant name="struts.configuration.xml.reload" value="true"/>
     <constant name="struts.convention.classes.reload" value="true" /> 

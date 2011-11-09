@@ -195,8 +195,12 @@
 			},
 			mustTip : "带 <span class='must'>*</span> 为必填(选)项。",
 			// 设置表单的LABEL宽度，防止自动列宽在验证组件添加文字提示的时候表格会动的问题
-			setLabelWidth : function(width) {
-				$('.CaptionTD').width(width);
+			setLabelWidth : function(options) {
+				var opts = $.extend(options, {
+					selector: '.CaptionTD',
+					width: 0
+				});
+				$(opts.selector).width(opts.width);
 			},
 			// 添加设置
 			add: {

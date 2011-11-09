@@ -12,9 +12,9 @@
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
 	<%@ include file="/common/include-custom-styles.jsp" %>
 	
-	<script src="${ctx}/js/common/jquery.js" type="text/javascript"></script>
-	<script src="${ctx}/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="${ctx}/js/common/common.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/common.js" type="text/javascript"></script>
 	<script src="${ctx }/js/module/activiti/activiti-manager.js" type="text/javascript"></script>
 </head>
 
