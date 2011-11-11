@@ -26,7 +26,7 @@ import com.wsria.demo.activiti.service.account.AccountManager;
  */
 @Namespace("/account")
 @Results({ @Result(name = CrudActionSupport.RELOAD, location = "role.action", type = "redirect") })
-public class RoleAction extends JqGridCrudActionSupport<Role> {
+public class RoleAction extends JqGridCrudActionSupport<Role, Long> {
 
 	private static final long serialVersionUID = -4052047494894591406L;
 	public static final String AUTHORITYTREE = "authorityTree";

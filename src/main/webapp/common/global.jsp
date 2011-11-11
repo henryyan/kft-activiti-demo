@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,org.apache.commons.lang.StringUtils" %>
-<%@ page import="com.wsria.demo.activiti.util.account.UserUtil" %>
+<%@ page import="com.wsria.demo.activiti.util.account.UserUtil,com.wsria.demo.activiti.entity.account.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -29,9 +29,13 @@ String defaultTheme = "redmond";
 String themeVersion = "1.8.16";
 String userTheme = StringUtils.defaultIfEmpty(UserUtil.getUserTheme(), defaultTheme);
 
+User currentUser = UserUtil.getCurrentUser();
 session.setAttribute("themeName", userTheme.toLowerCase().replace(" ", "-"));
 session.setAttribute("themeVersion", themeVersion);
-session.setAttribute("role", UserUtil.getCurrentUser() != null ? UserUtil.getCurrentUser().getMajorRoleName() : "");
+session.setAttribute("role", currentUser != null ? currentUser.getMajorRoleName() : "");
+session.setAttribute("cuserId", currentUser != null ? currentUser.getId() : "0");
+session.setAttribute("cuserName", currentUser != null ? currentUser.getName() : "");
+session.setAttribute("cuserOrgName", currentUser != null ? currentUser.getOrgName() : "");
 %>
 <c:set var="okGif" value="<img src='${ctx }/images/tip/ok.gif'/>" />
 <c:set var="errGif" value="<img src='${ctx }/images/tip/err.gif'/>" />
@@ -48,5 +52,6 @@ session.setAttribute("role", UserUtil.getCurrentUser() != null ? UserUtil.getCur
 
 	// 服务器日期、时间
 	var systemDateTime = new Date(<%=year %>, <%=month %>, <%=day %>, <%=hour %>, <%=minute %>, <%=second %>);
-	var role = '${role}';
+	
+	var cuser = {id: '${cuserId}', name: '${cuserName}', role: '${role}'};
 </script>

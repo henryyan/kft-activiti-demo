@@ -23,7 +23,7 @@ import com.wsria.demo.activiti.util.common.SystemDictionaryUtil;
  * @author HenryYan
  * 
  */
-public class SystemDictionaryAction extends JqGridCrudActionSupport<SystemDictionary> {
+public class SystemDictionaryAction extends JqGridCrudActionSupport<SystemDictionary, Long> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired protected SystemDictionaryManager manager;

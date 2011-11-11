@@ -14,8 +14,9 @@
 			<li>
 				<a rel="#">组织及权限</a>
 				<ul>
-					<li><a title="用户管理" rel="account/user-list.action"><span>用户管理</span></a></li>
-			        <li><a title="角色管理" rel="account/role-list.action"><span>角色管理</span></a></li>
+					<li><a rel="account/user-list.action"><span>用户管理</span></a></li>
+					<li><a rel="account/role-list.action"><span>角色管理</span></a></li>
+					<li><a rel="account/org-list.action"><span>部门管理</span></a></li>
 				</ul>
 			</li>
 			<li><a rel='activiti/activiti-manager.action'>流程列表</a></li>

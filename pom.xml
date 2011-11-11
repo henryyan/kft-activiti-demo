@@ -30,18 +30,13 @@
 		<!-- runchain common -->
 		<dependency>
 			<groupId>com.runchain.arch</groupId>
-			<artifactId>rc-web-extension</artifactId>
+			<artifactId>rc-workflow-activiti</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-
-		<!-- activiti begin -->
 		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-engine</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring</artifactId>
+			<groupId>com.runchain.arch</groupId>
+			<artifactId>rc-web-extension</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<!-- spring begin -->

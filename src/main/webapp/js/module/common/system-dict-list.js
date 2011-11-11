@@ -23,8 +23,17 @@ function listDatas(size) {
     $("#list").jqGrid(
 	$.extend($.common.plugin.jqGrid.settings({size: size}), {
 		url: moduleAction + '!list.action',
-		colNames: ['ID', '字典类型', '字典名称', '字典代码', '字典值','是否启用', '排序号', '备注'],
-        colModel: [{
+		colNames: ['', 'ID', '字典类型', '字典名称', '字典代码', '字典值','是否启用', '排序号', '备注'],
+		colModel: [{
+			name: 'options',
+			width: 60,
+			fixed: true,
+			sortable: false,
+			resize: false,
+			formatter: 'actions',
+			formatoptions: { keys:true },
+			search: false
+		}, {
 			name: 'id',
 			hidden: true,
 			editable: true
@@ -119,7 +128,7 @@ function listDatas(size) {
             }
         }],
 		caption: "数据字典管理",
-		editurl: moduleAction + '!save.action',
+		editurl: moduleAction + '.action',
 		grouping: true,
        	groupingView : {
        		groupField : ['dictName'],

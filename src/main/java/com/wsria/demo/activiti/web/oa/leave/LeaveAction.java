@@ -1,7 +1,9 @@
 package com.wsria.demo.activiti.web.oa.leave;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.orm.Page;
@@ -10,7 +12,6 @@ import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.runchain.arch.util.orm.PropertyFilterUtils;
 import com.runchain.arch.web.base.JqGridCrudActionSupport;
-import com.wsria.demo.activiti.entity.common.SystemDictionary;
 import com.wsria.demo.activiti.entity.oa.leave.Leave;
 import com.wsria.demo.activiti.service.oa.leave.LeaveManager;
 import com.wsria.demo.activiti.util.account.UserUtil;
@@ -21,7 +22,7 @@ import com.wsria.demo.activiti.util.account.UserUtil;
  * @author HenryYan
  *
  */
-public class LeaveAction extends JqGridCrudActionSupport<Leave> {
+public class LeaveAction extends JqGridCrudActionSupport<Leave, Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +43,10 @@ public class LeaveAction extends JqGridCrudActionSupport<Leave> {
 	public String save() {
 		try {
 			leaveManager.saveEntity(entity);
+			Map<String, Object> responses = new HashMap<String, Object>();
+			responses.put("id", entity.getId());
+			responses.put("success", true);
+			Struts2Utils.renderJson(responses);
 		} catch (Exception e) {
 			logger.error("保存单个请假", e);
 		}
@@ -62,7 +67,7 @@ public class LeaveAction extends JqGridCrudActionSupport<Leave> {
 	public String list() {
 		try {
 			List<PropertyFilter> filters = PropertyFilter.buildFromHttpRequest(Struts2Utils.getRequest());
-			PropertyFilterUtils.handleFilter(page, SystemDictionary.class, filters);
+			PropertyFilterUtils.handleFilter(page, Leave.class, filters);
 
 			page = leaveManager.searchProperty(page, filters);
 		} catch (Exception e) {

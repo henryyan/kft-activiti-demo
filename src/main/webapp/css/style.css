@@ -1,7 +1,7 @@
 /* global */
 body {
     margin: 2px 1px 1px 1px;
-	text-align: left;
+    text-align: left;
 }
 
 a {
@@ -33,23 +33,32 @@ table.center td {
     text-align: center;
 }
 
+table.center th {
+    text-align: center;
+    font-weight: bold;
+}
+
 td.label {
-	text-align: right;
+    text-align: right;
+    font-weight: bold;
 }
 
 td.label-bold {
-	text-align: right;
-	font-weight: bold;
+    text-align: right;
+    font-weight: bold;
 }
 
 /* override blueprint */
 th, td, caption {
-	padding: 2px 10px 2px 5px;
+    padding: 2px 10px 2px 5px;
 }
+
 tbody tr:nth-child(even) td, tbody tr.even td {background:transparent;}
 fieldset {
 	padding: 0.5em 1.0em 1.0em;
 }
+label.error{background: none !important;}
+input.error,textarea.error{padding:0em !important;margin:0.5em 0 0 0 !important;}
 
 /* zebra */
 .zebra tbody tr:nth-child(even) td, .zebra tbody tr.even td {background:#e5ecf9;}
@@ -65,11 +74,11 @@ ul.vertical li {
     padding: .2em 0 .2em;
 }
 
-.error {
+/*.error {
     background: #FBE3E4;
     color: #8a1f11;
     border-color: #FBC2C4;
-}
+}*/
 
 .success {
     background: #E6EFC2;
@@ -281,6 +290,9 @@ ul.ui-menu li {
 .ui-dialog .ui-dialog-buttonpane {
     padding: .3em 1em .2em .4em;
 }
+.ui-dialog .ui-dialog-content {
+	padding: .5em;
+}
 
 .progressbar {
     margin-top: .5em;
@@ -302,7 +314,7 @@ ul.ui-menu li {
     left: 0.3em;
 }
 
-.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text {
+.ui-button-text-icon-primary .ui-button-text {
     padding: 0.4em 0.8em 0.4em 1.7em;
 }
 
@@ -312,6 +324,19 @@ ul.ui-menu li {
 
 .ui-button-small .ui-button-text {
     padding: 0.2em 0.2em 0.2em 1.1em;
+}
+
+.ui-tabs .ui-tabs-panel {padding: 0px}
+
+.ui-pane-header {
+	padding: 5px 10px;
+	border-width:	0 0 1px;
+}
+.ui-pane-footer {
+	border-width:	1px 0 0; /* nullify ui-widget-content border, except top */
+	font-size:		.85em;
+	font-weight:	normal;
+	padding:		3px 10px 3px;
 }
 
 /* 使用jquery ui时设置legend */
@@ -369,6 +394,9 @@ tr.jqgrow td { height:auto!important; padding: .3em!important; }
 /* 和查询条件对齐 */
 .jqgrid-match-rule-tip {margin-left: 1em;}
 
+/* 新增、编辑对话框自动出现滚动条 */
+.ui-jqdialog-content {overflow: auto;}
+
 /* multiselect styles */
 #switcher {
     margin-top: 20px;
@@ -401,4 +429,21 @@ tr.jqgrow td { height:auto!important; padding: .3em!important; }
 }
 .ui-button-notext-secondary .ui-button-icon-secondary {
 	right: .2em;
+}
+
+.ui-tooltip-content .error {
+	border: none;
+	margin-bottom: 0em;
+	padding: 0em;
+}
+
+/* workflow */
+.workflow-state {
+	color: red;
+}
+.ui-th-column-header {text-align: center;}
+
+/* dialogtree */
+.dialogtree-tree {
+	border: none;
 }

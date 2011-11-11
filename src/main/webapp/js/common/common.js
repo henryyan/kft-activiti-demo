@@ -616,36 +616,43 @@
 		 * 对话框相关
 		 */
 		dialog: {
-			
-			/**
-			 * 根据浏览器差异获取对话框的高度统一计算方法
-			 * @param height	期望的高度
-			 */
-			/*getDialogHeight: function(options) {
-				var commonHeight = options.height;
-				if ($.common.browser.isIE()) {
-					if (options.ie) {
-						commonHeight += options.ie;
-					}
-				}
-				return commonHeight;
-			},*/
-			
 			/**
 			 * 按钮相关方法
 			 */
 			button: {
 				/**
-				 * 为dialog中的button设置icon
+				 * 为dialog中的button设置icon，参数结构
+				 * [{
+		         *     text: '暂存',
+		         *     title: '暂时存储',
+		         *     icons: {
+		         *         primary: 'ui-icon-disk'
+		         *     }
+		         * }]
 				 * @param {Object} options
 				 */
-				setIcons: function(options) {
-					$.each(options, function(i, n){
+				setAttrs: function(options) {
+					var _set_btns = [];
+					$.each(options, function(i, v) {
+						_set_btns[_set_btns.length] = v;
+					});
+					
+					$.each(_set_btns, function(i, v){
+						var _icons = {};
+						if (v.icons) {
+							var arrayIcons = v.icons.split(' ');
+							if (arrayIcons.length == 1) {
+								_icons.primary = arrayIcons[0];
+							} else if (arrayIcons.length == 2) {
+								_icons.primary = arrayIcons[0];
+								_icons.secondary = arrayIcons[1];
+							}
+						}
 						$('.ui-dialog-buttonpane')
-	                    .find('button:contains(' + i + ')')
+	                    .find('button:contains(' + v.text + ')')
 						.button({
-		                    icons: options[i]
-		                });
+		                    icons: _icons
+		                }).attr('title', v.title);
 					});
 				}
 			},
@@ -761,49 +768,6 @@
 	/*******************************************/
 	
 	/*******************************************/
-	/**			workflow --开始	  			  **/
-	/*******************************************/
-	var _plugin_workflow = {
-		setButtonIcons: function() {
-			_plugin_jqui.dialog.button.setIcons({
-                提交: {
-                    primary: 'ui-icon-arrowthick-1-e'
-                },
-                退回: {
-                    primary: 'ui-icon-arrowreturnthick-1-w'
-                },
-                流程跟踪: {
-                    primary: 'ui-icon-flag'
-                },
-				启动: {
-                    primary: 'ui-icon-play'
-                },
-				签收: {
-                    primary: 'ui-icon-check'
-                },
-				保存: {
-					primary: 'ui-icon-disk'
-				},
-				关闭: {
-					primary: 'ui-icon-cancel'
-				},
-				同意: {
-					primary: 'ui-icon-check'
-				},
-				不同意: {
-					primary: 'ui-icon-closethick'
-				},
-				通知付费: {
-					primary: 'ui-icon-mail-closed'
-				}
-            });
-		}
-	};
-	/*******************************************/
-	/**			workflow --开始	  			  **/
-	/*******************************************/
-	
-	/*******************************************/
 	/**			$.common--开始	  			  **/
 	/*******************************************/
 	var _common_plugins = {
@@ -811,8 +775,7 @@
 		jqGrid : _plugin_jqGrid,
 		validator : _plugin_validator,
 		jqui : _plugin_jqui,
-		jstree : _plugin_jstree,
-		workflow: _plugin_workflow
+		jstree : _plugin_jstree
 	};
 	
 	// 插件扩展
@@ -1089,12 +1052,12 @@
 			formId : '',
 	        beforeSubmit : showRequest,
 	        success : showResponse,
-	        clearForm : true
+	        clearForm : false
 	    };
 		
 		settings = $.extend({}, defaults, settings);
 		
-		$('#' + settings.formId).submit(function() {
+		$(settings.formId).submit(function() {
 	        $(this).ajaxSubmit(settings);
 	        return false;
 	    });
@@ -1208,6 +1171,7 @@ function _initFunction() {
 	if ($.jgrid) {
 		$.jgrid.no_legacy_api = true;
 		$.jgrid.useJSON = true;
+		$.jgrid.ajaxOptions.type = 'post';
 	}
 	
 };

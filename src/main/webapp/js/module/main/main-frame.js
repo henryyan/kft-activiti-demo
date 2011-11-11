@@ -91,10 +91,6 @@ function initMainContent() {
  */
 function dealRoles() {
 	openedTabs.put("首页", 0);
-	role = role == '' ? 'businessMan' : role;
-	$('#roles').val(role).change(function() {
-		location.href = ctx + '/main/main.action?role=' + $(this).val();
-	});
 	
 	$('#css3menu a').click(function() {
 		if ($(this).attr('rel') == '#') {
