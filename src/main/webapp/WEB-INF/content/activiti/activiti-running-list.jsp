@@ -11,26 +11,20 @@
 	<%@ include file="/common/include-base-styles.jsp" %>
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
 	<link href="${ctx }/js/common/plugins/jqGrid/css/ui.jqgrid.css" type="text/css" rel="stylesheet"/>
-	<link href="${ctx }/js/common/plugins/validate/jquery.validate.css" type="text/css" rel="stylesheet"/>
+	<link href="${ctx }/js/common/plugins/qtip/jquery.qtip.min.css" type="text/css" rel="stylesheet" />
 	<%@ include file="/common/include-custom-styles.jsp" %>
 
 	<script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="${ctx }/js/common/plugins/form/jquery.form.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/jqGrid/i18n/grid.locale-cn.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/jqGrid/jquery.jqGrid.min.js" type="text/javascript"></script>
-	<script src="${ctx }/js/common/common.js" type="text/javascript"></script>	
-	<script src="${ctx }/js/module/activiti/activiti-manager.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/qtip/jquery.qtip.min.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/common.js" type="text/javascript"></script>
+	<script src="${ctx }/js/module/activiti/activiti-running-list.js" type="text/javascript"></script>
 </head>
 
 <body>
 	<table id="list"></table>
 	<div id="pager"></div>
-	
-	<div id="deployFormTemplate" title="部署流程" class="template">
-		<form id="deployForm" name="deployForm" action="${ctx }/activiti/activiti!deploy.action" method="post" enctype="multipart/form-data">
-			<input id="deployment" name="deployment" type="file" />
-		</form>
-	</div>
 </body>
 </html>

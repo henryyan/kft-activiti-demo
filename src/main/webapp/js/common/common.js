@@ -32,7 +32,7 @@
 		},
 		// 获取可见区域的宽度
 		getClientWidth: function() {
-			return document.documentElement.clientWidth;
+			return document.documentElement.clientWidth - 10;
 		},
 		// 获取可见区域的高度
 		getClientHeight: function(options) {

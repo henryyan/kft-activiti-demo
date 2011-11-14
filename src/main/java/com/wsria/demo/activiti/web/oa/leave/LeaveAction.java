@@ -5,13 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.orm.Page;
 import org.springside.modules.orm.PropertyFilter;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.runchain.arch.util.orm.PropertyFilterUtils;
-import com.runchain.arch.web.base.JqGridCrudActionSupport;
+import com.runchain.arch.web.base.JqGridCrudActionSupportWithWorkflow;
 import com.wsria.demo.activiti.entity.oa.leave.Leave;
 import com.wsria.demo.activiti.service.oa.leave.LeaveManager;
 import com.wsria.demo.activiti.util.account.UserUtil;
@@ -22,7 +24,7 @@ import com.wsria.demo.activiti.util.account.UserUtil;
  * @author HenryYan
  *
  */
-public class LeaveAction extends JqGridCrudActionSupport<Leave, Long> {
+public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -66,10 +68,20 @@ public class LeaveAction extends JqGridCrudActionSupport<Leave, Long> {
 	@Override
 	public String list() {
 		try {
+
 			List<PropertyFilter> filters = PropertyFilter.buildFromHttpRequest(Struts2Utils.getRequest());
 			PropertyFilterUtils.handleFilter(page, Leave.class, filters);
-
 			page = leaveManager.searchProperty(page, filters);
+			List<Leave> result = page.getResult();
+			for (Leave leave : result) {
+				List<ProcessInstance> processes = runtimeService.createProcessInstanceQuery()
+						.processInstanceBusinessKey(leave.getId().toString()).list();
+				if (!CollectionUtils.isEmpty(processes)) {
+					ProcessInstance processInstance = processes.get(0);
+					String processInstanceId = processInstance.getProcessInstanceId();
+					leave.setProcessInstanceId(processInstanceId);
+				}
+			}
 		} catch (Exception e) {
 			logger.error("请假列表 ", e);
 		}
@@ -87,6 +99,20 @@ public class LeaveAction extends JqGridCrudActionSupport<Leave, Long> {
 			entity.setUserName(UserUtil.getCurrentUserName());
 			entity.setApplyTime(new Date());
 		}
+	}
+
+	/**
+	 * 启动流程
+	 * @return
+	 */
+	public String start() {
+		try {
+			runtimeService.startProcessInstanceByKey("leave", id.toString());
+			Struts2Utils.renderText(SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

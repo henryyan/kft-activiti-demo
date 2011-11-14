@@ -19,7 +19,13 @@
 					<li><a rel="account/org-list.action"><span>部门管理</span></a></li>
 				</ul>
 			</li>
-			<li><a rel='activiti/activiti-manager.action'>流程列表</a></li>
+			<li>
+				<a rel="#">流程管理</a>
+				<ul>
+					<li><a rel='activiti/activiti-manager.action'>流程列表</a></li>
+					<li><a rel="activiti/activiti-running-list.action">运行中流程查询</a></li>
+				</ul>
+			</li>
 			<li><a rel='activiti/activiti-test.action'>流程功能测试</a></li>
 		</ul>
 	</li>

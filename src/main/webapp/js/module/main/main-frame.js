@@ -137,12 +137,6 @@ function dealRoles() {
 		$('#menu-road').css({left: 100, top: 80});
 	});
     
-	if (homePages[role]) {
-		$('.tabs-title').text($('.active:last').text());
-		$('#mainIframe').attr('src', ctx + '/' + homePages[role]);
-	} else {
-		$('#mainIframe').attr('src', ctx + '/main/welcome.action');
-	}
 }
 
 /**

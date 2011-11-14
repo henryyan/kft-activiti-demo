@@ -30,7 +30,7 @@ function listDatas(size) {
         size: size
     }), {
         url: moduleAction + '.action',
-        colNames: ['工号', '姓名', '开始时间', '结束时间', '假种', '天数', '原因'],
+        colNames: ['工号', '姓名', '开始时间', '结束时间', '假种', '天数', '原因', '操作'],
         colModel: [{
             name: 'userId',
             align: 'center'
@@ -88,7 +88,9 @@ function listDatas(size) {
         }, {
             name: 'reason',
             editable: true
-        }],
+        }, {
+			name: 'processInstanceId'
+		}],
         caption: "请假管理",
         editurl: moduleAction + '!save.action',
         gridComplete: $.common.plugin.jqGrid.gridComplete('list', function() {
@@ -109,7 +111,9 @@ function listDatas(size) {
                 }
             });
         })
-    })).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager), {}, {}, $.extend($.common.plugin.jqGrid.form.remove, {
+    })).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager, {
+		addtext: '申请'
+	}), {}, {}, $.extend($.common.plugin.jqGrid.form.remove, {
         url: moduleAction + '!delete.action'
     }), $.extend($.common.plugin.jqGrid.form.search), {}).jqGrid('filterToolbar', $.extend($.common.plugin.jqGrid.filterToolbar.settings));
     
@@ -199,7 +203,12 @@ function showLeaveFormDialog(options) {
                 title: '启动流程',
                 icons: 'ui-icon-play',
                 click: function() {
-                    alert('启动');
+                    $.ajax({
+						url: moduleAction + '!start.action',
+						data: 'id=' + opts.rowId
+					}).success(function() {
+						alert('ok');
+					});
                 }
             }];
             $('#leaveForm #id').val('');
@@ -218,6 +227,18 @@ function showLeaveFormDialog(options) {
                 text: '跟踪',
                 title: '查看流程信息',
                 icons: 'ui-icon-flag'
+            }, {
+                text: '启动',
+                title: '启动流程',
+                icons: 'ui-icon-play',
+                click: function() {
+                    $.ajax({
+						url: moduleAction + '!start.action',
+						data: 'id=' + opts.rowId
+					}).success(function() {
+						alert('ok');
+					});
+                }
             }];
             $('#leaveForm #id').val(opts.rowId);
             break;

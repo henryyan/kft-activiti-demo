@@ -1,4 +1,4 @@
-package com.wsria.demo.activiti.service.leave;
+package com.wsria.demo.activiti.service.oa.leave;
 
 public class LeaveWorkflowEmail {
 

@@ -5,19 +5,12 @@
 	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.wsria.com">
 	<process id="leave" name="leave">
 		<documentation>请假流程</documentation>
-		<startEvent id="startevent1" name="Start">
-			<extensionElements>
-				<activiti:formProperty id="numberOfDays" name="请假天数" type="long" value="1" required="true" />
-				<activiti:formProperty id="startDate" name="请假日期" datePattern="dd-MM-yyyy hh:mm" type="date"
-					required="true" />
-				<activiti:formProperty id="vacationMotivation" name="理由" type="string" />
-			</extensionElements>
-		</startEvent>
+		<startEvent id="startevent1" name="Start"></startEvent>
 		<userTask id="usertask1" name="部门领导审核" activiti:candidateGroups="departmentManager"></userTask>
 		<sequenceFlow id="flow1" name="to User Task" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
 		<exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
 		<sequenceFlow id="flow2" name="" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-		<serviceTask id="servicetask1" name="发送Email" activiti:class="com.wsria.demo.activiti.service.leave.LeaveWorkflowEmail"></serviceTask>
+		<serviceTask id="servicetask1" name="发送Email" activiti:class="com.wsria.demo.activiti.service.oa.leave.LeaveWorkflowEmail"></serviceTask>
 		<sequenceFlow id="flow3" name="通过" sourceRef="exclusivegateway1" targetRef="servicetask1"></sequenceFlow>
 		<endEvent id="endevent3" name="End"></endEvent>
 		<sequenceFlow id="flow4" name="" sourceRef="servicetask1" targetRef="endevent3"></sequenceFlow>

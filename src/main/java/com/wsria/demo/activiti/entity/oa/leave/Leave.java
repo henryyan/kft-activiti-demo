@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.runchain.arch.util.orm.SeqIdEntity;
 
@@ -29,6 +30,8 @@ public class Leave extends SeqIdEntity {
 	private Float days;
 	private String leaveType;
 	private String reason;
+	
+	private String processInstanceId;
 
 	@Override
 	@Id
@@ -112,6 +115,15 @@ public class Leave extends SeqIdEntity {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	@Transient
+	public String getProcessInstanceId() {
+		return processInstanceId;
+	}
+
+	public void setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId = processInstanceId;
 	}
 
 }
