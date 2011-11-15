@@ -33,11 +33,6 @@
 			<artifactId>rc-workflow-activiti</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.runchain.arch</groupId>
-			<artifactId>rc-web-extension</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
 
 		<!-- spring begin -->
 		<dependency>

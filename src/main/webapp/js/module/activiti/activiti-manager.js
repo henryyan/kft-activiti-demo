@@ -9,8 +9,8 @@ $(function() {
         dataGrid: '#list',
         callback: listDatas
     });
-	
-	// 绑定表单
+    
+    // 绑定表单
     $.form.bindAjaxSubmit({
         formId: '#deployForm'
     });
@@ -66,13 +66,13 @@ function listDatas(size) {
         caption: "流程管理",
         editurl: moduleAction + '.action',
         gridComplete: function() {
-			$('.resource-image').click(showImage);
+            $('.resource-image').click(showImage);
             $('.delete-deployment').button({
                 icons: {
                     primary: 'ui-icon-trash'
                 }
             }).click(deleteDeployment);
-		}
+        }
     })).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager, {
         add: false,
         edit: false,
@@ -85,7 +85,7 @@ function listDatas(size) {
  $.extend($.common.plugin.jqGrid.form.view)).jqGrid('navButtonAdd', '#pager', {
         caption: "部署",
         title: "导出查询结果",
-		position: 'first',
+        position: 'first',
         buttonicon: "ui-icon-plus",
         onClickButton: deploy
     });
@@ -112,20 +112,26 @@ function showImage() {
  * 部署新流程
  */
 function deploy() {
-	$('#deployFormTemplate').dialog({
-		modal: true,
-		buttons: [{
-			text: "部署",
-			click: function() {
-				$('#deployForm').submit();
-			}
-		}, {
-			text: "关闭",
-			click: function() {
-				$(this).dialog('close');
-			}
-		}]
-	});
+    var btns = [{
+        text: "部署",
+		icons: 'ui-icon-plus',
+        click: function() {
+            $('#deployForm').submit();
+        }
+    }, {
+        text: "关闭",
+		icons: 'ui-icon-cancel',
+        click: function() {
+            $(this).dialog('close');
+        }
+    }];
+    $('#deployFormTemplate').dialog({
+        modal: true,
+        open: function() {
+            $.common.plugin.jqui.dialog.button.setAttrs(btns);
+        },
+        buttons: btns
+    });
 }
 
 /**
@@ -135,24 +141,36 @@ function deleteDeployment() {
     var srcEle = this;
     var rowId = $(srcEle).parents('tr').attr('id');
     var deploymentId = $('#list').jqGrid('getCell', rowId, 'deploymentId');
+    
+    var btns = [{
+        text: '删除',
+        icons: 'ui-icon-trash',
+        click: function() {
+            var dialog = this;
+            $.get(ctx + '/activiti/activiti!delete.action', {
+                deploymentId: deploymentId,
+                deleteCascade: $('#deleteCascade').attr('checked')
+            }, function(resp) {
+                $(dialog).dialog('close');
+                $('#list').jqGrid().trigger('reloadGrid');
+            });
+        }
+    }, {
+        text: '关闭',
+		icons: 'ui-icon-cancel',
+        click: function() {
+            $(this).dialog('close');
+        }
+    }];
     $('<div/>', {
         title: '请确认',
         html: '确认删除流程吗？<br/><input type="checkbox" id="deleteCascade" name="deleteCascade" /><label for="deleteCascade">关联删除流程实例？</label>'
     }).dialog({
         modal: true,
-        buttons: [{
-            text: '删除',
-            click: function() {
-                var dialog = this;
-                $.get(ctx + '/activiti/activiti!delete.action', {
-                    deploymentId: deploymentId,
-                    deleteCascade: $('#deleteCascade').attr('checked')
-                }, function(resp) {
-                    $(dialog).dialog('close');
-                    $('#list').jqGrid().trigger('reloadGrid');
-                });
-            }
-        }]
+        open: function() {
+            $.common.plugin.jqui.dialog.button.setAttrs(btns);
+        },
+        buttons: btns
     });
 }
 
@@ -169,7 +187,7 @@ function showRequest(formData, jqForm, options) {
 function showResponse(response, status) {
     if (status == 'success' && $(response).text() == 'success') {
         $('#deployFormTemplate').dialog('close');
-		$('#list').jqGrid().trigger('reloadGrid');
+        $('#list').jqGrid().trigger('reloadGrid');
     } else {
         alert('保存失败，请重试或告知管理员');
     }

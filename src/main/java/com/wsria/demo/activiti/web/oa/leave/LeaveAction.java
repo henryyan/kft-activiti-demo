@@ -115,4 +115,9 @@ public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long
 		return null;
 	}
 
+	@Override
+	protected String getProcessName() {
+		return "leave";
+	}
+
 }
