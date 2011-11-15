@@ -22,25 +22,25 @@
 				$.common.window.getTopWin().location.href = ctx + '/login.jsp?timeout=true';
 			}
 			
+			var btns = [{
+				text: "登录",
+				icons: 'ui-icon-person',
+				click: loginForm
+			}, {
+				text: "?",
+				click: function() {
+					alert('忘记密码功能未实现！');
+				}
+			}];
 			$('#loginFormTemplate').dialog({
 				draggable: false,
 				resizable: false,
 				closeOnEscape: false,
 				modal: true,
 				open: function() {
-					$.common.plugin.jqui.dialog.button.setIcons({
-						登录: {primary: 'ui-icon-person'}
-					})
+					$.common.plugin.jqui.dialog.button.setAttrs(btns);
 				},
-				buttons: [{
-					text: "登录",
-					click: loginForm
-				}, {
-					text: "?",
-					click: function() {
-						alert('忘记密码功能未实现！');
-					}
-				}]
+				buttons: btns
 			});
 			
 			$('#loginForm :input').keydown(function(event){
