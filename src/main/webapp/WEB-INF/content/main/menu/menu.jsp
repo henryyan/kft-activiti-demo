@@ -26,7 +26,6 @@
 					<li><a rel="activiti/activiti-running-list.action">运行中流程查询</a></li>
 				</ul>
 			</li>
-			<li><a rel='activiti/activiti-test.action'>流程功能测试</a></li>
 		</ul>
 	</li>
 </ul>

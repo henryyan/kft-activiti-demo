@@ -2,16 +2,15 @@ package com.wsria.demo.activiti.web.account;
 
 import java.util.List;
 
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.identity.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.orm.Page;
 import org.springside.modules.orm.PropertyFilter;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
+import com.runchain.arch.util.orm.EntityUtils;
 import com.runchain.arch.util.orm.PropertyFilterUtils;
-import com.runchain.arch.web.base.CrudActionSupport;
 import com.runchain.arch.web.base.JqGridCrudActionSupport;
 import com.wsria.demo.activiti.entity.account.Authority;
 import com.wsria.demo.activiti.entity.account.Role;
@@ -20,17 +19,17 @@ import com.wsria.demo.activiti.service.account.AccountManager;
 /**
  * 角色管理Action.
  * 
- * 演示不分页的简单管理界面.
- * 
- * @author calvin
+ * @author HenryYan
  */
-@Namespace("/account")
-@Results({ @Result(name = CrudActionSupport.RELOAD, location = "role.action", type = "redirect") })
 public class RoleAction extends JqGridCrudActionSupport<Role, Long> {
 
 	private static final long serialVersionUID = -4052047494894591406L;
 	public static final String AUTHORITYTREE = "authorityTree";
+	
 	private AccountManager accountManager;
+	
+	@Autowired
+	IdentityService identityService;
 
 	//-- 页面属性 --//
 	private Long id;
@@ -73,32 +72,44 @@ public class RoleAction extends JqGridCrudActionSupport<Role, Long> {
 		return null;
 	}
 
-
-	@Override
-	public String input() throws Exception {
-		//checkedAuthIds = entity.getAuthIds();
-		return INPUT;
-	}
-
 	public String authority() throws Exception {
 		return AUTHORITYTREE;
 	}
 
 	@Override
 	public String save() throws Exception {
-		//根据页面上的checkbox 整合Role的Authorities Set.
-		//HibernateUtils.mergeByCheckedIds(entity.getAuthorityList(), checkedAuthIds, Authority.class);
-		//保存用户并放入成功信息.
-		accountManager.saveRole(entity);
-		addActionMessage("保存角色成功");
-		return RELOAD;
+		try {
+			if (EntityUtils.isNew(entity.getId())) {
+				Group newGroup = identityService.newGroup(entity.getEnName());
+				newGroup.setName(entity.getName());
+				newGroup.setType(entity.getType());
+				identityService.saveGroup(newGroup);
+			} else {
+				List<Group> groups = identityService.createGroupQuery().groupId(entity.getEnName()).list();
+				if (groups.size() > 0) {
+					Group group = groups.get(0);
+					group.setName(entity.getName());
+					group.setType(entity.getType());
+					identityService.saveGroup(group);
+				}
+			}
+			accountManager.saveRole(entity);
+		} catch (Exception e) {
+			logger.error("保存角色出错：{}", e);
+		}
+		return null;
 	}
 
 	@Override
 	public String delete() throws Exception {
-		accountManager.deleteRole(id);
-		addActionMessage("删除角色成功");
-		return RELOAD;
+		try {
+			Role role = accountManager.getRole(id);
+			identityService.deleteGroup(role.getEnName());
+			accountManager.deleteRole(id);
+		} catch (Exception e) {
+			logger.error("删除角色出错：{}", e);
+		}
+		return null;
 	}
 
 	//-- 页面属性访问函数 --//

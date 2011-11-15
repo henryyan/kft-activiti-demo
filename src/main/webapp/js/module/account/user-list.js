@@ -46,17 +46,14 @@ function listDatas(size) {
 	
     $("#list").jqGrid(
 	$.extend($.common.plugin.jqGrid.settings({size: size}), {
-		url: moduleAction + '!list.action',
+		url: moduleAction + '.action',
 		multiselect: true,
-		rownumbers: true,
-		rownumWidth: 50,
-		rowList: [20, 30, 40, 50, 100],
-		pagerpos: 'center',
 		colNames: ['工号', '姓名', '密码', '电子邮件', '部门', '角色', '操作'],
         colModel: [{
             name: 'id',
 			width: 50,
 			align: 'center',
+			editable: true,
 			searchoptions : {
     			sopt : $.common.plugin.jqGrid.search.text
     		},
@@ -133,9 +130,11 @@ function listDatas(size) {
 					setTimeout(function() {
 						var rowId = $(':input[name=list_id]').val();
 						var roleIds = roleMap.get(rowId);
-						$.each(roleIds, function() {
-							$('option[value=' + this + ']', e).attr('selected', true);
-						});
+						if (roleIds) {
+							$.each(roleIds, function() {
+								$('option[value=' + this + ']', e).attr('selected', true);
+							});
+						}
 						$(e).multiselect({
 						   height: 100,
 						   noneSelectedText: '请选择角色', 
@@ -174,23 +173,26 @@ function listDatas(size) {
 			
 		}
 	})
-	).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager, {
-		add: false,
-		edit: true,
-		del: false,
-		view: false,
-		search: true
-	}), 
+	).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager), 
 	// edit options
     $.extend($.common.plugin.jqGrid.form.edit, {
 		width : 450,
 		editCaption: '修改',
-		beforeShowForm: commonBeforeShowForm,
+		beforeShowForm: function() {
+			commonBeforeShowForm('edit');
+		},
     	beforeSubmit: beforeSubmit
 	}),
 	
 	// add options
-    {}, 
+    $.extend($.common.plugin.jqGrid.form.add, {
+		width : 450,
+		editCaption: '新增',
+		beforeShowForm: function() {
+			commonBeforeShowForm('add');
+		},
+    	beforeSubmit: beforeSubmit
+	}), 
 	
     // delete options
     $.extend($.common.plugin.jqGrid.form.remove, {
@@ -239,11 +241,16 @@ function validatorForm() {
 /**
  * 显示编辑框前
  */
-function commonBeforeShowForm() {
+function commonBeforeShowForm(oper) {
 	// 注册表单验证事件
     validatorForm();
 	$('.CaptionTD').width(70);
 	$('#tr_password').show();
+	if (oper == 'edit') {
+		$('#FrmGrid_list #id').attr('readonly', true);
+	} else {
+		$('#FrmGrid_list #id').attr('readonly', false);
+	}
 	$('#FrmGrid_list').animate({
 		height: '255px'
 	});

@@ -6,24 +6,22 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.identity.Group;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.orm.Page;
 import org.springside.modules.orm.PropertyFilter;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
 import com.runchain.arch.service.ServiceException;
-import com.runchain.arch.util.ajax.JqGridUtil;
 import com.runchain.arch.util.constant.ServerConstants;
 import com.runchain.arch.util.number.LongUtils;
 import com.runchain.arch.util.orm.HibernateUtils;
 import com.runchain.arch.util.orm.PropertyFilterUtils;
 import com.runchain.arch.util.string.HtmlUtil;
-import com.runchain.arch.web.base.CrudActionSupport;
+import com.runchain.arch.web.base.JqGridCrudActionSupport;
 import com.wsria.demo.activiti.entity.account.Role;
 import com.wsria.demo.activiti.entity.account.User;
 import com.wsria.demo.activiti.service.account.AccountManager;
@@ -32,48 +30,29 @@ import com.wsria.demo.activiti.util.account.UserUtil;
 /**
  * 用户管理Action.
  * 
- * 使用Struts2 convention-plugin annotation定义Action参数.
- * 演示带分页的管理界面.
- * 
- * @author calvin
+ * @author HenryYan
  */
-//定义URL映射对应/account/user.action
-@Namespace("/account")
 //定义名为reload的result重定向到user.action, 其他result则按照convention默认.
-@Results({ @Result(name = CrudActionSupport.RELOAD, location = "user.action", type = "redirect"),
-		@Result(name = CrudActionSupport.JSON, type = CrudActionSupport.JSON) })
-public class UserAction extends CrudActionSupport<User> {
+public class UserAction extends JqGridCrudActionSupport<User, String> {
 
 	private static final long serialVersionUID = 8683878162525847072L;
 
-	private AccountManager accountManager;
+	@Autowired
+	AccountManager accountManager;
+	
+	@Autowired
+	IdentityService identityService;
 
 	//-- 页面属性 --//
-	protected String jqid;
 	protected User entity;
-
 	private String id;
 	private Page<User> page = new Page<User>(20);//每页20条记录
 	private String roleIds; //页面中钩选的角色id列表
-	
 	private String themeName;
 
 	//-- ModelDriven 与 Preparable函数 --//
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	/**
-	 * 设置实体的ID，如果jqGrid发送来的ID为<code>JqGridUtil.ID_EMPTY</code>则设置实体对象的ID为NULL，否则转换成LONG型
-	 * @param jqid	jqGrid发送的实体ID
-	 */
-	public void setJqid(String jqid) {
-		this.jqid = jqid;
-		if (JqGridUtil.ID_EMPTY.equals(jqid)) {
-			setId(null);
-		} else {
-			setId(jqid);
-		}
 	}
 
 	public User getModel() {
@@ -105,31 +84,69 @@ public class UserAction extends CrudActionSupport<User> {
 	}
 
 	@Override
-	public String input() throws Exception {
-		return INPUT;
-	}
-
-	@Override
 	public String save() throws Exception {
-		//根据页面上的checkbox选择 整合User的Roles Set
-		//HibernateUtils.mergeByCheckedIds(entity.getRoleList(), checkedRoleIds, Role.class);
-		List<Long> arrayRoleIds = LongUtils.convertList(roleIds);
-		HibernateUtils.mergeByCheckedIds(entity.getRoleList(), arrayRoleIds, Role.class);
-		accountManager.saveEntity(entity);
-		addActionMessage("保存用户成功");
-		return RELOAD;
+		try {
+			List<Long> arrayRoleIds = LongUtils.convertList(roleIds);
+			HibernateUtils.mergeByCheckedIds(entity.getRoleList(), arrayRoleIds, Role.class);
+			accountManager.saveEntity(entity);
+			List<org.activiti.engine.identity.User> activitiUsers = identityService.createUserQuery().userId(entity.getId()).list();
+			if (activitiUsers.size() == 1) {
+				// 更新信息
+				org.activiti.engine.identity.User activitiUser = activitiUsers.get(0);
+				activitiUser.setFirstName(entity.getName());
+				activitiUser.setLastName("");
+				activitiUser.setPassword(entity.getPassword());
+				activitiUser.setEmail(entity.getEmail());
+				identityService.saveUser(activitiUser);
+				
+				// 删除用户的membership
+				List<Group> activitiGroups = identityService.createGroupQuery().groupMember(entity.getId()).list();
+				for (Group group : activitiGroups) {
+					identityService.deleteMembership(entity.getId(), group.getId());
+				}
+				
+				// 添加membership
+				for (Long roleId : arrayRoleIds) {
+					Role role = accountManager.getRole(roleId);
+					identityService.createMembership(entity.getId(), role.getEnName());
+				}
+			} else {
+				org.activiti.engine.identity.User newUser = identityService.newUser(entity.getId());
+				newUser.setFirstName(entity.getName());
+				newUser.setLastName("");
+				newUser.setPassword(entity.getPassword());
+				newUser.setEmail(entity.getEmail());
+				identityService.saveUser(newUser);
+				
+				// 添加membership
+				for (Long roleId : arrayRoleIds) {
+					Role role = accountManager.getRole(roleId);
+					identityService.createMembership(entity.getId(), role.getEnName());
+				}
+			}
+		} catch (Exception e) {
+			logger.error("添加用户出错：{}", e);
+		}
+		return null;
 	}
 
 	@Override
 	public String delete() throws Exception {
 		try {
+			// 同步activiti
+			User user = accountManager.getEntity(id);
+			List<Role> roleList = user.getRoleList();
+			for (Role role : roleList) {
+				identityService.deleteMembership(id, role.getEnName());
+			}
+			identityService.deleteUser(id);
+			
+			// 删除本系统用户
 			accountManager.deleteUser(id);
-			addActionMessage("删除用户成功");
 		} catch (ServiceException e) {
 			logger.error(e.getMessage(), e);
-			addActionMessage("删除用户失败");
 		}
-		return RELOAD;
+		return null;
 	}
 
 	/**
@@ -189,7 +206,6 @@ public class UserAction extends CrudActionSupport<User> {
 		} else {
 			Struts2Utils.renderText("false");
 		}
-		//因为直接输出内容而不经过jsp,因此返回null.
 		return null;
 	}
 
@@ -238,7 +254,7 @@ public class UserAction extends CrudActionSupport<User> {
 
 		return null;
 	}
-	
+
 	/**
 	 * 转移用户至部门
 	 * @return
@@ -251,9 +267,7 @@ public class UserAction extends CrudActionSupport<User> {
 			accountManager.moveUserToOrg(orgId, userIds);
 			Struts2Utils.renderText(SUCCESS);
 		} catch (Exception e) {
-			logger.error("迁移用户：{}，至部门：{}", new Object[] {
-					userIds, orgId, e
-			});
+			logger.error("迁移用户：{}，至部门：{}", new Object[] { userIds, orgId, e });
 		}
 		return null;
 	}
@@ -272,7 +286,7 @@ public class UserAction extends CrudActionSupport<User> {
 	public List<Role> getAllRoleList() {
 		return accountManager.getAllRole();
 	}
-	
+
 	/**
 	 * 设置主题名称
 	 * @return
@@ -290,11 +304,6 @@ public class UserAction extends CrudActionSupport<User> {
 		return null;
 	}
 
-	@Autowired
-	public void setAccountManager(AccountManager accountManager) {
-		this.accountManager = accountManager;
-	}
-
 	public void setRoleIds(String roleIds) {
 		this.roleIds = roleIds;
 	}
@@ -303,5 +312,4 @@ public class UserAction extends CrudActionSupport<User> {
 		this.themeName = themeName;
 	}
 
-	
 }

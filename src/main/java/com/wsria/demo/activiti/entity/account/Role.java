@@ -25,7 +25,8 @@ public class Role extends SeqIdEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private String label;
+	private String enName;
+	private String type;
 	private String priority;
 
 	public Role() {
@@ -54,12 +55,12 @@ public class Role extends SeqIdEntity implements Serializable {
 	}
 
 	@Column
-	public String getLabel() {
-		return label;
+	public String getEnName() {
+		return enName;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setEnName(String enName) {
+		this.enName = enName;
 	}
 
 	@Column
@@ -69,6 +70,15 @@ public class Role extends SeqIdEntity implements Serializable {
 
 	public void setPriority(String priority) {
 		this.priority = priority;
+	}
+
+	@Column
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

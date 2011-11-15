@@ -23,21 +23,12 @@ function listDatas(size) {
     $("#list").jqGrid($.extend($.common.plugin.jqGrid.settings({
         size: size
     }), {
-        url: moduleAction + '!list.action',
-        colNames: ['主键ID', 'EN_ID', '名称', '优先级'],
+        url: moduleAction + '.action',
+        colNames: ['EN_ID', '名称', '优先级', '类型'],
         colModel: [{
-            name: 'id',
-            hidden: true,
-            editable: true,
-            searchoptions: {
-                sopt: $.common.plugin.jqGrid.search.text
-            },
-            editoptions: {
-                hidden: true
-            }
-        }, {
-			name: 'label',
-			align: 'center'
+			name: 'enName',
+			align: 'center',
+			editable: false
 		}, {
             name: 'name',
             align: 'center',
@@ -65,16 +56,26 @@ function listDatas(size) {
             searchoptions: {
                 sopt: $.common.plugin.jqGrid.search.text
             }
-        }],
+        }, {
+			name: 'type',
+			align: 'center',
+			editable: true,
+            edittype: 'select',
+            editoptions: {
+                value: {"assignment": "assignment", "security-role": "security-role"}
+            },
+            searchoptions: {
+                sopt: $.common.plugin.jqGrid.search.select
+            }
+		}],
         caption: "角色管理",
         cellEdit: true,
-        cellurl: moduleAction + '!save.action',
-        editurl: moduleAction + '!save.action',
+        cellurl: moduleAction + '.action',
+        editurl: moduleAction + '.action',
         sortname: 'priority'
     })).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager, {
         add: true,
         edit: false,
-        del: false,
         view: false,
         search: false
     }),    // edit options
