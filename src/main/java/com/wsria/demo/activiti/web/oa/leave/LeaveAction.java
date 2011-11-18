@@ -1,12 +1,16 @@
 package com.wsria.demo.activiti.web.oa.leave;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.apache.commons.collections.CollectionUtils;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springside.modules.orm.Page;
 import org.springside.modules.orm.PropertyFilter;
@@ -24,6 +28,7 @@ import com.wsria.demo.activiti.util.account.UserUtil;
  * @author HenryYan
  *
  */
+@Result(name = "todoList", location = "leave-todo.jsp")
 public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long> {
 
 	private static final long serialVersionUID = 1L;
@@ -71,21 +76,54 @@ public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long
 
 			List<PropertyFilter> filters = PropertyFilter.buildFromHttpRequest(Struts2Utils.getRequest());
 			PropertyFilterUtils.handleFilter(page, Leave.class, filters);
+			filters.add(new PropertyFilter("INS_processInstanceId", ""));
 			page = leaveManager.searchProperty(page, filters);
-			List<Leave> result = page.getResult();
-			for (Leave leave : result) {
-				List<ProcessInstance> processes = runtimeService.createProcessInstanceQuery()
-						.processInstanceBusinessKey(leave.getId().toString()).list();
-				if (!CollectionUtils.isEmpty(processes)) {
-					ProcessInstance processInstance = processes.get(0);
-					String processInstanceId = processInstance.getProcessInstanceId();
-					leave.setProcessInstanceId(processInstanceId);
-				}
-			}
 		} catch (Exception e) {
 			logger.error("请假列表 ", e);
 		}
 		return JSON;
+	}
+
+	/**
+	 * 运行中流程
+	 * @return
+	 */
+	public String runningList() {
+		try {
+			// 根据角色查询任务
+			//			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(getProcessName()).taskCandidateUser(UserUtil.getCurrentUserId());
+
+			// 根据代理人查询任务
+			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(getProcessName()).taskAssignee(UserUtil.getCurrentUserId());
+			
+			// 根据个人查询任务
+//			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(getProcessName()).taskOwner(UserUtil.getCurrentUserId());
+			List<Task> tasks = taskQuery.listPage(0, 10);
+
+			List<Leave> leaves = new ArrayList<Leave>();
+			long startTime = System.currentTimeMillis();
+			logger.debug("开始读取正在运行流程：{}", startTime);
+			System.out.println(Context.getCommandContext());
+			for (Task task : tasks) {
+				String processInstanceId = task.getProcessInstanceId();
+				ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+				if (processInstance != null) {
+					String businessKey = processInstance.getBusinessKey();
+					long leaveId = Long.parseLong(businessKey);
+					Leave leave = leaveManager.getEntity(leaveId);
+					leave.setTask(task);
+					leaves.add(leave);
+					leave.setProcessInstance(processInstance);
+				}
+			}
+			logger.debug("结束读取正在运行流程，耗时：{}", System.currentTimeMillis() - startTime);
+			page.setResult(leaves);
+			page.setTotalCount(taskQuery.count());
+			Struts2Utils.getRequest().setAttribute("page", page);
+		} catch (Exception e) {
+			logger.error("运行中请假列表 ", e);
+		}
+		return "todoList";
 	}
 
 	@Override
@@ -107,7 +145,10 @@ public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long
 	 */
 	public String start() {
 		try {
-			runtimeService.startProcessInstanceByKey("leave", id.toString());
+			ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leave", id.toString());
+			Leave leave = leaveManager.getEntity(id);
+			leave.setProcessInstanceId(processInstance.getId());
+			leaveManager.saveEntity(leave);
 			Struts2Utils.renderText(SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();

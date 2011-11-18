@@ -22,7 +22,7 @@ function listDatas(size) {
     $("#list").jqGrid($.extend($.common.plugin.jqGrid.settings({
         size: size
     }), {
-        url: 'activiti!runningList.action',
+        url: 'task-query!runningList.action',
         colNames: ['key'],
         colModel: [{
             name: 'key'

@@ -12,6 +12,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+
 import com.runchain.arch.util.orm.SeqIdEntity;
 
 /**
@@ -30,8 +33,10 @@ public class Leave extends SeqIdEntity {
 	private Float days;
 	private String leaveType;
 	private String reason;
-	
+
+	private ProcessInstance processInstance;
 	private String processInstanceId;
+	private Task task;
 
 	@Override
 	@Id
@@ -117,13 +122,31 @@ public class Leave extends SeqIdEntity {
 		this.reason = reason;
 	}
 
-	@Transient
+	@Column
 	public String getProcessInstanceId() {
 		return processInstanceId;
 	}
 
 	public void setProcessInstanceId(String processInstanceId) {
 		this.processInstanceId = processInstanceId;
+	}
+
+	@Transient
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
+
+	@Transient
+	public ProcessInstance getProcessInstance() {
+		return processInstance;
+	}
+
+	public void setProcessInstance(ProcessInstance processInstance) {
+		this.processInstance = processInstance;
 	}
 
 }

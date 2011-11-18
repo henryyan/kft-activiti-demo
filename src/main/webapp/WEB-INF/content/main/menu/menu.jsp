@@ -4,7 +4,8 @@
 	<li>
 		<a rel="#">考勤管理</a>
 		<ul>
-			<li><a rel="oa/leave/leave-list.action">请假流程</a></li>
+			<li><a rel="oa/leave/leave-apply.action">请假申请</a></li>
+			<li><a rel="oa/leave/leave!runningList.action">请假办理</a></li>
 		</ul>
 	</li>
 	<li>
@@ -20,9 +21,9 @@
 				</ul>
 			</li>
 			<li>
-				<a rel="#">流程管理</a>
+				<a rel="#">工作流管理</a>
 				<ul>
-					<li><a rel='activiti/activiti-manager.action'>流程列表</a></li>
+					<li><a rel='activiti/activiti-manager.action'>流程管理</a></li>
 					<li><a rel="activiti/activiti-running-list.action">运行中流程查询</a></li>
 				</ul>
 			</li>

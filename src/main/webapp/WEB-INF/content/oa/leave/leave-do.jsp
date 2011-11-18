@@ -6,7 +6,7 @@
 <head>
 	<%@ include file="/common/global.jsp"%>
 	<%@ include file="/common/meta.jsp" %>
-	<title>请假管理</title>
+	<title>请假流程管理</title>
 	<%@ include file="/common/include-base-styles.jsp" %>
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
 	<link href="${ctx }/js/common/plugins/jqGrid/css/ui.jqgrid.css" type="text/css" rel="stylesheet"/>
@@ -23,7 +23,7 @@
 	<script src="${ctx }/js/common/plugins/validate/messages_cn.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/datepicker/WdatePicker.js" type="text/javascript"></script>
 	<script src='${ctx }/js/common/common.js' type="text/javascript"></script>
-	<script src='${ctx }/js/module/oa/leave/leave-list.js' type="text/javascript"></script>
+	<script src='${ctx }/js/module/oa/leave/leave-do.js' type="text/javascript"></script>
 </head>
 <body>
 	<table id="list"></table>

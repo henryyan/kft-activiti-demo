@@ -89,7 +89,11 @@ function listDatas(size) {
             name: 'reason',
             editable: true
         }, {
-			name: 'processInstanceId'
+			name: 'options',
+			align: 'center',
+			formatter: function(cellValue, options, rowObject) {
+				return "<button class='workflow-start'>启动</button>";
+			}
 		}],
         caption: "请假管理",
         editurl: moduleAction + '!save.action',
@@ -110,6 +114,15 @@ function listDatas(size) {
                     alert('请先选择记录！');
                 }
             });
+			$('.workflow-start').button({
+				icons: {
+					primary: 'ui-icon-play'
+				}
+			}).click(function() {
+				workflowStart({
+					rowId: $(this).parents('tr').attr('id')
+				})
+			});
         })
     })).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager, {
 		addtext: '申请'
@@ -203,12 +216,9 @@ function showLeaveFormDialog(options) {
                 title: '启动流程',
                 icons: 'ui-icon-play',
                 click: function() {
-                    $.ajax({
-						url: moduleAction + '!start.action',
-						data: 'id=' + opts.rowId
-					}).success(function() {
-						alert('ok');
-					});
+                    workflowStart({
+						rowId: opts.rowId
+					})
                 }
             }];
             $('#leaveForm #id').val('');
@@ -285,6 +295,21 @@ function showLeaveFormDialog(options) {
 			$('#leaveForm *').qtip('destroy');
 		}
     });
+}
+
+/**
+ * 启动流程
+ */
+function workflowStart(opts) {
+	if (!confirm('启动流程？')) {
+		return;
+	}
+	$.ajax({
+		url: moduleAction + '!start.action',
+		data: 'id=' + opts.rowId
+	}).success(function() {
+		alert('ok');
+	});
 }
 
 /**

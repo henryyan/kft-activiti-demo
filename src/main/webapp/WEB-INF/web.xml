@@ -14,6 +14,12 @@
 	</context-param>
 
 	<!-- Filter 定义 -->
+	<!-- Ajax Authentication filter -->
+	<filter>
+		<filter-name>sessionTimeoutFilter</filter-name>
+		<filter-class>com.runchain.arch.web.filter.SessionTimeoutFilter</filter-class>
+	</filter>
+	
 	<!-- Character Encoding filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
