@@ -89,13 +89,13 @@ function listDatas(size) {
             name: 'reason',
             editable: true
         }, {
-			name: 'options',
-			align: 'center',
-			formatter: function(cellValue, options, rowObject) {
-				return "<button class='workflow-start'>启动</button>";
-			}
-		}],
-        caption: "请假管理",
+            name: 'options',
+            align: 'center',
+            formatter: function(cellValue, options, rowObject) {
+                return "<button class='workflow-start'>启动</button>";
+            }
+        }],
+        caption: "请假申请",
         editurl: moduleAction + '!save.action',
         gridComplete: $.common.plugin.jqGrid.gridComplete('list', function() {
             $('#add_list').unbind('click').click(function() {
@@ -114,19 +114,19 @@ function listDatas(size) {
                     alert('请先选择记录！');
                 }
             });
-			$('.workflow-start').button({
-				icons: {
-					primary: 'ui-icon-play'
-				}
-			}).click(function() {
-				workflowStart({
-					rowId: $(this).parents('tr').attr('id')
-				})
-			});
+            $('.workflow-start').button({
+                icons: {
+                    primary: 'ui-icon-play'
+                }
+            }).click(function() {
+                workflowStart({
+                    rowId: $(this).parents('tr').attr('id')
+                })
+            });
         })
     })).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager, {
-		addtext: '申请'
-	}), {}, {}, $.extend($.common.plugin.jqGrid.form.remove, {
+        addtext: '申请'
+    }), {}, {}, $.extend($.common.plugin.jqGrid.form.remove, {
         url: moduleAction + '!delete.action'
     }), $.extend($.common.plugin.jqGrid.form.search), {}).jqGrid('filterToolbar', $.extend($.common.plugin.jqGrid.filterToolbar.settings));
     
@@ -149,8 +149,8 @@ function validatorForm() {
             days: {
                 required: true,
                 number: true,
-				min: 0.5,
-				max: 100
+                min: 0.5,
+                max: 100
             },
             reason: {
                 required: true
@@ -198,7 +198,7 @@ function showLeaveFormDialog(options) {
     };
     var btns = [];
     var opts = $.extend(defaults, options);
-    $('#leaveForm').data('oper', opts.oper).data('rowId', opts.rowId);
+    $('#leaveForm').attr('action', ctx + '/oa/leave/leave!save.action').data('oper', opts.oper).data('rowId', opts.rowId).find('#oper').val(opts.oper);
     
     var title = '';
     switch (opts.oper) {
@@ -216,9 +216,7 @@ function showLeaveFormDialog(options) {
                 title: '启动流程',
                 icons: 'ui-icon-play',
                 click: function() {
-                    workflowStart({
-						rowId: opts.rowId
-					})
+                    $('#leaveForm').data('oper', 'wfstart').attr('action', ctx + '/oa/leave/leave!start.action').submit();
                 }
             }];
             $('#leaveForm #id').val('');
@@ -234,20 +232,11 @@ function showLeaveFormDialog(options) {
                     $('#leaveForm').submit();
                 }
             }, {
-                text: '跟踪',
-                title: '查看流程信息',
-                icons: 'ui-icon-flag'
-            }, {
                 text: '启动',
                 title: '启动流程',
                 icons: 'ui-icon-play',
                 click: function() {
-                    $.ajax({
-						url: moduleAction + '!start.action',
-						data: 'id=' + opts.rowId
-					}).success(function() {
-						alert('ok');
-					});
+                    $('#leaveForm').data('oper', 'wfstart').attr('action', ctx + '/oa/leave/leave!start.action').submit();
                 }
             }];
             $('#leaveForm #id').val(opts.rowId);
@@ -291,9 +280,9 @@ function showLeaveFormDialog(options) {
             }
             
         },
-		close: function() {
-			$('#leaveForm *').qtip('destroy');
-		}
+        close: function() {
+            $('#leaveForm *').qtip('destroy');
+        }
     });
 }
 
@@ -301,15 +290,16 @@ function showLeaveFormDialog(options) {
  * 启动流程
  */
 function workflowStart(opts) {
-	if (!confirm('启动流程？')) {
-		return;
-	}
-	$.ajax({
-		url: moduleAction + '!start.action',
-		data: 'id=' + opts.rowId
-	}).success(function() {
-		alert('ok');
-	});
+    if (!confirm('启动流程？')) {
+        return;
+    }
+    $.ajax({
+        url: moduleAction + '!start.action',
+        data: 'id=' + opts.rowId,
+		dataType: 'json'
+    }).success(function(resp) {
+        $('#list').jqGrid().trigger('reloadGrid');
+    });
 }
 
 /**
@@ -330,12 +320,15 @@ function showRequest(formData, jqForm, options) {
 function showResponse(responses, status) {
     if (status == 'success' && responses.success) {
         var oper = $('#leaveForm').data('oper');
-        if (oper == 'add') {
-			$('#list').jqGrid('FormToGrid', responses.id, "#leaveForm", oper);
-		} else {
-			$('#list').jqGrid('FormToGrid', responses.id, "#leaveForm");
-		}
-		$formDialog.dialog('close');
+		alert(oper);
+        if (oper == 'wfstart' && responses.started) {
+			$('#list').jqGrid().trigger('reloadGrid');
+		} else if (oper == 'add') {
+            $('#list').jqGrid('FormToGrid', responses.id, "#leaveForm", oper);
+        } else {
+            $('#list').jqGrid('FormToGrid', responses.id, "#leaveForm");
+        }
+        $formDialog.dialog('close');
     } else {
         alert('保存失败，请重试或告知管理员');
     }

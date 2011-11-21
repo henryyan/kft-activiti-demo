@@ -16,11 +16,14 @@ import org.springside.modules.orm.Page;
 import org.springside.modules.orm.PropertyFilter;
 import org.springside.modules.utils.web.struts2.Struts2Utils;
 
+import com.runchain.arch.util.orm.EntityUtils;
 import com.runchain.arch.util.orm.PropertyFilterUtils;
 import com.runchain.arch.web.base.JqGridCrudActionSupportWithWorkflow;
 import com.wsria.demo.activiti.entity.oa.leave.Leave;
 import com.wsria.demo.activiti.service.oa.leave.LeaveManager;
 import com.wsria.demo.activiti.util.account.UserUtil;
+import com.wsria.demo.activiti.util.common.WorkflowConstants;
+import com.wsria.demo.activiti.util.workflow.WorkflowUtils;
 
 /**
  * 请假Action 
@@ -73,7 +76,6 @@ public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long
 	@Override
 	public String list() {
 		try {
-
 			List<PropertyFilter> filters = PropertyFilter.buildFromHttpRequest(Struts2Utils.getRequest());
 			PropertyFilterUtils.handleFilter(page, Leave.class, filters);
 			filters.add(new PropertyFilter("INS_processInstanceId", ""));
@@ -91,13 +93,14 @@ public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long
 	public String runningList() {
 		try {
 			// 根据角色查询任务
-			//			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(getProcessName()).taskCandidateUser(UserUtil.getCurrentUserId());
+			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(getProcessName()).taskCandidateUser(UserUtil.getCurrentUserId());
 
 			// 根据代理人查询任务
-			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(getProcessName()).taskAssignee(UserUtil.getCurrentUserId());
-			
+			//			TaskQuery taskQuery = processEngine.getTaskService().createTaskQuery().processDefinitionKey(getProcessName())
+			//					.taskAssignee(UserUtil.getCurrentUserId());
+
 			// 根据个人查询任务
-//			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(getProcessName()).taskOwner(UserUtil.getCurrentUserId());
+			//			TaskQuery taskQuery = taskService.createTaskQuery().processDefinitionKey(getProcessName()).taskOwner(UserUtil.getCurrentUserId());
 			List<Task> tasks = taskQuery.listPage(0, 10);
 
 			List<Leave> leaves = new ArrayList<Leave>();
@@ -109,21 +112,19 @@ public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long
 				ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
 				if (processInstance != null) {
 					String businessKey = processInstance.getBusinessKey();
-					long leaveId = Long.parseLong(businessKey);
-					Leave leave = leaveManager.getEntity(leaveId);
-					leave.setTask(task);
+					Leave leave = leaveManager.getEntity(Long.parseLong(businessKey));
+					leave.setProcessInstance(WorkflowUtils.cloneExProcessInstance(processInstance));
+					leave.setTask(WorkflowUtils.cloneExTask(task));
 					leaves.add(leave);
-					leave.setProcessInstance(processInstance);
 				}
 			}
 			logger.debug("结束读取正在运行流程，耗时：{}", System.currentTimeMillis() - startTime);
 			page.setResult(leaves);
 			page.setTotalCount(taskQuery.count());
-			Struts2Utils.getRequest().setAttribute("page", page);
 		} catch (Exception e) {
 			logger.error("运行中请假列表 ", e);
 		}
-		return "todoList";
+		return JSON;
 	}
 
 	@Override
@@ -145,20 +146,27 @@ public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long
 	 */
 	public String start() {
 		try {
-			ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leave", id.toString());
-			Leave leave = leaveManager.getEntity(id);
-			leave.setProcessInstanceId(processInstance.getId());
-			leaveManager.saveEntity(leave);
-			Struts2Utils.renderText(SUCCESS);
+			if (EntityUtils.isNew(entity.getId())) {
+				leaveManager.saveEntity(entity);
+			}
+			ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(getProcessName(), entity.getId().toString());
+			entity.setProcessInstanceId(processInstance.getId());
+			leaveManager.saveEntity(entity);
+			Map<String, Object> responses = new HashMap<String, Object>();
+			responses.put("bkey", entity.getId());
+			responses.put("pid", processInstance.getId());
+			responses.put("success", true);
+			responses.put("started", true);
+			Struts2Utils.renderJson(responses);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("启动流程：[pname: {}, businessKey: {}]，失败：", new Object[] { getProcessName(), id, e });
 		}
 		return null;
 	}
 
 	@Override
 	protected String getProcessName() {
-		return "leave";
+		return WorkflowConstants.LEAVE;
 	}
 
 }

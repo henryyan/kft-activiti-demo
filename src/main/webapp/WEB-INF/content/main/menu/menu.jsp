@@ -5,7 +5,8 @@
 		<a rel="#">考勤管理</a>
 		<ul>
 			<li><a rel="oa/leave/leave-apply.action">请假申请</a></li>
-			<li><a rel="oa/leave/leave!runningList.action">请假办理</a></li>
+			<li><a rel="oa/leave/leave-do.action">请假办理</a></li>
+			<li><a rel="oa/leave/leave!runningList.action">请假办理-传统模式</a></li>
 		</ul>
 	</li>
 	<li>

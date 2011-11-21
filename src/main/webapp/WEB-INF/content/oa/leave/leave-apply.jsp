@@ -6,7 +6,7 @@
 <head>
 	<%@ include file="/common/global.jsp"%>
 	<%@ include file="/common/meta.jsp" %>
-	<title>请假管理</title>
+	<title>请假申请</title>
 	<%@ include file="/common/include-base-styles.jsp" %>
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
 	<link href="${ctx }/js/common/plugins/jqGrid/css/ui.jqgrid.css" type="text/css" rel="stylesheet"/>
@@ -31,6 +31,7 @@
 	
 	<div id="leaveFormTemplate" class="template">
 		<form id="leaveForm" action="${ctx }/oa/leave/leave!save.action" method="post">
+			<input type="hidden" id="oper" name="oper" />
 			<input type="hidden" id="id" name="id"/>
 			<input type="hidden" id="userId" name="userId" value="${cuserId }"/>
 			<input type="hidden" id="userName" name="userName" value="${cuserName }"/>

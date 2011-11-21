@@ -1,5 +1,6 @@
 package com.wsria.demo.activiti.entity.oa.leave;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.Transient;
 
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.runchain.arch.util.orm.SeqIdEntity;
 
@@ -23,8 +25,10 @@ import com.runchain.arch.util.orm.SeqIdEntity;
  *
  */
 @Entity(name = "OA_LEAVE")
-public class Leave extends SeqIdEntity {
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer", "processInstance"})
+public class Leave extends SeqIdEntity implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private String userId;
 	private String userName;
 	private Date startTime;
