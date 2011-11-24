@@ -48,6 +48,11 @@ td.label-bold {
     font-weight: bold;
 }
 
+input.readonly {
+    border: none;
+    cursor: default;
+}
+
 /* override blueprint */
 th, td, caption {
     padding: 2px 10px 2px 5px;

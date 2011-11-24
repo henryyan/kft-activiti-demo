@@ -203,6 +203,20 @@ public class ActivitiAction extends ActionSupport {
 		}
 		return null;
 	}
+	
+	/**
+	 * 删除流程实例
+	 * @return
+	 */
+	public String deleteProcessInstance() {
+		try {
+			runtimeService.deleteProcessInstance(processInstanceId, Struts2Utils.getParameter("deleteReason"));
+			Struts2Utils.renderText(SUCCESS);
+		} catch (Exception e) {
+			logger.error("删除流程失败，PID={}", processInstanceId, e);
+		}
+		return null;
+	}
 
 	public Page<ProcessDefinition> getPage() {
 		return page;

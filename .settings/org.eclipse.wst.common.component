@@ -4,13 +4,13 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <dependent-module archiveName="rc-workflow-activiti-1.3.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-workflow-activiti/rc-workflow-activiti">
+        <dependent-module archiveName="rc-workflow-activiti-web-1.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-workflow-activiti-web/rc-workflow-activiti-web">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="rc-web-extension-1.3.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-web-extension/rc-web-extension">
+        <dependent-module archiveName="rc-web-extension-1.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-web-extension/rc-web-extension">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="rc-common-1.3.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-common/rc-common">
+        <dependent-module archiveName="rc-common-1.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-common/rc-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="springside3-core-3.3.4.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/springside3.3.4.x-core/springside3.3.4.x-core">

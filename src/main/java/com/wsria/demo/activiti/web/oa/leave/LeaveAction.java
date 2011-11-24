@@ -163,6 +163,17 @@ public class LeaveAction extends JqGridCrudActionSupportWithWorkflow<Leave, Long
 		}
 		return null;
 	}
+	
+	/**
+	 * 完成任务
+	 * @return
+	 */
+	public String complete() {
+		Map<String, Object> variables = new HashMap<String, Object>();
+		variables.put("approved", Struts2Utils.getParameter("approved"));
+		taskService.complete(taskId, variables);
+		return null;
+	}
 
 	@Override
 	protected String getProcessName() {

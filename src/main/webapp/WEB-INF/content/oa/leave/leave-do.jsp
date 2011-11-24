@@ -23,6 +23,7 @@
 	<script src="${ctx }/js/common/plugins/validate/messages_cn.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/datepicker/WdatePicker.js" type="text/javascript"></script>
 	<script src='${ctx }/js/common/common.js' type="text/javascript"></script>
+	<script src='${ctx }/js/common/workflow.js' type="text/javascript"></script>
 	<script src='${ctx }/js/module/oa/leave/leave-do.js' type="text/javascript"></script>
 </head>
 <body>
@@ -32,8 +33,10 @@
 	<div id="leaveFormTemplate" class="template">
 		<form id="leaveForm" action="${ctx }/oa/leave/leave!save.action" method="post">
 			<input type="hidden" id="id" name="id"/>
+			<input type="hidden" id="taskId" name="taskId"/>
 			<input type="hidden" id="userId" name="userId" value="${cuserId }"/>
 			<input type="hidden" id="userName" name="userName" value="${cuserName }"/>
+			<input type="hidden" id="reason" name="reason"/>
 			<table>
 				<tr>
 					<td class="label" width="80">工号：</td>
@@ -43,30 +46,33 @@
 				</tr>
 				<tr>
 					<td class="label">开始时间：</td>
-					<td><input id="startTime" name="startTime" readonly="readonly" class="ui-widget-content" style="cursor: pointer" /></td>
+					<td><input id="startTime" name="startTime" readonly="readonly" class="readonly ui-widget-content" /></td>
 					<td class="label">结束时间：</td>
-					<td><input id="endTime" name="endTime" readonly="readonly" class="ui-widget-content" style="cursor: pointer" /></td>
+					<td><input id="endTime" name="endTime" readonly="readonly" class="readonly ui-widget-content" /></td>
 				</tr>
 				<tr>
 					<td class="label">假种：</td>
-					<td>
-						<select id="leaveType" name="leaveType">
-							<option>公休</option>
-							<option>调休</option>
-							<option>事假</option>
-							<option>病假</option>
-							<option>产假</option>
-							<option>婚假</option>
-							<option>其他</option>
-						</select>
-					</td>
+					<td><input id="leaveType" name="leaveType" readonly="readonly" class="readonly ui-widget-content" /></td>
 					<td class="label">天数：</td>
-					<td><input id="days" name="days" class="ui-widget-content" /></td>
+					<td><input id="days" name="days" readonly="readonly" class="readonly ui-widget-content" /></td>
 				</tr>
 				<tr>
 					<td class="label">请假原因：</td>
-					<td colspan="5">
-						<textarea id="reason" name="reason" class="ui-widget-content" style="width: 80%;height: 100px"></textarea>
+					<td colspan="5" class="reason"></td>
+				</tr>
+				<tr>
+					<td class="label">是否同意：</td>
+					<td>
+						<select id="approved" name="approved">
+							<option value='true'>同意</option>
+							<option value='false'>不同意</option>
+						</select>
+					</td>
+				</tr>
+				<tr style="display: none" id="unapproveReasonTr">
+					<td class="label">不同意理由：</td>
+					<td>
+						<textarea id="unapproveReason" name="unapproveReason" style="width:80%;" rows="2"></textarea>
 					</td>
 				</tr>
 			</table>

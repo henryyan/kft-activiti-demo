@@ -30,8 +30,14 @@ function listDatas(size) {
         size: size
     }), {
         url: moduleAction + '!runningList.action',
-        colNames: ['工号', '姓名', '开始时间', '结束时间', '假种', '天数', '原因', '操作'],
+        colNames: ['PID', 'taskid', '工号', '姓名', '开始时间', '结束时间', '假种', '天数', '原因', '操作'],
         colModel: [{
+			name: 'processInstanceId',
+			hidden: true
+		}, {
+			name: 'task.id',
+			hidden: true
+		}, {
             name: 'userId',
             align: 'center'
         }, {
@@ -92,40 +98,28 @@ function listDatas(size) {
 			name: 'options',
 			align: 'center',
 			formatter: function(cellValue, options, rowObject) {
-				return "";
+				return '<a href="#" class="trace-grpah" title="跟踪流程图" pid="' + rowObject.processInstanceId + '">跟踪</a>'
+						+ '<button class="workflow-do">办理</button>';
 			}
 		}],
         caption: "请假管理",
         editurl: moduleAction + '!save.action',
-        gridComplete: $.common.plugin.jqGrid.gridComplete('list', function() {
-            $('#add_list').unbind('click').click(function() {
-                showLeaveFormDialog({
-                    oper: 'add'
-                });
-            });
-            $('#edit_list').unbind('click').click(function() {
-                var selRowId = $("#list").jqGrid('getGridParam', 'selrow');
-                if (selRowId) {
-                    showLeaveFormDialog({
-                        oper: 'edit',
-                        rowId: selRowId
-                    });
-                } else {
-                    alert('请先选择记录！');
-                }
-            });
-			$('.workflow-start').button({
-				icons: {
-					primary: 'ui-icon-play'
+        gridComplete: function() {
+			$('.trace-grpah').off('click').on('click', $.workflow.graphTrace);
+			$.workflow.workflowDo({
+				callback: function(btn) {
+					var rowId = $(btn).parents('tr').attr('id');
+					showLeaveFormDialog({
+						oper: 'wfdo',
+						rowId: rowId
+					});
 				}
-			}).click(function() {
-				workflowStart({
-					rowId: $(this).parents('tr').attr('id')
-				})
 			});
-        })
+        }
     })).jqGrid('navGrid', '#pager', $.extend($.common.plugin.jqGrid.pager, {
-		addtext: '申请'
+		add: false,
+		edit: false,
+		del: false
 	}), {}, {}, $.extend($.common.plugin.jqGrid.form.remove, {
         url: moduleAction + '!delete.action'
     }), $.extend($.common.plugin.jqGrid.form.search), {}).jqGrid('filterToolbar', $.extend($.common.plugin.jqGrid.filterToolbar.settings));
@@ -201,59 +195,40 @@ function showLeaveFormDialog(options) {
     $('#leaveForm').data('oper', opts.oper).data('rowId', opts.rowId);
     
     var title = '';
-    switch (opts.oper) {
-        case 'add':{
-            title = '申请请假';
-            btns = [{
-                text: '暂存',
-                title: '保存当前表单',
-                icons: 'ui-icon-disk',
-                click: function() {
-                    $('#leaveForm').submit();
-                }
-            }, {
-                text: '启动',
-                title: '启动流程',
-                icons: 'ui-icon-play',
-                click: function() {
-                    workflowStart({
-						rowId: opts.rowId
-					})
-                }
-            }];
-            $('#leaveForm #id').val('');
-            break;
-        }
-        case 'edit':{
-            title = '修改请假信息';
-            btns = [{
-                text: '更新',
-                title: '保存当前表单',
-                icons: 'ui-icon-disk',
-                click: function() {
-                    $('#leaveForm').submit();
-                }
-            }, {
-                text: '跟踪',
-                title: '查看流程信息',
-                icons: 'ui-icon-flag'
-            }, {
-                text: '启动',
-                title: '启动流程',
-                icons: 'ui-icon-play',
-                click: function() {
-                    $.ajax({
-						url: moduleAction + '!start.action',
-						data: 'id=' + opts.rowId
-					}).success(function() {
-						alert('ok');
+	switch (opts.oper) {
+		case 'wfdo':{
+			title = '办理流程';
+			btns = [{
+				text: '提交',
+				icons: 'ui-icon-check',
+				title: '提交至下一节点',
+				click: function() {
+					$('#taskId').val($('#list').jqGrid('getCell', opts.rowId, 'task.id'));
+					$('#leaveForm').attr('action', ctx + '/oa/leave/leave!complete.action').submit();
+				}
+			}, {
+				text: '退回',
+				icons: 'ui-icon-arrowreturnthick-1-w',
+				title: '退回到上一节点'
+			}, {
+				text: '转办',
+				icons: 'ui-icon-person',
+				title: '转给其他人办理'
+			}, {
+				text: '删除',
+				icons: 'ui-icon-trash',
+				title: '删除流程实例',
+				click: function() {
+					var pid = $('#list').jqGrid('getCell', opts.rowId, 'processInstanceId');
+					$.workflow.deleteProcess(pid, function() {
+						$('#leaveFormTemplate').dialog('close');
+						$('#list').jqGrid().trigger('reloadGrid');
 					});
-                }
-            }];
-            $('#leaveForm #id').val(opts.rowId);
-            break;
-        }
-    };
+				}
+			}];
+			break;
+		}
+	};
     
     // 附加按钮
     btns[btns.length] = {
@@ -276,18 +251,11 @@ function showLeaveFormDialog(options) {
             // 按钮图标
             $.common.plugin.jqui.dialog.button.setAttrs(btns);
             
-            // 表单预处理
-            $('#startTime,#endTime').click(function() {
-                WdatePicker({
-                    dateFmt: "yyyy-MM-dd HH:mm:ss"
-                });
-            });
-            validatorForm();
+            //validatorForm();
             
-            if (opts.oper == 'add') {
-                $('#leaveForm').get(0).reset();
-            } else if (opts.oper == 'edit') {
+            if (opts.oper == 'wfdo') {
                 $('#list').jqGrid('GridToForm', opts.rowId, "#leaveForm");
+				$('.reason').html($('#reason').val());
             }
             
         },
