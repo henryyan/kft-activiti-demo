@@ -25,3 +25,12 @@ mvn clean install -Dmaven.test.skip=true
 </pre>
 
 ## 2.启动项目
+
+<pre>
+git clone git://github.com/henryyan/kft-activiti-demo.git
+mvn clean jetty:run
+</pre>
+
+打开浏览器访问：[http://localhost:8080/kft-activiti-demo](http://localhost:8080/kft-activiti-demo)
+
+## 3.登录系统
