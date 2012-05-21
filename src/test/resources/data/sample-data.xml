@@ -5,10 +5,10 @@
 	<ACT_ID_GROUP ID_="hr" NAME_="人事" />
 	<ACT_ID_GROUP ID_="user" NAME_="用户" />
 
-	<ACT_ID_USER ID_="admin" EMAIL_="admin@kafeitu.me" FIRST_="Admin" PWD_="admin" />
-	<ACT_ID_USER ID_="hruser" EMAIL_="hr@gmail.com" FIRST_="Lili" LAST_="Zhang" PWD_="user" />
-	<ACT_ID_USER ID_="leaderuser" EMAIL_="leader@gmail.com" FIRST_="Jhon" LAST_="Li" PWD_="user" />
-	<ACT_ID_USER ID_="kafeitu" EMAIL_="yanhonglei@gmail.com" FIRST_="Henry" LAST_="Yan" PWD_="user" />
+	<ACT_ID_USER ID_="admin" EMAIL_="admin@kafeitu.me" FIRST_="Admin" PWD_="000000" />
+	<ACT_ID_USER ID_="hruser" EMAIL_="hr@gmail.com" FIRST_="Lili" LAST_="Zhang" PWD_="000000" />
+	<ACT_ID_USER ID_="leaderuser" EMAIL_="leader@gmail.com" FIRST_="Jhon" LAST_="Li" PWD_="000000" />
+	<ACT_ID_USER ID_="kafeitu" EMAIL_="yanhonglei@gmail.com" FIRST_="Henry" LAST_="Yan" PWD_="000000" />
 
 	<ACT_ID_MEMBERSHIP USER_ID_="admin" GROUP_ID_="admin" />
 	<ACT_ID_MEMBERSHIP USER_ID_="admin" GROUP_ID_="user" />
