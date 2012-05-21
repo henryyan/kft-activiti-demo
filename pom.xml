@@ -27,6 +27,18 @@
 
 	<!-- 依赖项定义 -->
 	<dependencies>
+		<!-- activiti -->
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+
 		<!-- SPRINGSIDE -->
 		<dependency>
 			<groupId>org.springside</groupId>

@@ -47,6 +47,28 @@
 	<!-- 使用annotation定义事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 
+	<!-- Activiti begin -->
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="databaseSchemaUpdate" value="true" />
+		<property name="jobExecutorActivate" value="false" />
+		<!-- <property name="history" value="full" /> -->
+	</bean>
+
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+	<bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+	<bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+	<!-- Activiti end -->
+
 	<!-- production/local development环境 -->
 	<beans profile="production,development">
 		<context:property-placeholder ignore-unresolvable="true"
@@ -80,6 +102,9 @@
 		<!-- 嵌入式内存中数据库 -->
 		<jdbc:embedded-database id="dataSource" type="H2">
 			<jdbc:script location="classpath:sql/h2/schema.sql" />
+			<jdbc:script location="classpath:org/activiti/db/create/activiti.h2.create.engine.sql" />
+			<jdbc:script location="classpath:org/activiti/db/create/activiti.h2.create.history.sql" />
+			<jdbc:script location="classpath:org/activiti/db/create/activiti.h2.create.identity.sql" />
 		</jdbc:embedded-database>
 
 		<!-- 初始化默认数据 -->

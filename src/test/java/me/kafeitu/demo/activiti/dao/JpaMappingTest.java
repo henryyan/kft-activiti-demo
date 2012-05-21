@@ -27,5 +27,6 @@ public class JpaMappingTest extends SpringTransactionalTestCase {
 			em.createQuery("select o from " + entityName + " o").getFirstResult();
 			logger.info("ok: " + entityName);
 		}
+
 	}
 }
