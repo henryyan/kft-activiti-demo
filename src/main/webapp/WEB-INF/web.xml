@@ -102,14 +102,14 @@
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 
-	<!-- Workflow Activiti <listener> <listener-class>com.wsria.demo.activiti.web.listener.ProcessEnginesServletContextListener</listener-class> 
+	<!-- Workflow Activiti <listener> <listener-class>me.kafeitu.demo.activiti.web.listener.ProcessEnginesServletContextListener</listener-class> 
 		</listener> -->
 
 	<!-- 业务数据初始化 开始 -->
 	<!-- 数据字典 -->
 	<servlet>
 		<servlet-name>DataLibraryServlet</servlet-name>
-		<servlet-class>com.wsria.demo.activiti.web.servlet.SystemDictionaryServlet</servlet-class>
+		<servlet-class>me.kafeitu.demo.activiti.web.servlet.SystemDictionaryServlet</servlet-class>
 		<load-on-startup>5</load-on-startup>
 	</servlet>
 	<servlet>

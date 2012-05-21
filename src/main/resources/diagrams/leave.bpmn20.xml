@@ -10,7 +10,7 @@
 		<sequenceFlow id="flow1" name="to User Task" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
 		<exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
 		<sequenceFlow id="flow2" name="" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-		<serviceTask id="servicetask1" name="发送Email" activiti:class="com.wsria.demo.activiti.service.oa.leave.LeaveWorkflowEmail"></serviceTask>
+		<serviceTask id="servicetask1" name="发送Email" activiti:class="me.kafeitu.demo.activiti.service.oa.leave.LeaveWorkflowEmail"></serviceTask>
 		<sequenceFlow id="flow3" name="通过" sourceRef="exclusivegateway1" targetRef="servicetask1"></sequenceFlow>
 		<endEvent id="endevent3" name="End"></endEvent>
 		<sequenceFlow id="flow4" name="" sourceRef="servicetask1" targetRef="endevent3"></sequenceFlow>

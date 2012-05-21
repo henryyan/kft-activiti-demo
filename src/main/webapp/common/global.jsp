@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*,org.apache.commons.lang.StringUtils" %>
-<%@ page import="com.wsria.demo.activiti.util.account.UserUtil,com.wsria.demo.activiti.entity.account.User" %>
+<%@ page import="me.kafeitu.demo.activiti.util.account.UserUtil,me.kafeitu.demo.activiti.entity.account.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>

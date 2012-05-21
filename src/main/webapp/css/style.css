@@ -446,6 +446,10 @@ tr.jqgrow td { height:auto!important; padding: .3em!important; }
 .workflow-state {
 	color: red;
 }
+.workflow-version {
+	color: red;
+	margin-left: .5em;
+}
 .ui-th-column-header {text-align: center;}
 
 /* dialogtree */

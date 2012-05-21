@@ -3,38 +3,37 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.runchain.arch</groupId>
-		<artifactId>rc-parent</artifactId>
-		<version>1.4.0-SNAPSHOT</version>
+		<groupId>org.springside</groupId>
+		<artifactId>springside-parent</artifactId>
+		<version>4.0.0.RC4-SNAPSHOT</version>
 	</parent>
-	<groupId>com.wsria.demo</groupId>
+	<groupId>me.kafeitu.demo</groupId>
 	<artifactId>kft-activiti-demo</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Activiti demo</name>
-	<description>activiti demo for version 5.8 with jquery ui theme</description>
+	<description>activiti demo for version 5.9</description>
 
 	<!-- 项目属性 -->
 	<properties>
-		<jdbc.driver.groupId>com.oracle</jdbc.driver.groupId>
-		<jdbc.driver.artifactId>ojdbc14</jdbc.driver.artifactId>
-		<jdbc.driver.version>10.2.0.5.0</jdbc.driver.version>
-		
-		<!-- <jdbc.driver.groupId>mysql</jdbc.driver.groupId>
-		<jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
-		<jdbc.driver.version>5.1.11</jdbc.driver.version> -->
+
+		<activiti.version>5.9</activiti.version>
+
+		<!-- jdbc -->
+		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
+		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
+		<jdbc.driver.version>1.3.166</jdbc.driver.version>
 	</properties>
 
 	<!-- 依赖项定义 -->
 	<dependencies>
-		<!-- runchain arch -->
+		<!-- SPRINGSIDE -->
 		<dependency>
-			<groupId>com.runchain.arch</groupId>
-			<artifactId>rc-workflow-activiti-web</artifactId>
-			<version>${project.parent.version}</version>
+			<groupId>org.springside</groupId>
+			<artifactId>springside-core</artifactId>
 		</dependency>
 
-		<!-- spring begin -->
+		<!-- SPRING begin -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
@@ -45,11 +44,15 @@
 		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId>
+			<artifactId>cglib</artifactId>
 		</dependency>
-		<!-- spring end -->
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+		</dependency>
+		<!-- SPRING end -->
 
-		<!-- database begin -->
+		<!-- PERSISTENCE begin -->
 		<!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -57,22 +60,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
+			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javassist</groupId>
-			<artifactId>javassist</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-tools</artifactId>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
 		</dependency>
 
-		<!-- spring -->
+		<!-- spring data access -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -82,7 +85,7 @@
 			<artifactId>spring-jdbc</artifactId>
 		</dependency>
 
-		<!-- dbcp -->
+		<!-- dbcp connection pool -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
@@ -95,69 +98,52 @@
 			<version>${jdbc.driver.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- database end -->
+		<!-- PERSISTENCE end -->
 
-		<!-- web begin -->
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-core</artifactId>
-
-		</dependency>
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-convention-plugin</artifactId>
-
-		</dependency>
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-spring-plugin</artifactId>
-
-		</dependency>
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-json-plugin</artifactId>
-			<version>${struts2.version}</version>
-		</dependency>
-
+		<!-- WEB begin -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 
 		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 		</dependency>
+		<!-- WEB end -->
 
+		<!-- CACHE -->
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-		</dependency>
-		<!-- web end -->
-
-		<!-- spring security -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
 		</dependency>
 
-		<!-- logging begin -->
+		<!-- SECURITY begin -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+		</dependency>
+		<!-- SECURITY end -->
+
+		<!-- LOGGING begin -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -167,74 +153,63 @@
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-		<!-- logging end -->
+		<dependency>
+			<groupId>log4jdbc</groupId>
+			<artifactId>log4jdbc4</artifactId>
+		</dependency>
+		<!-- LOGGING end -->
 
-		<!-- utils begin -->
+		<!-- GENERAL UTILS begin -->
 		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.3</version>
-			<classifier>jdk15</classifier>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-configuration</groupId>
-			<artifactId>commons-configuration</artifactId>
-			<version>1.6</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 		</dependency>
-		<!-- utils end -->
+		<!-- GENERAL UTILS end -->
 
-		<!-- testing begin -->
+		<!-- TEST begin -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>compile</scope>
+			<groupId>org.springside</groupId>
+			<artifactId>springside-test</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-		</dependency>
-
-		<!-- selenium 2.0 -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-htmlunit-driver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-firefox-driver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-ie-driver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-remote-client</artifactId>
 		</dependency>
 
 		<dependency>
@@ -249,20 +224,60 @@
 
 		<!-- jetty -->
 		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty</artifactId>
+			<groupId>org.eclipse.jetty.aggregate</groupId>
+			<artifactId>jetty-webapp</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jsp-2.1-jetty</artifactId>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jsp</artifactId>
 		</dependency>
-		<!-- testing end -->
-
+		<!-- TEST end -->
 	</dependencies>
 
 	<build>
 		<plugins>
-			<!-- eclipse插件 -->
+			<!-- 增加functional test的Source目录 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-functional-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/test/functional</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- test插件, 设置內存/ClassLoader -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>-Xmx256M</argLine>
+				</configuration>
+			</plugin>
+			<!-- cobertura插件, 设置不需要计算覆盖率的类 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<instrumentation>
+						<excludes>
+							<exclude>**/entity/**/*.class</exclude>
+							<exclude>**/*Controller.class</exclude>
+						</excludes>
+					</instrumentation>
+				</configuration>
+			</plugin>
+
+			<!-- eclipse插件, 设定wtp版本并添加springIDE nature -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -274,44 +289,22 @@
 				</configuration>
 			</plugin>
 
-			<!-- jetty插件 -->
+			<!-- jetty插件, 设定context path与spring profile -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-			</plugin>
-
-			<!-- test插件, 设置ClassLoader -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
+				<artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
-					<useSystemClassLoader>false</useSystemClassLoader>
-					<skipTests>true</skipTests>
-				</configuration>
-			</plugin>
+					<systemProperties>
+						<systemProperty>
+							<name>spring.profiles.active</name>
+							<value>development</value>
+						</systemProperty>
+					</systemProperties>
+					<useTestClasspath>true</useTestClasspath>
 
-			<!-- cobertura插件 ,取消不需要计算覆盖率的类 -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<configuration>
-					<instrumentation>
-						<excludes>
-							<exclude>**/entity/**/*.class</exclude>
-						</excludes>
-					</instrumentation>
-				</configuration>
-			</plugin>
-
-			<!-- release插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.0-beta-9</version>
-				<configuration>
-					<tagBase>https://exercise-admin.googlecode.com/svn/tags/</tagBase>
-					<username>${svn.name}</username>
-					<password>${svn.pwd}</password>
+					<webAppConfig>
+						<contextPath>/${project.artifactId}</contextPath>
+					</webAppConfig>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -320,7 +313,7 @@
 	<profiles>
 		<!-- 开发环境 -->
 		<profile>
-			<id>kft-activiti-demo-dev</id>
+			<id>kft-activiti-demo</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>

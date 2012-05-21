@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="kft-activiti-demo">
+  <wb-module deploy-name="joying-budget-web">
+    		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <dependent-module archiveName="rc-workflow-activiti-web-1.4.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-workflow-activiti-web/rc-workflow-activiti-web">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="rc-web-extension-1.4.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-web-extension/rc-web-extension">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="rc-common-1.4.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rc-common/rc-common">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
+    <property name="java-output-path" value="/target/classes"/>
         <property name="context-root" value="kft-activiti-demo"/>
-        <property name="java-output-path" value="/kft-activiti-demo/target/classes"/>
-    </wb-module>
+  </wb-module>
 </project-modules>

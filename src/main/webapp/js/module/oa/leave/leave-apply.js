@@ -320,7 +320,6 @@ function showRequest(formData, jqForm, options) {
 function showResponse(responses, status) {
     if (status == 'success' && responses.success) {
         var oper = $('#leaveForm').data('oper');
-		alert(oper);
         if (oper == 'wfstart' && responses.started) {
 			$('#list').jqGrid().trigger('reloadGrid');
 		} else if (oper == 'add') {

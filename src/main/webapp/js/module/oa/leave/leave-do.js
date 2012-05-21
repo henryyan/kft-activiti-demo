@@ -30,7 +30,7 @@ function listDatas(size) {
         size: size
     }), {
         url: moduleAction + '!runningList.action',
-        colNames: ['PID', 'taskid', '工号', '姓名', '开始时间', '结束时间', '假种', '天数', '原因', '操作'],
+        colNames: ['PID', 'taskid', '工号', '姓名', '开始时间', '结束时间', '假种', '天数', '原因', '流程信息', '操作'],
         colModel: [{
 			name: 'processInstanceId',
 			hidden: true
@@ -95,11 +95,20 @@ function listDatas(size) {
             name: 'reason',
             editable: true
         }, {
+			name: 'task',
+			align: 'center',
+			title: false,
+			formatter: function(cellValue, options, rowObject) {
+				return cellValue.createTime.replace('T', ' ') + "<br/>"
+					 + "<a href='#' class='trace-grpah' title='跟踪流程图' pid='" + rowObject.processInstanceId + "'>"
+					 + cellValue.name + "</a><span class='workflow-version'>V" + rowObject.processDefinition.version + "</span>";
+			}
+		}, {
 			name: 'options',
 			align: 'center',
+			title: false,
 			formatter: function(cellValue, options, rowObject) {
-				return '<a href="#" class="trace-grpah" title="跟踪流程图" pid="' + rowObject.processInstanceId + '">跟踪</a>'
-						+ '<button class="workflow-do">办理</button>';
+				return '<button class="workflow-do">办理</button>';
 			}
 		}],
         caption: "请假管理",
