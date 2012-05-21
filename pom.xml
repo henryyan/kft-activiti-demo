@@ -140,21 +140,6 @@
 			<artifactId>ehcache-core</artifactId>
 		</dependency>
 
-		<!-- SECURITY begin -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-web</artifactId>
-		</dependency>
-		<!-- SECURITY end -->
-
 		<!-- LOGGING begin -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -172,10 +157,6 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>log4jdbc</groupId>
-			<artifactId>log4jdbc4</artifactId>
-		</dependency>
 		<!-- LOGGING end -->
 
 		<!-- GENERAL UTILS begin -->
@@ -191,6 +172,11 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd</artifactId>
+			<version>3.3.2</version>
 		</dependency>
 		<!-- GENERAL UTILS end -->
 
