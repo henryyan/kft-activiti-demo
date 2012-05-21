@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
-	<display-name>activiti demo with jquery ui created by kafeitu</display-name>
-	<description>blog:http://www.wsria.com</description>
+	<display-name>kft-activiti-demo</display-name>
+
 	<!-- Spring ApplicationContext配置文件的路径,可使用通配符,多个路径用,号分隔 此参数用于后面的Spring Context Loader -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:/applicationContext.xml
-			classpath*:/applicationContext-security.xml
+			classpath*:/applicationContext-shiro.xml
 		</param-value>
 	</context-param>
 
+	<!-- 設定Spring Context的默认Profile -->
+	<context-param>
+		<param-name>spring.profiles.default</param-name>
+		<param-value>production</param-value>
+	</context-param>
+
+	<!--Spring的ApplicationContext 载入 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
 	<!-- Filter 定义 -->
-	<!-- Ajax Authentication filter -->
-	<filter>
-		<filter-name>sessionTimeoutFilter</filter-name>
-		<filter-class>com.runchain.arch.web.filter.SessionTimeoutFilter</filter-class>
-	</filter>
-	
 	<!-- Character Encoding filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -33,95 +38,35 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-
-	<!-- Hibernate Open Session In View filter -->
-	<filter>
-		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
-		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-	</filter>
-
-	<!-- SpringSecurity filter -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-
-	<!-- Struts2 filter -->
-	<filter>
-		<filter-name>struts2CleanupFilter</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
-	</filter>
-
-	<filter>
-		<filter-name>struts2Filter</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-
-	<!-- Filter 映射 -->
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- Open Entity Manager in View filter -->
+	<filter>
+		<filter-name>openEntityManagerInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	</filter>
 	<filter-mapping>
-		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
-		<url-pattern>*.action</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
-		<url-pattern>/j_spring_security_check</url-pattern>
-	</filter-mapping>
-	-->
-
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-name>openEntityManagerInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<filter-mapping>
-		<filter-name>struts2CleanupFilter</filter-name>
-		<url-pattern>*.action</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-
-	<filter-mapping>
-		<filter-name>struts2Filter</filter-name>
-		<url-pattern>*.action</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-
-	<!--Spring的ApplicationContext 载入 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<!-- Spring 刷新Introspector防止内存泄露 -->
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-	</listener>
-
-	<!-- Workflow Activiti <listener> <listener-class>me.kafeitu.demo.activiti.web.listener.ProcessEnginesServletContextListener</listener-class> 
-		</listener> -->
-
-	<!-- 业务数据初始化 开始 -->
-	<!-- 数据字典 -->
+	<!-- Spring MVC Servlet -->
 	<servlet>
-		<servlet-name>DataLibraryServlet</servlet-name>
-		<servlet-class>me.kafeitu.demo.activiti.web.servlet.SystemDictionaryServlet</servlet-class>
-		<load-on-startup>5</load-on-startup>
-	</servlet>
-	<servlet>
-		<servlet-name>PropertiesServlet</servlet-name>
-		<servlet-class>com.runchain.arch.web.servlet.PropertiesServlet</servlet-class>
+		<servlet-name>springServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc.xml</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>PropertiesServlet</servlet-name>
-		<url-pattern>/properties-servlet</url-pattern>
+		<servlet-name>springServlet</servlet-name>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<!-- 业务数据初始化 结束 -->
 
 	<!-- session超时定义,单位为分钟 -->
 	<session-config>
@@ -131,23 +76,14 @@
 	<!-- 出错页面定义 -->
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
-		<location>/common/500.jsp</location>
+		<location>/WEB-INF/views/error/500.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/common/500.jsp</location>
+		<location>/WEB-INF/views/error/500.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/common/404.jsp</location>
+		<location>/WEB-INF/views/error/404.jsp</location>
 	</error-page>
-	<error-page>
-		<error-code>403</error-code>
-		<location>/common/403.jsp</location>
-	</error-page>
-
-	<mime-mapping>
-		<extension>xhtml</extension>
-		<mime-type>application/vnd.wap.xhtml+xml</mime-type>
-	</mime-mapping>
 </web-app>
