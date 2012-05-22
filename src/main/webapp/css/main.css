@@ -1,0 +1,51 @@
+#switcher {
+    margin-top: 0px;
+}
+
+#topPane {
+    overflow: hidden;
+    height: 30px;
+    background: url(${ctx }/images/xeasyui/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
+    color: #fff;
+    line-height: 18px;
+    font-family: Verdana, 微软雅黑, 黑体;
+}
+
+#topPane a {
+    color: #fff;
+}
+
+#topTable td {
+    padding-top: 0px;
+}
+
+.footer {
+    color: #15428B;
+    font-weight: bold;
+    line-height: 23px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.main-options a {
+    display: block;
+    font-size: 12px
+}
+
+.main-options {
+    line-height: 15px;
+}
+
+#themeTemplate {
+    position: absolute;
+}
+
+.ui-tabs .ui-tabs-panel {
+    padding: 0px;
+}
+
+ul#css3menu {
+    left: 330px;
+    top: 5px;
+}

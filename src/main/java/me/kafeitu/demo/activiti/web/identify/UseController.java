@@ -1,8 +1,9 @@
-package me.kafeitu.demo.activiti.web;
+package me.kafeitu.demo.activiti.web.identify;
 
-import javax.sql.DataSource;
+import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.IdentityService;
+import org.activiti.engine.identity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +26,24 @@ public class UseController {
 	// Activiti Identify Service
 	private IdentityService identityService;
 
-	@Autowired
-	DataSource dataSource;
-
+	/**
+	 * 登录系统
+	 * @param userName		
+	 * @param password
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/logon", method = RequestMethod.GET)
-	public String logon(@RequestParam("username") String userName, @RequestParam("password") String password) {
+	public String logon(@RequestParam("username") String userName, @RequestParam("password") String password, HttpSession session) {
 		logger.debug("logon request: {username={}, password={}}", userName, password);
 		boolean checkPassword = identityService.checkPassword(userName, password);
 		if (checkPassword) {
-			return "main";
+
+			// read user from database
+			User user = identityService.createUserQuery().userId(userName).singleResult();
+			session.setAttribute("user", user);
+
+			return "redirect:/main/index";
 		} else {
 			return "redirect:/login?error=true";
 		}

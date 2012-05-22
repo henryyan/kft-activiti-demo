@@ -1,11 +1,14 @@
-package me.kafeitu.demo.activiti;
+package me.kafeitu.demo.activiti.web.user;
 
 import static org.junit.Assert.assertEquals;
-import me.kafeitu.demo.activiti.web.UseController;
+import static org.junit.Assert.assertNotNull;
+import me.kafeitu.demo.activiti.web.identify.UseController;
 
 import org.activiti.engine.IdentityService;
+import org.activiti.engine.identity.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
@@ -28,10 +31,14 @@ public class UserControllerTest extends SpringTransactionalTestCase {
 	public void testUserExistInDb() throws Exception {
 		UseController c = new UseController();
 		c.setIdentityService(identityService);
-		String view = c.logon("kafeitu", "000000");
-		assertEquals("main", view);
+		MockHttpSession session = new MockHttpSession();
+		String view = c.logon("kafeitu", "000000", session);
+		assertEquals("redirect:/main/index", view);
+		assertNotNull(session.getAttribute("user"));
+		User user = (User) session.getAttribute("user");
+		assertEquals("kafeitu", user.getId());
 	}
-	
+
 	/**
 	 * 用户名不存在
 	 * @throws Exception
@@ -40,7 +47,8 @@ public class UserControllerTest extends SpringTransactionalTestCase {
 	public void testUserNotExistInDb() throws Exception {
 		UseController c = new UseController();
 		c.setIdentityService(identityService);
-		String view = c.logon("nothisuser", "000000");
+		MockHttpSession session = new MockHttpSession();
+		String view = c.logon("nothisuser", "000000", session);
 		assertEquals("redirect:/login?error=true", view);
 	}
 
