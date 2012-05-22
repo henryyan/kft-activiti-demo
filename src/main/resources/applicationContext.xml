@@ -97,6 +97,7 @@
 	<beans profile="test">
 		<context:property-placeholder ignore-resource-not-found="true"
 			location="classpath*:/application.properties,
+					  classpath*:/application.test.properties,
           			  classpath*:/application.test.local.properties" />
 
 		<!-- 嵌入式内存中数据库 -->

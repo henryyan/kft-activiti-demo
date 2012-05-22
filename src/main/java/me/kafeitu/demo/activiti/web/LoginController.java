@@ -5,11 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * LoginController负责打开登录页面(GET请求)和登录出错页面(POST请求)，
-
- * 真正登录的POST请求由Filter完成,
+ * 登录页面
  * 
- * @author calvin
+ * @author HenryYan
  */
 @Controller
 public class LoginController {
@@ -18,5 +16,4 @@ public class LoginController {
 	public String login() {
 		return "login";
 	}
-
 }
