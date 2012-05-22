@@ -48,6 +48,12 @@ public class UseController {
 			return "redirect:/login?error=true";
 		}
 	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.removeAttribute("user");
+		return "/login";
+	}
 
 	@Autowired
 	public void setIdentityService(IdentityService identityService) {

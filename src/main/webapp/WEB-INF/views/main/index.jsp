@@ -46,7 +46,6 @@
 		        		</div>
 		        		<div style="text-align: right;">
 		        			<a id="chang-theme" href="#">切换风格</a>
-		       				<a href="#" id="editpass">修改密码</a>
 		       				<a href="#" id="loginOut">安全退出</a>
 		        		</div>
 		        	</div>

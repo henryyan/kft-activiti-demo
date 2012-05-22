@@ -6,8 +6,6 @@ insert into ACT_ID_GROUP values ('hr', 1, '人事', 'assignment');
 insert into ACT_ID_USER values ('kafeitu', 1, 'Henry', 'Yan', 'yanhonglei@gmail.com', '000000', '');
 insert into ACT_ID_MEMBERSHIP values ('kafeitu', 'admin');
 insert into ACT_ID_MEMBERSHIP values ('kafeitu', 'user');
-insert into ACT_ID_MEMBERSHIP values ('kafeitu', 'deptLeader');
-insert into ACT_ID_MEMBERSHIP values ('kafeitu', 'hr');
 
 insert into ACT_ID_USER values ('hruser', 1, 'Lili', 'Zhang', 'hr@gmail.com', '000000', '');
 insert into ACT_ID_MEMBERSHIP values ('hruser', 'user');
