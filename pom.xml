@@ -306,6 +306,21 @@
 					</webAppConfig>
 				</configuration>
 			</plugin>
+
+			<!-- 插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<nonFilteredFileExtensions>
+						<!-- 过滤流程定义资源文件 -->
+						<nonFilteredFileExtension>zip</nonFilteredFileExtension>
+						<nonFilteredFileExtension>png</nonFilteredFileExtension>
+						<nonFilteredFileExtension>activiti</nonFilteredFileExtension>
+						<nonFilteredFileExtension>bpmn</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
