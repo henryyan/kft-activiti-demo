@@ -8,9 +8,9 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 流程管理
@@ -26,16 +26,17 @@ public class ActivitiController {
 	protected RepositoryService repositoryService;
 
 	@RequestMapping(value = "/process-list", method = RequestMethod.GET)
-	public String processList(Model model) {
+	public ModelAndView processList() {
+		ModelAndView mav = new ModelAndView("workflow/process-list");
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
-		model.addAttribute("processes", list);
-		return "workflow/process-list";
+		mav.addObject("processes", list);
+		return mav;
 	}
 
 	@RequestMapping(value = "/redeploy/all", method = RequestMethod.GET)
 	public String redeployAll() throws Exception {
 		workflowProcessDefinitionService.deployAllFromClasspath();
-		return "workflow/process-list";
+		return "redirect:/workflow/process-list";
 	}
 
 	@Autowired

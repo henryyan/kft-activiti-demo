@@ -14,8 +14,16 @@
 	<%@ include file="/common/include-base-styles.jsp" %>
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
 	<title>流程列表</title>
+	
+	<script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/blockui/jquery.blockUI.js" type="text/javascript"></script>
+	<script src="${ctx }/js/module/activiti/process-list.js" type="text/javascript"></script>
 </head>
 <body>
+	<div style="text-align: center;padding: 2px 0 2px">
+		<a id='redeploy' href='${ctx }/workflow/redeploy/all'>重新部署</a>
+	</div>
 	<table width="100%" class="need-border">
 		<thead>
 			<tr>
