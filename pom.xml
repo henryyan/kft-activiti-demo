@@ -340,5 +340,77 @@
 				</resources>
 			</build>
 		</profile>
+
+		<!-- 刷新开发环境数据库 -->
+		<profile>
+			<id>refresh-db</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<configuration>
+							<target>
+								<property file="src/main/resources/application.local.properties" />
+								<property file="src/main/resources/application.properties" />
+
+								<property name="sql.type" value="h2" />
+								<property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory" />
+
+								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
+
+								<!-- base -->
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									src="src/main/resources/sql/${sql.type}/schema.sql" onerror="continue">
+									<classpath refid="maven.test.classpath" />
+								</sql>
+
+								<!-- activit start -->
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.engine.sql" onerror="continue">
+									<classpath refid="maven.test.classpath" />
+								</sql>
+
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.history.sql" onerror="continue">
+									<classpath refid="maven.test.classpath" />
+								</sql>
+
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.identity.sql" onerror="continue">
+									<classpath refid="maven.test.classpath" />
+								</sql>
+
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.engine.sql" onerror="continue">
+									<classpath refid="maven.test.classpath" />
+								</sql>
+
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.history.sql" onerror="continue">
+									<classpath refid="maven.test.classpath" />
+								</sql>
+
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.identity.sql" onerror="continue">
+									<classpath refid="maven.test.classpath" />
+								</sql>
+								<!-- activit end -->
+
+								<!-- add init datas -->
+								<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}">
+									<dbconfig>
+										<property name="datatypeFactory" value="${dbunit.datatype}" />
+									</dbconfig>
+									<classpath refid="maven.test.classpath" />
+									<operation type="CLEAN_INSERT" src="src/test/resources/data/sample-data.xml" format="flat"
+										transaction="true" />
+								</dbunit>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>
