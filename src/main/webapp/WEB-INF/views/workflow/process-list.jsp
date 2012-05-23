@@ -14,20 +14,16 @@
 	<%@ include file="/common/include-base-styles.jsp" %>
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
 	<title>流程列表</title>
-	
-	<script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
-	<script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="${ctx }/js/common/plugins/blockui/jquery.blockUI.js" type="text/javascript"></script>
-	<script src="${ctx }/js/module/activiti/process-list.js" type="text/javascript"></script>
 </head>
 <body>
-	<div style="text-align: center;padding: 2px 0 2px">
-		<a id='redeploy' href='${ctx }/workflow/redeploy/all'>重新部署</a>
+	<div style="text-align: right;padding: 2px 1em 2px">
+		<a id='redeploy' href='${ctx }/workflow/redeploy/all'>重新部署流程</a>
 	</div>
 	<table width="100%" class="need-border">
 		<thead>
 			<tr>
 				<th>ID</th>
+				<th>DID</th>
 				<th>名称</th>
 				<th>KEY</th>
 				<th>版本号</th>
@@ -39,11 +35,12 @@
 			<c:forEach items="${processes }" var="process">
 				<tr>
 					<td>${process.id }</td>
+					<td>${process.deploymentId }</td>
 					<td>${process.name }</td>
 					<td>${process.key }</td>
 					<td>${process.version }</td>
-					<td>${process.resourceName }</td>
-					<td>${process.diagramResourceName }</td>
+					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.resourceName }'>${process.resourceName }</a></td>
+					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.diagramResourceName }'>${process.diagramResourceName }</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
