@@ -31,19 +31,25 @@
 				<th>开始时间</th>
 				<th>结束时间</th>
 				<th>当前节点</th>
+				<th>任务创建时间</th>
+				<th>流程状态</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${leaves }" var="leave">
 				<c:set var="task" value="${leave.task }" />
+				<c:set var="pi" value="${leave.processInstance }" />
 				<tr id="${task.id }">
 					<td>${leave.leaveType }</td>
 					<td>${leave.userId }</td>
 					<td>${leave.applyTime }</td>
 					<td>${leave.startTime }</td>
 					<td>${leave.endTime }</td>
-					<td>${leave.task.name }</td>
+					<td>${task.name }</td>
+					<%--<td><a target="_blank" href='${ctx }/workflow/resource/process-instance?pid=${pi.id }&type=xml'>${task.name }</a></td> --%>
+					<td>${task.createTime }</td>
+					<td>${pi.suspended ? "已挂起" : "正常" }</td>
 					<td>
 						<c:if test="${empty task.assignee }">
 							<a class="claim" href="${ctx }/oa/leave/task/claim?id=${task.id}">签收</a>

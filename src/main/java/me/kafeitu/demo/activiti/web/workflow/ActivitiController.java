@@ -82,8 +82,8 @@ public class ActivitiController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/resource/process-instance")
-	public void loadByProcessInstance(@RequestParam("resourceType") String resourceType,
-			@RequestParam("processInstanceId") String processInstanceId, HttpServletResponse response) throws Exception {
+	public void loadByProcessInstance(@RequestParam("type") String resourceType, @RequestParam("pid") String processInstanceId,
+			HttpServletResponse response) throws Exception {
 		InputStream resourceAsStream = null;
 		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId)
 				.singleResult();
@@ -103,7 +103,7 @@ public class ActivitiController {
 			response.getOutputStream().write(b, 0, len);
 		}
 	}
-	
+
 	/**
 	 * 删除部署的流程，级联删除流程实例
 	 * @param deploymentId	流程部署ID
@@ -124,6 +124,7 @@ public class ActivitiController {
 		this.repositoryService = repositoryService;
 	}
 
+	@Autowired
 	public void setRuntimeService(RuntimeService runtimeService) {
 		this.runtimeService = runtimeService;
 	}
