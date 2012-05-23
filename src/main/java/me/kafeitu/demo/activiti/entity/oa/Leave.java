@@ -26,10 +26,10 @@ public class Leave extends IdEntity implements Serializable {
 	private String processInstanceId;
 	private String userId;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date startTime;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date endTime;
 	private Date realityStartTime;
 	private Date realityEndTime;
