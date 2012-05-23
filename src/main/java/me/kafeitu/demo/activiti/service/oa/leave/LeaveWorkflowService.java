@@ -1,11 +1,16 @@
 package me.kafeitu.demo.activiti.service.oa.leave;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import me.kafeitu.demo.activiti.entity.oa.Leave;
+import me.kafeitu.demo.activiti.util.UserUtil;
 
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +32,8 @@ public class LeaveWorkflowService {
 
 	private RuntimeService runtimeService;
 
+	protected TaskService taskService;
+
 	/**
 	 * 启动流程
 	 * @param entity
@@ -43,6 +50,43 @@ public class LeaveWorkflowService {
 		return processInstance;
 	}
 
+	/**
+	 * 查询待办任务
+	 * 
+	 * @param userId 用户ID
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public List<Leave> findTodoTasks(String userId) {
+		List<Leave> results = new ArrayList<Leave>();
+		List<Task> tasks = new ArrayList<Task>();
+
+		// 根据当前人的ID查询
+		List<Task> todoList = taskService.createTaskQuery().taskAssignee(userId).orderByTaskPriority().desc()
+				.orderByTaskCreateTime().desc().list();
+
+		// 根据当前人未签收的任务
+		List<Task> unsignedTasks = taskService.createTaskQuery().taskCandidateUser(userId).orderByTaskPriority().desc()
+				.orderByTaskCreateTime().desc().list();
+
+		// 合并
+		tasks.addAll(todoList);
+		tasks.addAll(unsignedTasks);
+
+		// 根据流程的业务ID查询实体并关联
+		for (Task task : tasks) {
+			String processInstanceId = task.getProcessInstanceId();
+			ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId)
+					.singleResult();
+			String businessKey = processInstance.getBusinessKey();
+			Leave leave = leaveManager.getLeave(new Long(businessKey));
+			leave.setTask(task);
+			leave.setProcessInstance(processInstance);
+			results.add(leave);
+		}
+		return results;
+	}
+
 	@Autowired
 	public void setLeaveManager(LeaveManager leaveManager) {
 		this.leaveManager = leaveManager;
@@ -51,6 +95,11 @@ public class LeaveWorkflowService {
 	@Autowired
 	public void setRuntimeService(RuntimeService runtimeService) {
 		this.runtimeService = runtimeService;
+	}
+
+	@Autowired
+	public void setTaskService(TaskService taskService) {
+		this.taskService = taskService;
 	}
 
 }

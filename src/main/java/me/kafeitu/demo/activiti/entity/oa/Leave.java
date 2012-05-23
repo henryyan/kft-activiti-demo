@@ -8,10 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Transient;
 
 import me.kafeitu.demo.activiti.entity.IdEntity;
+
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Entity: Leave
@@ -36,6 +39,10 @@ public class Leave extends IdEntity implements Serializable {
 	private Date applyTime;
 	private String leaveType;
 	private String reason;
+	
+	//-- 临时属性 --//
+	private Task task;
+	private ProcessInstance processInstance;
 
 	@Column
 	public String getProcessInstanceId() {
@@ -121,6 +128,24 @@ public class Leave extends IdEntity implements Serializable {
 
 	public void setRealityEndTime(Date realityEndTime) {
 		this.realityEndTime = realityEndTime;
+	}
+
+	@Transient
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
+
+	@Transient
+	public ProcessInstance getProcessInstance() {
+		return processInstance;
+	}
+
+	public void setProcessInstance(ProcessInstance processInstance) {
+		this.processInstance = processInstance;
 	}
 
 }

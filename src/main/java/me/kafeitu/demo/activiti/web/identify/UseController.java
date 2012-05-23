@@ -35,7 +35,7 @@ public class UseController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/logon", method = RequestMethod.GET)
+	@RequestMapping(value = "/logon")
 	public String logon(@RequestParam("username") String userName, @RequestParam("password") String password, HttpSession session) {
 		logger.debug("logon request: {username={}, password={}}", userName, password);
 		boolean checkPassword = identityService.checkPassword(userName, password);
@@ -51,7 +51,7 @@ public class UseController {
 		}
 	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");
 		return "/login";

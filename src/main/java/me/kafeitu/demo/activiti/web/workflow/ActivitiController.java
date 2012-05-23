@@ -37,7 +37,7 @@ public class ActivitiController {
 	 * 流程定义列表
 	 * @return
 	 */
-	@RequestMapping(value = "/process-list", method = RequestMethod.GET)
+	@RequestMapping(value = "/process-list")
 	public ModelAndView processList() {
 		ModelAndView mav = new ModelAndView("workflow/process-list");
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
@@ -50,7 +50,7 @@ public class ActivitiController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/redeploy/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/redeploy/all")
 	public String redeployAll() throws Exception {
 		workflowProcessDefinitionService.deployAllFromClasspath();
 		return "redirect:/workflow/process-list";
@@ -63,7 +63,7 @@ public class ActivitiController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/resource/deployment", method = RequestMethod.GET)
+	@RequestMapping(value = "/resource/deployment")
 	public void loadByDeployment(@RequestParam("deploymentId") String deploymentId,
 			@RequestParam("resourceName") String resourceName, HttpServletResponse response) throws Exception {
 		InputStream resourceAsStream = repositoryService.getResourceAsStream(deploymentId, resourceName);
@@ -81,7 +81,7 @@ public class ActivitiController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/resource/process-instance", method = RequestMethod.GET)
+	@RequestMapping(value = "/resource/process-instance")
 	public void loadByProcessInstance(@RequestParam("resourceType") String resourceType,
 			@RequestParam("processInstanceId") String processInstanceId, HttpServletResponse response) throws Exception {
 		InputStream resourceAsStream = null;
@@ -108,7 +108,7 @@ public class ActivitiController {
 	 * 删除部署的流程，级联删除流程实例
 	 * @param deploymentId	流程部署ID
 	 */
-	@RequestMapping(value = "/process/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/process/delete")
 	public String delete(@RequestParam("deploymentId") String deploymentId) {
 		repositoryService.deleteDeployment(deploymentId, true);
 		return "redirect:/workflow/process-list";

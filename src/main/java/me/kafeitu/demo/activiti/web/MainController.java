@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/main")
 public class MainController {
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/index")
 	public String index() {
 		return "/main/index";
 	}
 	
-	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+	@RequestMapping(value = "/welcome")
 	public String welcome() {
 		return "/main/welcome";
 	}
