@@ -16,4 +16,4 @@
 
 # 演示说明文档
 
-* [配置说明](https://github.com/henryyan/kft-activiti-demo/wiki/%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
+* [配置说明](wiki/配置说明)
