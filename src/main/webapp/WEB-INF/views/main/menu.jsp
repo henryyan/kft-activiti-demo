@@ -4,7 +4,7 @@
 	<li>
 		<a rel="#">考勤</a>
 		<ul>
-			<li><a rel="oa/leave/leave-apply">请假申请</a></li>
+			<li><a rel="oa/leave/apply">请假申请</a></li>
 			<li><a rel="oa/leave/leave-do">请假办理</a></li>
 		</ul>
 	</li>

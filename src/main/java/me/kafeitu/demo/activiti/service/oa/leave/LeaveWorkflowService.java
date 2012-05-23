@@ -31,7 +31,7 @@ public class LeaveWorkflowService {
 	 * 启动流程
 	 * @param entity
 	 */
-	public void startWorkflow(Leave entity, Map<String, Object> variables) {
+	public ProcessInstance startWorkflow(Leave entity, Map<String, Object> variables) {
 		leaveManager.saveLeave(entity);
 		logger.debug("save entity: {}", entity);
 		String businessKey = entity.getId().toString();
@@ -40,6 +40,7 @@ public class LeaveWorkflowService {
 		entity.setProcessInstanceId(processInstanceId);
 		logger.debug("start process of {key={}, bkey={}, pid={}, variables={}}", new Object[] { "leave", businessKey,
 				processInstanceId, variables });
+		return processInstance;
 	}
 
 	@Autowired

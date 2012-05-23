@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import me.kafeitu.demo.activiti.entity.IdEntity;
 
 /**
@@ -23,7 +25,11 @@ public class Leave extends IdEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String processInstanceId;
 	private String userId;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date startTime;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date endTime;
 	private Date realityStartTime;
 	private Date realityEndTime;

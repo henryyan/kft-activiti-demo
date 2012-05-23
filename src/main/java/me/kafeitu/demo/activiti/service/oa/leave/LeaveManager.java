@@ -1,5 +1,7 @@
 package me.kafeitu.demo.activiti.service.oa.leave;
 
+import java.util.Date;
+
 import me.kafeitu.demo.activiti.dao.LeaveDao;
 import me.kafeitu.demo.activiti.entity.oa.Leave;
 
@@ -24,6 +26,9 @@ public class LeaveManager {
 
 	@Transactional(readOnly = false)
 	public void saveLeave(Leave entity) {
+		if (entity.getId() == null) {
+			entity.setApplyTime(new Date());
+		}
 		leaveDao.save(entity);
 	}
 

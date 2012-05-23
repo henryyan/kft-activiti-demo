@@ -2,6 +2,8 @@ package me.kafeitu.demo.activiti.web.identify;
 
 import javax.servlet.http.HttpSession;
 
+import me.kafeitu.demo.activiti.util.UserUtil;
+
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.identity.User;
 import org.slf4j.Logger;
@@ -41,7 +43,7 @@ public class UseController {
 
 			// read user from database
 			User user = identityService.createUserQuery().userId(userName).singleResult();
-			session.setAttribute("user", user);
+			UserUtil.saveUserToSession(session, user);
 
 			return "redirect:/main/index";
 		} else {
