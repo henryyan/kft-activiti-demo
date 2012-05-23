@@ -1,4 +1,4 @@
-package me.kafeitu.demo.activiti.service;
+package me.kafeitu.demo.activiti.service.activiti;
 
 import java.io.IOException;
 import java.io.InputStream;

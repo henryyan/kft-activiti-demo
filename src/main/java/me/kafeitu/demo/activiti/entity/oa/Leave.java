@@ -21,6 +21,7 @@ import me.kafeitu.demo.activiti.entity.IdEntity;
 public class Leave extends IdEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private String processInstanceId;
 	private String userId;
 	private Date startTime;
 	private Date endTime;
@@ -29,6 +30,15 @@ public class Leave extends IdEntity implements Serializable {
 	private Date applyTime;
 	private String leaveType;
 	private String reason;
+
+	@Column
+	public String getProcessInstanceId() {
+		return processInstanceId;
+	}
+
+	public void setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId = processInstanceId;
+	}
 
 	@Column
 	public String getUserId() {

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import me.kafeitu.demo.activiti.service.WorkflowProcessDefinitionService;
+import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
 
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
