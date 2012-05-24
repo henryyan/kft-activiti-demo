@@ -10,16 +10,18 @@ import me.kafeitu.demo.activiti.entity.oa.Leave;
 import me.kafeitu.demo.activiti.service.oa.leave.LeaveManager;
 import me.kafeitu.demo.activiti.service.oa.leave.LeaveWorkflowService;
 import me.kafeitu.demo.activiti.util.UserUtil;
+import me.kafeitu.demo.activiti.util.Variable;
 
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.beanutils.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -76,21 +78,45 @@ public class LeaveController {
 	}
 
 	/**
-	 * 任务列表
-	 * @param leave	
+	 * 签收任务
 	 */
-	@RequestMapping(value = "task/claim")
-	public String claim(@RequestParam("id") String taskId, HttpSession session, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "task/claim/{id}")
+	public String claim(@PathVariable("id") String taskId, HttpSession session, RedirectAttributes redirectAttributes) {
 		String userId = UserUtil.getUserFromSession(session).getId();
 		taskService.claim(taskId, userId);
 		redirectAttributes.addFlashAttribute("message", "任务已签收");
 		return "redirect:/oa/leave/task/list";
 	}
 	
-	@RequestMapping(value = "detail")
+	/**
+	 * 读取详细数据
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "detail/{id}")
 	@ResponseBody
-	public Leave getLeave(@RequestParam("id") Long id) {
+	public Leave getLeave(@PathVariable("id") Long id) {
 		return leaveManager.getLeave(id);
+	}
+	
+	/**
+	 * 完成任务
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "complete/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public String complete(@PathVariable("id") String taskId, Variable var) {
+		try {
+			Map<String, Object> variables = new HashMap<String, Object>();
+			if (var.getType().equals("B")) {
+				variables.put(var.getKey(), ConvertUtils.convert(var.getValue(), Boolean.class));
+			}
+			taskService.complete(taskId, variables);
+			return "success";
+		} catch (Exception e) {
+			return "error";
+		}
 	}
 	
 }

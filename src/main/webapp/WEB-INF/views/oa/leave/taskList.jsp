@@ -59,15 +59,52 @@
 					<td>${pi.suspended ? "已挂起" : "正常" }</td>
 					<td>
 						<c:if test="${empty task.assignee }">
-							<a class="claim" href="${ctx }/oa/leave/task/claim?id=${task.id}">签收</a>
+							<a class="claim" href="${ctx }/oa/leave/task/claim/${task.id}">签收</a>
 						</c:if>
 						<c:if test="${not empty task.assignee }">
-							<a class="handle" href="${ctx }/oa/leave/task/claim/${task.id}">办理</a>
+							<%-- 此处用tkey记录当前节点的名称 --%>
+							<a class="handle" tkey='${task.taskDefinitionKey }' tname='${task.name }' href="#">办理</a>
 						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<!-- 下面是每个节点的模板，用来定义每个节点显示的内容 -->
+	<!-- 使用DIV包裹，每个DIV的ID以节点名称命名，如果不同的流程版本需要使用同一个可以自己扩展（例如：在DIV添加属性，标记支持的版本） -->
+	
+	<!-- 部门领导审批 -->
+	<div id="deptLeaderAudit" style="display: none">
+	
+		<!-- table用来显示信息，方便办理任务 -->
+		<table class='view-info'>
+			<tr>
+				<td width="100" class="label">申请人：</td>
+				<td name="userId"></td>
+			</tr>
+			<tr>
+				<td class="label">假种：</td>
+				<td name="leaveType"></td>
+			</tr>
+			<tr>
+				<td class="label">申请时间：</td>
+				<td name="applyTime"></td>
+			</tr>
+			<tr>
+				<td class="label">请假<font color="red">开始</font>时间：</td>
+				<td name="startTime"></td>
+			</tr>
+			<tr>
+				<td class="label">请假<font color="red">结束</font>时间：</td>
+				<td name="endTime"></td>
+			</tr>
+			<tr>
+				<td class="label">请假事由：</td>
+				<td name="reason"></td>
+			</tr>
+		</table>
+	</div>
+	
 </body>
 </html>

@@ -46,6 +46,7 @@
 		</dependency>
 		
 		<!-- Jackson JSON Mapper -->
+		<!-- SpringMVC的@ResponseBody需要使用 -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
