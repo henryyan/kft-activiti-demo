@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -85,5 +86,11 @@ public class LeaveController {
 		redirectAttributes.addFlashAttribute("message", "任务已签收");
 		return "redirect:/oa/leave/task/list";
 	}
-
+	
+	@RequestMapping(value = "detail")
+	@ResponseBody
+	public Leave getLeave(@RequestParam("id") Long id) {
+		return leaveManager.getLeave(id);
+	}
+	
 }

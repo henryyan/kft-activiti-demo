@@ -2,10 +2,12 @@ package me.kafeitu.demo.activiti.web.workflow;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
+import me.kafeitu.demo.activiti.service.activiti.WorkflowTraceService;
 
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -31,6 +34,8 @@ public class ActivitiController {
 	protected RepositoryService repositoryService;
 
 	protected RuntimeService runtimeService;
+
+	protected WorkflowTraceService traceService;
 
 	/**
 	 * 流程定义列表
@@ -113,6 +118,19 @@ public class ActivitiController {
 		return "redirect:/workflow/process-list";
 	}
 
+	/**
+	 * 输出跟踪流程信息
+	 * @param processInstanceId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/process/trace")
+	@ResponseBody
+	public List<Map<String, Object>> traceProcess(@RequestParam("pid") String processInstanceId) throws Exception {
+		List<Map<String, Object>> activityInfos = traceService.traceProcess(processInstanceId);
+		return activityInfos;
+	}
+
 	@Autowired
 	public void setWorkflowProcessDefinitionService(WorkflowProcessDefinitionService workflowProcessDefinitionService) {
 		this.workflowProcessDefinitionService = workflowProcessDefinitionService;
@@ -126,6 +144,11 @@ public class ActivitiController {
 	@Autowired
 	public void setRuntimeService(RuntimeService runtimeService) {
 		this.runtimeService = runtimeService;
+	}
+
+	@Autowired
+	public void setTraceService(WorkflowTraceService traceService) {
+		this.traceService = traceService;
 	}
 
 }
