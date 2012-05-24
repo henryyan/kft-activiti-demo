@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import me.kafeitu.demo.activiti.entity.oa.Leave;
-import me.kafeitu.demo.activiti.util.UserUtil;
 
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
