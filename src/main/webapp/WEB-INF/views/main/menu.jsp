@@ -2,7 +2,7 @@
 <ul id="css3menu">
 	<li class="topfirst"><a rel="main/welcome">首页</a></li>
 	<li>
-		<a rel="#">考勤</a>
+		<a rel="#">考勤模块</a>
 		<ul>
 			<li><a rel="oa/leave/apply">请假申请</a></li>
 			<li><a rel="oa/leave/task/list">请假办理</a></li>

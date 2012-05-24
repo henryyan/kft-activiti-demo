@@ -11,6 +11,7 @@
     <%@ include file="/common/include-jquery-ui-theme.jsp" %>
     <link href="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.css" type="text/css" rel="stylesheet" />
     <link href="${ctx }/js/common/plugins/qtip/jquery.qtip.min.css" type="text/css" rel="stylesheet" />
+    <%@ include file="/common/include-custom-styles.jsp" %>
     
     <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
@@ -18,6 +19,7 @@
 	<script src="${ctx }/js/common/plugins/jui/extends/i18n/jquery-ui-date_time-picker-zh-CN.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/qtip/jquery.qtip.pack.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/html/jquery.outerhtml.js" type="text/javascript"></script>
+	<script src="${ctx }/js/module/activiti/workflow.js" type="text/javascript"></script>
 	<script src="${ctx }/js/module/oa/leave/leave-todo.js" type="text/javascript"></script>
 </head>
 
@@ -50,7 +52,7 @@
 					<td>${leave.startTime }</td>
 					<td>${leave.endTime }</td>
 					<td>
-						<a class="trace" href='#' pid="${pi.id }">${task.name }</a>
+						<a class="trace" href='#' pid="${pi.id }" title="点击查看流程图">${task.name }</a>
 					</td>
 					<%--<td><a target="_blank" href='${ctx }/workflow/resource/process-instance?pid=${pi.id }&type=xml'>${task.name }</a></td> --%>
 					<td>${task.createTime }</td>
