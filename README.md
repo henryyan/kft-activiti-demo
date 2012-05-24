@@ -18,3 +18,5 @@
 
 * [配置说明](https://github.com/henryyan/kft-activiti-demo/wiki/%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
 * [功能演示](https://github.com/henryyan/kft-activiti-demo/wiki/%E5%8A%9F%E8%83%BD%E6%BC%94%E7%A4%BA)
+ 
+![kft-activiti-demo截图](http://www.kafeitu.me/files/2012/05/kft-activiti-demo.png)
