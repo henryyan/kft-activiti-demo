@@ -2,6 +2,7 @@ package me.kafeitu.demo.activiti.entity.oa;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,6 +51,8 @@ public class Leave extends IdEntity implements Serializable {
 	
 	// 流程任务
 	private Task task;
+	
+	private Map<String, Object> variables;
 	
 	// 运行中的流程实例
 	private ProcessInstance processInstance;
@@ -153,6 +156,15 @@ public class Leave extends IdEntity implements Serializable {
 
 	public void setTask(Task task) {
 		this.task = task;
+	}
+
+	@Transient
+	public Map<String, Object> getVariables() {
+		return variables;
+	}
+
+	public void setVariables(Map<String, Object> variables) {
+		this.variables = variables;
 	}
 
 	@Transient

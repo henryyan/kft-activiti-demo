@@ -89,10 +89,41 @@
 	</div>
 	
 	<div id="modifyApply" style="display: none">
+		<div class="info" style="display: none"></div>
 		<div id="radio">
 			<input type="radio" id="radio1" name="reApply" value="true" /><label for="radio1">调整申请</label>
 			<input type="radio" id="radio2" name="reApply" checked="checked" value="false" /><label for="radio2">取消申请</label>
 		</div>
+		<hr />
+		<table id="modifyApplyContent" style="display: none">
+			<caption>调整请假内容</caption>
+			<tr>
+				<td>请假类型：</td>
+				<td>
+					<select id="leaveType" name="leaveType">
+						<option>公休</option>
+						<option>病假</option>
+						<option>调休</option>
+						<option>事假</option>
+						<option>婚假</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>开始时间：</td>
+				<td><input type="text" id="startTime" name="startTime" /></td>
+			</tr>
+			<tr>
+				<td>结束时间：</td>
+				<td><input type="text" id="endTime" name="endTime" /></td>
+			</tr>
+			<tr>
+				<td>请假原因：</td>
+				<td>
+					<textarea id="reason" name="reason" style="width: 250px;height: 50px"></textarea>
+				</td>
+			</tr>
+		</table>
 	</div>
 	
 	<!-- 销假 -->

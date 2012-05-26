@@ -114,7 +114,7 @@ public class LeaveController {
 		redirectAttributes.addFlashAttribute("message", "任务已签收");
 		return "redirect:/oa/leave/list/task";
 	}
-
+	
 	/**
 	 * 读取详细数据
 	 * @param id
@@ -123,7 +123,22 @@ public class LeaveController {
 	@RequestMapping(value = "detail/{id}")
 	@ResponseBody
 	public Leave getLeave(@PathVariable("id") Long id) {
-		return leaveManager.getLeave(id);
+		Leave leave = leaveManager.getLeave(id);
+		return leave;
+	}
+
+	/**
+	 * 读取详细数据
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "detail-with-vars/{id}/{taskId}")
+	@ResponseBody
+	public Leave getLeaveWithVars(@PathVariable("id") Long id, @PathVariable("taskId") String taskId) {
+		Leave leave = leaveManager.getLeave(id);
+		Map<String, Object> variables = taskService.getVariables(taskId);
+		leave.setVariables(variables);
+		return leave;
 	}
 
 	/**
