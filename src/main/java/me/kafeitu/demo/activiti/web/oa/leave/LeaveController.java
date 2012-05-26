@@ -15,7 +15,6 @@ import me.kafeitu.demo.activiti.util.Variable;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.apache.commons.beanutils.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,7 +86,7 @@ public class LeaveController {
 		redirectAttributes.addFlashAttribute("message", "任务已签收");
 		return "redirect:/oa/leave/task/list";
 	}
-	
+
 	/**
 	 * 读取详细数据
 	 * @param id
@@ -98,25 +97,23 @@ public class LeaveController {
 	public Leave getLeave(@PathVariable("id") Long id) {
 		return leaveManager.getLeave(id);
 	}
-	
+
 	/**
 	 * 完成任务
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "complete/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "complete/{id}", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
 	public String complete(@PathVariable("id") String taskId, Variable var) {
 		try {
-			Map<String, Object> variables = new HashMap<String, Object>();
-			if (var.getType().equals("B")) {
-				variables.put(var.getKey(), ConvertUtils.convert(var.getValue(), Boolean.class));
-			}
+			Map<String, Object> variables = var.getVariableMap();
 			taskService.complete(taskId, variables);
 			return "success";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "error";
 		}
 	}
-	
+
 }

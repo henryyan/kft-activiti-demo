@@ -1,33 +1,55 @@
 package me.kafeitu.demo.activiti.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.beanutils.ConvertUtils;
+
 public class Variable {
 
-	private String key;
-	private String value;
-	private String type;
+	private String keys;
+	private String values;
+	private String types;
 
-	public String getKey() {
-		return key;
+	public String getKeys() {
+		return keys;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setKeys(String keys) {
+		this.keys = keys;
 	}
 
-	public String getValue() {
-		return value;
+	public String getValues() {
+		return values;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setValues(String values) {
+		this.values = values;
 	}
 
-	public String getType() {
-		return type;
+	public String getTypes() {
+		return types;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setTypes(String types) {
+		this.types = types;
+	}
+
+	public Map<String, Object> getVariableMap() {
+		Map<String, Object> vars = new HashMap<String, Object>();
+		String[] arrayKey = keys.split(",");
+		String[] arrayValue = values.split(",");
+		String[] arrayType = types.split(",");
+		for (int i = 0; i < arrayKey.length; i++) {
+			String key = arrayKey[i];
+			String value = arrayValue[i];
+			String type = arrayType[i];
+
+			Class<?> targetType = Enum.valueOf(PropertyType.class, type).getValue();
+			Object objectValue = ConvertUtils.convert(value, targetType);
+			vars.put(key, objectValue);
+		}
+		return vars;
 	}
 
 }

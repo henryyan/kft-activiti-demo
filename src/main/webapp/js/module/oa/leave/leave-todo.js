@@ -22,6 +22,9 @@ $(function() {
     
 });
 
+// 用于保存加载的详细信息
+var detail = {};
+
 /**
  * 加载详细信息
  * @param {Object} id
@@ -29,6 +32,7 @@ $(function() {
 function loadDetail(id) {
 	var dialog = this;
 	$.getJSON(ctx + '/oa/leave/detail/' + id, function(data) {
+		detail = data;
 		$.each(data, function(k, v) {
 			$('.view-info td[name=' + k + ']', dialog).text(v);
 		});
@@ -41,7 +45,24 @@ function loadDetail(id) {
  */
 function complete(taskId, variables) {
 	var dialog = this;
-	$.post(ctx + '/oa/leave/complete/' + taskId, variables, function(resp) {
+	
+	var keys = "", values = "", types = "";
+	$.each(variables, function() {
+		if (keys != "") {
+			keys += ",";
+			values += ",";
+			types += ",";
+		}
+		keys += this.key;
+		values += this.value;
+		types += this.type;
+	});
+	
+	$.post(ctx + '/oa/leave/complete/' + taskId, {
+		keys: keys,
+		values: values,
+		types: types
+	}, function(resp) {
 		if (resp == 'success') {
 			alert('任务完成');
 			location.reload();
@@ -69,21 +90,25 @@ var handleOpts = {
 			text: '同意',
 			click: function() {
 				var taskId = $(this).data('taskId');
-				complete(taskId, {
+				complete(taskId, [{
 					key: 'deptLeaderPass',
 					value: true,
 					type: 'B'
-				});
+				}]);
 			}
 		}, {
 			text: '驳回',
 			click: function() {
 				var taskId = $(this).data('taskId');
-				complete(taskId, {
+				complete(taskId, [{
 					key: 'deptLeaderPass',
 					value: false,
 					type: 'B'
-				});
+				}, {
+					key: 'applyUserId',
+					value: detail.userId,
+					type: 'S'
+				}]);
 			}
 		}, {
 			text: '取消',
