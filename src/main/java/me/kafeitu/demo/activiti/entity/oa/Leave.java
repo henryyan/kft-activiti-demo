@@ -12,6 +12,8 @@ import javax.persistence.Transient;
 
 import me.kafeitu.demo.activiti.entity.IdEntity;
 
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,15 +36,29 @@ public class Leave extends IdEntity implements Serializable {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date endTime;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date realityStartTime;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date realityEndTime;
 	private Date applyTime;
 	private String leaveType;
 	private String reason;
 	
 	//-- 临时属性 --//
+	
+	// 流程任务
 	private Task task;
+	
+	// 运行中的流程实例
 	private ProcessInstance processInstance;
+	
+	// 历史的流程实例
+	private HistoricProcessInstance historicProcessInstance;
+	
+	// 流程定义
+	private ProcessDefinition processDefinition;
 
 	@Column
 	public String getProcessInstanceId() {
@@ -146,6 +162,24 @@ public class Leave extends IdEntity implements Serializable {
 
 	public void setProcessInstance(ProcessInstance processInstance) {
 		this.processInstance = processInstance;
+	}
+
+	@Transient
+	public HistoricProcessInstance getHistoricProcessInstance() {
+		return historicProcessInstance;
+	}
+
+	public void setHistoricProcessInstance(HistoricProcessInstance historicProcessInstance) {
+		this.historicProcessInstance = historicProcessInstance;
+	}
+
+	@Transient
+	public ProcessDefinition getProcessDefinition() {
+		return processDefinition;
+	}
+
+	public void setProcessDefinition(ProcessDefinition processDefinition) {
+		this.processDefinition = processDefinition;
 	}
 
 }
