@@ -9,10 +9,20 @@
 	</parent>
 	<groupId>me.kafeitu.demo</groupId>
 	<artifactId>kft-activiti-demo</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 	<name>Activiti demo</name>
 	<description>activiti demo for version 5.9</description>
+	
+	<developers>
+		<developer>
+			<id>henryyan</id>
+			<name>Henry Yan</name>
+			<email>yanhonglei@gmail.com</email>
+			<url>http://www.kafeitu.me</url>
+			<timezone>8</timezone>
+		</developer>
+	</developers>
 
 	<!-- 项目属性 -->
 	<properties>
