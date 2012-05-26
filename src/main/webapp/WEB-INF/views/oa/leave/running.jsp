@@ -5,7 +5,7 @@
 <head>
 <head>
 	<%@ include file="/common/global.jsp"%>
-	<title>请假待办任务列表</title>
+	<title>请假正在运行中的流程实例列表</title>
 	<%@ include file="/common/meta.jsp" %>
     <%@ include file="/common/include-base-styles.jsp" %>
     <%@ include file="/common/include-jquery-ui-theme.jsp" %>
@@ -20,13 +20,15 @@
 	<script src="${ctx }/js/common/plugins/qtip/jquery.qtip.pack.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/html/jquery.outerhtml.js" type="text/javascript"></script>
 	<script src="${ctx }/js/module/activiti/workflow.js" type="text/javascript"></script>
-	<script src="${ctx }/js/module/oa/leave/leave-todo.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function() {
+		// 跟踪
+	    $('.trace').click(graphTrace);
+	});
+	</script>
 </head>
 
 <body>
-	<c:if test="${not empty message}">
-		<div id="message" class="alert alert-success">${message}</div>
-	</c:if>
 	<table width="100%" class="need-border">
 		<thead>
 			<tr>
@@ -38,7 +40,7 @@
 				<th>当前节点</th>
 				<th>任务创建时间</th>
 				<th>流程状态</th>
-				<th>操作</th>
+				<th>当前处理人</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -54,67 +56,12 @@
 					<td>
 						<a class="trace" href='#' pid="${pi.id }" title="点击查看流程图">${task.name }</a>
 					</td>
-					<%--<td><a target="_blank" href='${ctx }/workflow/resource/process-instance?pid=${pi.id }&type=xml'>${task.name }</a></td> --%>
 					<td>${task.createTime }</td>
 					<td>${pi.suspended ? "已挂起" : "正常" }；<b title='流程版本号'>V: ${leave.processDefinition.version }</b></td>
-					<td>
-						<c:if test="${empty task.assignee }">
-							<a class="claim" href="${ctx }/oa/leave/task/claim/${task.id}">签收</a>
-						</c:if>
-						<c:if test="${not empty task.assignee }">
-							<%-- 此处用tkey记录当前节点的名称 --%>
-							<a class="handle" tkey='${task.taskDefinitionKey }' tname='${task.name }' href="#">办理</a>
-						</c:if>
-					</td>
+					<td>${task.assignee }</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-	
-	<!-- 下面是每个节点的模板，用来定义每个节点显示的内容 -->
-	<!-- 使用DIV包裹，每个DIV的ID以节点名称命名，如果不同的流程版本需要使用同一个可以自己扩展（例如：在DIV添加属性，标记支持的版本） -->
-	
-	<!-- 部门领导审批 -->
-	<div id="deptLeaderAudit" style="display: none">
-	
-		<!-- table用来显示信息，方便办理任务 -->
-		<%@include file="view-form.jsp" %>
-	</div>
-	
-	<!-- HR审批 -->
-	<div id="hrAudit" style="display: none">
-	
-		<!-- table用来显示信息，方便办理任务 -->
-		<%@include file="view-form.jsp" %>
-	</div>
-	
-	<div id="modifyApply" style="display: none">
-		<div id="radio">
-			<input type="radio" id="radio1" name="reApply" value="true" /><label for="radio1">调整申请</label>
-			<input type="radio" id="radio2" name="reApply" checked="checked" value="false" /><label for="radio2">取消申请</label>
-		</div>
-	</div>
-	
-	<!-- 销假 -->
-	<div id="reportBack" style="display: none">
-		<!-- table用来显示信息，方便办理任务 -->
-		<%@include file="view-form.jsp" %>
-		<hr/>
-		<table>
-			<tr>
-				<td>实际请假开始时间：</td>
-				<td>
-					<input id="realityStartTime" />
-				</td>
-			</tr>
-			<tr>
-				<td>实际请假开始时间：</td>
-				<td>
-					<input id="realityEndTime" />
-				</td>
-			</tr>
-		</table>
-	</div>
-	
 </body>
 </html>

@@ -12,6 +12,7 @@ import me.kafeitu.demo.activiti.service.oa.leave.LeaveWorkflowService;
 import me.kafeitu.demo.activiti.util.UserUtil;
 import me.kafeitu.demo.activiti.util.Variable;
 
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -41,6 +42,9 @@ public class LeaveController {
 	protected LeaveWorkflowService workflowService;
 
 	@Autowired
+	protected RuntimeService runtimeService;
+
+	@Autowired
 	protected TaskService taskService;
 
 	@RequestMapping(value = { "apply", "" })
@@ -67,11 +71,35 @@ public class LeaveController {
 	 * 任务列表
 	 * @param leave	
 	 */
-	@RequestMapping(value = "task/list")
+	@RequestMapping(value = "list/task")
 	public ModelAndView taskList(HttpSession session) {
 		ModelAndView mav = new ModelAndView("/oa/leave/taskList");
 		String userId = UserUtil.getUserFromSession(session).getId();
 		List<Leave> results = workflowService.findTodoTasks(userId);
+		mav.addObject("leaves", results);
+		return mav;
+	}
+
+	/**
+	 * 读取运行中的流程实例
+	 * @return
+	 */
+	@RequestMapping(value = "list/running")
+	public ModelAndView runningList() {
+		ModelAndView mav = new ModelAndView("/oa/leave/running");
+		List<Leave> results = workflowService.findRunningProcessInstaces();
+		mav.addObject("leaves", results);
+		return mav;
+	}
+	
+	/**
+	 * 读取运行中的流程实例
+	 * @return
+	 */
+	@RequestMapping(value = "list/finished")
+	public ModelAndView finishedList() {
+		ModelAndView mav = new ModelAndView("/oa/leave/finished");
+		List<Leave> results = workflowService.findFinishedProcessInstaces();
 		mav.addObject("leaves", results);
 		return mav;
 	}
@@ -84,7 +112,7 @@ public class LeaveController {
 		String userId = UserUtil.getUserFromSession(session).getId();
 		taskService.claim(taskId, userId);
 		redirectAttributes.addFlashAttribute("message", "任务已签收");
-		return "redirect:/oa/leave/task/list";
+		return "redirect:/oa/leave/list/task";
 	}
 
 	/**

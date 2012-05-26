@@ -5,7 +5,9 @@
 		<a rel="#">考勤模块</a>
 		<ul>
 			<li><a rel="oa/leave/apply">请假申请</a></li>
-			<li><a rel="oa/leave/task/list">请假办理</a></li>
+			<li><a rel="oa/leave/list/task">请假办理</a></li>
+			<li><a rel="oa/leave/list/running">运行中流程</a></li>
+			<li><a rel="oa/leave/list/finished">已结束流程</a></li>
 		</ul>
 	</li>
 	<li>

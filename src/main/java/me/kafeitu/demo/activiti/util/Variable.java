@@ -3,6 +3,8 @@ package me.kafeitu.demo.activiti.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import jodd.util.StringUtil;
+
 import org.apache.commons.beanutils.ConvertUtils;
 
 public class Variable {
@@ -37,6 +39,13 @@ public class Variable {
 
 	public Map<String, Object> getVariableMap() {
 		Map<String, Object> vars = new HashMap<String, Object>();
+
+		ConvertUtils.register(new DateConverter(), java.util.Date.class);
+
+		if (StringUtil.isBlank(keys)) {
+			return vars;
+		}
+
 		String[] arrayKey = keys.split(",");
 		String[] arrayValue = values.split(",");
 		String[] arrayType = types.split(",");
