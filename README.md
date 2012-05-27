@@ -12,7 +12,12 @@
 
 * Spring: **3.1.1.RELEASE**
 
-* SpringSide：**4.0.0.RC4-SNAPSHOT**
+* SpringSide：**4.0.0.RC4-SNAPSHOT** 
+
+# 下载源码
+
+[zip格式](https://github.com/henryyan/kft-activiti-demo/zipball/no-maven)
+[tar.gz格式](https://github.com/henryyan/kft-activiti-demo/tarball/no-maven)
 
 # 演示说明文档
 
