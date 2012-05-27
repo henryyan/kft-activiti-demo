@@ -16,8 +16,8 @@
 
 # 下载源码
 
-[zip格式](https://github.com/henryyan/kft-activiti-demo/zipball/no-maven)
-[tar.gz格式](https://github.com/henryyan/kft-activiti-demo/tarball/no-maven)
+* [zip格式](https://github.com/henryyan/kft-activiti-demo/zipball/no-maven)
+* [tar.gz格式](https://github.com/henryyan/kft-activiti-demo/tarball/no-maven)
 
 # 演示说明文档
 
