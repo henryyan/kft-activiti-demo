@@ -1,0 +1,19 @@
+body {
+	overflow-x: hidden;/*消除打开dialog后出现的滚动条*/
+}
+
+/* jquery ui */
+.ui-button .ui-button-text { display: block; line-height: .5;  padding-top: 10px;}
+.ui-button-small .ui-button-text {
+ 	padding: 0.5em 0.3em 0.3em 1.1em;
+}
+
+/* jqGrid */
+#t_list {padding-left: 5px; padding-right: 5px; height: 28px;}
+#list_kn {display: none;}/*消除行内编辑时会在表格头部出现的空白*/
+.ui-jqgrid tr.jqgrow td {
+	border-color: #A6C9E2;
+}
+.ui-jqgrid tr.jqgroup td {
+	border-color: #A6C9E2;
+}

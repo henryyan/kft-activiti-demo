@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
-  <wb-module deploy-name="joying-budget-web">
-    		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <property name="context-root" value="kft-activiti-demo"/>
-        <property name="java-output-path" value="/kft-activiti-demo/target/classes"/>
-  </wb-module>
+    <wb-module deploy-name="kft-activiti-demo-no-maven">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="kft-activiti-demo-no-maven"/>
+        <property name="java-output-path" value="/kft-activiti-demo-no-maven/build/classes"/>
+    </wb-module>
 </project-modules>
