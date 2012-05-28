@@ -202,12 +202,15 @@ var handleOpts = {
 			click: function() {
 				var taskId = $(this).data('taskId');
 				
-				
 				// 设置流程变量
 				complete(taskId, [{
 					key: 'hrPass',
 					value: true,
 					type: 'B'
+				}, {
+					key: 'applyUserId',
+					value: detail.userId,
+					type: 'S'
 				}]);
 			}
 		}, {
@@ -220,9 +223,6 @@ var handleOpts = {
 					html: "<textarea id='hrBackReason' style='width: 250px; height: 60px;'></textarea>"
 				}).dialog({
 					modal: true,
-					open: function() {
-						
-					},
 					buttons: [{
 						text: '驳回',
 						click: function() {

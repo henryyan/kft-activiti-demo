@@ -16,6 +16,8 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +36,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/oa/leave")
 public class LeaveController {
+
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	protected LeaveManager leaveManager;
@@ -91,7 +95,7 @@ public class LeaveController {
 		mav.addObject("leaves", results);
 		return mav;
 	}
-	
+
 	/**
 	 * 读取运行中的流程实例
 	 * @return
@@ -114,7 +118,7 @@ public class LeaveController {
 		redirectAttributes.addFlashAttribute("message", "任务已签收");
 		return "redirect:/oa/leave/list/task";
 	}
-	
+
 	/**
 	 * 读取详细数据
 	 * @param id
@@ -154,7 +158,7 @@ public class LeaveController {
 			taskService.complete(taskId, variables);
 			return "success";
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("error on complete task {}, variables={}", new Object[] { taskId, var.getVariableMap(), e });
 			return "error";
 		}
 	}
