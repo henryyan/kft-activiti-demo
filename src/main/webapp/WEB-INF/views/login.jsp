@@ -27,7 +27,7 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<button>登录系统</button>
+					<button type="submit">登录系统</button>
 				</td>
 			</tr>
 		</table>
