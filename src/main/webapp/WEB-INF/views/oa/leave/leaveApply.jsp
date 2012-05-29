@@ -60,7 +60,7 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<button>申请</button>
+					<button type="submmit">申请</button>
 				</td>
 			</tr>
 		</table>
