@@ -6,6 +6,8 @@
 
 **作者**：[咖啡兔|http://www.kafeitu.me]
 
+**在线演示**：[http://aws.kafeitu.me:8080/kft-activiti-demo](http://aws.kafeitu.me:8080/kft-activiti-demo)
+
 # 框架版本
 
 * Activiti: **5.9**
