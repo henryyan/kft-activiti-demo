@@ -48,7 +48,7 @@
        				<div style="float:right; color: #fff;font-size: 12px;margin-top: 2px">
 		        		<div>
 		        			<label for="username">欢迎：</label>
-		        			<span title="${user }">${user.firstName } ${user.lastName }/${user.id }</span>
+		        			<span title="角色：${groupNames }">${user.firstName } ${user.lastName }/${user.id }</span>
 		        		</div>
 		        		<div style="text-align: right;">
 		        			<a id="chang-theme" href="#">切换风格</a>

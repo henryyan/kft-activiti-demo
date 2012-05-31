@@ -1,11 +1,15 @@
 package me.kafeitu.demo.activiti.web.identify;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import me.kafeitu.demo.activiti.util.UserUtil;
 
 import org.activiti.engine.IdentityService;
+import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.User;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +48,23 @@ public class UseController {
 			User user = identityService.createUserQuery().userId(userName).singleResult();
 			UserUtil.saveUserToSession(session, user);
 
+			List<Group> groupList = identityService.createGroupQuery().groupMember(userName).list();
+			session.setAttribute("groups", groupList);
+
+			String[] groupNames = new String[groupList.size()];
+			for (int i = 0; i < groupNames.length; i++) {
+				System.out.println(groupList.get(i).getName());
+				groupNames[i] = groupList.get(i).getName();
+			}
+
+			session.setAttribute("groupNames", ArrayUtils.toString(groupNames));
+
 			return "redirect:/main/index";
 		} else {
 			return "redirect:/login?error=true";
 		}
 	}
-	
+
 	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");

@@ -29,6 +29,9 @@
 	<c:if test="${not empty message}">
 		<div id="message" class="alert alert-success">${message}</div>
 	</c:if>
+	<c:if test="${not empty error}">
+		<div id="error" class="alert alert-error">${error}</div>
+	</c:if>
 	<form:form id="inputForm" modelAttribute="user" action="${ctx}/oa/leave/start" method="post" class="form-horizontal">
 		<fieldset>
 			<legend><small>请假申请</small></legend>

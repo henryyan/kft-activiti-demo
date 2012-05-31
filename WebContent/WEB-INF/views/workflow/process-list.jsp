@@ -14,10 +14,23 @@
 	<%@ include file="/common/include-base-styles.jsp" %>
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
 	<title>流程列表</title>
+	
+	<script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(function() {
+    	$('#redeploy').button({
+    		icons: {
+    			primary: 'ui-icon-refresh'
+    		}
+    	});
+    });
+    </script>
 </head>
 <body>
 	<div style="text-align: right;padding: 2px 1em 2px">
-		<a id='redeploy' href='${ctx }/workflow/redeploy/all'>重新部署流程</a>
+		<div id="message" class="info" style="display:inline;"><b>提示：</b>点击xml或者png链接可以查看具体内容！</div>
+		<a id='redeploy' href='${ctx }/workflow/redeploy/all'><c:if test="${not empty processes }">重新</c:if>部署流程</a>
 	</div>
 	<table width="100%" class="need-border">
 		<thead>
