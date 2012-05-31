@@ -93,12 +93,18 @@ function complete(taskId, variables) {
 			types += this.type;
 		});
 	}
+	
+	$.blockUI({
+        message: '<h2><img src="' + ctx + '/images/ajax/loading.gif" align="absmiddle"/>正在提交请求……</h2>'
+    });
+	
 	// 发送任务完成请求
     $.post(ctx + '/oa/leave/complete/' + taskId, {
         keys: keys,
         values: values,
         types: types
     }, function(resp) {
+		$.unblockUI();
         if (resp == 'success') {
             alert('任务完成');
             location.reload();
