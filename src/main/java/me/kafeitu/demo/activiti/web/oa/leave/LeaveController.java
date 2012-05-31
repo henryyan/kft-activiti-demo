@@ -12,6 +12,7 @@ import me.kafeitu.demo.activiti.service.oa.leave.LeaveWorkflowService;
 import me.kafeitu.demo.activiti.util.UserUtil;
 import me.kafeitu.demo.activiti.util.Variable;
 
+import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
@@ -63,11 +64,24 @@ public class LeaveController {
 	 */
 	@RequestMapping(value = "start", method = RequestMethod.POST)
 	public String startWorkflow(Leave leave, RedirectAttributes redirectAttributes, HttpSession session) {
-		User user = UserUtil.getUserFromSession(session);
-		leave.setUserId(user.getId());
-		Map<String, Object> variables = new HashMap<String, Object>();
-		ProcessInstance processInstance = workflowService.startWorkflow(leave, variables);
-		redirectAttributes.addFlashAttribute("message", "流程已启动，流程ID：" + processInstance.getId());
+		try {
+			User user = UserUtil.getUserFromSession(session);
+			leave.setUserId(user.getId());
+			Map<String, Object> variables = new HashMap<String, Object>();
+			ProcessInstance processInstance = workflowService.startWorkflow(leave, variables);
+			redirectAttributes.addFlashAttribute("message", "流程已启动，流程ID：" + processInstance.getId());
+		} catch (ActivitiException e) {
+			if (e.getMessage().indexOf("no processes deployed with key") != -1) {
+				logger.warn("没有部署流程!", e);
+				redirectAttributes.addFlashAttribute("error", "没有部署流程，请在[工作流]->[流程管理]页面点击<重新部署流程>");
+			} else {
+				logger.error("启动投保流程失败：", e);
+				redirectAttributes.addFlashAttribute("error", "系统内部错误！");
+			}
+		} catch (Exception e) {
+			logger.error("启动投保流程失败：", e);
+			redirectAttributes.addFlashAttribute("error", "系统内部错误！");
+		}
 		return "redirect:/oa/leave/apply";
 	}
 
