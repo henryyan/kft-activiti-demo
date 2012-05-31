@@ -40,6 +40,10 @@
 			<id>Activiti</id>
 			<url>http://maven.alfresco.com/nexus/content/repositories/activiti</url>
 		</repository>
+		<repository>
+			<id>Codehaus</id>
+			<url>http://repository.codehaus.org</url>
+		</repository>
 	</repositories>
 
 	<!-- 依赖项定义 -->
