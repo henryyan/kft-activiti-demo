@@ -38,7 +38,7 @@
 	<repositories>
 		<repository>
 			<id>Activiti</id>
-			<url>http://maven.alfresco.com/nexus/content/repositories/activiti</url>
+			<url>https://maven.alfresco.com/nexus/content/groups/public</url>
 		</repository>
 		<repository>
 			<id>Codehaus</id>
