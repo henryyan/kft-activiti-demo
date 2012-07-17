@@ -210,7 +210,6 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>2.1</version>
 		</dependency>
 		<!-- GENERAL UTILS end -->
 
@@ -269,25 +268,6 @@
 
 	<build>
 		<plugins>
-			<!-- 增加functional test的Source目录 -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>add-functional-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/test/functional</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<!-- test插件, 设置內存/ClassLoader -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
