@@ -3,3 +3,4 @@
 /src/test/resources/application.test.local.properties
 *~
 .ant_targets
+.DS_Store
