@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="kft-activiti-demo" default="welcome">
+	<!-- properties from files -->
+	<property file="${user.home}/.kafeitu/build.properties" />
+	<property file="build.properties" />
+
+	<!-- properties from key value -->
+	<property name="workflow.diagrams" value="resources/diagrams" />
+	<property name="workflow.deployments" value="resources/deployments" />
+
+	<!-- 流程定义：每个模块的路径 -->
+	<property name="wd.leave" value="${workflow.diagrams}/leave" />
+
+	<!-- 显示欢迎信息以及操作提示 -->
+	<target name="welcome">
+		<echo>Activiti演示程序，请输入命令后操作！</echo>
+	</target>
+
+	<!-- 请假流程定义打包 -->
+	<target name="workflow.package.leave">
+		<echo>打包流程定义：请假（自定义表单）</echo>
+		<copy file="${wd.leave}/leave.bpmn" tofile="${wd.leave}/leave.bpmn20.xml" />
+		<zip destfile="${workflow.deployments}/leave.zip" basedir="${wd.leave}" update="true" includes="*.xml,*.png" />
+		<delete file="${wd.leave}/leave.bpmn20.xml" />
+	</target>
+
+	<!-- 流程定义打包 -->
+	<target name="workflow.package.all" depends="workflow.package.leave">
+	</target>
+</project>
