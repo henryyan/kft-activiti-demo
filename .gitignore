@@ -5,3 +5,5 @@
 .xml
 .bpmn
 WebContent/WEB-INF/classes
+.DS_Store
+.ant_targets
