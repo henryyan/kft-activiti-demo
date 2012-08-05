@@ -22,7 +22,6 @@
 			<lenged>架构说明：</lenged>
 			<ul>
 				<li>Activiti版本：5.9</li>
-				<li>DEMO使用开源的<a target="_blank" href='https://github.com/springside/springside4'>SpringSide4</a>作为基础架构。</li>
 				<li>使用Maven管理依赖</li>
 			</ul>
 		</fieldset>
