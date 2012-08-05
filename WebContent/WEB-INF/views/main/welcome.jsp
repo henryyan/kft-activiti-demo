@@ -7,7 +7,7 @@
 	<%@ include file="/common/meta.jsp"%>
 </head>
 <body style="margin-top: 1em;">
-	<h1>欢迎访问Activiti Demo</h1>
+	<h1>欢迎访问Activiti Demo，no-maven分支</h1>
 	<p>
 		<fieldset>
 			<lenged>项目说明：</lenged>
@@ -22,7 +22,6 @@
 			<lenged>架构说明：</lenged>
 			<ul>
 				<li>Activiti版本：5.9</li>
-				<li>DEMO使用开源的<a target="_blank" href='https://github.com/springside/springside4'>SpringSide4</a>作为基础架构。</li>
 				<li>使用Maven管理依赖</li>
 			</ul>
 		</fieldset>
