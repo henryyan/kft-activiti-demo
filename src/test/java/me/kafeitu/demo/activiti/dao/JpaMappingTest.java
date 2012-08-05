@@ -5,11 +5,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 
+import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
-import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 @ContextConfiguration(locations = { "/applicationContext.xml" })
 public class JpaMappingTest extends SpringTransactionalTestCase {

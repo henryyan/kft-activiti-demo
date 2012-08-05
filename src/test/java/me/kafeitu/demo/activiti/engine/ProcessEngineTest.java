@@ -2,6 +2,8 @@ package me.kafeitu.demo.activiti.engine;
 
 import static org.junit.Assert.assertNotNull;
 
+import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
+
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
@@ -12,7 +14,6 @@ import org.activiti.engine.TaskService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 /**
  * 测试流程引擎

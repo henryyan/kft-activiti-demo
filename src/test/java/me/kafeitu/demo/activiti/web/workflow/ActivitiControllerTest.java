@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
 import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
 
 import org.activiti.engine.RepositoryService;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.servlet.ModelAndView;
-import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 /**
  * 工作流控制器测试

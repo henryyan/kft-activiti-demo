@@ -2,6 +2,7 @@ package me.kafeitu.demo.activiti.web.user;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
 import me.kafeitu.demo.activiti.web.identify.UseController;
 
 import org.activiti.engine.IdentityService;
@@ -10,7 +11,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
-import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 /**
  * 测试用户控制器

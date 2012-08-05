@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
+
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -18,7 +20,6 @@ import org.activiti.engine.task.Task;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 /**
  * 测试请假流程定义

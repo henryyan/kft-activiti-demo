@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.beanutils.Converter;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 
 public class DateConverter implements Converter {
@@ -22,7 +22,6 @@ public class DateConverter implements Converter {
 	private static final String MONTH_PATTERN = "yyyy-MM";
 
 	@SuppressWarnings("rawtypes")
-	@Override
 	public Object convert(Class type, Object value) {
 		Object result = null;
 		if (type == Date.class) {
