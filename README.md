@@ -14,7 +14,7 @@
 
 * Spring: **3.1.1.RELEASE**
 
-* SpringSide：**4.0.0.RC4-SNAPSHOT**
+* Hibernate: **4.1.4.Final**
 
 # 演示说明文档
 
