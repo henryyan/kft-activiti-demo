@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Date;
 
 import me.kafeitu.demo.activiti.entity.oa.Leave;
-import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
+import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
 import org.junit.Before;
 import org.junit.Test;

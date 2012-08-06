@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
 import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
+import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -53,14 +53,14 @@ public class ActivitiControllerTest extends SpringTransactionalTestCase {
 		String view = activitiController.redeployAll();
 		assertEquals("redirect:/workflow/process-list", view);
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
-		assertEquals(1, list.size());
+		assertEquals(2, list.size());
 	}
 
 	@Test
 	public void testLoadByDeployment() throws Exception {
 		// 部署流程定义
 		List<ProcessDefinition> list = deployAllProcess();
-		
+
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		activitiController.loadByDeployment(list.get(0).getDeploymentId(), "leave.bpmn20.xml", response);
 	}
@@ -69,9 +69,10 @@ public class ActivitiControllerTest extends SpringTransactionalTestCase {
 	public void testDeleteProcess() throws Exception {
 
 		List<ProcessDefinition> list = deployAllProcess();
-
+		for (ProcessDefinition processDefinition : list) {
+			activitiController.delete(processDefinition.getDeploymentId());
+		}
 		// 删除流程定义
-		activitiController.delete(list.get(0).getDeploymentId());
 		list = repositoryService.createProcessDefinitionQuery().list();
 		assertEquals(0, list.size());
 	}
@@ -79,8 +80,8 @@ public class ActivitiControllerTest extends SpringTransactionalTestCase {
 	private List<ProcessDefinition> deployAllProcess() throws Exception {
 		activitiController.redeployAll();
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
-		assertEquals(1, list.size());
+		assertEquals(2, list.size());
 		return list;
 	}
-	
+
 }

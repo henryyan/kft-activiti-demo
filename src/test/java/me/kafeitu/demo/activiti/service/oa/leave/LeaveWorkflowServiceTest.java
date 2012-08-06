@@ -11,8 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import me.kafeitu.demo.activiti.entity.oa.Leave;
-import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
 import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
+import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;

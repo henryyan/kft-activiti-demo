@@ -5,7 +5,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 
-import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
+
+import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
 import org.junit.Test;
 import org.slf4j.Logger;

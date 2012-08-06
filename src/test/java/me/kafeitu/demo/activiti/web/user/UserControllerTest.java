@@ -2,8 +2,8 @@ package me.kafeitu.demo.activiti.web.user;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
 import me.kafeitu.demo.activiti.web.identify.UseController;
+import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.identity.User;

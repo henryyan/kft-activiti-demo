@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import me.kafeitu.demo.activiti.entity.account.Group;
 import me.kafeitu.demo.activiti.entity.account.User;
-import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
+import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;

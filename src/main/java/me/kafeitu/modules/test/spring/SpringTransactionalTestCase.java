@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
-package me.kafeitu.demo.activiti.modules.test.spring;
+package me.kafeitu.modules.test.spring;
 
 import javax.sql.DataSource;
 

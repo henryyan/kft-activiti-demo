@@ -8,7 +8,8 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
+
+import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;

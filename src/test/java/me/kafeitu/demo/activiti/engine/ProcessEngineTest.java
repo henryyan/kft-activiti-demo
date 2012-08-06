@@ -2,7 +2,8 @@ package me.kafeitu.demo.activiti.engine;
 
 import static org.junit.Assert.assertNotNull;
 
-import me.kafeitu.demo.activiti.modules.test.spring.SpringTransactionalTestCase;
+
+import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
