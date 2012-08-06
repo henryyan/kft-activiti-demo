@@ -2,9 +2,9 @@
 
 本项目旨在让初学者快速入门Activiti。
 
-本项目依赖[Springside4](https://github.com/springside/springside4)。
-
 **作者**：[咖啡兔|http://www.kafeitu.me]
+
+**项目主页**：[http://www.kafeitu.me/activiti/2012/05/26/kft-activiti-demo.html](http://www.kafeitu.me/activiti/2012/05/26/kft-activiti-demo.html)
 
 **在线演示**：[http://aws.kafeitu.me:8080/kft-activiti-demo](http://aws.kafeitu.me:8080/kft-activiti-demo)
 
@@ -14,7 +14,7 @@
 
 * Spring: **3.1.1.RELEASE**
 
-* SpringSide：**4.0.0.RC4-SNAPSHOT**
+* Hibernate: **4.1.4.Final**
 
 # 演示说明文档
 
