@@ -341,7 +341,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -354,7 +353,6 @@
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
 			<version>2.4.8</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- jetty -->
