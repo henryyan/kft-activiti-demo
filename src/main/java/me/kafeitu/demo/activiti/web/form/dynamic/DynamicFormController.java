@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import me.kafeitu.demo.activiti.util.UserUtil;
 
@@ -135,11 +136,15 @@ public class DynamicFormController {
 		
 		List<Task> tasks = new ArrayList<Task>();
 		
+		/**
+		 * 这里为了演示区分开自定义表单的请假流程，值读取leave-dynamic-from
+		 */
+		
 		// 分配到当前登陆用户的任务
-		List<Task> list = taskService.createTaskQuery().taskAssignee(user.getId()).list();
+		List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskAssignee(user.getId()).list();
 		
 		// 为签收的任务
-		List<Task> list2 = taskService.createTaskQuery().taskCandidateUser(user.getId()).list();
+		List<Task> list2 = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskCandidateUser(user.getId()).list();
 		
 		tasks.addAll(list);
 		tasks.addAll(list2);
@@ -147,4 +152,16 @@ public class DynamicFormController {
 		mav.addObject("tasks", tasks);
 		return mav;
 	}
+	
+	/**
+	 * 签收任务
+	 */
+	@RequestMapping(value = "task/claim/{id}")
+	public String claim(@PathVariable("id") String taskId, HttpSession session, RedirectAttributes redirectAttributes) {
+		String userId = UserUtil.getUserFromSession(session).getId();
+		taskService.claim(taskId, userId);
+		redirectAttributes.addFlashAttribute("message", "任务已签收");
+		return "redirect:/form/dynamic/task-list";
+	}
+	
 }
