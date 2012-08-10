@@ -22,6 +22,17 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<!-- 配置文件Servlet -->
+	<servlet>
+		<servlet-name>PropertiesServlet</servlet-name>
+		<servlet-class>me.kafeitu.modules.web.servlet.PropertiesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PropertiesServlet</servlet-name>
+		<url-pattern>/properties-servlet</url-pattern>
+	</servlet-mapping>
 
 	<!-- Filter 定义 -->
 	<!-- Character Encoding filter -->
