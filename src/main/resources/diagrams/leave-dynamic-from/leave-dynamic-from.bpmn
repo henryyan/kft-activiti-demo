@@ -4,7 +4,9 @@
     <documentation>请假流程演示-动态表单</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="applyer" name="申请人" type="string" value="${applyer}" readable="true" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="startDate" name="请假开始日期" type="date" datePattern="yyyy-MM-dd" required="true" readable="true" writable="true"></activiti:formProperty>
+        <activiti:formProperty id="endDate" name="请假结束日期" type="date" datePattern="yyyy-MM-dd" required="true" readable="true" writable="true"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="请假原因" type="string" required="true" readable="true" writable="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="deptLeaderAudit" name="部门领导审批" activiti:candidateGroups="deptLeader"></userTask>
