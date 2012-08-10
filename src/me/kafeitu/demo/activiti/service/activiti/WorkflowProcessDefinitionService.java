@@ -79,7 +79,7 @@ public class WorkflowProcessDefinitionService {
 	 */
 	public void deployFromClasspath(String... processKey) throws Exception {
 		ResourceLoader resourceLoader = new DefaultResourceLoader();
-		String[] processKeys = { "leave" };
+		String[] processKeys = { "leave", "leave-dynamic-from" };
 		for (String loopProcessKey : processKeys) {
 
 			/*
@@ -110,7 +110,7 @@ public class WorkflowProcessDefinitionService {
 	 * @throws IOException		找不到zip文件时
 	 */
 	private void deploySingleProcess(ResourceLoader resourceLoader, String processKey) throws IOException {
-		String classpathResourceUrl = "classpath:/diagrams/" + processKey + "/" + processKey + ".zip";
+		String classpathResourceUrl = "classpath:/deployments/" + processKey + ".zip";
 		logger.debug("read workflow from: {}", classpathResourceUrl);
 		Resource resource = resourceLoader.getResource(classpathResourceUrl);
 		InputStream inputStream = resource.getInputStream();

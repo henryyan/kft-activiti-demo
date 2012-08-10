@@ -30,7 +30,6 @@ public class AfterModifyApplyContentProcessor implements TaskListener {
 	/* (non-Javadoc)
 	 * @see org.activiti.engine.delegate.TaskListener#notify(org.activiti.engine.delegate.DelegateTask)
 	 */
-	@Override
 	public void notify(DelegateTask delegateTask) {
 		String processInstanceId = delegateTask.getProcessInstanceId();
 		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();

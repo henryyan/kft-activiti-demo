@@ -46,3 +46,10 @@ td.label {
     -khtml-border-bottom-right-radius: 12px;
     border-bottom-right-radius: 12px;
 }
+
+/* 自动完成的loading图片 */
+.ui-loading { background: url('../images/ajax/loading.gif') right center no-repeat; padding-left: 18px;}
+
+.error, .alert, .notice, .success, .info {
+	padding: auto !important;
+}

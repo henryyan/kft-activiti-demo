@@ -16,6 +16,7 @@
             if (parent) {
                 var tempParent = parent;
                 while (true) {
+                    $.common.plugin$.common.plugin
                     if (tempParent.parent) {
                         if (tempParent.parent == tempParent) {
                             break;
@@ -133,7 +134,7 @@
         },
         //-- 搜索比较符号 --/
         search: {
-            text: ['eq', 'ne', 'cn'],
+            text: ['cn', 'eq', 'ne'],
             select: ['eq', 'ne'],
             integer: ['eq', 'ne', 'lt', 'le', 'gt', 'ge'],
             'float': ['eq', 'ne', 'lt', 'le', 'gt', 'ge'],
@@ -198,63 +199,174 @@
                 return "<span class='must'>*</span>";
             },
             mustTip: "带 <span class='must'>*</span> 为必填(选)项。",
-            // 设置表单的LABEL宽度，防止自动列宽在验证组件添加文字提示的时候表格会动的问题
-            setLabelWidth: function(options) {
-                var opts = $.extend(options, {
-                    selector: '.CaptionTD',
-                    width: 0
-                });
-                $(opts.selector).width(opts.width);
-            },
             // 添加设置
             add: {
-                closeAfterAdd: true,
+                modal: true,
+                closeAfterAdd: false,
                 recreateForm: true,
                 closeOnEscape: true,
                 savekey: [true, 13],
                 navkeys: [true, 38, 40],
                 bottominfo: "带 <span class='must'>*</span> 为必填(选)项。",
                 onInitializeForm: function(formObj) {
-                
+                    // 鼠标划过的时候高亮当前行
+                    $('tr.FormData', formObj).hover(function() {
+                        $(this).addClass('ui-state-hover');
+                    }, function() {
+                        $(this).removeClass('ui-state-hover');
+                    }).click(function() {
+                        $('tr.FormData', formObj).removeClass('ui-state-active');
+                        $(this).addClass('ui-state-active');
+                    });
+                    
                     // 如果对话框的高度超过了列表的高度则出现滚动条，延迟20毫秒执行
                     setTimeout(function() {
                         var formDialogHeight = $(formObj).parents('.ui-jqdialog').height();
+                        var formDialogWidth = $(formObj).parents('.ui-jqdialog').width();
                         var listId = $(formObj).attr('id').replace('FrmGrid_', '');
-                        var gridHeight = $('#gview_' + listId).height();
-                        if (formDialogHeight > gridHeight) {
-                            $(formObj).height($.common.window.getClientHeight() - $(formObj).next('.EditTable').height() - 38);
+                        var subGridLength = $('#gview_' + listId).parents('td.subgrid-data').length;
+                        if (subGridLength > 0) {
+                            $(formObj).parents('.ui-jqdialog').css({
+                                top: 0,
+                                left: 0
+                            });
+                            return;
                         }
+                        
+						// 设置参数autoSizeForm时不自动调整表单对话框高度
+						if ($('#listId').jqGrid('getGridParam', 'autoSizeForm') === true) {
+							var gridHeight = $('#gview_' + listId).height();
+							if (formDialogHeight > gridHeight) {
+								$(formObj).height(gridHeight - $(formObj).next('.EditTable').height() - 30);
+							}
+						}
                     }, 20);
+                },
+                onClose: function(formObj) {
+                    try {
+                        $('.ui-tooltip-red').qtip('destroy');
+                    } catch (e) {
+                    }
                 }
             },
             // 编辑设置
             edit: {
-                closeAfterEdit: true,
+                modal: true,
+                closeAfterEdit: false,
                 recreateForm: true,
                 closeOnEscape: true,
                 savekey: [true, 13],
                 navkeys: [true, 38, 40],
                 bottominfo: "带 <span class='must'>*</span> 为必填(选)项。",
                 onInitializeForm: function(formObj) {
-                
+                    // 鼠标划过的时候高亮当前行
+                    $('tr.FormData', formObj).hover(function() {
+                        $(this).addClass('ui-state-hover');
+                    }, function() {
+                        $(this).removeClass('ui-state-hover');
+                    }).click(function() {
+                        $('tr.FormData', formObj).removeClass('ui-state-active');
+                        $(this).addClass('ui-state-active');
+                    });
+                    
                     // 如果对话框的高度超过了列表的高度则出现滚动条，延迟20毫秒执行
                     setTimeout(function() {
                         var formDialogHeight = $(formObj).parents('.ui-jqdialog').height();
                         var listId = $(formObj).attr('id').replace('FrmGrid_', '');
+                        
+                        var subGridLength = $('#gview_' + listId).parents('td.subgrid-data').length;
+                        if (subGridLength > 0) {
+                            $(formObj).parents('.ui-jqdialog').css({
+                                top: 0,
+                                left: 0
+                            });
+                            return;
+                        }
+                        
                         var gridHeight = $('#gview_' + listId).height();
                         if (formDialogHeight > gridHeight) {
-                            $(formObj).height($.common.window.getClientHeight() - $(formObj).next('.EditTable').height() - 38);
+                            $(formObj).height(gridHeight - $(formObj).next('.EditTable').height() - 30);
                         }
                     }, 20);
+                },
+                onClose: function(formObj) {
+                    try {
+                        $('.ui-tooltip-red').qtip('destroy');
+                    } catch (e) {
+                    }
                 }
             },
             // 删除设置
-            del: { // empty
-}            ,
+            del: {
+            },
             // 搜索设置
             search: {
                 multipleSearch: true,
-                caption: '查询',
+                showQuery: false,
+                multipleGroup: false,
+                sopt: ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'in', 'ni', 'ew', 'en', 'cn', 'nc', 'nu', 'nn'],
+                afterRedraw: function() {
+                    // 新版本已经实现了此功能
+                    return;
+                    // 从下拉况中选择保存过的查询条件
+                    var savedFilters = {
+                        '医保在上海年龄20-30之间': {
+                            "groupOp": "AND",
+                            "rules": [{
+                                "field": "age",
+                                "op": "ge",
+                                "data": "20"
+                            }, {
+                                "field": "age",
+                                "op": "le",
+                                "data": "30"
+                            }, {
+                                field: "medicareAddress",
+                                "op": "eq",
+                                "data": "上海"
+                            }]
+                        },
+                        年龄20岁以上: {
+                            "groupOp": "OR",
+                            "rules": [{
+                                "field": "age",
+                                "op": "le",
+                                "data": "20"
+                            }]
+                        }
+                    };
+                    $('.opsel').before("<select class='saved-filters' title='已保存搜索条件'><option>--请选择--</option></select>" +
+                    "<input id='filterName' size='15' style='display:none' title='输入名称后可以保存搜索条件' />");
+                    $.each(savedFilters, function(i, v) {
+                        $("<option />", {
+                            value: i,
+                            text: i
+                        }).appendTo('.saved-filters');
+                    });
+                    
+                    $('.saved-filters').unbind('change').bind('change', function() {
+                        // 1、删除所有条件
+                        $('#fbox_list_reset').trigger('click');
+                        
+                        // 2、设置条件
+                        var filterName = $('option:selected', this).val();
+                        var groupOp = savedFilters[filterName].groupOp;
+                        var rules = savedFilters[filterName].rules;
+                        $('.opsel option[value=' + groupOp + ']').attr('selected', true);
+                        for (var i = 0; i < rules.length; i++) {
+                            if ($('.columns').length < rules.length) {
+                                $('.add-rule').trigger('click');
+                            }
+                            $('.columns:eq(' + i + ') select option[value=' + rules[i].field + ']').attr('selected', true).trigger('change');
+                            $('.operators:eq(' + i + ') select option[value=' + rules[i].op + ']').attr('selected', true);
+                            $('.data:eq(' + i + ') *').val(rules[i].data)
+                        }
+                        
+                        // 3、选中当前条件
+                        $('.saved-filters option:[text=' + filterName + ']').attr('selected', true);
+                        
+                    });
+                },
                 afterShowSearch: function() {
                     /*
                      * 添加回车键搜索功能
@@ -286,6 +398,15 @@
                     setTimeout(function() {
                         // 隐藏编辑按钮
                         $('#trv_options').hide();
+                        
+                        
+                        // 如果对话框的高度超过了列表的高度则出现滚动条，延迟20毫秒执行
+                        var formDialogHeight = $(formid).parents('.ui-jqdialog').height();
+                        var listId = $(formid).attr('id').replace('ViewGrid_', '');
+                        var gridHeight = $('#gview_' + listId).height();
+                        if (formDialogHeight > gridHeight) {
+                            $(formid).height($.common.window.getClientHeight() - $(formid).next('.EditTable').height() - 38);
+                        }
                     }, 10);
                 }
             }
@@ -369,22 +490,21 @@
                 if ($.common.browser.isChrome()) {
                     if (hasToolbar) {
                         if (toolbarType == 'top' || toolbarType == 'bottom') {
-                            iframeWidth -= 8;
-                            iframeHeight -= 128;
+                            iframeWidth -= 4;
+                            iframeHeight -= 120;
                         } else if (toolbarType == 'both') {
                             iframeWidth -= 14;
                             iframeHeight -= 140;
                         }
                     } else {
-                        iframeWidth -= 5;
-                        iframeHeight -= 82;
+                        iframeWidth -= 4;
+                        iframeHeight -= 85;
                     }
-                } // firefox
- else if ($.common.browser.isMozila() || $.common.browser.isOpera()) {
+                } else if ($.common.browser.isMozila() || $.common.browser.isOpera()) {
                     if (hasToolbar) {
                         if (toolbarType == 'top' || toolbarType == 'bottom') {
-                            iframeWidth -= 10;
-                            iframeHeight -= 122;
+                            iframeWidth -= 3;
+                            iframeHeight -= 118;
                         } else if (toolbarType == 'both') {
                             iframeWidth -= 12;
                             iframeHeight -= 145;
@@ -393,8 +513,7 @@
                         iframeWidth -= 4;
                         iframeHeight -= 85;
                     }
-                } // IE
- else {
+                } else {
                     if (hasToolbar) {
                         if (toolbarType == 'top' || toolbarType == 'bottom') {
                             if ($.common.browser.isIE() && options.toolbarHeight) {
@@ -403,7 +522,7 @@
                                     iframeHeight -= (options.toolbarHeight.top.ie - 21) - 15;
                                 }
                             }
-                            iframeHeight -= 133;
+                            iframeHeight -= 123;
                             iframeWidth -= 6;
                             setTimeout(function() {
                                 // 设置上方的toolbar
@@ -419,7 +538,7 @@
                         }
                     } else {
                         iframeWidth -= 6;
-                        iframeHeight -= 93;
+                        iframeHeight -= 85;
                     }
                 }
                 
@@ -451,7 +570,12 @@
              * @param {Object} listId
              */
             getChecked: function(listId) {
-                return $('#' + listId + ' :checkbox[name!=cb_' + listId + ']:checked');
+                var chks = $('#' + listId + ' :checkbox[name!=cb_' + listId + ']:checked');
+                $.each(chks, function() {
+                	var rowId = $(this).parents('tr').attr('id');
+                	$(this).data('rowId', rowId);
+                });
+                return chks;
             },
             
             /**
@@ -494,14 +618,14 @@
             if (!$('#' + listId).data('gridComplete')) {
                 setTimeout(function() {
                     // 修复IE下鼠标移动到按钮后格式会乱的问题
-                    /*$('#' + listId + ' td[$=_left] .ui-pg-button').each(function(){
-                     $(this).width($(this).width() + 3);
-                     });*/
+                    $('#' + listId + ' td[$=_left] .ui-pg-button').each(function() {
+                        $(this).width($(this).width() + 3);
+                    });
                     if ($.isFunction(callback)) {
                         callback(listId);
                     }
                     $('#' + listId).data('gridComplete', true);
-                }, 100);
+                }, 500);
             }
         },
         
@@ -510,7 +634,8 @@
          */
         filterToolbar: {
             settings: {
-                stringResult: true
+                stringResult: true,
+                defaultSearch: 'cn'
             }
         },
         
@@ -521,13 +646,78 @@
             settings: {
                 useColSpanStyle: true
             }
-        }
+        },
+        
+        /**
+         * 解决列冻结时因为高度不一致
+         * @param {Object} listId
+         */
+        setColumnHeighForFrozen: function(listId, timeout) {
+            setTimeout(function() {
+                $(listId + '_frozen tr').each(function() {
+                	var rowId = $(this).attr('id');
+                	
+                	var frozenTdHeight = parseFloat($('td:first', this).height());
+                    var normalHeight = parseFloat($(listId + ' #' + $(this).attr('id')).find('td:first').height());
+                    if (frozenTdHeight - normalHeight > 0) {
+                    	$('#' + rowId + ' td', listId).height(frozenTdHeight);
+                    } else if (frozenTdHeight - normalHeight < 0) {
+                    	$('td', this).height(normalHeight);
+                    }
+                });
+            }, timeout || 10);
+        },
+		
+		/**
+		 * 多选改进双击切换状态
+		 * @param {Object} listId
+		 */
+		dealMultiselect: function(listId) {
+			// 高亮显示选中
+			$('.jqgrow input[type=checkbox]', listId).change(function() {
+				if ($(this).attr('checked') == 'checked') {
+					$(this).parents('tr').addClass('ui-state-highlight');
+				} else {
+					$(this).parents('tr').removeClass('ui-state-highlight');
+				}
+			});
+			
+			// 双击选中
+			$('.jqgrow', listId).off('dblclick').on('dblclick', function(e) {
+				var s = $(this).find('input[type=checkbox]').attr('checked');
+				if (s == 'checked') {
+					$(this).find('input[type=checkbox]').attr('checked', false).trigger('change');
+				} else {
+					$(this).find('input[type=checkbox]').attr('checked', true).trigger('change');
+				}
+			});
+		},
+		
+		/**
+		 * 查询条件工具
+		 */
+		search: {
+			queryString: function(listId) {
+				
+				var query = "";
+				$('table[aria-labelledby=gbox_' + listId + '] .ui-search-toolbar :input').each(function() {
+					if ($(this).val()) {
+						if (query.length > 0) {
+							query += " and ";
+						}
+						query += $(this).attr('name') + '=' + $(this).val();
+					}
+				});
+				return query;
+			}
+		}
     };
     
     /**
      * jqGrid公共参数，供集成使用
      */
     _plugin_jqGrid.settings = function(options) {
+    	var multiselect = $('body').data('flowDataType_list') == 'unsigned' || $('body').data('flowDataType_list') == 'todo';
         return {
             datatype: "json",
             prmNames: _plugin_jqGrid.prmNames,
@@ -539,10 +729,24 @@
             pager: options.pager || '#pager',
             viewrecords: true,
             rownumbers: true,
-            subGridOptions: {
-                "plusicon": "ui-icon-triangle-1-e",
-                "minusicon": "ui-icon-triangle-1-s",
-                "openicon": "ui-icon-arrowreturn-1-e"
+            multiselect: multiselect,
+            //subGridOptions: { "plusicon" : "ui-icon-triangle-1-e", "minusicon" : "ui-icon-triangle-1-s", "openicon" : "ui-icon-arrowreturn-1-e" },
+            loadComplete: function(data) {
+                if (data) {
+                    $('body').data('jqgridData_' + this.id, data);
+                    var idToDataMap = {};
+                    if (data.page && data.page.result) {
+                        $.each(data.page.result, function() {
+                            idToDataMap[this.id] = this;
+                        });
+                    }
+                    $('body').data('jqgridResult_' + this.id, idToDataMap);
+                    
+                    var afterCall = $('#' + this.id).jqGrid('getGridParam', 'afterLoadComplete');
+                    if ($.isFunction(afterCall)) {
+                        afterCall.call(this, this.id, data);
+                    }
+                }
             },
             loadError: function(xhr, st, err) {
                 //alert("很抱歉，出错了！\n错误类型: " + st + "； 错误内容: "+ xhr.status + " " + xhr.statusText);
@@ -568,13 +772,42 @@
     /*******************************************/
     var _plugin_validator = {
         // 错误信息显示位置
-        error: function(error, element) {
-            if (element.is(":radio")) {
-                error.appendTo(element.parent());
-            } else if (element.is(":checkbox")) {
-                error.appendTo(element.parent());
+        errorPlacement: function(error, element) {
+            // Set positioning based on the elements position in the form
+            var elem = $(element), corners = ['right center', 'left bottom'], flipIt = elem.parents('span.right').length > 0;
+            
+            // Check we have a valid error message
+            if (!error.is(':empty')) {
+                // Apply the tooltip only if it isn't valid
+                elem.filter(':not(.valid)').qtip({
+                    overwrite: false,
+                    content: error,
+                    position: {
+                        my: corners[flipIt ? 0 : 1],
+                        at: corners[flipIt ? 1 : 0],
+                        viewport: $(window),
+                        adjust: {
+                            x: 2,
+                            y: 10
+                        }
+                    },
+                    show: {
+                        event: false,
+                        ready: true
+                    },
+                    hide: false,
+                    style: {
+                        classes: 'ui-tooltip-red validator-error'
+                    },
+                    events: {
+                    	show: function(event, api) {
+                    		// 设置qtip绑定的表单元素
+                    		$(this).data('elem', elem);
+                    	}
+                    }
+                }).qtip('option', 'content.text', error);
             } else {
-                error.appendTo(element.parent());
+                elem.qtip('destroy');
             }
         },
         success: function(label) {
@@ -624,6 +857,11 @@
          * 对话框相关
          */
         dialog: {
+        	event: {
+				close: function() {
+					$(this).dialog('close');
+				}
+			},
             /**
              * 按钮相关方法
              */
@@ -644,9 +882,10 @@
                     $.each(options, function(i, v) {
                         _set_btns[_set_btns.length] = v;
                     });
-                    
                     $.each(_set_btns, function(i, v) {
-                        var $btn = $('.ui-dialog-buttonpane').find('button:contains(' + v.text + ')');
+                        var $btn = $('.ui-button-text').filter(function() {
+                            return $(this).text() == v.text;
+                        }).parent();
                         var _icons = {};
                         if (v.icons) {
                             var arrayIcons = v.icons.split(' ');
@@ -661,6 +900,43 @@
                             });
                         }
                         $btn.attr('title', v.title);
+                        
+                        // 分隔符
+                        try {
+                            if (v.division) {
+                                var position = v.division || 'after';
+                                if (position == 'before') {
+                                    $btn.before("<span class='ui-state-error ui-dialog-button-devision'></span>");
+                                } else if (position == 'after') {
+                                    $btn.after("<span class='ui-state-error ui-dialog-button-devision'></span>");
+                                } else {
+                                    alert('未知位置：' + position);
+                                }
+                            }
+                        } catch (e) {
+                        }
+                    });
+                },
+                
+                /*[{
+                 text: 'aaa',
+                 position: ['left'|'right']
+                 }]*/
+                group: function(opts) {
+                    $.each(opts, function(i, v) {
+                        var $btn = $('.ui-button-text').filter(function() {
+                            return $(this).text() == v.text;
+                        }).parent();
+                        try {
+                            if (!v.position || v.position == 'after') {
+                                $btn.after("<span class='ui-state-error ui-dialog-button-devision'></span>");
+                            } else if (v.position == 'before') {
+                                $btn.before("<span class='ui-state-error ui-dialog-button-devision'></span>");
+                            } else {
+                                alert('请设置position|by dialog.button.group');
+                            }
+                        } catch (e) {
+                        }
                     });
                 }
             },
@@ -739,7 +1015,48 @@
                 window.onresize = innerDeal;
                 
             }
-        }
+        },
+		
+		/**
+		 * 一些特效
+		 */
+		effect: {
+			
+			/*
+			 * 斑马效果
+			 */
+			zebra: function(selector) {
+				$(selector).hover(function() {
+					$(this).addClass('ui-state-hover');
+				}, function() {
+					$(this).removeClass('ui-state-hover');
+				});
+			}
+		},
+		
+		/**
+		 * 自动完成
+		 */
+		autocomplete: {
+			
+			/*
+			 * 触发自动完成
+			 */
+			triggerSearch: function(e) {
+				if ($(this).val().length > 0) {
+            		$(this).autocomplete('search', $(this).val());
+            	}
+			},
+		
+			/*
+			 * 取消自动完成的结果，配合triggerSearch使用，目的是针对文本框获取焦点之后就自动根据现有内容搜索后点击死循环问题
+			 */
+			cancelResult: function(ele) {
+				setTimeout(function() {
+					$('.ui-autocomplete').hide();
+				}, 50);
+			}
+		}
     };
     /*******************************************/
     /**			jQuery UI--结束	  			  **/
@@ -776,6 +1093,49 @@
     /*******************************************/
     
     /*******************************************/
+    /**			workflow --开始	  			  **/
+    /*******************************************/
+    var _plugin_workflow = {
+        setButtonIcons: function() {
+            _plugin_jqui.dialog.button.setIcons({
+                提交: {
+                    primary: 'ui-icon-arrowthick-1-e'
+                },
+                退回: {
+                    primary: 'ui-icon-arrowreturnthick-1-w'
+                },
+                流程跟踪: {
+                    primary: 'ui-icon-flag'
+                },
+                启动: {
+                    primary: 'ui-icon-play'
+                },
+                签收: {
+                    primary: 'ui-icon-check'
+                },
+                保存: {
+                    primary: 'ui-icon-disk'
+                },
+                关闭: {
+                    primary: 'ui-icon-cancel'
+                },
+                同意: {
+                    primary: 'ui-icon-check'
+                },
+                不同意: {
+                    primary: 'ui-icon-closethick'
+                },
+                通知付费: {
+                    primary: 'ui-icon-mail-closed'
+                }
+            });
+        }
+    };
+    /*******************************************/
+    /**			workflow --开始	  			  **/
+    /*******************************************/
+    
+    /*******************************************/
     /**			$.common--开始	  			  **/
     /*******************************************/
     var _common_plugins = {
@@ -783,7 +1143,8 @@
         jqGrid: _plugin_jqGrid,
         validator: _plugin_validator,
         jqui: _plugin_jqui,
-        jstree: _plugin_jstree
+        jstree: _plugin_jstree,
+        workflow: _plugin_workflow
     };
     
     // 插件扩展
@@ -831,7 +1192,21 @@
                     }
                 }
             });
-            
+        },
+        
+        /*
+         * 为下拉框加载数据字典
+         */
+        loadDicts: function() {
+            var dictUrl = _sub_sys_url.common + '/common/system-dictionary!findTypeForOption.action'
+            $('.dict-code').each(function() {
+                var srcEle = this;
+                $.post(dictUrl, {
+                    type: $(srcEle).attr('dicttype')
+                }, function(resp) {
+                    $(srcEle).html(resp);
+                });
+            });
         }
     };
     
@@ -918,19 +1293,6 @@
         
     };
     
-    //-- 文件相关 --//
-    $.common.file = {
-        /**
-         * 下载文件
-         * @fileName	相对于Web根路径
-         */
-        download: function(fileName) {
-            var downUrl = $.common.custom.getCtx() + '/file/download.action?fileName=' + fileName;
-            //open(encodeURI(encodeURI(downUrl)));
-            location.href = encodeURI(encodeURI(downUrl));
-        }
-    };
-    
     //-- 数学工具 --//
     $.common.math = {
         /*
@@ -938,6 +1300,39 @@
          */
         round: function(dight, how) {
             return dight.toFixed(how);
+        }
+    };
+    
+    //-- 文件相关 --//
+    $.common.file = {
+        /**
+         * 下载文件
+         * @fileName	相对于Web根路径
+         */
+        download: function(fileName) {
+            var downUrl = ctx + '/file/download.action?fileName=' + fileName;
+            location.href = encodeURI(encodeURI(downUrl));
+        },
+        
+        /**
+         * 友好文件大小：KB、MB
+         */
+        friendlySize: function(size) {
+            if (size < 1024 * 1024) {
+                return $.common.math.round(size / 1024, 2) + "KB";
+            } else {
+                return $.common.math.round(size / (1024 * 1024), 2) + "MB";
+            }
+        }
+    };
+    
+    //-- 字符工具 --//
+    $.common.string = {
+        /*
+         * 如果对象为空返回空字符串
+         */
+        emptyIfNull: function(str) {
+            return str ? str : '';
         }
     };
     
@@ -1044,6 +1439,47 @@
             } else if (ReturnType == 'date') {
                 return newDate;
             }
+        },
+        
+        /**
+         * 把毫秒转换为自然语言
+         * @param {Object} millis
+         */
+        timeRange: function(millis) {
+            // 计算出相差天数   
+            var days = Math.floor(millis / (24 * 3600 * 1000));
+            
+            // 计算相差小时
+            var leave1 = millis % (24 * 3600 * 1000); //计算天数后剩余的毫秒数   
+            var hours = Math.floor(leave1 / (3600 * 1000));
+            
+            //计算相差分钟数   
+            var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数   
+            var minutes = Math.floor(leave2 / (60 * 1000));
+            
+            //计算相差秒数   
+            var leave3 = leave2 % (60 * 1000); //计算分钟数后剩余的毫秒数   
+            var seconds = Math.round(leave3 / 1000);
+            
+            var result = "";
+            if (days > 0) {
+                result += days + "天";
+            }
+            if (hours > 0) {
+                result = result == "" ? "" : result + " ";
+                result += hours + "小时";
+            }
+            if (minutes > 0) {
+                result = result == "" ? "" : result + " ";
+                result += minutes + "分钟";
+            }
+            if (seconds > 0) {
+                result = result == "" ? "" : result + " ";
+                result += seconds + "秒";
+            }
+            return result;
+            //return "相差 " + days + "天 " + hours + "小时 " + minutes + " 分钟" + seconds + " 秒";
+        
         }
     };
     
@@ -1060,12 +1496,17 @@
             formId: '',
             beforeSubmit: showRequest,
             success: showResponse,
-            clearForm: false
+            clearForm: true
         };
         
         settings = $.extend({}, defaults, settings);
         
-        $(settings.formId).submit(function() {
+        // 重要：防止重复绑定
+        if ($(settings.formId).data('binded') === true) {
+            return;
+        };
+        
+        $(settings.formId).data('binded', true).submit(function(e) {
             $(this).ajaxSubmit(settings);
             return false;
         });
@@ -1077,7 +1518,17 @@
         // 红色星号
         required: function() {
             return $.common.plugin.jqGrid.form.must();
-        }
+        },
+		
+		// 根据属性设置
+		initRequired: function(selector) {
+			$('.required', selector).each(function() {
+				if ($(this).parent().find('.must').length >= 1) {
+					$(this).parent().find('.must').remove();
+				}
+				$(this).after($.common.plugin.jqGrid.form.must());
+			});
+		}
     };
     
     // -- 自定义插件 --//
@@ -1142,11 +1593,158 @@
         s.parentNode.insertBefore(ga, s);
     };
     
+    /*
+     * 是否可以写日志
+     */
+    function can_log() {
+        if (javascript_log_enable == false || $.common.browser.isIE()) {
+            return false;
+        }
+        return console != undefined;
+    };
+    
+    /**
+     * jquery插件形式的firebug日志
+     * @param {Object} msg
+     */
+    $.fn.log = function(msg) {
+        if (!can_log()) {
+            return this;
+        }
+        console.log("%s: %o", msg, this);
+        return this;
+    };
+    
+    $.log = $.log || {};
+    /**
+     * firebug日志
+     * @param {Object} msg
+     */
+    $.extend($.log, {
+        log: function(msg) {
+            if (!can_log()) {
+                return;
+            }
+            console.log(msg);
+        },
+        debug: function(msg) {
+            if (!can_log()) {
+                return;
+            }
+            console.debug(msg);
+        },
+        info: function(msg) {
+            if (!can_log()) {
+                return;
+            }
+            console.info(msg);
+        },
+        warn: function(msg) {
+            if (!can_log()) {
+                return;
+            }
+            console.warn(msg);
+        },
+        error: function(msg) {
+            if (!can_log()) {
+                return;
+            }
+            console.error(msg);
+        }
+    });
+    
+    /**
+     * 获取元素的outerHTML
+     */
+    $.fn.outerHTML = function() {
+    
+        // IE, Chrome & Safari will comply with the non-standard outerHTML, all others (FF) will have a fall-back for cloning
+        return (!this.length) ? this : (this[0].outerHTML ||
+        (function(el) {
+            var div = document.createElement('div');
+            div.appendChild(el.cloneNode(true));
+            var contents = div.innerHTML;
+            div = null;
+            return contents;
+        })(this[0]));
+        
+    };
+    
 })(jQuery);
 
 //-- 自定义函数 --//
 function _initFunction() {
-
+    $.extend({
+        jsonToString: function(object) {
+            if (object == null) {
+                return 'null';
+            }
+            var type = typeof object;
+            if ('object' == type) {
+                if (Array == object.constructor) {
+                    type = 'array';
+                } else if (RegExp == object.constructor) {
+                    type = 'regexp';
+                } else {
+                    type = 'object';
+                }
+            }
+            switch (type) {
+                case 'undefined':
+                case 'unknown':{
+                    return;
+                    break;
+                }
+                case 'function':{
+                    return '"' + object() + '"';
+                    break;
+                }
+                case 'boolean':
+                case 'regexp':{
+                    return object.toString();
+                    break;
+                }
+                case 'number':{
+                    return isFinite(object) ? object.toString() : 'null';
+                    break;
+                }
+                case 'string':{
+                    return '"' +
+                    object.replace(/(\\|\")/g, "\\$1").replace(/\n|\r|\t/g, function() {
+                        var a = arguments[0];
+                        return (a == '\n') ? '\\n' : (a == '\r') ? '\\r' : (a == '\t') ? '\\t' : ""
+                    }) +
+                    '"';
+                    break;
+                }
+                case 'object':{
+                    if (object === null) 
+                        return 'null';
+                    var results = [];
+                    for (var property in object) {
+                        var value = jQuery.jsonToString(object[property]);
+                        if (value !== undefined) 
+                            results.push(jQuery.jsonToString(property) + ':' + value);
+                    }
+                    return '{' + results.join(',') + '}';
+                    break;
+                    
+                }
+                case 'array':{
+                    var results = [];
+                    for (var i = 0; i < object.length; i++) {
+                        var value = jQuery.jsonToString(object[i]);
+                        if (value !== undefined) 
+                            results.push(value);
+                    }
+                    return '[' + results.join(',') + ']';
+                    break;
+                    
+                }
+            }
+        }
+    });
+    
     // 全局ajax设置
     $.ajaxSetup({
         cache: false,
@@ -1154,6 +1752,9 @@ function _initFunction() {
         jsonp: null,
         jsonpCallback: null,
         complete: function(req, status) {
+            if (!req.responseText) {
+                return;
+            }
             if (req.responseText == '_login_timeout' || req.responseText.indexOf('登录页') != -1) {
                 // 打开重新登录窗口
                 if ($.isFunction($.common.window.getTopWin().relogin)) {
@@ -1176,12 +1777,36 @@ function _initFunction() {
         }
     });
     
+    // jqgrid
     if ($.jgrid) {
         $.jgrid.no_legacy_api = true;
         $.jgrid.useJSON = true;
         $.jgrid.ajaxOptions.type = 'post';
     }
     
+    // blockui support linux FF
+    if ($.blockUI) {
+        var userAgent = $.uaMatch(navigator.userAgent);
+        if (userAgent.browser == 'mozilla' && navigator.userAgent.indexOf('Linux') != -1) {
+            // enable transparent overlay on FF/Linux 
+            $.blockUI.defaults.applyPlatformOpacityRules = false;
+        }
+    }
+    
+    // jquery validator
+    if ($.validator) {
+    	// 银行卡号
+        $.validator.addMethod("bankcard", function(value, element, params) {
+            var regPex = /(^\d{16}|^\d{17}|^\d{18}|^\d{19}|^\d{20})$/;
+            return this.optional(element) || regPex.exec(value);
+        }, jQuery.format("请输入合法的银行卡号(长度：16~20)"));
+        
+        // 不能大于当天
+        $.validator.addMethod("canNotMoreThanToday", function(value, element, params) {
+        	var values = value.split('-');
+            return this.optional(element) || new Date(values[0], values[1], values[2]).getMilliseconds() <= new Date().getMilliseconds();
+        }, jQuery.format("日期不能大于今天！"));
+    }
 };
 
 //-- Javascript对象扩展--开始-//
@@ -1392,6 +2017,26 @@ function updateCustomCss() {
     $("head").append(cssLink);
     if ($("link.custom-style").size() > 3) {
         $("link.custom-style:first").remove();
+    }
+}
+
+/**
+ * 引入css、script文件
+ * @param {Object} file
+ */
+function include(file) {
+    var files = typeof file == "string" ? [file] : file;
+    for (var i = 0; i < files.length; i++) {
+        var name = files[i].replace(/^\s|\s$/g, "");
+        var att = name.split('.');
+        var ext = att[att.length - 1].toLowerCase();
+        var isCSS = ext == "css";
+        var tag = isCSS ? "link" : "script";
+        var attr = isCSS ? " type='text/css' rel='stylesheet' " : " language='javascript' type='text/javascript' ";
+        var link = (isCSS ? "href" : "src") + "='" + '' + name + "'";
+        if ($(tag + "[" + link + "]").length == 0) {
+            $("<" + tag + attr + link + "></" + tag + ">").appendTo('head');
+        }
     }
 }
 

@@ -69,11 +69,11 @@ public class LeaveWorkflowService {
 		List<Task> tasks = new ArrayList<Task>();
 
 		// 根据当前人的ID查询
-		List<Task> todoList = taskService.createTaskQuery().taskAssignee(userId).orderByTaskPriority().desc()
+		List<Task> todoList = taskService.createTaskQuery().processDefinitionKey("leave").taskAssignee(userId).orderByTaskPriority().desc()
 				.orderByTaskCreateTime().desc().list();
 
 		// 根据当前人未签收的任务
-		List<Task> unsignedTasks = taskService.createTaskQuery().taskCandidateUser(userId).orderByTaskPriority().desc()
+		List<Task> unsignedTasks = taskService.createTaskQuery().processDefinitionKey("leave").taskCandidateUser(userId).orderByTaskPriority().desc()
 				.orderByTaskCreateTime().desc().list();
 
 		// 合并

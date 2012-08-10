@@ -11,6 +11,7 @@ String themeVersion = "1.8.16";
 
 session.setAttribute("themeName", defaultTheme);
 session.setAttribute("themeVersion", themeVersion);
+pageContext.setAttribute("timeInMillis", System.currentTimeMillis());
 %>
 <script type="text/javascript">
 	var ctx = '<%=request.getContextPath() %>';
