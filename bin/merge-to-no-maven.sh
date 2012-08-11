@@ -16,6 +16,7 @@ rm -rf $NO_MAVEN_DIR/WebContent/common
 rm -rf $NO_MAVEN_DIR/WebContent/css
 rm -rf $NO_MAVEN_DIR/WebContent/images
 rm -rf $NO_MAVEN_DIR/WebContent/js
+rm -rf $NO_MAVEN_DIR/WebContent/WEB-INF/views
 
 echo "copying libs to no-maven"
 mvn dependency:copy-dependencies
@@ -32,3 +33,4 @@ cp -r src/main/webapp/common $NO_MAVEN_DIR/WebContent/common
 cp -r src/main/webapp/css $NO_MAVEN_DIR/WebContent/css
 cp -r src/main/webapp/images $NO_MAVEN_DIR/WebContent/images
 cp -r src/main/webapp/js $NO_MAVEN_DIR/WebContent/js
+cp -r src/main/webapp/WEB-INF/views $NO_MAVEN_DIR/WebContent/WEB-INF/views
