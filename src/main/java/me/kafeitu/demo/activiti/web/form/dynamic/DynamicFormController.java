@@ -13,11 +13,14 @@ import javax.servlet.http.HttpSession;
 import me.kafeitu.demo.activiti.util.UserUtil;
 
 import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.impl.form.StartFormDataImpl;
 import org.activiti.engine.impl.form.TaskFormDataImpl;
@@ -58,6 +61,12 @@ public class DynamicFormController {
 
 	@Autowired
 	private IdentityService identityService;
+	
+	@Autowired
+	private HistoryService historyService;
+	
+	@Autowired
+	private RuntimeService runtimeService;
 
 	/**
 	 * 动态form流程列表
@@ -231,4 +240,30 @@ public class DynamicFormController {
 		return "redirect:/form/dynamic/task/list";
 	}
 
+	/**
+	 * 运行中的流程实例
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "process-instance/running/list")
+	public ModelAndView running(Model model, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-running-list");
+		List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().list();
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	/**
+	 * 已结束的流程实例
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "process-instance/finished/list")
+	public ModelAndView finished(Model model, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-finished-list");
+		List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery().finished().list();
+		mav.addObject("list", list);
+		return mav;
+	}
+	
 }
