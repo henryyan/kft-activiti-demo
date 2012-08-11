@@ -21,6 +21,7 @@
 	<script src="${ctx }/js/common/plugins/html/jquery.outerhtml.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/blockui/jquery.blockUI.js" type="text/javascript"></script>
 	<script src="${ctx }/js/module/activiti/workflow.js" type="text/javascript"></script>
+	<script src="${ctx }/js/module/form/dynamic/dynamic-form-handler.js" type="text/javascript"></script>
 </head>
 
 <body>
