@@ -28,9 +28,21 @@
 	<div class="container showgrid">
 	<c:if test="${not empty message}">
 		<div id="message" class="alert alert-success">${message}</div>
+		<!-- 自动隐藏提示信息 -->
+		<script type="text/javascript">
+		setTimeout(function() {
+			$('#message').hide('slow');
+		}, 5000);
+		</script>
 	</c:if>
 	<c:if test="${not empty error}">
 		<div id="error" class="alert alert-error">${error}</div>
+		<!-- 自动隐藏提示信息 -->
+		<script type="text/javascript">
+		setTimeout(function() {
+			$('#error').hide('slow');
+		}, 5000);
+		</script>
 	</c:if>
 	<form:form id="inputForm" modelAttribute="user" action="${ctx}/oa/leave/start" method="post" class="form-horizontal">
 		<fieldset>
@@ -51,6 +63,8 @@
 			<tr>
 				<td>开始时间：</td>
 				<td><input type="text" id="startTime" name="startTime" /></td>
+			</tr>
+			<tr>
 				<td>结束时间：</td>
 				<td><input type="text" id="endTime" name="endTime" /></td>
 			</tr>

@@ -1,6 +1,10 @@
+<%@page import="me.kafeitu.demo.activiti.util.PropertyFileUtil"%>
+<%@page import="org.springframework.beans.factory.config.PropertiesFactoryBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<%
+PropertyFileUtil.init();
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<%@ include file="/common/global.jsp"%>
@@ -76,6 +80,7 @@
 	<div class="footer ui-state-default">
 		<a href="http://www.kafeitu.me" target="_blank">咖啡兔</a>
 		<span class="copyright">©2008-2012</span>
+		<span class="version">Version：<%=PropertyFileUtil.get("system.version") %></span>
 	</div>
 </div>
 <%@ include file="menu.jsp" %>

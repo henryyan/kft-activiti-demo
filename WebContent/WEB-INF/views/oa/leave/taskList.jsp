@@ -14,12 +14,12 @@
     <%@ include file="/common/include-custom-styles.jsp" %>
     <style type="text/css">
     /* block ui */
-.blockOverlay {
-	z-index: 1004 !important;
-}
-.blockMsg {
-	z-index: 1005 !important;
-}
+	.blockOverlay {
+		z-index: 1004 !important;
+	}
+	.blockMsg {
+		z-index: 1005 !important;
+	}
     </style>
     
     <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>

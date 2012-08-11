@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<%@page import="me.kafeitu.demo.activiti.util.PropertyFileUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -7,7 +8,7 @@
 	<%@ include file="/common/meta.jsp"%>
 </head>
 <body style="margin-top: 1em;">
-	<h1>欢迎访问Activiti Demo，no-maven分支</h1>
+	<h3>欢迎访问Activiti Demo，专为优秀的BPMN2.0规范的轻量级工作流引擎Activiti服务</h3>
 	<p>
 		<fieldset>
 			<lenged>项目说明：</lenged>
@@ -21,8 +22,8 @@
 		<fieldset>
 			<lenged>架构说明：</lenged>
 			<ul>
-				<li>Activiti版本：5.9</li>
-				<li>使用Maven管理依赖</li>
+				<li>Activiti版本：<%=PropertyFileUtil.get("activiti.version") %></li>
+				<li>使用<a href="http://maven.apache.org" target="_blank">Maven</a>管理依赖</li>
 			</ul>
 		</fieldset>
 	</p>
@@ -38,6 +39,8 @@
 				<li>查询运行中流程</li>
 				<li>查询历史流程</li>
 				<li>任务监听</li>
+				<li>自定义表单</li>
+				<li>动态表单</li>
 			</ul>
 		</fieldset>
 	</p>
