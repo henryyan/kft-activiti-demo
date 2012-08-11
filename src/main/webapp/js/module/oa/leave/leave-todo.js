@@ -171,10 +171,6 @@ var handleOpts = {
 								value: false,
 								type: 'B'
 							}, {
-								key: 'applyUserId',
-								value: detail.userId,
-								type: 'S'
-							}, {
 								key: 'leaderBackReason',
 								value: leaderBackReason,
 								type: 'S'
@@ -213,10 +209,6 @@ var handleOpts = {
 					key: 'hrPass',
 					value: true,
 					type: 'B'
-				}, {
-					key: 'applyUserId',
-					value: detail.userId,
-					type: 'S'
 				}]);
 			}
 		}, {
@@ -243,10 +235,6 @@ var handleOpts = {
 								key: 'hrPass',
 								value: false,
 								type: 'B'
-							}, {
-								key: 'applyUserId',
-								value: detail.userId,
-								type: 'S'
 							}, {
 								key: 'hrBackReason',
 								value: hrBackReason,
