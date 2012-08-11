@@ -14,7 +14,7 @@
 		<a rel="#">动态表单</a>
 		<ul>
 			<li><a rel="form/dynamic/process-list">流程列表</a></li>
-			<li><a rel="form/dynamic/task-list">任务表</a></li>
+			<li><a rel="form/dynamic/task/list">任务表</a></li>
 		</ul>
 	</li>
 	<li>

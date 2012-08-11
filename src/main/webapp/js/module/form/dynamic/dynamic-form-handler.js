@@ -58,7 +58,7 @@ function readFormFields(taskId) {
 	$form.attr('action', ctx + '/form/dynamic/task/complete/' + taskId);
 	
 	// 读取启动时的表单
-	$.getJSON(ctx + '/form/dynamic/get-task-form-field/' + taskId, function(datas) {
+	$.getJSON(ctx + '/form/dynamic/get-form/task/' + taskId, function(datas) {
 		var trs = "";
 		$.each(datas.taskFormData.formProperties, function() {
 			var className = this.required === true ? "required" : "";

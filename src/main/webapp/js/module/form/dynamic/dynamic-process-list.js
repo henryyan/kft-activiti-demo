@@ -47,7 +47,7 @@ function readFormFields(processDefinitionId) {
 	$form.attr('action', ctx + '/form/dynamic/start-process/' + processDefinitionId);
 	
 	// 读取启动时的表单
-	$.getJSON(ctx + '/form/dynamic/get-start-form-field/' + processDefinitionId, function(form) {
+	$.getJSON(ctx + '/form/dynamic/get-form/start/' + processDefinitionId, function(form) {
 		var trs = "";
 		$.each(form.formProperties, function() {
 			var className = this.required === true ? "required" : "";

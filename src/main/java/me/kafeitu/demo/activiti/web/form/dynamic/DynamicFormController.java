@@ -85,7 +85,7 @@ public class DynamicFormController {
 	/**
 	 * 读取启动流程的表单字段
 	 */
-	@RequestMapping(value = "get-start-form-field/{processDefinitionId}")
+	@RequestMapping(value = "get-form/start/{processDefinitionId}")
 	@ResponseBody
 	public StartFormData findStartForm(@PathVariable("processDefinitionId") String processDefinitionId) throws Exception {
 		StartFormDataImpl startFormData = (StartFormDataImpl) formService.getStartFormData(processDefinitionId);
@@ -97,7 +97,7 @@ public class DynamicFormController {
 	 * 读取Task的表单
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "get-task-form-field/{taskId}")
+	@RequestMapping(value = "get-form/task/{taskId}")
 	@ResponseBody
 	public Map<String, Object> findTaskForm(@PathVariable("taskId") String taskId) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -153,7 +153,7 @@ public class DynamicFormController {
 		formService.submitTaskFormData(taskId, formProperties);
 
 		redirectAttributes.addFlashAttribute("message", "任务完成：taskId=" + taskId);
-		return "redirect:/form/dynamic/task-list";
+		return "redirect:/form/dynamic/task/list";
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class DynamicFormController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "task-list")
+	@RequestMapping(value = "task/list")
 	public ModelAndView taskList(Model model, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-task-list");
 		User user = UserUtil.getUserFromSession(request.getSession());
@@ -228,7 +228,7 @@ public class DynamicFormController {
 		String userId = UserUtil.getUserFromSession(session).getId();
 		taskService.claim(taskId, userId);
 		redirectAttributes.addFlashAttribute("message", "任务已签收");
-		return "redirect:/form/dynamic/task-list";
+		return "redirect:/form/dynamic/task/list";
 	}
 
 }
