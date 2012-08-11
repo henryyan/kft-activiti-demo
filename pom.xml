@@ -493,6 +493,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
 						<configuration>
 							<target>
 								<property file="src/main/resources/application.local.properties" />
@@ -502,7 +503,6 @@
 								<property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory" />
 
 								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
-
 								<!-- base -->
 								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
 									src="src/main/resources/sql/${sql.type}/schema.sql" onerror="continue">
