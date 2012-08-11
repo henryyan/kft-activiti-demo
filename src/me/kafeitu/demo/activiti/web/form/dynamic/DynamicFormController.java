@@ -13,12 +13,17 @@ import javax.servlet.http.HttpSession;
 import me.kafeitu.demo.activiti.util.UserUtil;
 
 import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.impl.form.StartFormDataImpl;
+import org.activiti.engine.impl.form.TaskFormDataImpl;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -42,7 +47,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/form/dynamic")
 public class DynamicFormController {
-	
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
@@ -56,6 +61,12 @@ public class DynamicFormController {
 
 	@Autowired
 	private IdentityService identityService;
+	
+	@Autowired
+	private HistoryService historyService;
+	
+	@Autowired
+	private RuntimeService runtimeService;
 
 	/**
 	 * 动态form流程列表
@@ -69,10 +80,10 @@ public class DynamicFormController {
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
 
 		/*
-		 * 只读取包含dynamic的流程
+		 * 过滤自定义的流程定义
 		 */
 		for (ProcessDefinition processDefinition : list) {
-			if (processDefinition.getKey().indexOf("dynamic") != -1) {
+			if (!processDefinition.getKey().equals("leave")) {
 				newResult.add(processDefinition);
 			}
 		}
@@ -83,7 +94,7 @@ public class DynamicFormController {
 	/**
 	 * 读取启动流程的表单字段
 	 */
-	@RequestMapping(value = "get-start-form-field/{processDefinitionId}")
+	@RequestMapping(value = "get-form/start/{processDefinitionId}")
 	@ResponseBody
 	public StartFormData findStartForm(@PathVariable("processDefinitionId") String processDefinitionId) throws Exception {
 		StartFormDataImpl startFormData = (StartFormDataImpl) formService.getStartFormData(processDefinitionId);
@@ -92,34 +103,97 @@ public class DynamicFormController {
 	}
 
 	/**
-	 * 读取启动流程的表单字段
+	 * 读取Task的表单
 	 */
-	@RequestMapping(value = "start-process/{processDefinitionId}")
 	@SuppressWarnings("unchecked")
-	public String submitStartFormAndStartProcessInstance(
-			@PathVariable("processDefinitionId") String processDefinitionId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+	@RequestMapping(value = "get-form/task/{taskId}")
+	@ResponseBody
+	public Map<String, Object> findTaskForm(@PathVariable("taskId") String taskId) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		TaskFormDataImpl taskFormData = (TaskFormDataImpl) formService.getTaskFormData(taskId);
+
+		// 设置task为null，否则输出json的时候会报错
+		taskFormData.setTask(null);
+
+		result.put("taskFormData", taskFormData);
+		/*
+		 * 读取enum类型数据，用于下拉框
+		 */
+		List<FormProperty> formProperties = taskFormData.getFormProperties();
+		for (FormProperty formProperty : formProperties) {
+			Map<String, String> values = (Map<String, String>) formProperty.getType().getInformation("values");
+			if (values != null) {
+				for (Entry<String, String> enumEntry : values.entrySet()) {
+					logger.debug("enum, key: {}, value: {}", enumEntry.getKey(), enumEntry.getValue());
+				}
+				result.put(formProperty.getId(), values);
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * 提交task的并保存form
+	 */
+	@RequestMapping(value = "task/complete/{taskId}")
+	@SuppressWarnings("unchecked")
+	public String completeTask(@PathVariable("taskId") String taskId, RedirectAttributes redirectAttributes,
+			HttpServletRequest request) {
 		Map<String, String> formProperties = new HashMap<String, String>();
-		
+
 		// 从request中读取参数然后转换
 		Map<String, String[]> parameterMap = request.getParameterMap();
 		Set<Entry<String, String[]>> entrySet = parameterMap.entrySet();
 		for (Entry<String, String[]> entry : entrySet) {
 			String key = entry.getKey();
-			
+
 			// fp_的意思是form paremeter
 			if (StringUtils.defaultString(key).startsWith("fp_")) {
 				formProperties.put(key.split("_")[1], entry.getValue()[0]);
 			}
 		}
-		
+
 		logger.debug("start form parameters: {}", formProperties);
-		
+
 		User user = UserUtil.getUserFromSession(request.getSession());
 		identityService.setAuthenticatedUserId(user.getId());
-		
+
+		formService.submitTaskFormData(taskId, formProperties);
+
+		redirectAttributes.addFlashAttribute("message", "任务完成：taskId=" + taskId);
+		return "redirect:/form/dynamic/task/list";
+	}
+
+	/**
+	 * 读取启动流程的表单字段
+	 */
+	@RequestMapping(value = "start-process/{processDefinitionId}")
+	@SuppressWarnings("unchecked")
+	public String submitStartFormAndStartProcessInstance(@PathVariable("processDefinitionId") String processDefinitionId,
+			RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		Map<String, String> formProperties = new HashMap<String, String>();
+
+		// 从request中读取参数然后转换
+		Map<String, String[]> parameterMap = request.getParameterMap();
+		Set<Entry<String, String[]>> entrySet = parameterMap.entrySet();
+		for (Entry<String, String[]> entry : entrySet) {
+			String key = entry.getKey();
+
+			// fp_的意思是form paremeter
+			if (StringUtils.defaultString(key).startsWith("fp_")) {
+				formProperties.put(key.split("_")[1], entry.getValue()[0]);
+			}
+		}
+
+		logger.debug("start form parameters: {}", formProperties);
+
+		User user = UserUtil.getUserFromSession(request.getSession());
+		identityService.setAuthenticatedUserId(user.getId());
+
 		ProcessInstance processInstance = formService.submitStartFormData(processDefinitionId, formProperties);
 		logger.debug("start a processinstance: {}", processInstance);
-		
+
 		redirectAttributes.addFlashAttribute("message", "启动成功，流程ID：" + processInstance.getId());
 		return "redirect:/form/dynamic/process-list";
 	}
@@ -129,30 +203,32 @@ public class DynamicFormController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "task-list")
-	public ModelAndView taskList(Model model,  HttpServletRequest request) {
+	@RequestMapping(value = "task/list")
+	public ModelAndView taskList(Model model, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-task-list");
 		User user = UserUtil.getUserFromSession(request.getSession());
-		
+
 		List<Task> tasks = new ArrayList<Task>();
-		
+
 		/**
 		 * 这里为了演示区分开自定义表单的请假流程，值读取leave-dynamic-from
 		 */
-		
+
 		// 分配到当前登陆用户的任务
-		List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskAssignee(user.getId()).list();
-		
+		List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskAssignee(user.getId())
+				.list();
+
 		// 为签收的任务
-		List<Task> list2 = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskCandidateUser(user.getId()).list();
-		
+		List<Task> list2 = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from")
+				.taskCandidateUser(user.getId()).list();
+
 		tasks.addAll(list);
 		tasks.addAll(list2);
-		
+
 		mav.addObject("tasks", tasks);
 		return mav;
 	}
-	
+
 	/**
 	 * 签收任务
 	 */
@@ -161,7 +237,33 @@ public class DynamicFormController {
 		String userId = UserUtil.getUserFromSession(session).getId();
 		taskService.claim(taskId, userId);
 		redirectAttributes.addFlashAttribute("message", "任务已签收");
-		return "redirect:/form/dynamic/task-list";
+		return "redirect:/form/dynamic/task/list";
+	}
+
+	/**
+	 * 运行中的流程实例
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "process-instance/running/list")
+	public ModelAndView running(Model model, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-running-list");
+		List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().list();
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	/**
+	 * 已结束的流程实例
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "process-instance/finished/list")
+	public ModelAndView finished(Model model, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-finished-list");
+		List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery().finished().list();
+		mav.addObject("list", list);
+		return mav;
 	}
 	
 }

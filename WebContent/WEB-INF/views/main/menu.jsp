@@ -4,23 +4,22 @@
 	<li>
 		<a rel="#">请假（自定义表单）</a>
 		<ul>
-			<li><a rel="oa/leave/apply">请假申请</a></li>
-			<li><a rel="oa/leave/list/task">请假办理</a></li>
-			<li><a rel="oa/leave/list/running">运行中流程</a></li>
-			<li><a rel="oa/leave/list/finished">已结束流程</a></li>
+			<li><a rel="oa/leave/apply">请假申请(自定)</a></li>
+			<li><a rel="oa/leave/list/task">请假办理(自定)</a></li>
+			<li><a rel="oa/leave/list/running">运行中流程(自定)</a></li>
+			<li><a rel="oa/leave/list/finished">已结束流程(自定)</a></li>
 		</ul>
 	</li>
 	<li>
 		<a rel="#">动态表单</a>
 		<ul>
-			<li><a rel="form/dynamic/process-list">流程列表</a></li>
-			<li><a rel="form/dynamic/task-list">任务表</a></li>
+			<li><a rel="form/dynamic/process-list">流程列表(动态)</a></li>
+			<li><a rel="form/dynamic/task/list">任务列表(动态)</a></li>
+			<li><a rel="form/dynamic/process-instance/running/list">运行中流程表(动态)</a></li>
+			<li><a rel="form/dynamic/process-instance/finished/list">已结束流程(动态)</a></li>
 		</ul>
 	</li>
 	<li>
-		<a rel="#">工作流</a>
-		<ul>
-			<li><a rel='workflow/process-list'>流程管理</a></li>
-		</ul>
+		<a rel='workflow/process-list'>流程管理</a>
 	</li>
 </ul>

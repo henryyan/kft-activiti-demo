@@ -2,6 +2,7 @@ drop index ACT_IDX_EXEC_BUSKEY;
 drop index ACT_IDX_TASK_CREATE;
 drop index ACT_IDX_IDENT_LNK_USER;
 drop index ACT_IDX_IDENT_LNK_GROUP;
+drop index ACT_IDX_VARIABLE_TASK_ID;
 
 alter table ACT_GE_BYTEARRAY 
     drop constraint ACT_FK_BYTEARR_DEPL;
@@ -20,7 +21,10 @@ alter table ACT_RU_EXECUTION
     
 alter table ACT_RU_IDENTITYLINK
     drop constraint ACT_FK_TSKASS_TASK;
- 
+
+alter table ACT_RU_IDENTITYLINK
+    drop constraint ACT_FK_ATHRZ_PROCEDEF;
+
 alter table ACT_RU_TASK
 	drop constraint ACT_FK_TASK_EXE;
 
@@ -43,7 +47,13 @@ alter table ACT_RU_JOB
     drop constraint ACT_FK_JOB_EXCEPTION;
     
 alter table ACT_RU_EVENT_SUBSCR
-    drop constraint ACT_FK_EVENT_EXEC;    
+    drop constraint ACT_FK_EVENT_EXEC;
+
+alter table ACT_RE_PROCDEF
+    drop constraint ACT_UNIQ_PROCDEF;
+
+drop index ACT_IDX_EVENT_SUBSCR_CONFIG_;
+drop index ACT_IDX_ATHRZ_PROCEDEF;
     
 drop table ACT_GE_PROPERTY if exists;
 drop table ACT_GE_BYTEARRAY if exists;
