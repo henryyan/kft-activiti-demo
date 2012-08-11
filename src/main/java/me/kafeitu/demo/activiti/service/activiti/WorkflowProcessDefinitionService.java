@@ -110,7 +110,7 @@ public class WorkflowProcessDefinitionService {
 	 * @throws IOException		找不到zip文件时
 	 */
 	private void deploySingleProcess(ResourceLoader resourceLoader, String processKey) throws IOException {
-		String classpathResourceUrl = "classpath:/deployments/" + processKey + ".zip";
+		String classpathResourceUrl = "classpath:/deployments/" + processKey + ".bar";
 		logger.debug("read workflow from: {}", classpathResourceUrl);
 		Resource resource = resourceLoader.getResource(classpathResourceUrl);
 		InputStream inputStream = resource.getInputStream();

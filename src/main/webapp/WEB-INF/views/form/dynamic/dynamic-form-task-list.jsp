@@ -17,15 +17,26 @@
     <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/jui/extends/i18n/jquery-ui-date_time-picker-zh-CN.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/validate/jquery.validate.pack.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/validate/messages_cn.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/qtip/jquery.qtip.pack.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/html/jquery.outerhtml.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/blockui/jquery.blockUI.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/common.js" type="text/javascript"></script>
 	<script src="${ctx }/js/module/activiti/workflow.js" type="text/javascript"></script>
 	<script src="${ctx }/js/module/form/dynamic/dynamic-form-handler.js" type="text/javascript"></script>
 </head>
 
 <body>
-	
+	<c:if test="${not empty message}">
+		<div id="message" class="alert alert-success">${message}</div>
+		<!-- 自动隐藏提示信息 -->
+		<script type="text/javascript">
+		setTimeout(function() {
+			$('#message').hide('slow');
+		}, 5000);
+		</script>
+	</c:if>
 	<table>
 		<tr>
 			<th>任务ID</th>
@@ -59,12 +70,15 @@
 				</c:if>
 				<c:if test="${not empty task.assignee }">
 					<%-- 此处用tkey记录当前节点的名称 --%>
-					<a class="handle" tkey='${task.taskDefinitionKey }' tname='${task.name }' href="#">办理</a>
+					<a class="handle" tkey='${task.taskDefinitionKey }' tname='${task.name }' tid='${task.id }' href="#">办理</a>
 				</c:if>
 			</td>
 		</tr>		
 		</c:forEach>
 	</table>
+	
+	<!-- 办理任务对话框 -->
+	<div id="handleTemplate" class="template"></div>
 	
 </body>
 </html>
