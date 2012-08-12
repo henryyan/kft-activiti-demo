@@ -10,7 +10,7 @@
 
 # 框架版本
 
-* Activiti: **5.9**
+* Activiti: **5.10**
 
 * Spring: **3.1.1.RELEASE**
 
