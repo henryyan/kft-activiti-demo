@@ -3,21 +3,27 @@ package me.kafeitu.demo.activiti.web.workflow;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipInputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
 import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
 import me.kafeitu.demo.activiti.service.activiti.WorkflowTraceService;
 
+import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -28,6 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/workflow")
 public class ActivitiController {
+
+	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected WorkflowProcessDefinitionService workflowProcessDefinitionService;
 
@@ -129,6 +137,38 @@ public class ActivitiController {
 	public List<Map<String, Object>> traceProcess(@RequestParam("pid") String processInstanceId) throws Exception {
 		List<Map<String, Object>> activityInfos = traceService.traceProcess(processInstanceId);
 		return activityInfos;
+	}
+
+	@RequestMapping(value = "/deploy")
+	public String deploy(@RequestParam(value = "file", required = false) MultipartFile file) {
+
+		String fileName = file.getOriginalFilename();
+
+		try {
+			InputStream fileInputStream = file.getInputStream();
+
+			String extension = FilenameUtils.getExtension(fileName);
+			if (extension.equals("zip") || extension.equals("bar")) {
+				ZipInputStream zip = new ZipInputStream(fileInputStream);
+				repositoryService.createDeployment().addZipInputStream(zip).deploy();
+			} else if (extension.equals("png")) {
+				repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
+			} else if (extension.indexOf("bpmn20.xml") != -1) {
+				repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
+			}  else if (extension.equals("bpmn")) {
+				/*
+				 * bpmn扩展名特殊处理，转换为bpmn20.xml
+				 */
+				String baseName = FilenameUtils.getBaseName(fileName);
+				repositoryService.createDeployment().addInputStream(baseName + ".bpmn20.xml", fileInputStream).deploy();
+			} else {
+				throw new ActivitiException("no support file type of " + extension);
+			}
+		} catch (Exception e) {
+			logger.error("error on deploy process, because of file input stream");
+		}
+
+		return "redirect:/workflow/process-list";
 	}
 
 	@Autowired

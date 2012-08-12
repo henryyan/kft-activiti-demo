@@ -24,14 +24,30 @@
     			primary: 'ui-icon-refresh'
     		}
     	});
+    	$('#deploy').button({
+    		icons: {
+    			primary: 'ui-icon-document'
+    		}
+    	}).click(function() {
+    		$('#deployFieldset').toggle('normal');
+    	});
     });
     </script>
 </head>
 <body>
 	<div style="text-align: right;padding: 2px 1em 2px">
 		<div id="message" class="info" style="display:inline;"><b>提示：</b>点击xml或者png链接可以查看具体内容！</div>
-		<a id='redeploy' href='${ctx }/workflow/redeploy/all'><c:if test="${not empty processes }">重新</c:if>部署流程</a>
+		<a id='deploy' href='#'>部署流程</a>
+		<a id='redeploy' href='${ctx }/workflow/redeploy/all'>重新部署流程</a>
 	</div>
+	<fieldset id="deployFieldset" style="display: none">
+		<legend>部署新流程</legend>
+		<div><b>支持文件格式：</b>zip、bar、bpmn、bpmn20.xml</div>
+		<form action="${ctx }/workflow/deploy" method="post" enctype="multipart/form-data">
+			<input type="file" name="file" />
+			<input type="submit" value="Submit" />
+		</form>	
+	</fieldset>
 	<table width="100%" class="need-border">
 		<thead>
 			<tr>

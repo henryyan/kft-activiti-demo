@@ -93,12 +93,17 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.7</version>
 		</dependency>
-		
+
 		<!-- UTILS -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${commons-io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
 		</dependency>
 
 		<!-- SPRING begin -->
@@ -401,7 +406,7 @@
 					<argLine>-Xmx256M</argLine>
 				</configuration>
 			</plugin>
-			
+
 			<!-- cobertura插件, 设置不需要计算覆盖率的类 -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
