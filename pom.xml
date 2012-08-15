@@ -464,6 +464,7 @@
 					<nonFilteredFileExtensions>
 						<!-- 过滤流程定义资源文件 -->
 						<nonFilteredFileExtension>zip</nonFilteredFileExtension>
+						<nonFilteredFileExtension>bar</nonFilteredFileExtension>
 						<nonFilteredFileExtension>png</nonFilteredFileExtension>
 						<nonFilteredFileExtension>activiti</nonFilteredFileExtension>
 						<nonFilteredFileExtension>bpmn</nonFilteredFileExtension>
