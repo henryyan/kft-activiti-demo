@@ -1,6 +1,7 @@
 package me.kafeitu.demo.activiti.web.workflow;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
@@ -13,6 +14,7 @@ import me.kafeitu.demo.activiti.service.activiti.WorkflowTraceService;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.io.FilenameUtils;
@@ -52,8 +54,21 @@ public class ActivitiController {
 	@RequestMapping(value = "/process-list")
 	public ModelAndView processList() {
 		ModelAndView mav = new ModelAndView("workflow/process-list");
-		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
-		mav.addObject("processes", list);
+		
+		/*
+		 * 保存两个对象，一个是ProcessDefinition（流程定义），一个是Deployment（流程部署）
+		 */
+		List<Object[]> objects = new ArrayList<Object[]>();
+		
+		List<ProcessDefinition> processDefinitionList = repositoryService.createProcessDefinitionQuery().list();
+		for (ProcessDefinition processDefinition : processDefinitionList) {
+			String deploymentId = processDefinition.getDeploymentId();
+			Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
+			objects.add(new Object[] {processDefinition, deployment});
+		}
+		
+		mav.addObject("objects", objects);
+		
 		return mav;
 	}
 

@@ -30,6 +30,12 @@
 
 <body style="margin-top: 3em;">
 	<center>
+	<c:if test="${not empty param.error}">
+		<h2 id="error" class="alert alert-error">用户名或密码错误！！！</h2>
+	</c:if>
+	<c:if test="${not empty param.timeout}">
+		<h2 id="error" class="alert alert-error">未登陆或超时！！！</h2>
+	</c:if>
 	<div style="width: 350px">
 		<h2>工作流引擎Activiti演示</h2>
 		<hr />
@@ -78,6 +84,12 @@
 		<hr />
 		<p>
 			<b>Wiki：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo/wiki">https://github.com/henryyan/kft-activiti-demo/wiki</a>
+		</p>
+		<p>
+			<b>Demo源码：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo">https://github.com/henryyan/kft-activiti-demo</a>
+		</p>
+		<p>
+			<b>Activiti资料：</b><a target="_blank" href="http://www.kafeitu.me/categories.html#activiti-ref">http://www.kafeitu.me/categories.html#activiti-ref</a>
 		</p>
 	</div>
 	</center>

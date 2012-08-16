@@ -51,18 +51,21 @@
 	<table width="100%" class="need-border">
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>DID</th>
+				<th>ProcessDefinitionId</th>
+				<th>DeploymentId</th>
 				<th>名称</th>
 				<th>KEY</th>
 				<th>版本号</th>
 				<th>XML</th>
 				<th>图片</th>
+				<th>部署时间</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${processes }" var="process">
+			<c:forEach items="${objects }" var="object">
+				<c:set var="process" value="${object[0] }" />
+				<c:set var="deployment" value="${object[1] }" />
 				<tr>
 					<td>${process.id }</td>
 					<td>${process.deploymentId }</td>
@@ -71,6 +74,7 @@
 					<td>${process.version }</td>
 					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.resourceName }'>${process.resourceName }</a></td>
 					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.diagramResourceName }'>${process.diagramResourceName }</a></td>
+					<td>${deployment.deploymentTime }</td>
 					<td><a href='${ctx }/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a></td>
 				</tr>
 			</c:forEach>
