@@ -40,12 +40,13 @@ public class ActivitiControllerTest extends SpringTransactionalTestCase {
 		activitiController.setWorkflowProcessDefinitionService(workflowProcessDefinitionService);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testProcessList() {
 		ModelAndView mav = activitiController.processList();
 		assertNotNull(mav);
-		Object processes = mav.getModelMap().get("processes");
-		assertNotNull(processes);
+		List<Object[]> objects = (List<Object[]>) mav.getModelMap().get("objects");
+		assertNotNull(objects);
 	}
 
 	@Test
