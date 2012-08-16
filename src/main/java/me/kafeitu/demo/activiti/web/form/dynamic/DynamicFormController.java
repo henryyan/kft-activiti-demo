@@ -61,10 +61,10 @@ public class DynamicFormController {
 
 	@Autowired
 	private IdentityService identityService;
-	
+
 	@Autowired
 	private HistoryService historyService;
-	
+
 	@Autowired
 	private RuntimeService runtimeService;
 
@@ -157,6 +157,11 @@ public class DynamicFormController {
 		logger.debug("start form parameters: {}", formProperties);
 
 		User user = UserUtil.getUserFromSession(request.getSession());
+
+		// 用户未登陆不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
+		if (user == null || StringUtils.isBlank(user.getId())) {
+			return "redirect:/login?timeout=true";
+		}
 		identityService.setAuthenticatedUserId(user.getId());
 
 		formService.submitTaskFormData(taskId, formProperties);
@@ -189,6 +194,10 @@ public class DynamicFormController {
 		logger.debug("start form parameters: {}", formProperties);
 
 		User user = UserUtil.getUserFromSession(request.getSession());
+		// 用户未登陆不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
+		if (user == null || StringUtils.isBlank(user.getId())) {
+			return "redirect:/login?timeout=true";
+		}
 		identityService.setAuthenticatedUserId(user.getId());
 
 		ProcessInstance processInstance = formService.submitStartFormData(processDefinitionId, formProperties);
@@ -252,7 +261,7 @@ public class DynamicFormController {
 		mav.addObject("list", list);
 		return mav;
 	}
-	
+
 	/**
 	 * 已结束的流程实例
 	 * @param model
@@ -265,5 +274,5 @@ public class DynamicFormController {
 		mav.addObject("list", list);
 		return mav;
 	}
-	
+
 }

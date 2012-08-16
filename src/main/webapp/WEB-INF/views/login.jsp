@@ -30,6 +30,12 @@
 
 <body style="margin-top: 3em;">
 	<center>
+	<c:if test="${not empty param.error}">
+		<h2 id="error" class="alert alert-error">用户名或密码错误！！！</h2>
+	</c:if>
+	<c:if test="${not empty param.timeout}">
+		<h2 id="error" class="alert alert-error">未登陆或超时！！！</h2>
+	</c:if>
 	<div style="width: 350px">
 		<h2>工作流引擎Activiti演示</h2>
 		<hr />

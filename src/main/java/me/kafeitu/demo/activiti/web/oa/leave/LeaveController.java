@@ -17,6 +17,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,10 @@ public class LeaveController {
 	public String startWorkflow(Leave leave, RedirectAttributes redirectAttributes, HttpSession session) {
 		try {
 			User user = UserUtil.getUserFromSession(session);
+			// 用户未登陆不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
+			if (user == null || StringUtils.isBlank(user.getId())) {
+				return "redirect:/login?timeout=true";
+			}
 			leave.setUserId(user.getId());
 			Map<String, Object> variables = new HashMap<String, Object>();
 			ProcessInstance processInstance = workflowService.startWorkflow(leave, variables);

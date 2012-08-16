@@ -11,7 +11,7 @@ PropertyFileUtil.init();
 	<script>
 		var notLogon = ${empty user};
 		if (notLogon) {
-			location.href = '${ctx}/login?error=nologon';
+			location.href = '${ctx}/login?timeout=true';
 		}
 	</script>
 	<%@ include file="/common/meta.jsp" %>
