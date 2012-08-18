@@ -491,6 +491,24 @@
 			</build>
 		</profile>
 
+		<profile>
+			<id>travis-ci-aws</id>
+			<build>
+				<plugins>
+					<plugin>
+					    <groupId>org.apache.tomcat.maven</groupId>
+					    <artifactId>tomcat7-maven-plugin</artifactId>
+					    <version>2.0-beta-1</version>
+					    <configuration>
+					    	<username>admin</username>
+							<password>kad-tomcat-pwd</password>
+							<url>http://aws.kafeitu.me:8080/manager</url>
+					    </configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 		<!-- 刷新开发环境数据库 -->
 		<profile>
 			<id>refresh-db</id>

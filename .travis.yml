@@ -1,3 +1,4 @@
 language: java
 jdk:
   - oraclejdk7
+install: mvn tomcat7:deploy -Ptravis-ci-aws
