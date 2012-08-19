@@ -55,10 +55,15 @@
 		<selenium.version>2.24.1</selenium.version>
 		<activiti.version>5.10</activiti.version>
 
-		<!-- jdbc -->
+		<!-- jdbc h2 -->
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
 		<jdbc.driver.version>1.3.166</jdbc.driver.version>
+		
+		<!-- jdbc mysql
+		<jdbc.driver.groupId>mysql</jdbc.driver.groupId>
+		<jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
+		<jdbc.driver.version>5.1.11</jdbc.driver.version> -->
 	</properties>
 
 	<repositories>
@@ -541,7 +546,7 @@
 								<property file="src/main/resources/application.local.properties" />
 								<property file="src/main/resources/application.properties" />
 
-								<property name="sql.type" value="h2" />
+								<property name="sql.type" value="${sql.type}" />
 								<property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory" />
 
 								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
