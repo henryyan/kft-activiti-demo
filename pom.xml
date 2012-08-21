@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.kafeitu.demo</groupId>
 	<artifactId>kft-activiti-demo</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.0-bootstrap</version>
 	<packaging>war</packaging>
 	<name>Activiti demo</name>
 	<description>activiti demo for version 5.10</description>
