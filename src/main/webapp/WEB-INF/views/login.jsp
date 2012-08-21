@@ -88,7 +88,7 @@
 			  <div class="control-group">
 			    <label class="control-label" for="username">用户名：</label>
 			    <div class="controls">
-			      <input type="text" id="username" name="username" placeholder="用户名sa">
+			      <input type="text" id="username" name="username" placeholder="用户名">
 			    </div>
 			  </div>
 			  <div class="control-group">
@@ -99,7 +99,9 @@
 			  </div>
 			  <div class="control-group">
 			    <div class="controls">
-			      <button type="submit" class="btn btn-large">登&nbsp;&nbsp;陆</button>
+			      <button type="submit" class="btn btn-large">
+			      	<i class="icon-user icon-black"></i>登&nbsp;&nbsp;陆
+			      </button>
 			    </div>
 			  </div>
 			</form>

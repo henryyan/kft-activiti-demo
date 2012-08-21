@@ -17,73 +17,84 @@ PropertyFileUtil.init();
 	<%@ include file="/common/meta.jsp" %>
     <title>Activiti-演示系统</title>
     <%@ include file="/common/include-base-styles.jsp" %>
-	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
     <link rel="stylesheet" type="text/css" href="${ctx }/css/menu.css" />
     <%@ include file="/common/include-custom-styles.jsp" %>
 	<link href="${ctx }/css/main.css" type="text/css" rel="stylesheet"/>
 	<style type="text/css">
-	.ui-tabs-panel {height: 100%; width: 100%;}
-	.ui-tabs .ui-tabs-nav li a {padding-right: .5em;}
-	#tabs li .ui-icon-close { float: left; margin: 0.5em 0.2em 0 0; cursor: pointer; }
-	#add_tab { cursor: pointer; }
+	#activitiLogo {
+		height: 30px !important;
+		margin-top: -8px;
+		margin-bottom: -8px;
+	}
+	#footer {
+ 		text-align: center;
+    }
 	</style>
     
     <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
-    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="${ctx }/js/common/plugins/jui/extends/themeswitcher/jquery.ui.switcher.js" type="text/javascript"></script>
-    <script src="${ctx }/js/common/plugins/tools/jquery.cookie.js" type="text/javascript"></script>
-	<script src="${ctx }/js/common/plugins/jui/extends/layout/jquery.layout.min.js" type="text/javascript"></script>
-	<script src='${ctx }/js/common/common.js' type="text/javascript"></script>
-    <script src='${ctx }/js/module/main/main-frame.js' type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${ctx }/js/module/main/main.js" type="text/javascript"></script>
 </head>
 <body>
-<!-- #TopPane -->
-<div id="topPane" class="ui-layout-north ui-widget ui-widget-header ui-widget-content">
-	<div style="padding-left:5px; font-size: 16px; margin-top: 1px;">
-       	<table id="topTable" style="padding: 0px;margin: 0px;margin-top: -5px" width="100%">
-       		<tr>
-       			<td width="40px">
-       				<img src="${ctx }/images/logo.png" height="48" align="top"  style="margin-top:5px" />
-       			</td>
-       			<td>
-       				<span style="font-size: 17px;color:#FFFF33">Activiti<br/>演示系统</span><br/>
-       			</td>
-       			<td>
-       				<div style="float:right; color: #fff;font-size: 12px;margin-top: 2px">
-		        		<div>
-		        			<label for="username">欢迎：</label>
-		        			<span title="角色：${groupNames }">${user.firstName } ${user.lastName }/${user.id }</span>
-		        		</div>
-		        		<div style="text-align: right;">
-		        			<a id="chang-theme" href="#">切换风格</a>
-		       				<a href="#" id="loginOut">安全退出</a>
-		        		</div>
-		        	</div>
-       			</td>
-       		</tr>
-       	</table>
-       </div>
+<div class="container">
+  <div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+      <div class="container-fluid">
+        <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a href="#" class="brand">
+        	Demo For
+        	<img id="activitiLogo" src="${ctx}/images/activiti_logo.png" />
+        </a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="active"><a href="#"><i class="icon-home icon-black"></i>首页</a></li>
+            <li class="dropdown">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large icon-black"></i>请假（自定义表单）<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="#" rel="oa/leave/apply">请假申请(自定)</a></li>
+					<li><a href="#" rel="oa/leave/list/task">请假办理(自定)</a></li>
+					<li><a href="#" rel="oa/leave/list/running">运行中流程(自定)</a></li>
+					<li><a href="#" rel="oa/leave/list/finished">已结束流程(自定)</a></li>
+				</ul>
+            </li>
+            <li class="dropdown">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-fire icon-black"></i>动态表单<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="#" rel="form/dynamic/process-list">流程列表(动态)</a></li>
+					<li><a href="#" rel="form/dynamic/task/list">任务列表(动态)</a></li>
+					<li><a href="#" rel="form/dynamic/process-instance/running/list">运行中流程表(动态)</a></li>
+					<li><a href="#" rel="form/dynamic/process-instance/finished/list">已结束流程(动态)</a></li>
+				</ul>
+            </li>
+            <li><a href="#" rel='workflow/process-list'><i class="icon-wrench icon-black"></i>流程管理</a></li>
+          </ul>
+          
+          <ul class="nav pull-right">
+            <li class="dropdown">
+            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            		<i class="icon-user icon-black" style="margin-right: .3em"></i>${user.lastName }/${user.id }<b class="caret"></b>
+            	</a>
+            	<ul class="dropdown-menu">
+					<li><a id="changePwd" href="#"><i class="icon-wrench icon-black"></i>修改密码</a></li>
+					<li><a id="loginOut" href="#"><i class="icon-eject icon-black"></i>安全退出</a></li>
+				</ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
 </div>
-
-<!-- RightPane -->
-<div id="centerPane" class="ui-layout-center ui-helper-reset ui-widget-content">
-	<div id="tabs">
-		<ul><li><a class="tabs-title" href="#tab-index">首页</a><span class='ui-icon ui-icon-close' title='关闭标签页'></span></li></ul>
-		<div id="tab-index">
-			<iframe id="mainIframe" name="mainIframe" src="welcome" class="module-iframe" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>
-		</div>
+	<iframe id="mainIframe" name="mainIframe" src="welcome" class="module-iframe" scrolling="auto" frameborder="0" style="width:100%;"></iframe>
+	<hr class="soften">
+	<div id="footer">
+		<a href="http://www.kafeitu.me">www.kafeitu.me</a> By <a href="http://weibo.com/kafeituzi">@咖啡兔</a>
+		<span class="copyright">©2012</span>
+		<span class="version" style="padding-left: .5em">版本：<%=PropertyFileUtil.get("system.version") %></span>
 	</div>
 </div>
-
-<!-- #BottomPane -->
-<div id="bottomPane" class="ui-layout-south ui-widget ui-widget-content">
-	<div class="footer ui-state-default">
-		<a href="http://www.kafeitu.me" target="_blank">咖啡兔</a>
-		<span class="copyright">©2008-2012</span>
-		<span class="version">Version：<%=PropertyFileUtil.get("system.version") %></span>
-	</div>
-</div>
-<%@ include file="menu.jsp" %>
-<div id="themeswitcherDialog"><div id="themeSwitcher"></div></div>
 </body>
 </html>
