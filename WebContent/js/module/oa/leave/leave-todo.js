@@ -224,8 +224,8 @@ var handleOpts = {
 					buttons: [{
 						text: '驳回',
 						click: function() {
-							var leaderBackReason = $('#hrBackReason').val();
-							if (leaderBackReason == '') {
+							var hrBackReason = $('#hrBackReason').val();
+							if (hrBackReason == '') {
 								alert('请输入驳回理由！');
 								return;
 							}
