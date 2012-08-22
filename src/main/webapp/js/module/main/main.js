@@ -17,9 +17,20 @@ $(function() {
 		}
     });
 
-    $('iframe').height(document.documentElement.clientHeight - 80);
+	// 自动根据分辨率调整iframe的大小
+    autoResizeIframeHeight();
+    window.onresize = function() {
+    	autoResizeIframeHeight();
+    }
 
     $('.nav a[rel]').click(function(){
     	$('iframe').attr('src', ctx + "/" + $(this).attr('rel'));
     });
 });
+
+/**
+ * 自动根据分辨率调整iframe的大小
+ */
+function autoResizeIframeHeight() {
+	$('iframe').height(document.documentElement.clientHeight - 150);
+}

@@ -27,7 +27,7 @@ PropertyFileUtil.init();
 		margin-bottom: -8px;
 	}
 	#footer {
- 		text-align: center;
+ 		text-align: center !important;
     }
 	</style>
     
@@ -36,7 +36,7 @@ PropertyFileUtil.init();
     <script src="${ctx }/js/module/main/main.js" type="text/javascript"></script>
 </head>
 <body>
-<div class="container">
+
   <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
       <div class="container-fluid">
@@ -87,14 +87,14 @@ PropertyFileUtil.init();
         </div>
       </div>
   </div>
-</div>
+<div class="container">
 	<iframe id="mainIframe" name="mainIframe" src="welcome" class="module-iframe" scrolling="auto" frameborder="0" style="width:100%;"></iframe>
-	<hr class="soften">
-	<div id="footer">
+</div>
+<div id="footer">
+		<hr class="soften">
 		<a href="http://www.kafeitu.me">www.kafeitu.me</a> By <a href="http://weibo.com/kafeituzi">@咖啡兔</a>
 		<span class="copyright">©2012</span>
 		<span class="version" style="padding-left: .5em">版本：<%=PropertyFileUtil.get("system.version") %></span>
 	</div>
-</div>
 </body>
 </html>
