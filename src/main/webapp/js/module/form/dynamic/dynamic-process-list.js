@@ -2,11 +2,7 @@
  * 动态表单Javascript，负责读取表单元素、启动流程
  */
 $(function() {
-	$('.startup-process').button({
-		icons : {
-			primary: 'ui-icon-play'
-		}
-	}).click(showStartupProcessDialog);
+	$('.startup-process').click(showStartupProcessDialog);
 });
 
 /**

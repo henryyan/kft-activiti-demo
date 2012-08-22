@@ -37,7 +37,7 @@
 		}, 5000);
 		</script>
 	</c:if>
-	<table>
+	<table width="100%" class="table table-bordered table-hover table-condensed">
 		<tr>
 			<th>任务ID</th>
 			<th>任务Key</th>
@@ -66,11 +66,11 @@
 			<td>${task.owner }</td>
 			<td>
 				<c:if test="${empty task.assignee }">
-					<a class="claim" href="${ctx }/form/dynamic/task/claim/${task.id}">签收</a>
+					<a class="claim btn" href="${ctx }/form/dynamic/task/claim/${task.id}"><i class="icon-eye-open"></i>签收</a>
 				</c:if>
 				<c:if test="${not empty task.assignee }">
 					<%-- 此处用tkey记录当前节点的名称 --%>
-					<a class="handle" tkey='${task.taskDefinitionKey }' tname='${task.name }' tid='${task.id }' href="#">办理</a>
+					<a class="handle btn" tkey='${task.taskDefinitionKey }' tname='${task.name }' tid='${task.id }' href="#"><i class="icon-user"></i>办理</a>
 				</c:if>
 			</td>
 		</tr>		

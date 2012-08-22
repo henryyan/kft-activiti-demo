@@ -19,16 +19,7 @@
     <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
     <script type="text/javascript">
     $(function() {
-    	$('#redeploy').button({
-    		icons: {
-    			primary: 'ui-icon-refresh'
-    		}
-    	});
-    	$('#deploy').button({
-    		icons: {
-    			primary: 'ui-icon-document'
-    		}
-    	}).click(function() {
+    	$('#deploy').click(function() {
     		$('#deployFieldset').toggle('normal');
     	});
     });
@@ -37,16 +28,17 @@
 <body>
 	<div style="text-align: right;padding: 2px 1em 2px">
 		<div id="message" class="alert" style="display:inline;"><b>提示：</b>点击xml或者png链接可以查看具体内容！</div>
-		<a id='deploy' href='#'>部署流程</a>
-		<a id='redeploy' href='${ctx }/workflow/redeploy/all'>重新部署流程</a>
+		<a id='deploy'  class="btn btn-primary" href='#'><i class="icon-plus"></i>部署流程</a>
+		<a id='redeploy' class="btn btn-primary" href='${ctx }/workflow/redeploy/all'><i class="icon-refresh"></i>重新部署流程</a>
 	</div>
 	<fieldset id="deployFieldset" style="display: none">
 		<legend>部署新流程</legend>
-		<div><b>支持文件格式：</b>zip、bar、bpmn、bpmn20.xml</div>
-		<form action="${ctx }/workflow/deploy" method="post" enctype="multipart/form-data">
+		<span class="alert alert-info"><b>支持文件格式：</b>zip、bar、bpmn、bpmn20.xml</span>
+		<form action="${ctx }/workflow/deploy" method="post" enctype="multipart/form-data" style="margin-top:1em;">
 			<input type="file" name="file" />
-			<input type="submit" value="Submit" />
-		</form>	
+			<input type="submit" value="Submit" class="btn" />
+		</form>
+		<hr class="soften" />
 	</fieldset>
 	<table width="100%" class="table table-bordered table-hover table-condensed">
 		<thead>

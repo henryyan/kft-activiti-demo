@@ -37,7 +37,7 @@
 	<c:if test="${not empty message}">
 		<div id="message" class="alert alert-success">${message}</div>
 	</c:if>
-	<table width="100%" class="need-border">
+	<table width="100%" class="table table-bordered table-hover table-condensed">
 		<thead>
 			<tr>
 				<th>假种</th>
@@ -69,11 +69,11 @@
 					<td>${pi.suspended ? "已挂起" : "正常" }；<b title='流程版本号'>V: ${leave.processDefinition.version }</b></td>
 					<td>
 						<c:if test="${empty task.assignee }">
-							<a class="claim" href="${ctx }/oa/leave/task/claim/${task.id}">签收</a>
+							<a class="claim btn" href="${ctx }/oa/leave/task/claim/${task.id}"><i class="icon-eye-open"></i>签收</a>
 						</c:if>
 						<c:if test="${not empty task.assignee }">
 							<%-- 此处用tkey记录当前节点的名称 --%>
-							<a class="handle" tkey='${task.taskDefinitionKey }' tname='${task.name }' href="#">办理</a>
+							<a class="handle btn" tkey='${task.taskDefinitionKey }' tname='${task.name }' href="#"><i class="icon-user"></i>办理</a>
 						</c:if>
 					</td>
 				</tr>

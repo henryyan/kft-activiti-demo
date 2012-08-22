@@ -29,6 +29,9 @@ PropertyFileUtil.init();
 	#footer {
  		text-align: center !important;
     }
+    iframe{
+    	margin-top: .5em;
+    }
 	</style>
     
     <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
@@ -51,7 +54,7 @@ PropertyFileUtil.init();
         </a>
         <div class="nav-collapse">
           <ul class="nav">
-            <li class="active"><a href="#"><i class="icon-home icon-black"></i>首页</a></li>
+            <li class="active"><a href="#" rel="main/welcome.action"><i class="icon-home icon-black"></i>首页</a></li>
             <li class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-th-large icon-black"></i>请假（自定义表单）<b class="caret"></b></a>
 				<ul class="dropdown-menu">

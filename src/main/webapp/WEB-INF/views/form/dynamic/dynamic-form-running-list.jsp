@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<table>
+	<table width="100%" class="table table-bordered table-hover table-condensed">
 		<tr>
 			<th>执行ID</th>
 			<th>流程实例ID</th>

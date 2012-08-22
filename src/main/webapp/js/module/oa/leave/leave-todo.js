@@ -2,20 +2,9 @@
  * 请假流程任务办理
  */
 $(function() {
-
-    // 签收
-    $('.claim').button({
-        icons: {
-            primary: 'ui-icon-person'
-        }
-    });
-    
+  
     // 办理
-    $('.handle').button({
-        icons: {
-            primary: 'ui-icon-comment'
-        }
-    }).click(handle);
+    $('.handle').click(handle);
     
     // 跟踪
     $('.trace').click(graphTrace);
@@ -35,7 +24,6 @@ function loadDetail(id, withVars, callback) {
     $.getJSON(ctx + '/oa/leave/detail/' + id, function(data) {
         detail = data;
         $.each(data, function(k, v) {
-			
 			// 格式化日期
 			if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
 				$('.view-info td[name=' + k + ']', dialog).text(new Date(v).format('yyyy-MM-dd hh:mm'));
@@ -124,7 +112,7 @@ function complete(taskId, variables) {
  */
 var handleOpts = {
 	deptLeaderAudit: {
-		width: 300,
+		width: 400,
 		height: 300,
 		open: function(id) {
 			
@@ -193,7 +181,7 @@ var handleOpts = {
 		}]
 	},
 	hrAudit: {
-		width: 300,
+		width: 400,
 		height: 300,
 		open: function(id) {
 			// 打开对话框的时候读取请假内容
@@ -224,8 +212,8 @@ var handleOpts = {
 					buttons: [{
 						text: '驳回',
 						click: function() {
-							var leaderBackReason = $('#hrBackReason').val();
-							if (leaderBackReason == '') {
+							var hrBackReason = $('#hrBackReason').val();
+							if (hrBackReason == '') {
 								alert('请输入驳回理由！');
 								return;
 							}

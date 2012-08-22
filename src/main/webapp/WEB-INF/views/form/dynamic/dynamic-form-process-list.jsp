@@ -32,7 +32,7 @@
 		}, 5000);
 		</script>
 	</c:if>
-	<table width="100%" class="need-border">
+	<table width="100%" class="table table-bordered table-hover table-condensed">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -55,7 +55,7 @@
 					<td>${process.version }</td>
 					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.resourceName }'>${process.resourceName }</a></td>
 					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.diagramResourceName }'>${process.diagramResourceName }</a></td>
-					<td><a class="startup-process">启动</a></td>
+					<td><a class="startup-process btn"><i class="icon-play"></i>启动</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

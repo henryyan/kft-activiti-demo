@@ -24,6 +24,13 @@ $(function() {
     }
 
     $('.nav a[rel]').click(function(){
+    	$('.nav .active').removeClass('active');
+    	if ($(this).parents('li').hasClass('dropdown')) {
+	    	$(this).parents('.dropdown').addClass('active');
+	    	$('.active > a').trigger('click');
+    	} else {
+    		$(this).parent().addClass('active');
+    	}
     	$('iframe').attr('src', ctx + "/" + $(this).attr('rel'));
     });
 });
@@ -32,5 +39,5 @@ $(function() {
  * 自动根据分辨率调整iframe的大小
  */
 function autoResizeIframeHeight() {
-	$('iframe').height(document.documentElement.clientHeight - 150);
+	$('iframe').height(document.documentElement.clientHeight - 120);
 }

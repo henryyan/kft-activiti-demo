@@ -29,7 +29,7 @@
 </head>
 
 <body>
-	<table width="100%" class="need-border">
+	<table width="100%" class="table table-bordered table-hover table-condensed">
 		<thead>
 			<tr>
 				<th>假种</th>
