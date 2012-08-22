@@ -7,6 +7,7 @@ import java.util.Map;
 import me.kafeitu.demo.activiti.entity.oa.Leave;
 
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -40,6 +41,9 @@ public class LeaveWorkflowService {
 	protected HistoryService historyService;
 
 	protected RepositoryService repositoryService;
+	
+	@Autowired
+	private IdentityService identityService;
 
 	/**
 	 * 启动流程
@@ -49,6 +53,10 @@ public class LeaveWorkflowService {
 		leaveManager.saveLeave(entity);
 		logger.debug("save entity: {}", entity);
 		String businessKey = entity.getId().toString();
+		
+		// 用来设置启动流程的人员ID，引擎会自动把用户ID保存到activiti:initiator中
+		identityService.setAuthenticatedUserId(entity.getUserId());
+		
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leave", businessKey, variables);
 		String processInstanceId = processInstance.getId();
 		entity.setProcessInstanceId(processInstanceId);
