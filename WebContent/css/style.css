@@ -3,6 +3,10 @@ td.label {
     font-weight: bold;
 }
 
+textarea {
+    height: 100px;
+}
+
 .ui-button .ui-button-text {
     line-height: 1;
 }

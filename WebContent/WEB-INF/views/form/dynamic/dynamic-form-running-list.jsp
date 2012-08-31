@@ -12,6 +12,20 @@
     <link href="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.css" type="text/css" rel="stylesheet" />
     <link href="${ctx }/js/common/plugins/qtip/jquery.qtip.min.css" type="text/css" rel="stylesheet" />
     <%@ include file="/common/include-custom-styles.jsp" %>
+
+    <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/jui/extends/i18n/jquery-ui-date_time-picker-zh-CN.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/qtip/jquery.qtip.pack.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/html/jquery.outerhtml.js" type="text/javascript"></script>
+	<script src="${ctx }/js/module/activiti/workflow.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function() {
+		// 跟踪
+	    $('.trace').click(graphTrace);
+	});
+	</script>
 </head>
 
 <body>
@@ -20,6 +34,7 @@
 			<th>执行ID</th>
 			<th>流程实例ID</th>
 			<th>流程定义ID</th>
+			<th>当前节点</th>
 			<th>是否挂起</th>
 		</tr>
 		
@@ -28,6 +43,7 @@
 			<td>${p.id }</td>
 			<td>${p.processInstanceId }</td>
 			<td>${p.processDefinitionId }</td>
+			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图">${p.activityId }</a></td>
 			<td>${p.suspended }</td>
 		</tr>		
 		</c:forEach>
