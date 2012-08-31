@@ -36,6 +36,7 @@
 			<li>任务监听</li>
 			<li>自定义表单</li>
 			<li>动态表单</li>
+			<li>外部表单(<font color='red'>New</font>)</li>
 		</ul>
 	</fieldset>
 	<fieldset>
