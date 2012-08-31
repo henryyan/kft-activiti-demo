@@ -11,13 +11,14 @@
 	<!-- 流程定义：每个模块的路径 -->
 	<property name="wd.leave" value="${workflow.diagrams}/leave" />
 	<property name="wd.leave-dynamic-from" value="${workflow.diagrams}/leave-dynamic-from" />
+	<property name="wd.leave-formkey" value="${workflow.diagrams}/leave-formkey" />
 
 	<!-- 显示欢迎信息以及操作提示 -->
 	<target name="welcome">
 		<echo>Activiti演示程序，请输入命令后操作！</echo>
 	</target>
 
-	<!-- 请假流程定义打包 -->
+	<!-- 请假流程定义打包-自定义表单 -->
 	<target name="workflow.package.leave">
 		<echo>打包流程定义：请假（自定义表单）</echo>
 		<copy file="${wd.leave}/leave.bpmn" tofile="${wd.leave}/leave.bpmn20.xml" />
@@ -25,7 +26,7 @@
 		<delete file="${wd.leave}/leave.bpmn20.xml" />
 	</target>
 
-	<!-- 请假流程定义打包 -->
+	<!-- 请假流程定义打包-动态表单 -->
 	<target name="workflow.package.leave-dynamic-from">
 		<echo>打包流程定义：请假（动态表单）</echo>
 		<copy file="${wd.leave-dynamic-from}/leave-dynamic-from.bpmn" tofile="${wd.leave-dynamic-from}/leave-dynamic-from.bpmn20.xml" />
@@ -33,7 +34,16 @@
 			includes="*.xml,*.png" />
 		<delete file="${wd.leave-dynamic-from}/leave-dynamic-from.bpmn20.xml" />
 	</target>
+	
+	<!-- 请假流程定义打包-外部表单 -->
+	<target name="workflow.package.leave-formkey">
+		<echo>打包流程定义：请假（外部表单）</echo>
+		<copy file="${wd.leave-formkey}/leave-formkey.bpmn" tofile="${wd.leave-formkey}/leave-formkey.bpmn20.xml" />
+		<zip destfile="${workflow.deployments}/leave-formkey.bar" basedir="${wd.leave-formkey}" update="true"
+			includes="*.xml,*.png,*.form" />
+		<delete file="${wd.leave-formkey}/leave-formkey.bpmn20.xml" />
+	</target>
 
 	<!-- 流程定义打包 -->
-	<target name="workflow.package.all" depends="workflow.package.leave,workflow.package.leave-dynamic-from"></target>
+	<target name="workflow.package.all" depends="workflow.package.leave,workflow.package.leave-dynamic-from,workflow.package.leave-formkey"></target>
 </project>
