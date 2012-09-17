@@ -80,11 +80,11 @@ public class LeaveController {
 				logger.warn("没有部署流程!", e);
 				redirectAttributes.addFlashAttribute("error", "没有部署流程，请在[工作流]->[流程管理]页面点击<重新部署流程>");
 			} else {
-				logger.error("启动投保流程失败：", e);
+				logger.error("启动请假流程失败：", e);
 				redirectAttributes.addFlashAttribute("error", "系统内部错误！");
 			}
 		} catch (Exception e) {
-			logger.error("启动投保流程失败：", e);
+			logger.error("启动请假流程失败：", e);
 			redirectAttributes.addFlashAttribute("error", "系统内部错误！");
 		}
 		return "redirect:/oa/leave/apply";
