@@ -18,6 +18,13 @@
 
 * Hibernate: **4.1.4.Final**
 
+# 分支选择
+
+Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用maven的同学。
+
+* **maven**分支：对应与git的`master`分支，便于安装和数据库初始化
+* **no-maven**分支：直接是一个eclipse工程，包含eclipse的项目配置文件和WEB-INF/lib下面的所有的jar文件
+
 # 演示说明文档
 
 * [配置说明](https://github.com/henryyan/kft-activiti-demo/wiki/%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
