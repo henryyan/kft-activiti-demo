@@ -168,7 +168,7 @@ public class ActivitiController {
 				repositoryService.createDeployment().addZipInputStream(zip).deploy();
 			} else if (extension.equals("png")) {
 				repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
-			} else if (extension.indexOf("bpmn20.xml") != -1) {
+			} else if (fileName.indexOf("bpmn20.xml") != -1) {
 				repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
 			}  else if (extension.equals("bpmn")) {
 				/*
@@ -180,7 +180,7 @@ public class ActivitiController {
 				throw new ActivitiException("no support file type of " + extension);
 			}
 		} catch (Exception e) {
-			logger.error("error on deploy process, because of file input stream");
+			logger.error("error on deploy process, because of file input stream", e);
 		}
 
 		return "redirect:/workflow/process-list";
