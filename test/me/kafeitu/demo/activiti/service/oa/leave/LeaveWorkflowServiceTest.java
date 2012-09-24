@@ -96,7 +96,6 @@ public class LeaveWorkflowServiceTest extends SpringTransactionalTestCase {
 		
 		variables = new HashMap<String, Object>();
 		variables.put("hrPass", true);
-		variables.put("applyUserId", leave.getUserId());
 		taskService.complete(task.getId(), variables);
 		
 		// 销假
