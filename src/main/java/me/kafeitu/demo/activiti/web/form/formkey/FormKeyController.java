@@ -78,7 +78,11 @@ public class FormKeyController {
 		 */
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-formkey")
 				.list();
+		
+		List<ProcessDefinition> dispatchList = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch")
+		        .list();
 
+		list.addAll(dispatchList);
 		mav.addObject("processes", list);
 		return mav;
 	}

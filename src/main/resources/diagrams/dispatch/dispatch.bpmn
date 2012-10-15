@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dispatch" name="dispatch">
+  <process id="dispatch" name="发文会签">
     <documentation>会签</documentation>
-    <startEvent id="startevent1" name="Start"></startEvent>
-    <userTask id="countersign" name="发文会签" activiti:assignee="${user}">
-      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${users}" activiti:elementVariable="user">
+    <startEvent id="startevent1" name="Start" activiti:formKey="dispatch-apply.form" activiti:initiator="applyUser"></startEvent>
+    <userTask id="countersign" name="发文会签" activiti:assignee="${countersignUser}" activiti:formKey="countersign.form">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${countersignUsers}" activiti:elementVariable="countersignUser">
         <completionCondition>${dispatchWorkflowService.canComplete(execution, rate, nrOfInstances, nrOfActiveInstances, nrOfCompletedInstances, loopCounter)}</completionCondition>
       </multiInstanceLoopCharacteristics>
     </userTask>
-    <userTask id="send" name="下发文件" activiti:assignee="kermit"></userTask>
+    <userTask id="send" name="下发文件" activiti:assignee="${applyUser}" activiti:formKey="countersign.form"></userTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="countersign"></sequenceFlow>
     <sequenceFlow id="flow2" name="" sourceRef="countersign" targetRef="send"></sequenceFlow>
