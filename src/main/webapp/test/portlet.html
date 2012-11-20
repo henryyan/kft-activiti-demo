@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery UI Widget - Default functionality</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="/kft-activiti-demo/js/common/plugins/portlet/jquery.portlet.js"></script>
+    <style>
+    .ui-portlet-column { float: left; }
+    .ui-portlet-header .ui-icon { float: right; }
+    .ui-portlet-item { margin: 0 1em 1em 0; }
+    .ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+    .ui-sortable-placeholder * { visibility: hidden; }
+    </style>
+    <script>
+    $(function() {
+        $('#aaa').portlet({
+            columns: [{
+                width: 300,
+                portlets: [{
+                    title: 'Feeds',
+                    content: {
+                        type: 'text',
+                        text: 'Feeds contens'
+                    }
+                }, {
+                    title: 'News',
+                    content: {
+                        type: 'text',
+                        text: 'News contens'
+                    }
+                }]
+            }, {
+                width: 300,
+                portlets: [{
+                    title: 'Shopping',
+                    content: {
+                        type: 'text',
+                        text: 'Shopping contens'
+                    }
+                }]
+            }, {
+                width: 500,
+                portlets: [{
+                    title: 'Ajax',
+                    content: {
+                        type: 'ajax',
+                        url: 'ajax.html'
+                    }
+                }, {
+                    title: 'Ajax Json',
+                    content: {
+                        type: 'ajax',
+                        dataType: 'json',
+                        url: 'ajax.json',
+                        formatter: function(data) {
+                            var ct = "<ul>";
+                            $.each(data, function() {
+                                ct += "<li>" + this.vars.任务类型 + "</li>";
+                            });
+                            return ct + "</ul>";
+                        }
+                    }
+                }]
+            }]
+        });
+    });
+    </script>
+</head>
+<body>
+    <div id='aaa'></div>
+    <div id='bbb'></div>
+</body>
+</html>
