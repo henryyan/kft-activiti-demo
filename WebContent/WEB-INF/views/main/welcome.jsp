@@ -6,25 +6,59 @@
 <head>
 	<%@ include file="/common/global.jsp"%>
 	<%@ include file="/common/meta.jsp"%>
+
+	<%@ include file="/common/include-base-styles.jsp" %>
+    <%@ include file="/common/include-jquery-ui-theme.jsp" %>
+    <link href="${ctx }/js/common/plugins/jui/extends/portlet/jquery.portlet.css" type="text/css" rel="stylesheet" />
+    <%@ include file="/common/include-custom-styles.jsp" %>
+    <style type="text/css">
+    	.template {display:none;}
+    	.version {margin-left: 0.5em; margin-right: 0.5em;}
+    	.trace {margin-right: 0.5em;}
+    </style>
+
+    <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/extends/portlet/jquery.portlet.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/qtip/jquery.qtip.pack.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/html/jquery.outerhtml.js" type="text/javascript"></script>
+	<script src="${ctx }/js/module/activiti/workflow.js" type="text/javascript"></script>
+    <script src="${ctx }/js/module/main/welcome-portlet.js" type="text/javascript"></script>
 </head>
 <body style="margin-top: 1em;">
 	<center><h3>欢迎访问Activiti Demo，专为优秀的BPMN2.0规范的轻量级工作流引擎Activiti服务</h3></center>
-	<fieldset>
-		<lenged>项目说明：</lenged>
+	<div id='portlet-container'></div>
+
+	<!-- 隐藏 -->
+	<div class="forms template">
+		<ul>
+			<li>
+				<b>普通表单</b>：每个节点的表单内容都写死在JSP或者HTML中。
+			</li>
+			<li>
+				<b>动态表单</b>：表单内容存放在流程定义文件中（包含在启动事件以及每个用户任务中）。
+			</li>
+			<li>
+				<b>外置表单</b>：每个用户任务对应一个单独的<b>.form</b>文件，和流程定义文件同时部署（打包为zip/bar文件）。
+			</li>
+		</ul>
+	</div>
+	<div class="project-info template">
 		<ul>
 			<li><a target="_blank" href='https://github.com/henryyan/kft-activiti-demo'>kft-activiti-demo</a>为Activiti初学者快速入门所设计。</li>
 			<li>源代码托管Github：<a target="_blank" href='https://github.com/henryyan/kft-activiti-demo'>https://github.com/henryyan/kft-activiti-demo</a></li>
 		</ul>
-	</fieldset>
-	<fieldset>
-		<lenged>架构说明：</lenged>
+	</div>
+
+	<div class="arch template">
 		<ul>
 			<li>Activiti版本：<%=PropertyFileUtil.get("activiti.version") %></li>
+			<li>Spring版本：3.1</li>
 			<li>使用<a href="http://maven.apache.org" target="_blank">Maven</a>管理依赖</li>
 		</ul>
-	</fieldset>
-	<fieldset>
-		<lenged>演示内容：</lenged>
+	</div>
+
+	<div class="demos template">
 		<ul>
 			<li>部署流程</li>
 			<li>启动流程</li>
@@ -36,11 +70,12 @@
 			<li>任务监听</li>
 			<li>自定义表单</li>
 			<li>动态表单</li>
-			<li>外部表单(<font color='red'>New</font>)</li>
+			<li>外置表单</li>
+			<li>个人待办任务汇总</li>
 		</ul>
-	</fieldset>
-	<fieldset>
-		<legend>资源、文档链接</legend>
+	</div>
+
+	<div class="links template">
 		<p>
 			<b>Wiki：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo/wiki">https://github.com/henryyan/kft-activiti-demo/wiki</a>
 		</p>
@@ -50,6 +85,23 @@
 		<p>
 			<b>Activiti资料：</b><a target="_blank" href="http://www.kafeitu.me/categories.html#activiti-ref">http://www.kafeitu.me/categories.html#activiti-ref</a>
 		</p>
-	</fieldset>
+	</div>
+
+	<div class="aboutme template">
+		<ul>
+			<li>
+				<b>作者：</b><a target="_blnak" href="http://www.kafeitu.me/?f=kad">咖啡兔</a>
+			</li>
+			<li>
+				<b>QQ：</b>576525789
+			</li>
+			<li>
+				<b>QQ群：</b>236540304
+			</li>
+			<li>
+				<b>Weibo：</b><a target="_blank" href="http://weibo.com/kafeituzi">@kafeituzi</a>
+			</li>
+		</ul>
+	</div>
 </body>
 </html>

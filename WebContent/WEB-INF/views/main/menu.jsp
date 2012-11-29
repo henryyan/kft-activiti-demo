@@ -2,12 +2,12 @@
 <ul id="css3menu">
 	<li class="topfirst"><a rel="main/welcome">首页</a></li>
 	<li>
-		<a rel="#">请假（自定义表单）</a>
+		<a rel="#">请假（普通表单）</a>
 		<ul>
-			<li><a rel="oa/leave/apply">请假申请(自定)</a></li>
-			<li><a rel="oa/leave/list/task">请假办理(自定)</a></li>
-			<li><a rel="oa/leave/list/running">运行中流程(自定)</a></li>
-			<li><a rel="oa/leave/list/finished">已结束流程(自定)</a></li>
+			<li><a rel="oa/leave/apply">请假申请(传统)</a></li>
+			<li><a rel="oa/leave/list/task">请假办理(传统)</a></li>
+			<li><a rel="oa/leave/list/running">运行中流程(传统)</a></li>
+			<li><a rel="oa/leave/list/finished">已结束流程(传统)</a></li>
 		</ul>
 	</li>
 	<li>
@@ -20,7 +20,7 @@
 		</ul>
 	</li>
 	<li>
-		<a rel="#">外部表单</a>
+		<a rel="#">外置表单</a>
 		<ul>
 			<li><a rel="form/formkey/process-list">流程列表(外部)</a></li>
 			<li><a rel="form/formkey/task/list">任务列表(外部)</a></li>

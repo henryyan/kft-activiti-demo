@@ -5,13 +5,13 @@
 <head>
 <head>
 	<%@ include file="/common/global.jsp"%>
-	<title>外部表单流程列表</title>
+	<title>外置表单流程列表</title>
 	<%@ include file="/common/meta.jsp" %>
     <%@ include file="/common/include-base-styles.jsp" %>
     <%@ include file="/common/include-jquery-ui-theme.jsp" %>
     <link href="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.css" type="text/css" rel="stylesheet" />
     <link href="${ctx }/js/common/plugins/qtip/jquery.qtip.min.css" type="text/css" rel="stylesheet" />
-    
+
     <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
