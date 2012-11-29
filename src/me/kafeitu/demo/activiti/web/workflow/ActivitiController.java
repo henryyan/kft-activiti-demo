@@ -114,16 +114,16 @@ public class ActivitiController {
 		InputStream resourceAsStream = null;
 		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId)
 				.singleResult();
-		ProcessDefinition singleResult = repositoryService.createProcessDefinitionQuery()
+		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
 				.processDefinitionId(processInstance.getProcessDefinitionId()).singleResult();
 
 		String resourceName = "";
 		if (resourceType.equals("image")) {
-			resourceName = singleResult.getDiagramResourceName();
+			resourceName = processDefinition.getDiagramResourceName();
 		} else if (resourceType.equals("xml")) {
-			resourceName = singleResult.getResourceName();
+			resourceName = processDefinition.getResourceName();
 		}
-		resourceAsStream = repositoryService.getResourceAsStream(singleResult.getDeploymentId(), resourceName);
+		resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
 		byte[] b = new byte[1024];
 		int len = -1;
 		while ((len = resourceAsStream.read(b, 0, 1024)) != -1) {

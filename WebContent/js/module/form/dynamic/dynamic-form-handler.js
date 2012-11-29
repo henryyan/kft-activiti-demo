@@ -2,9 +2,9 @@
  * 动态Form办理功能
  */
 $(function() {
-	
+
 	$('.handle').click(handle);
-	
+
 });
 
 /**
@@ -12,16 +12,16 @@ $(function() {
  */
 function handle() {
 	var $ele = $(this);
-	
+
 	// 当前节点的英文名称
 	var tkey = $(this).attr('tkey');
-	
+
 	// 当前节点的中文名称
 	var tname = $(this).attr('tname');
-	
+
 	// 任务ID
 	var taskId = $(this).attr('tid');
-	
+
 	$('#handleTemplate').html('').dialog({
 		modal: true,
 		width: 400,
@@ -49,14 +49,14 @@ function handle() {
  */
 function readFormFields(taskId) {
 	var dialog = this;
-	
+
 	// 清空对话框内容
 	$(dialog).html("<form class='dynamic-form' method='post'><table class='dynamic-form-table'></table></form>");
 	var $form = $('.dynamic-form');
-	
+
 	// 设置表单提交id
 	$form.attr('action', ctx + '/form/dynamic/task/complete/' + taskId);
-	
+
 	// 读取启动时的表单
 	$.getJSON(ctx + '/form/dynamic/get-form/task/' + taskId, function(datas) {
 		var trs = "";
@@ -69,17 +69,17 @@ function readFormFields(taskId) {
 			}
 			trs += "</td></tr>";
 		});
-		
+
 		// 添加table内容
 		$('.dynamic-form-table').html(trs).find('tr').hover(function() {
 			$(this).addClass('ui-state-hover');
 		}, function() {
 			$(this).removeClass('ui-state-hover');
 		});
-		
+
 		// 初始化日期组件
 		$form.find('.date').datepicker();
-		
+
 		// 表单验证
 		$form.validate($.extend({}, $.common.plugin.validator));
 	});
@@ -90,7 +90,7 @@ function readFormFields(taskId) {
  * fp_的意思是form paremeter
  */
 var formFieldCreator = {
-	string: function(prop, datas, className) {
+	'string': function(prop, datas, className) {
 		var result = "<td width='120'>" + prop.name + "：</td>";
 		if (prop.writable === true) {
 			result += "<td><input type='text' id='" + prop.id + "' name='fp_" + prop.id + "' class='" + className + "' value='" + prop.value + "' />";
@@ -99,7 +99,7 @@ var formFieldCreator = {
 		}
 		return result;
 	},
-	date: function(prop, datas, className) {
+	'date': function(prop, datas, className) {
 		var result = "<td width='120'>" + prop.name + "：</td>";
 		if (prop.writable === true) {
 			result += "<td><input type='text' id='" + prop.id + "' name='fp_" + prop.id + "' class='date " + className + "' value='" + prop.value + "'/>";
@@ -108,7 +108,7 @@ var formFieldCreator = {
 		}
 		return result;
 	},
-	enum: function(prop, datas, className) {
+	'enum': function(prop, datas, className) {
 		var result = "<td width='120'>" + prop.name + "：</td>";
 		if (prop.writable === true) {
 			result += "<td><select id='" + prop.id + "' name='fp_" + prop.id + "' class='" + className + "'>";

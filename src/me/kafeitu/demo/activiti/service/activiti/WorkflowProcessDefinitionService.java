@@ -79,7 +79,7 @@ public class WorkflowProcessDefinitionService {
 	 */
 	public void deployFromClasspath(String... processKey) throws Exception {
 		ResourceLoader resourceLoader = new DefaultResourceLoader();
-		String[] processKeys = { "leave", "leave-dynamic-from", "leave-formkey" };
+		String[] processKeys = { "leave", "leave-dynamic-from", "leave-formkey", "dispatch" };
 		for (String loopProcessKey : processKeys) {
 
 			/*

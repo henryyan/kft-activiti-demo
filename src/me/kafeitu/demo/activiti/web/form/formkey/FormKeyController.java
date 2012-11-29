@@ -23,7 +23,7 @@ import org.activiti.engine.identity.User;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,11 @@ public class FormKeyController {
 		 */
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-formkey")
 				.list();
+		
+		List<ProcessDefinition> dispatchList = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch")
+		        .list();
 
+		list.addAll(dispatchList);
 		mav.addObject("processes", list);
 		return mav;
 	}
