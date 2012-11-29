@@ -38,14 +38,14 @@ function showStartupProcessDialog() {
  */
 function readFormFields(processDefinitionId) {
 	var dialog = this;
-	
+
 	// 清空对话框内容
 	$('.dynamic-form-dialog').html("<form class='dynamic-form' method='post'><table class='dynamic-form-table'></table></form>");
 	var $form = $('.dynamic-form');
-	
+
 	// 设置表单提交id
 	$form.attr('action', ctx + '/form/dynamic/start-process/' + processDefinitionId);
-	
+
 	// 读取启动时的表单
 	$.getJSON(ctx + '/form/dynamic/get-form/start/' + processDefinitionId, function(form) {
 		var trs = "";
@@ -57,17 +57,17 @@ function readFormFields(processDefinitionId) {
 			}
 			trs += "</td></tr>";
 		});
-		
+
 		// 添加table内容
 		$('.dynamic-form-table').html(trs).find('tr').hover(function() {
 			$(this).addClass('ui-state-hover');
 		}, function() {
 			$(this).removeClass('ui-state-hover');
 		});
-		
+
 		// 初始化日期组件
-		$form.find('.date').datepicker();
-		
+		$form.find('.dateISO').datepicker();
+
 		// 表单验证
 		$form.validate($.extend({}, $.common.plugin.validator));
 	});
@@ -83,7 +83,7 @@ var formFieldCreator = {
 		return result;
 	},
 	date: function(prop, className) {
-		var result = "<td>" + prop.name + "：</td><td><input type='text' id='" + prop.id + "' name='fp_" + prop.id + "' class='date " + className + "' />";
+		var result = "<td>" + prop.name + "：</td><td><input type='text' id='" + prop.id + "' name='fp_" + prop.id + "' class='dateISO " + className + "' />";
 		return result;
 	}
 };
