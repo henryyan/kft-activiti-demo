@@ -35,9 +35,9 @@
 		<delete file="${wd.leave-dynamic-from}/leave-dynamic-from.bpmn20.xml" />
 	</target>
 
-	<!-- 请假流程定义打包-外部表单 -->
+	<!-- 请假流程定义打包-外置表单 -->
 	<target name="workflow.package.leave-formkey">
-		<echo>打包流程定义：请假（外部表单）</echo>
+		<echo>打包流程定义：请假（外置表单）</echo>
 		<copy file="${wd.leave-formkey}/leave-formkey.bpmn" tofile="${wd.leave-formkey}/leave-formkey.bpmn20.xml" />
 		<zip destfile="${workflow.deployments}/leave-formkey.bar" basedir="${wd.leave-formkey}" update="true" includes="*.xml,*.png,*.form" />
 		<delete file="${wd.leave-formkey}/leave-formkey.bpmn20.xml" />

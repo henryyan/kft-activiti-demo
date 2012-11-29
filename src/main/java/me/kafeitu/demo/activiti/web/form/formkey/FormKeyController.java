@@ -36,7 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * 外部表单Controller
+ * 外置表单Controller
  * 了解不同表单请访问：http://www.kafeitu.me/activiti/2012/08/05/diff-activiti-workflow-forms.html
  * @author HenryYan
  */
@@ -78,7 +78,7 @@ public class FormKeyController {
 		 */
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-formkey")
 				.list();
-		
+
 		List<ProcessDefinition> dispatchList = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch")
 		        .list();
 
@@ -94,7 +94,7 @@ public class FormKeyController {
 	@ResponseBody
 	public Object findStartForm(@PathVariable("processDefinitionId") String processDefinitionId) throws Exception {
 
-		// 根据流程定义ID读取外部表单
+		// 根据流程定义ID读取外置表单
 		Object startForm = formService.getRenderedStartForm(processDefinitionId);
 
 		return startForm;

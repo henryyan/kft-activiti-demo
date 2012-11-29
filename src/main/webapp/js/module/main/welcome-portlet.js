@@ -4,13 +4,21 @@ $(function() {
 		columns: [{
 			width: 500,
 			portlets: [{
+				title: '表单概念',
+				content: {
+					type: 'text',
+					text: function() {
+						return $('.forms').html();
+					}
+				}
+			}, {
 				title: '待办任务',
 				content: {
 					type: 'ajax',
 					dataType: 'json',
 					url: ctx + '/workflow/task/todo/list',
 					formatter: function(o, pio, data) {
-						var ct = "<ul>";
+						var ct = "<ol>";
 						$.each(data, function() {
 							ct += "<li>" + this.pdname + "->PID:" + this.pid + "-><span class='ui-state-highlight ui-corner-all'>" + this.name + "</span>";
 							ct += "<span class='version' title='流程定义版本：" + this.pdversion + "'><b>V:</b>" + this.pdversion + "</span>";
@@ -18,7 +26,7 @@ $(function() {
 							ct += "<span class='status' title='任务状态'>" + (this.status == 'claim' ? '未签收' : '') + "</span>";
 							ct += "</li>";
 						});
-						return ct + "</ul>";
+						return ct + "</ol>";
 					},
 					afterShow: function() {
 						$('.trace').click(graphTrace);
@@ -35,9 +43,17 @@ $(function() {
 						return $('.demos').html();
 					}
 				}
+			}, {
+				title: '关于作者',
+				content: {
+					type: 'text',
+					text: function() {
+						return $('.aboutme').html();
+					}
+				}
 			}]
 		}, {
-			width: 400,
+			width: 500,
 			portlets: [{
 				title: '项目说明',
 				content: {
@@ -52,6 +68,14 @@ $(function() {
 					type: 'text',
 					text: function() {
 						return $('.arch').html();
+					}
+				}
+			}, {
+				title: '资源链接',
+				content: {
+					type: 'text',
+					text: function() {
+						return $('.links').html();
 					}
 				}
 			}]
