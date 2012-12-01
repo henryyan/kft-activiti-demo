@@ -32,7 +32,7 @@ PropertyFileUtil.init();
     <script src="${ctx }/js/common/plugins/jui/jquery-ui-${themeVersion }.min.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/jui/extends/themeswitcher/jquery.ui.switcher.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/tools/jquery.cookie.js" type="text/javascript"></script>
-	<script src="${ctx }/js/common/plugins/jui/extends/layout/jquery.layout.min.js" type="text/javascript"></script>
+	<script src="${ctx }/js/common/plugins/jui/extends/layout/jquery.layout.min.js?v=1.3" type="text/javascript"></script>
 	<script src='${ctx }/js/common/common.js' type="text/javascript"></script>
     <script src='${ctx }/js/module/main/main-frame.js' type="text/javascript"></script>
 </head>
