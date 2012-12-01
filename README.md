@@ -29,3 +29,17 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 * [功能演示](https://github.com/henryyan/kft-activiti-demo/wiki/%E5%8A%9F%E8%83%BD%E6%BC%94%E7%A4%BA)
  
 ![kft-activiti-demo截图](http://www.kafeitu.me/files/2012/05/kft-activiti-demo.png)
+
+## Changelog
+
+### 1.4.1 (2012-12-01)
+
+1.升级jquery.portlet.js解决把一列的portlet拖走后不能再拖回问题
+
+2.升级:jquery -> 1.83，jquery ui -> 1.9.2, jquery.layout -> 1.3，html头部声明用html标准代替xhtml
+
+### 1.4 (2012-11-27)
+
+1.表单名称重构，portlet添加关于作者和表单概念模块
+
+2.首页用jquery.portlet插件显示信息，并添加一个待办任务列表的portlet
