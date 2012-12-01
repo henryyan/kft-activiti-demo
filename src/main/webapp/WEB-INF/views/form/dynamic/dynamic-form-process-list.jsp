@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
 <head>
 	<%@ include file="/common/global.jsp"%>
@@ -11,9 +11,9 @@
     <%@ include file="/common/include-jquery-ui-theme.jsp" %>
     <link href="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.css" type="text/css" rel="stylesheet" />
     <link href="${ctx }/js/common/plugins/qtip/jquery.qtip.min.css" type="text/css" rel="stylesheet" />
-    
-    <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
-    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+
+    <script src="${ctx }/js/common/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui-${themeVersion }.min.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/jui/extends/i18n/jquery-ui-date_time-picker-zh-CN.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/validate/jquery.validate.pack.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/validate/messages_cn.js" type="text/javascript"></script>

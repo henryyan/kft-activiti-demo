@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<%@ include file="/common/global.jsp"%>
 	<script>
@@ -14,9 +13,9 @@
 	<%@ include file="/common/include-base-styles.jsp" %>
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
 	<title>流程列表</title>
-	
-	<script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
-    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+
+	<script src="${ctx }/js/common/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui-${themeVersion }.min.js" type="text/javascript"></script>
     <script type="text/javascript">
     $(function() {
     	$('#redeploy').button({
@@ -46,7 +45,7 @@
 		<form action="${ctx }/workflow/deploy" method="post" enctype="multipart/form-data">
 			<input type="file" name="file" />
 			<input type="submit" value="Submit" />
-		</form>	
+		</form>
 	</fieldset>
 	<table width="100%" class="need-border">
 		<thead>

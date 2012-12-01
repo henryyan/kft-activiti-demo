@@ -1,4 +1,4 @@
-.ui-portlet-column { float: left; }
+.ui-portlet-column { float: left; padding-bottom: 100px;}
 .ui-portlet-header {padding: .4em 0.7em}
 .ui-portlet-header .ui-icon { float: right; }
 .ui-portlet-item { margin: 0 1em 1em 0; }
