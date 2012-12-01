@@ -57,3 +57,6 @@ textarea {
 .error, .alert, .notice, .success, .info {
 	padding: auto !important;
 }
+
+/* 解决和jquery ui tooltip冲突问题 */
+.qtip {padding: 0px !important;}

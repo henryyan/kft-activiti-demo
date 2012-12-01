@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
 <head>
 	<%@ include file="/common/global.jsp"%>
@@ -21,9 +21,9 @@
 		z-index: 1005 !important;
 	}
     </style>
-    
-    <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
-    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+
+    <script src="${ctx }/js/common/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui-${themeVersion }.min.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/jui/extends/i18n/jquery-ui-date_time-picker-zh-CN.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/qtip/jquery.qtip.pack.js" type="text/javascript"></script>
@@ -80,24 +80,24 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
+
 	<!-- 下面是每个节点的模板，用来定义每个节点显示的内容 -->
 	<!-- 使用DIV包裹，每个DIV的ID以节点名称命名，如果不同的流程版本需要使用同一个可以自己扩展（例如：在DIV添加属性，标记支持的版本） -->
-	
+
 	<!-- 部门领导审批 -->
 	<div id="deptLeaderAudit" style="display: none">
-	
+
 		<!-- table用来显示信息，方便办理任务 -->
 		<%@include file="view-form.jsp" %>
 	</div>
-	
+
 	<!-- HR审批 -->
 	<div id="hrAudit" style="display: none">
-	
+
 		<!-- table用来显示信息，方便办理任务 -->
 		<%@include file="view-form.jsp" %>
 	</div>
-	
+
 	<div id="modifyApply" style="display: none">
 		<div class="info" style="display: none"></div>
 		<div id="radio">
@@ -135,7 +135,7 @@
 			</tr>
 		</table>
 	</div>
-	
+
 	<!-- 销假 -->
 	<div id="reportBack" style="display: none">
 		<!-- table用来显示信息，方便办理任务 -->
@@ -156,6 +156,6 @@
 			</tr>
 		</table>
 	</div>
-	
+
 </body>
 </html>

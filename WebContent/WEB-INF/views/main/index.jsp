@@ -1,11 +1,11 @@
 <%@page import="me.kafeitu.demo.activiti.util.PropertyFileUtil"%>
 <%@page import="org.springframework.beans.factory.config.PropertiesFactoryBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <%
 PropertyFileUtil.init();
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
 	<%@ include file="/common/global.jsp"%>
 	<script>
@@ -27,9 +27,9 @@ PropertyFileUtil.init();
 	#tabs li .ui-icon-close { float: left; margin: 0.5em 0.2em 0 0; cursor: pointer; }
 	#add_tab { cursor: pointer; }
 	</style>
-    
-    <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
-    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+
+    <script src="${ctx }/js/common/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui-${themeVersion }.min.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/jui/extends/themeswitcher/jquery.ui.switcher.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/tools/jquery.cookie.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/jui/extends/layout/jquery.layout.min.js" type="text/javascript"></script>

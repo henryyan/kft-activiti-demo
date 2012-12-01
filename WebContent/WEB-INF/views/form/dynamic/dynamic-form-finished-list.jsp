@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
 <head>
 	<%@ include file="/common/global.jsp"%>
@@ -23,7 +23,7 @@
 			<th>流程结束时间</th>
 			<th>流程结束原因</th>
 		</tr>
-		
+
 		<c:forEach items="${list }" var="hpi">
 		<tr>
 			<td>${hpi.id }</td>
@@ -31,12 +31,12 @@
 			<td>${hpi.startTime }</td>
 			<td>${hpi.endTime }</td>
 			<td>${hpi.deleteReason }</td>
-		</tr>		
+		</tr>
 		</c:forEach>
 	</table>
-	
+
 	<!-- 办理任务对话框 -->
 	<div id="handleTemplate" class="template"></div>
-	
+
 </body>
 </html>

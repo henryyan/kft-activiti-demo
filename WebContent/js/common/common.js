@@ -5,10 +5,10 @@
 (function($) {
 
     $.common = {};
-    
+
     //-- 初始化方法 --//
     _initFunction();
-    
+
     //-- 窗口工具 --//
     $.common.window = {
         //-- 获得最上层的window对象 --//
@@ -49,7 +49,7 @@
             }
         }
     };
-    
+
     /*******************************************/
     /**				jqGrid插件--开始			  **/
     /*******************************************/
@@ -106,7 +106,7 @@
                             $(this).show();
                         }
                     });
-                    
+
                     // 查看时
                     $trs = $('tr[id^=trv].FormData', formid);
                     $.each($trs, function() {
@@ -151,7 +151,7 @@
         formatter: {
             // 日期类型，例如：2010-08-19
             date: function(cellvalue, options, cellobject) {
-                if (cellvalue == null || cellvalue == 'null') 
+                if (cellvalue == null || cellvalue == 'null')
                     return "";
                 else {
                     if (cellvalue.length >= 10) {
@@ -174,7 +174,7 @@
             trueOrfalse: function(cellvalue, options, cellobject) {
                 if (cellvalue == null ||
                 cellvalue == 'null' ||
-                cellvalue == 0) 
+                cellvalue == 0)
                     return "否";
                 return "是";
             },
@@ -182,13 +182,13 @@
             trueOrFalseImg: function(cellvalue, options, cellobject) {
                 if (cellvalue == null ||
                 cellvalue == 'null' ||
-                cellvalue == 0) 
+                cellvalue == 0)
                     return "";
                 var okImgPath = $.common.custom.getCtx() + "/images/tip/ok.gif";
                 return "<img src='" + okImgPath + "'/>";
             },
             float2precent: function(cellvalue, options, cellobject) {
-                if (cellvalue == null || cellvalue == 'null') 
+                if (cellvalue == null || cellvalue == 'null')
                     return "";
                 return cellvalue * 100 + '%';
             }
@@ -218,7 +218,7 @@
                         $('tr.FormData', formObj).removeClass('ui-state-active');
                         $(this).addClass('ui-state-active');
                     });
-                    
+
                     // 如果对话框的高度超过了列表的高度则出现滚动条，延迟20毫秒执行
                     setTimeout(function() {
                         var formDialogHeight = $(formObj).parents('.ui-jqdialog').height();
@@ -232,7 +232,7 @@
                             });
                             return;
                         }
-                        
+
 						// 设置参数autoSizeForm时不自动调整表单对话框高度
 						if ($('#listId').jqGrid('getGridParam', 'autoSizeForm') === true) {
 							var gridHeight = $('#gview_' + listId).height();
@@ -268,12 +268,12 @@
                         $('tr.FormData', formObj).removeClass('ui-state-active');
                         $(this).addClass('ui-state-active');
                     });
-                    
+
                     // 如果对话框的高度超过了列表的高度则出现滚动条，延迟20毫秒执行
                     setTimeout(function() {
                         var formDialogHeight = $(formObj).parents('.ui-jqdialog').height();
                         var listId = $(formObj).attr('id').replace('FrmGrid_', '');
-                        
+
                         var subGridLength = $('#gview_' + listId).parents('td.subgrid-data').length;
                         if (subGridLength > 0) {
                             $(formObj).parents('.ui-jqdialog').css({
@@ -282,7 +282,7 @@
                             });
                             return;
                         }
-                        
+
                         var gridHeight = $('#gview_' + listId).height();
                         if (formDialogHeight > gridHeight) {
                             $(formObj).height(gridHeight - $(formObj).next('.EditTable').height() - 30);
@@ -343,11 +343,11 @@
                             text: i
                         }).appendTo('.saved-filters');
                     });
-                    
+
                     $('.saved-filters').unbind('change').bind('change', function() {
                         // 1、删除所有条件
                         $('#fbox_list_reset').trigger('click');
-                        
+
                         // 2、设置条件
                         var filterName = $('option:selected', this).val();
                         var groupOp = savedFilters[filterName].groupOp;
@@ -361,10 +361,10 @@
                             $('.operators:eq(' + i + ') select option[value=' + rules[i].op + ']').attr('selected', true);
                             $('.data:eq(' + i + ') *').val(rules[i].data)
                         }
-                        
+
                         // 3、选中当前条件
                         $('.saved-filters option:[text=' + filterName + ']').attr('selected', true);
-                        
+
                     });
                 },
                 afterShowSearch: function() {
@@ -376,7 +376,7 @@
                             $('.ui-searchFilter tfoot .ui-search').trigger('click');
                         }
                     });
-                    
+
                     /*
                      * hack: 搜索类型有select时点击重置按钮后无效
                      */
@@ -384,7 +384,7 @@
                         $('.data').find('.vdata').removeClass('vdata');
                         $('.data').find('select').hide();
                         $('.data').find('.default').addClass('vdata').show();
-                        
+
                         // 比较符号重置为默认(第一个)
                         $('.ops').find('select').hide();
                         $('.ops').find('.field0').show();
@@ -398,8 +398,8 @@
                     setTimeout(function() {
                         // 隐藏编辑按钮
                         $('#trv_options').hide();
-                        
-                        
+
+
                         // 如果对话框的高度超过了列表的高度则出现滚动条，延迟20毫秒执行
                         var formDialogHeight = $(formid).parents('.ui-jqdialog').height();
                         var listId = $(formid).attr('id').replace('ViewGrid_', '');
@@ -433,14 +433,14 @@
                 afterAutoResize: null
             };
             options = $.extend({}, defaults, options);
-            
+
             // 第一次调用
             var size = getWidthAndHeigh();
             if ($.isFunction(options.callback)) {
                 options.callback(size);
                 setToolbarHeight();
             }
-            
+
             // 窗口大小改变的时候
             if (options.enableAutoResize === true) {
                 if ($.isFunction(options.beforeAutoResize)) {
@@ -455,7 +455,7 @@
                     }
                 };
             }
-            
+
             // 根据浏览器不同设置工具栏的高度
             function setToolbarHeight() {
                 // 根据浏览器不同设置工具栏的高度
@@ -468,7 +468,7 @@
                     }
                 }
             }
-            
+
             // 获取iframe大小
             function getWidthAndHeigh(resize) {
                 var hasToolbar = !options.toolbar ? false : options.toolbar[0];
@@ -478,14 +478,14 @@
                         alert('请设置工具栏的属性，toolbar ： [true, [top, both, bottom]]');
                     }
                 }
-                
+
                 // 根据列表的容器设置宽度和高度
                 var clientHeight = options.gridContainer == 'body' ? document.documentElement.clientHeight : $(options.gridContainer).get(0).clientHeight;
                 var clientWidth = options.gridContainer == 'body' ? document.documentElement.clientWidth : $(options.gridContainer).get(0).clientWidth;
-                
+
                 var iframeHeight = !options.height ? clientHeight : options.height;
                 var iframeWidth = !options.width ? clientWidth : options.width;
-                
+
                 // chrome
                 if ($.common.browser.isChrome()) {
                     if (hasToolbar) {
@@ -541,12 +541,12 @@
                         iframeHeight -= 85;
                     }
                 }
-                
+
                 // 是否有搜索工具条
                 if (options.filterToolbar) {
                     iframeHeight -= 23;
                 }
-                
+
                 // 是否开启标头分组
                 if (options.groupHeaders) {
                     iframeHeight -= 22;
@@ -556,7 +556,7 @@
                     height: iframeHeight
                 };
             }
-            
+
         },
         // jqGrid快捷键支持
         keys: {
@@ -577,7 +577,7 @@
                 });
                 return chks;
             },
-            
+
             /**
              * 获取选中的记录ID，以逗号分隔
              * @param {Object} listObj	列表对象
@@ -597,14 +597,14 @@
                     } else {
                         ids += tempId + ",";
                     }
-                    
+
                 });
                 if (ids.indexOf(',') != -1) {
                     ids = ids.substring(0, ids.length - 1);
                 }
                 return ids;
             }
-            
+
         },
         /**
          * jqgrid列表的gridComplete方法
@@ -628,7 +628,7 @@
                 }, 500);
             }
         },
-        
+
         /**
          * 顶部的搜索条
          */
@@ -638,7 +638,7 @@
                 defaultSearch: 'cn'
             }
         },
-        
+
         /**
          * 标头分组
          */
@@ -647,7 +647,7 @@
                 useColSpanStyle: true
             }
         },
-        
+
         /**
          * 解决列冻结时因为高度不一致
          * @param {Object} listId
@@ -656,7 +656,7 @@
             setTimeout(function() {
                 $(listId + '_frozen tr').each(function() {
                 	var rowId = $(this).attr('id');
-                	
+
                 	var frozenTdHeight = parseFloat($('td:first', this).height());
                     var normalHeight = parseFloat($(listId + ' #' + $(this).attr('id')).find('td:first').height());
                     if (frozenTdHeight - normalHeight > 0) {
@@ -667,7 +667,7 @@
                 });
             }, timeout || 10);
         },
-		
+
 		/**
 		 * 多选改进双击切换状态
 		 * @param {Object} listId
@@ -681,7 +681,7 @@
 					$(this).parents('tr').removeClass('ui-state-highlight');
 				}
 			});
-			
+
 			// 双击选中
 			$('.jqgrow', listId).off('dblclick').on('dblclick', function(e) {
 				var s = $(this).find('input[type=checkbox]').attr('checked');
@@ -692,13 +692,13 @@
 				}
 			});
 		},
-		
+
 		/**
 		 * 查询条件工具
 		 */
 		search: {
 			queryString: function(listId) {
-				
+
 				var query = "";
 				$('table[aria-labelledby=gbox_' + listId + '] .ui-search-toolbar :input').each(function() {
 					if ($(this).val()) {
@@ -712,7 +712,7 @@
 			}
 		}
     };
-    
+
     /**
      * jqGrid公共参数，供集成使用
      */
@@ -741,7 +741,7 @@
                         });
                     }
                     $('body').data('jqgridResult_' + this.id, idToDataMap);
-                    
+
                     var afterCall = $('#' + this.id).jqGrid('getGridParam', 'afterLoadComplete');
                     if ($.isFunction(afterCall)) {
                         afterCall.call(this, this.id, data);
@@ -762,11 +762,11 @@
             }
         };
     };
-    
+
     /*******************************************/
     /**				jqGrid插件--结束			  **/
     /*******************************************/
-    
+
     /*******************************************/
     /**			jquery.validator插件--开始	  **/
     /*******************************************/
@@ -775,7 +775,7 @@
         errorPlacement: function(error, element) {
             // Set positioning based on the elements position in the form
             var elem = $(element), corners = ['right center', 'left bottom'], flipIt = elem.parents('span.right').length > 0;
-            
+
             // Check we have a valid error message
             if (!error.is(':empty')) {
                 // Apply the tooltip only if it isn't valid
@@ -823,12 +823,12 @@
     /*******************************************/
     /**			jquery.validator插件--结束	  **/
     /*******************************************/
-    
+
     /*******************************************/
     /**			jQuery UI--开始	  			  **/
     /*******************************************/
     var _plugin_jqui = {
-    
+
         /**
          * 按钮相关
          */
@@ -852,7 +852,7 @@
                 }
             }
         },
-        
+
         /**
          * 对话框相关
          */
@@ -900,7 +900,7 @@
                             });
                         }
                         $btn.attr('title', v.title);
-                        
+
                         // 分隔符
                         try {
                             if (v.division) {
@@ -917,7 +917,7 @@
                         }
                     });
                 },
-                
+
                 /*[{
                  text: 'aaa',
                  position: ['left'|'right']
@@ -952,7 +952,7 @@
                 }
                 return tempBodyHeight;
             },
-            
+
             /**
              * 根据浏览器差异获取设置对话框的高度
              */
@@ -966,7 +966,7 @@
                 return tempBodyHeight;
             }
         },
-        
+
         /**
          * 选项卡相关
          */
@@ -983,9 +983,9 @@
                         chrome: 0
                     }
                 };
-                
+
                 options = $.extend({}, defaults, options);
-                
+
                 /**
                  * 核心处理函数
                  */
@@ -1001,27 +1001,27 @@
                     } else if ($.common.browser.isChrome()) {
                         gap += options.increment.chrome;
                     }
-                    
+
                     var height = document.body.clientHeight - gap;
                     $('.ui-tabs-panel').height(height);
                     if ($.isFunction(options.callback)) {
                         options.callback();
                     }
                 }
-                
+
                 innerDeal();
-                
+
                 // 窗口大小改变的时候
                 window.onresize = innerDeal;
-                
+
             }
         },
-		
+
 		/**
 		 * 一些特效
 		 */
 		effect: {
-			
+
 			/*
 			 * 斑马效果
 			 */
@@ -1033,12 +1033,12 @@
 				});
 			}
 		},
-		
+
 		/**
 		 * 自动完成
 		 */
 		autocomplete: {
-			
+
 			/*
 			 * 触发自动完成
 			 */
@@ -1047,7 +1047,7 @@
             		$(this).autocomplete('search', $(this).val());
             	}
 			},
-		
+
 			/*
 			 * 取消自动完成的结果，配合triggerSearch使用，目的是针对文本框获取焦点之后就自动根据现有内容搜索后点击死循环问题
 			 */
@@ -1061,13 +1061,13 @@
     /*******************************************/
     /**			jQuery UI--结束	  			  **/
     /*******************************************/
-    
+
     /*******************************************/
     /**			jstree --开始	  			  **/
     /*******************************************/
-    
+
     var _plugin_jstree = {
-    
+
         // 单击名称展开子节点
         clickNameToUnfold: function(jstreeObj) {
             $(jstreeObj).bind('click.jstree', function(event) {
@@ -1076,10 +1076,10 @@
                     return;
                 } else if (eventNodeName == 'A') {
                     var $city = $(event.target);
-                    
+
                     // 点击A展开子节点
                     $("#areaInfoTree").jstree('toggle_node', $city.parent().find('ins').get(0));
-                    
+
                     if ($city.attr('leaf')) {
                         $('#result').text($city.text() + "，ID=" + $city.parent().attr('id'));
                     }
@@ -1087,11 +1087,11 @@
             });
         }
     };
-    
+
     /*******************************************/
     /**			jstree --结束	  			  **/
     /*******************************************/
-    
+
     /*******************************************/
     /**			workflow --开始	  			  **/
     /*******************************************/
@@ -1134,7 +1134,7 @@
     /*******************************************/
     /**			workflow --开始	  			  **/
     /*******************************************/
-    
+
     /*******************************************/
     /**			$.common--开始	  			  **/
     /*******************************************/
@@ -1146,10 +1146,10 @@
         jstree: _plugin_jstree,
         workflow: _plugin_workflow
     };
-    
+
     // 插件扩展
     $.common.plugin = _common_plugins;
-    
+
     //-- frame工具 --//
     $.common.frame = {
         /**
@@ -1160,7 +1160,7 @@
             $('#' + iframeId).height(parentHeight);
         }
     };
-    
+
     //-- 和系统有关的函数 --//
     $.common.system = {
         // 获取系统属性
@@ -1173,9 +1173,9 @@
                 callback: null,
                 error: null
             };
-            
+
             $.extend(true, defaults, options);
-            
+
             $.ajax({
                 url: defaults.url,
                 cache: false,
@@ -1193,7 +1193,7 @@
                 }
             });
         },
-        
+
         /*
          * 为下拉框加载数据字典
          */
@@ -1209,7 +1209,7 @@
             });
         }
     };
-    
+
     //-- 浏览器工具 --//
     $.common.browser = {
         // 检测是否是IE浏览器
@@ -1253,7 +1253,7 @@
             }
         }
     };
-    
+
     //-- 编码相关 --//
     $.common.code = {
         /**
@@ -1270,10 +1270,10 @@
                 text = text.replace("\n", "<BR>");
                 text = text.replace(" ", "&nbsp;");
             } while (textold != text);
-            
+
             return text;
         },
-        
+
         /**
          * 把HTML代码转换为文本
          * @param {Object} text	原始HTML代码
@@ -1290,9 +1290,9 @@
             } while (textold != text);
             return text;
         }
-        
+
     };
-    
+
     //-- 数学工具 --//
     $.common.math = {
         /*
@@ -1302,7 +1302,7 @@
             return dight.toFixed(how);
         }
     };
-    
+
     //-- 文件相关 --//
     $.common.file = {
         /**
@@ -1313,7 +1313,7 @@
             var downUrl = ctx + '/file/download.action?fileName=' + fileName;
             location.href = encodeURI(encodeURI(downUrl));
         },
-        
+
         /**
          * 友好文件大小：KB、MB
          */
@@ -1325,7 +1325,7 @@
             }
         }
     };
-    
+
     //-- 字符工具 --//
     $.common.string = {
         /*
@@ -1335,7 +1335,7 @@
             return str ? str : '';
         }
     };
-    
+
     //-- 未分类 --//
     $.common.custom = {
         // 得到应用名
@@ -1381,7 +1381,7 @@
             }
             $(selectId).append(hours.toString());
         },
-        
+
         /**
          * 日期增加年数或月数或天数
          * @param {String} BaseDate	要增加的日期
@@ -1407,7 +1407,7 @@
             var hour = minute * 60;
             var day = hour * 24;
             var year = day * 365;
-            
+
             var newDate;
             var dVal = new Date(dateObj);
             var dVal = dVal.valueOf();
@@ -1440,27 +1440,27 @@
                 return newDate;
             }
         },
-        
+
         /**
          * 把毫秒转换为自然语言
          * @param {Object} millis
          */
         timeRange: function(millis) {
-            // 计算出相差天数   
+            // 计算出相差天数
             var days = Math.floor(millis / (24 * 3600 * 1000));
-            
+
             // 计算相差小时
-            var leave1 = millis % (24 * 3600 * 1000); //计算天数后剩余的毫秒数   
+            var leave1 = millis % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
             var hours = Math.floor(leave1 / (3600 * 1000));
-            
-            //计算相差分钟数   
-            var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数   
+
+            //计算相差分钟数
+            var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
             var minutes = Math.floor(leave2 / (60 * 1000));
-            
-            //计算相差秒数   
-            var leave3 = leave2 % (60 * 1000); //计算分钟数后剩余的毫秒数   
+
+            //计算相差秒数
+            var leave3 = leave2 % (60 * 1000); //计算分钟数后剩余的毫秒数
             var seconds = Math.round(leave3 / 1000);
-            
+
             var result = "";
             if (days > 0) {
                 result += days + "天";
@@ -1479,47 +1479,47 @@
             }
             return result;
             //return "相差 " + days + "天 " + hours + "小时 " + minutes + " 分钟" + seconds + " 秒";
-        
+
         }
     };
-    
+
     /*******************************************/
     /**			$.form--开始  	  			  **/
     /*******************************************/
     //-- 表单自定义功能 --//
     $.form = {};
-    
+
     // 绑定form的ajax提交功能
     $.form.bindAjaxSubmit = function(settings) {
-    
+
         var defaults = {
             formId: '',
             beforeSubmit: showRequest,
             success: showResponse,
             clearForm: true
         };
-        
+
         settings = $.extend({}, defaults, settings);
-        
+
         // 重要：防止重复绑定
         if ($(settings.formId).data('binded') === true) {
             return;
         };
-        
+
         $(settings.formId).data('binded', true).submit(function(e) {
             $(this).ajaxSubmit(settings);
             return false;
         });
-        
+
     };
-    
+
     // 表示层设置
     $.form.ui = {
         // 红色星号
         required: function() {
             return $.common.plugin.jqGrid.form.must();
         },
-		
+
 		// 根据属性设置
 		initRequired: function(selector) {
 			$('.required', selector).each(function() {
@@ -1530,22 +1530,22 @@
 			});
 		}
     };
-    
+
     // -- 自定义插件 --//
     /**
      * 插件名称：cursorInsert（光标处插入） 功能：可以在文本框的
      */
     $.fn.cursorInsert = function(options) {
-    
+
         // default settings
         var settings = {
             content: ''
         };
-        
+
         if (options) {
             $.extend(settings, options);
         }
-        
+
         return this.each(function() {
             var obj = $(this).get(0);
             if (document.selection) {
@@ -1563,7 +1563,7 @@
             obj.focus();
         });
     };
-    
+
     /**
      * 随滚动条滚动
      */
@@ -1572,15 +1572,15 @@
         $(_this).css({
             position: 'absolute'
         });
-        
+
         $(window).scroll(function() {
             $(_this).css({
                 top: $(this).scrollTop() + $(this).height() - 500
             });
         });
-        
+
     };
-    
+
     /**
      * 动态加载JavaScript
      */
@@ -1592,7 +1592,7 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     };
-    
+
     /*
      * 是否可以写日志
      */
@@ -1602,7 +1602,7 @@
         }
         return console != undefined;
     };
-    
+
     /**
      * jquery插件形式的firebug日志
      * @param {Object} msg
@@ -1614,7 +1614,7 @@
         console.log("%s: %o", msg, this);
         return this;
     };
-    
+
     $.log = $.log || {};
     /**
      * firebug日志
@@ -1652,12 +1652,12 @@
             console.error(msg);
         }
     });
-    
+
     /**
      * 获取元素的outerHTML
      */
     $.fn.outerHTML = function() {
-    
+
         // IE, Chrome & Safari will comply with the non-standard outerHTML, all others (FF) will have a fall-back for cloning
         return (!this.length) ? this : (this[0].outerHTML ||
         (function(el) {
@@ -1667,9 +1667,9 @@
             div = null;
             return contents;
         })(this[0]));
-        
+
     };
-    
+
 })(jQuery);
 
 //-- 自定义函数 --//
@@ -1718,33 +1718,33 @@ function _initFunction() {
                     break;
                 }
                 case 'object':{
-                    if (object === null) 
+                    if (object === null)
                         return 'null';
                     var results = [];
                     for (var property in object) {
-                        var value = jQuery.jsonToString(object[property]);
-                        if (value !== undefined) 
-                            results.push(jQuery.jsonToString(property) + ':' + value);
+                        var value = jquery.jsonToString(object[property]);
+                        if (value !== undefined)
+                            results.push(jquery.jsonToString(property) + ':' + value);
                     }
                     return '{' + results.join(',') + '}';
                     break;
-                    
+
                 }
                 case 'array':{
                     var results = [];
                     for (var i = 0; i < object.length; i++) {
-                        var value = jQuery.jsonToString(object[i]);
-                        if (value !== undefined) 
+                        var value = jquery.jsonToString(object[i]);
+                        if (value !== undefined)
                             results.push(value);
                     }
                     return '[' + results.join(',') + ']';
                     break;
-                    
+
                 }
             }
         }
     });
-    
+
     // 全局ajax设置
     $.ajaxSetup({
         cache: false,
@@ -1776,23 +1776,23 @@ function _initFunction() {
             }
         }
     });
-    
+
     // jqgrid
     if ($.jgrid) {
         $.jgrid.no_legacy_api = true;
         $.jgrid.useJSON = true;
         $.jgrid.ajaxOptions.type = 'post';
     }
-    
+
     // blockui support linux FF
     if ($.blockUI) {
         var userAgent = $.uaMatch(navigator.userAgent);
         if (userAgent.browser == 'mozilla' && navigator.userAgent.indexOf('Linux') != -1) {
-            // enable transparent overlay on FF/Linux 
+            // enable transparent overlay on FF/Linux
             $.blockUI.defaults.applyPlatformOpacityRules = false;
         }
     }
-    
+
     // jquery validator
     if ($.validator) {
     	// 银行卡号
@@ -1800,7 +1800,7 @@ function _initFunction() {
             var regPex = /(^\d{16}|^\d{17}|^\d{18}|^\d{19}|^\d{20})$/;
             return this.optional(element) || regPex.exec(value);
         }, jQuery.format("请输入合法的银行卡号(长度：16~20)"));
-        
+
         // 不能大于当天
         $.validator.addMethod("canNotMoreThanToday", function(value, element, params) {
         	var values = value.split('-');
@@ -1849,18 +1849,18 @@ Date.prototype.toDateStr = function() {
  */
 Date.prototype.format = function(format) {
     var o = {
-        "M+": this.getMonth() + 1, //month 
-        "d+": this.getDate(), //day 
-        "h+": this.getHours(), //hour 
-        "m+": this.getMinutes(), //minute 
-        "s+": this.getSeconds(), //second 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //quarter 
-        "S": this.getMilliseconds() //millisecond 
+        "M+": this.getMonth() + 1, //month
+        "d+": this.getDate(), //day
+        "h+": this.getHours(), //hour
+        "m+": this.getMinutes(), //minute
+        "s+": this.getSeconds(), //second
+        "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
+        "S": this.getMilliseconds() //millisecond
     }
-    if (/(y+)/.test(format)) 
+    if (/(y+)/.test(format))
         format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o) 
-        if (new RegExp("(" + k + ")").test(format)) 
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(format))
             format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 }
@@ -1941,7 +1941,7 @@ function Map() {
         this.key = key;
         this.value = value;
     };
-    
+
     var put = function(key, value) {
         for (var i = 0; i < this.arr.length; i++) {
             if (this.arr[i].key === key) {
@@ -1952,7 +1952,7 @@ function Map() {
         this.arr[this.arr.length] = new struct(key, value);
         this._keys[this._keys.length] = key;
     };
-    
+
     var get = function(key) {
         for (var i = 0; i < this.arr.length; i++) {
             if (this.arr[i].key === key) {
@@ -1961,7 +1961,7 @@ function Map() {
         }
         return null;
     };
-    
+
     var remove = function(key) {
         var v;
         for (var i = 0; i < this.arr.length; i++) {
@@ -1973,19 +1973,19 @@ function Map() {
             this._keys.unshift(v);
         }
     };
-    
+
     var size = function() {
         return this.arr.length;
     };
-    
+
     var keys = function() {
         return this._keys;
     };
-    
+
     var isEmpty = function() {
         return this.arr.length <= 0;
     };
-    
+
     this.arr = new Array();
     this._keys = new Array();
     this.keys = keys;

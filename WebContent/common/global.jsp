@@ -7,7 +7,7 @@
 <%
 //jquery.ui主题
 String defaultTheme = "redmond";
-String themeVersion = "1.8.16";
+String themeVersion = "1.9.2";
 
 session.setAttribute("themeName", defaultTheme);
 session.setAttribute("themeVersion", themeVersion);

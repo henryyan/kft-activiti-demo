@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
 <head>
 	<%@ include file="/common/global.jsp"%>
@@ -13,8 +13,8 @@
     <link href="${ctx }/js/common/plugins/qtip/jquery.qtip.min.css" type="text/css" rel="stylesheet" />
     <%@ include file="/common/include-custom-styles.jsp" %>
 
-    <script src="${ctx }/js/common/jquery.js" type="text/javascript"></script>
-    <script src="${ctx }/js/common/plugins/jui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui-${themeVersion }.min.js" type="text/javascript"></script>
     <script src="${ctx }/js/common/plugins/jui/extends/timepicker/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/jui/extends/i18n/jquery-ui-date_time-picker-zh-CN.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/qtip/jquery.qtip.pack.js" type="text/javascript"></script>
@@ -37,7 +37,7 @@
 			<th>当前节点</th>
 			<th>是否挂起</th>
 		</tr>
-		
+
 		<c:forEach items="${list }" var="p">
 		<tr>
 			<td>${p.id }</td>
@@ -45,12 +45,12 @@
 			<td>${p.processDefinitionId }</td>
 			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图">${p.activityId }</a></td>
 			<td>${p.suspended }</td>
-		</tr>		
+		</tr>
 		</c:forEach>
 	</table>
-	
+
 	<!-- 办理任务对话框 -->
 	<div id="handleTemplate" class="template"></div>
-	
+
 </body>
 </html>
