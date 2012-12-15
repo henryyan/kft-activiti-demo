@@ -6,10 +6,10 @@ create table ACT_GE_PROPERTY (
 );
 
 insert into ACT_GE_PROPERTY
-values ('schema.version', '5.10', 1);
+values ('schema.version', '5.11', 1);
 
 insert into ACT_GE_PROPERTY
-values ('schema.history', 'create(5.10)', 1);
+values ('schema.history', 'create(5.11)', 1);
 
 insert into ACT_GE_PROPERTY
 values ('next.dbid', '1', 1);
@@ -27,7 +27,24 @@ create table ACT_GE_BYTEARRAY (
 create table ACT_RE_DEPLOYMENT (
     ID_ varchar(64),
     NAME_ varchar(255),
+    CATEGORY_ varchar(255),
     DEPLOY_TIME_ timestamp,
+    primary key (ID_)
+);
+
+create table ACT_RE_MODEL (
+    ID_ varchar(64) not null,
+    REV_ integer,
+    NAME_ varchar(255),
+    KEY_ varchar(255),
+    CATEGORY_ varchar(255),
+    CREATE_TIME_ timestamp,
+    LAST_UPDATE_TIME_ timestamp,
+    VERSION_ integer,
+    META_INFO_ varchar(4000),
+    DEPLOYMENT_ID_ varchar(64),
+    EDITOR_SOURCE_VALUE_ID_ varchar(64),
+    EDITOR_SOURCE_EXTRA_VALUE_ID_ varchar(64),
     primary key (ID_)
 );
 
@@ -58,6 +75,7 @@ create table ACT_RU_JOB (
     EXCLUSIVE_ boolean,
     EXECUTION_ID_ varchar(64),
     PROCESS_INSTANCE_ID_ varchar(64),
+    PROC_DEF_ID_ varchar(64),
     RETRIES_ integer,
     EXCEPTION_STACK_ID_ varchar(64),
     EXCEPTION_MSG_ varchar(4000),
@@ -69,15 +87,16 @@ create table ACT_RU_JOB (
 );
 
 create table ACT_RE_PROCDEF (
-    ID_ varchar(64),
+    ID_ varchar(64) NOT NULL,
     REV_ integer,
     CATEGORY_ varchar(255),
     NAME_ varchar(255),
-    KEY_ varchar(255),
-    VERSION_ integer,
+    KEY_ varchar(255) NOT NULL,
+    VERSION_ integer NOT NULL,
     DEPLOYMENT_ID_ varchar(64),
     RESOURCE_NAME_ varchar(4000),
     DGRM_RESOURCE_NAME_ varchar(4000),
+    DESCRIPTION_ varchar(4000),
     HAS_START_FORM_KEY_ bit,
     SUSPENSION_STATE_ integer,
     primary key (ID_)
@@ -93,21 +112,22 @@ create table ACT_RU_TASK (
     PARENT_TASK_ID_ varchar(64),
     DESCRIPTION_ varchar(4000),
     TASK_DEF_KEY_ varchar(255),
-    OWNER_ varchar(64),
-    ASSIGNEE_ varchar(64),
+    OWNER_ varchar(255),
+    ASSIGNEE_ varchar(255),
     DELEGATION_ varchar(64),
     PRIORITY_ integer,
     CREATE_TIME_ timestamp,
     DUE_DATE_ timestamp,
+    SUSPENSION_STATE_ integer,
     primary key (ID_)
 );
 
 create table ACT_RU_IDENTITYLINK (
     ID_ varchar(64),
     REV_ integer,
-    GROUP_ID_ varchar(64),
+    GROUP_ID_ varchar(255),
     TYPE_ varchar(255),
-    USER_ID_ varchar(64),
+    USER_ID_ varchar(255),
     TASK_ID_ varchar(64),
     PROC_DEF_ID_ varchar(64),
     primary key (ID_)
@@ -175,6 +195,11 @@ alter table ACT_RU_EXECUTION
     references ACT_RU_EXECUTION;
     
 alter table ACT_RU_EXECUTION
+    add constraint ACT_FK_EXE_PROCDEF 
+    foreign key (PROC_DEF_ID_) 
+    references ACT_RE_PROCDEF (ID_);    
+    
+alter table ACT_RU_EXECUTION
     add constraint ACT_UNIQ_RU_BUS_KEY
     unique(PROC_DEF_ID_, BUSINESS_KEY_);
     
@@ -227,3 +252,18 @@ alter table ACT_RU_EVENT_SUBSCR
     add constraint ACT_FK_EVENT_EXEC
     foreign key (EXECUTION_ID_)
     references ACT_RU_EXECUTION;
+
+alter table ACT_RE_MODEL 
+    add constraint ACT_FK_MODEL_SOURCE 
+    foreign key (EDITOR_SOURCE_VALUE_ID_) 
+    references ACT_GE_BYTEARRAY (ID_);
+
+alter table ACT_RE_MODEL 
+    add constraint ACT_FK_MODEL_SOURCE_EXTRA 
+    foreign key (EDITOR_SOURCE_EXTRA_VALUE_ID_) 
+    references ACT_GE_BYTEARRAY (ID_);
+    
+alter table ACT_RE_MODEL 
+    add constraint ACT_FK_MODEL_DEPLOYMENT 
+    foreign key (DEPLOYMENT_ID_) 
+    references ACT_RE_DEPLOYMENT (ID_);        
