@@ -16,6 +16,9 @@ alter table ACT_RU_EXECUTION
 alter table ACT_RU_EXECUTION 
     drop FOREIGN KEY ACT_FK_EXE_SUPER;
     
+alter table ACT_RU_EXECUTION 
+    drop FOREIGN KEY ACT_FK_EXE_PROCDEF;
+
 alter table ACT_RU_IDENTITYLINK
     drop FOREIGN KEY ACT_FK_TSKASS_TASK;
 
@@ -45,6 +48,15 @@ alter table ACT_RU_JOB
     
 alter table ACT_RU_EVENT_SUBSCR
     drop FOREIGN KEY ACT_FK_EVENT_EXEC;
+
+alter table ACT_RE_MODEL 
+    drop FOREIGN KEY ACT_FK_MODEL_SOURCE;
+
+alter table ACT_RE_MODEL 
+    drop FOREIGN KEY ACT_FK_MODEL_SOURCE_EXTRA;
+    
+alter table ACT_RE_MODEL 
+    drop FOREIGN KEY ACT_FK_MODEL_DEPLOYMENT;    
     
 drop index ACT_IDX_ATHRZ_PROCEDEF on ACT_RU_IDENTITYLINK;
 drop index ACT_IDX_EVENT_SUBSCR_CONFIG_ on ACT_RU_EVENT_SUBSCR;
@@ -53,6 +65,7 @@ drop table if exists ACT_GE_PROPERTY;
 drop table if exists ACT_RU_VARIABLE;
 drop table if exists ACT_GE_BYTEARRAY;
 drop table if exists ACT_RE_DEPLOYMENT;
+drop table if exists ACT_RE_MODEL;
 drop table if exists ACT_RU_IDENTITYLINK;
 drop table if exists ACT_RU_TASK;
 drop table if exists ACT_RE_PROCDEF;

@@ -3,7 +3,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 <head>
-<head>
 	<%@ include file="/common/global.jsp"%>
 	<title>请假正在运行中的流程实例列表</title>
 	<%@ include file="/common/meta.jsp" %>
