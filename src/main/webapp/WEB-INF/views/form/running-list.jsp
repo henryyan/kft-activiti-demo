@@ -1,3 +1,5 @@
+<%@page import="me.kafeitu.demo.activiti.util.ProcessDefinitionCache,org.activiti.engine.RepositoryService"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -28,6 +30,10 @@
 </head>
 
 <body>
+	<%
+	RepositoryService repositoryService = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext()).getBean(org.activiti.engine.RepositoryService.class);
+	ProcessDefinitionCache.setRepositoryService(repositoryService);
+	%>
 	<table>
 		<tr>
 			<th>执行ID</th>
@@ -38,11 +44,13 @@
 		</tr>
 
 		<c:forEach items="${list }" var="p">
+		<c:set var="pdid" value="${p.processDefinitionId }" />
+		<c:set var="activityId" value="${p.activityId }" />
 		<tr>
 			<td>${p.id }</td>
 			<td>${p.processInstanceId }</td>
 			<td>${p.processDefinitionId }</td>
-			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图">${p.activityId }</a></td>
+			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图"><%=ProcessDefinitionCache.getActivityName(pageContext.getAttribute("pdid").toString(), pageContext.getAttribute("activityId").toString()) %></a></td>
 			<td>${p.suspended }</td>
 		</tr>
 		</c:forEach>

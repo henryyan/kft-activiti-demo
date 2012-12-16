@@ -77,11 +77,11 @@ public class LeaveWorkflowService {
 		List<Task> tasks = new ArrayList<Task>();
 
 		// 根据当前人的ID查询
-		List<Task> todoList = taskService.createTaskQuery().processDefinitionKey("leave").taskAssignee(userId).orderByTaskPriority().desc()
+		List<Task> todoList = taskService.createTaskQuery().processDefinitionKey("leave").taskAssignee(userId).active().orderByTaskPriority().desc()
 				.orderByTaskCreateTime().desc().list();
 
 		// 根据当前人未签收的任务
-		List<Task> unsignedTasks = taskService.createTaskQuery().processDefinitionKey("leave").taskCandidateUser(userId).orderByTaskPriority().desc()
+		List<Task> unsignedTasks = taskService.createTaskQuery().processDefinitionKey("leave").taskCandidateUser(userId).active().orderByTaskPriority().desc()
 				.orderByTaskCreateTime().desc().list();
 
 		// 合并
@@ -91,7 +91,7 @@ public class LeaveWorkflowService {
 		// 根据流程的业务ID查询实体并关联
 		for (Task task : tasks) {
 			String processInstanceId = task.getProcessInstanceId();
-			ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId)
+			ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).active()
 					.singleResult();
 			String businessKey = processInstance.getBusinessKey();
 			Leave leave = leaveManager.getLeave(new Long(businessKey));
@@ -110,7 +110,7 @@ public class LeaveWorkflowService {
 	@Transactional(readOnly = true)
 	public List<Leave> findRunningProcessInstaces() {
 		List<Leave> results = new ArrayList<Leave>();
-		List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave").list();
+		List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave").active().list();
 
 		// 关联业务实体
 		for (ProcessInstance processInstance : list) {
@@ -121,7 +121,7 @@ public class LeaveWorkflowService {
 			results.add(leave);
 
 			// 设置当前任务信息
-			List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstance.getId()).orderByTaskCreateTime()
+			List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstance.getId()).active().orderByTaskCreateTime()
 					.desc().listPage(0, 1);
 			leave.setTask(tasks.get(0));
 
