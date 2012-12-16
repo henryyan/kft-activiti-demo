@@ -1,6 +1,5 @@
 package me.kafeitu.demo.activiti.web.form.formkey;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +14,13 @@ import me.kafeitu.demo.activiti.util.UserUtil;
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
+import org.activiti.engine.ManagementService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.persistence.entity.SuspensionState;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -65,6 +66,9 @@ public class FormKeyController {
 
   @Autowired
   private RuntimeService runtimeService;
+
+  @Autowired
+  private ManagementService managementService;
 
   /**
    * 动态form流程列表
@@ -198,20 +202,21 @@ public class FormKeyController {
     ModelAndView mav = new ModelAndView("/form/formkey/formkey-task-list");
     User user = UserUtil.getUserFromSession(request.getSession());
 
-    List<Task> tasks = new ArrayList<Task>();
-
     /**
-     * 这里为了演示区分开自定义表单的请假流程，值读取leave-dynamic-from
+     * 这里为了演示区分开自定义表单的请假流程，值读取leave-formkey
      */
 
-    // 分配到当前登陆用户的任务
-    List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-formkey").active().taskAssignee(user.getId()).list();
+    // 已经签收的或者直接分配到当前人的任务
+    String asigneeSql = "select distinct RES.* from ACT_RU_TASK RES inner join ACT_RE_PROCDEF D on RES.PROC_DEF_ID_ = D.ID_ WHERE RES.ASSIGNEE_ = #{userId}"
+            + " and D.KEY_ = #{processDefinitionKey} and RES.SUSPENSION_STATE_ = #{suspensionState}";
 
-    // 为签收的任务
-    List<Task> list2 = taskService.createTaskQuery().processDefinitionKey("leave-formkey").active().taskCandidateUser(user.getId()).list();
-
-    tasks.addAll(list);
-    tasks.addAll(list2);
+    // 当前人在候选人或者候选组范围之内
+    String needClaimSql = "select distinct RES.* from ACT_RU_TASK RES inner join ACT_RU_IDENTITYLINK I on I.TASK_ID_ = RES.ID_ inner join ACT_RE_PROCDEF D on RES.PROC_DEF_ID_ = D.ID_ WHERE"
+            + " D.KEY_ = #{processDefinitionKey} and RES.ASSIGNEE_ is null and I.TYPE_ = 'candidate'"
+            + " and ( I.USER_ID_ = #{userId} or I.GROUP_ID_ IN (select g.GROUP_ID_ from ACT_ID_MEMBERSHIP g where g.USER_ID_ = #{userId} ) )"
+            + " and RES.SUSPENSION_STATE_ = #{suspensionState}";
+    List<Task> tasks = taskService.createNativeTaskQuery().sql(asigneeSql + "union all " + needClaimSql).parameter("processDefinitionKey", "leave-formkey")
+            .parameter("suspensionState", SuspensionState.ACTIVE.getStateCode()).parameter("userId", user.getId()).list();
 
     mav.addObject("tasks", tasks);
     return mav;
