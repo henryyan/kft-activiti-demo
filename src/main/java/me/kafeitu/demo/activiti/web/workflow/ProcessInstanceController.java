@@ -35,11 +35,11 @@ public class ProcessInstanceController {
   @RequestMapping(value = "update/{state}/{processInstanceId}")
   public String updateState(@PathVariable("state") String state, @PathVariable("processInstanceId") String processInstanceId, RedirectAttributes redirectAttributes) {
     if (state.equals("active")) {
-      redirectAttributes.addFlashAttribute("message", "已激活ID为" + processInstanceId + "的流程实例；");
+      redirectAttributes.addFlashAttribute("message", "已激活ID为[" + processInstanceId + "]的流程实例。");
       runtimeService.activateProcessInstanceById(processInstanceId);
     } else if (state.equals("suspend")) {
       runtimeService.suspendProcessInstanceById(processInstanceId);
-      redirectAttributes.addFlashAttribute("message", "已挂起ID为" + processInstanceId + "的流程实例；");
+      redirectAttributes.addFlashAttribute("message", "已挂起ID为[" + processInstanceId + "]的流程实例。");
     }
     return "redirect:/workflow/processinstance/running";
   }

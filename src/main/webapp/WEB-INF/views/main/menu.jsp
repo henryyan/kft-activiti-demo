@@ -31,7 +31,7 @@
 	<li>
 		<a rel='#'>流程管理</a>
 		<ul>
-			<li><a rel='workflow/process-list'>流程部署管理</a></li>
+			<li><a rel='workflow/process-list'>流程定义及部署管理</a></li>
 			<li><a rel='workflow/processinstance/running'>运行中流程</a></li>
 		</ul>
 	</li>
