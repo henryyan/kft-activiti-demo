@@ -34,6 +34,14 @@
     </script>
 </head>
 <body>
+	<c:if test="${not empty message}">
+	<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+				<strong>提示：</strong>${message}</p>
+			</div>
+		</div>
+	</c:if>
 	<div style="text-align: right;padding: 2px 1em 2px">
 		<div id="message" class="info" style="display:inline;"><b>提示：</b>点击xml或者png链接可以查看具体内容！</div>
 		<a id='deploy' href='#'>部署流程</a>
@@ -58,6 +66,7 @@
 				<th>XML</th>
 				<th>图片</th>
 				<th>部署时间</th>
+				<th>是否挂起</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -65,6 +74,10 @@
 			<c:forEach items="${objects }" var="object">
 				<c:set var="process" value="${object[0] }" />
 				<c:set var="deployment" value="${object[1] }" />
+
+				<%
+				pageContext.setAttribute("isSuspended", ((org.activiti.engine.repository.ProcessDefinition)pageContext.getAttribute("process")).isSuspended());
+				%>
 				<tr>
 					<td>${process.id }</td>
 					<td>${process.deploymentId }</td>
@@ -74,6 +87,14 @@
 					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.resourceName }'>${process.resourceName }</a></td>
 					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.diagramResourceName }'>${process.diagramResourceName }</a></td>
 					<td>${deployment.deploymentTime }</td>
+					<td>${isSuspended} | 
+						<c:if test="${isSuspended }">
+							<a href="processdefinition/update/active/${process.id}">激活</a>
+						</c:if>
+						<c:if test="${!isSuspended }">
+							<a href="processdefinition/update/suspend/${process.id}">挂起</a>
+						</c:if>
+					</td>
 					<td><a href='${ctx }/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a></td>
 				</tr>
 			</c:forEach>

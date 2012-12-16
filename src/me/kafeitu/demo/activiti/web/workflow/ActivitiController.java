@@ -29,11 +29,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 流程管理控制器
@@ -218,7 +220,7 @@ public class ActivitiController {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
     // 已经签收的任务
-    List<Task> todoList = taskService.createTaskQuery().taskAssignee(user.getId()).list();
+    List<Task> todoList = taskService.createTaskQuery().taskAssignee(user.getId()).active().list();
     for (Task task : todoList) {
       String processDefinitionId = task.getProcessDefinitionId();
       ProcessDefinition processDefinition = getProcessDefinition(processDefinitionId);
@@ -229,11 +231,11 @@ public class ActivitiController {
     }
 
     // 等待签收的任务
-    List<Task> toClaimList = taskService.createTaskQuery().taskCandidateUser(user.getId()).list();
+    List<Task> toClaimList = taskService.createTaskQuery().taskCandidateUser(user.getId()).active().list();
     for (Task task : toClaimList) {
       String processDefinitionId = task.getProcessDefinitionId();
       ProcessDefinition processDefinition = getProcessDefinition(processDefinitionId);
-      
+
       Map<String, Object> singleTask = packageTaskInfo(sdf, task, processDefinition);
       singleTask.put("status", "claim");
       result.add(singleTask);
@@ -260,6 +262,22 @@ public class ActivitiController {
       PROCESS_DEFINITION_CACHE.put(processDefinitionId, processDefinition);
     }
     return processDefinition;
+  }
+
+  /**
+   * 挂起、激活流程实例
+   */
+  @RequestMapping(value = "processdefinition/update/{state}/{processDefinitionId}")
+  public String updateState(@PathVariable("state") String state, @PathVariable("processDefinitionId") String processDefinitionId,
+          RedirectAttributes redirectAttributes) {
+    if (state.equals("active")) {
+      redirectAttributes.addFlashAttribute("message", "已激活ID为[" + processDefinitionId + "]的流程定义。");
+      repositoryService.activateProcessDefinitionById(processDefinitionId, true, null);
+    } else if (state.equals("suspend")) {
+      repositoryService.suspendProcessDefinitionById(processDefinitionId, true, null);
+      redirectAttributes.addFlashAttribute("message", "已挂起ID为[" + processDefinitionId + "]的流程定义。");
+    }
+    return "redirect:/workflow/process-list";
   }
 
   @Autowired
