@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import me.kafeitu.demo.activiti.util.ProcessDefinitionCache;
 import me.kafeitu.demo.activiti.util.UserUtil;
 
 import org.activiti.engine.FormService;
