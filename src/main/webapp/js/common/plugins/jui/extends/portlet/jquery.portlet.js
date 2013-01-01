@@ -1,5 +1,5 @@
 /*
- * jquery.portlet 1.1.1
+ * jquery.portlet 1.1.2
  *
  * Copyright (c) 2012
  *   咖啡兔 (http://www.kafeitu.me)
@@ -10,7 +10,7 @@
  * See Detail: http://www.kafeitu.me/jquery-ui-portlet.html
  */
 (function($) {
-    $.widget("kft.portlet", {
+    $.widget("ui.portlet", {
         options: {
             columns: {},
             sortable: true,
@@ -30,15 +30,12 @@
             $.each(o.columns, function(ci, c) {
 
                 var $column = $('<div/>', {
-                    'class': 'ui-portlet-column',
                     width: c.width
-                }).appendTo(_ele);
+                }).addClass('ui-portlet-column').appendTo(_ele);
 
                 $.each(c.portlets, function(pi, p) {
 
-                    var item = $('<div/>', {
-                        'class': 'ui-portlet-item ui-widget ui-widget-content ui-helper-clearfix ui-corner-all',
-                    }).data('option', p).appendTo($column);
+                    var item = $('<div/>').addClass('ui-portlet-item ui-widget ui-widget-content ui-helper-clearfix ui-corner-all').data('option', p).appendTo($column);
                     if(p.attrs) {
                         item.attr(p.attrs);
                     }
