@@ -120,6 +120,15 @@ var formFieldCreator = {
 			result += "<td>" + prop.value;
 		}
 		return result;
+	},
+	'users': function(prop, datas, className) {
+		var result = "<td width='120'>" + prop.name + "：</td>";
+		if (prop.writable === true) {
+			result += "<td><input type='text' id='" + prop.id + "' name='fp_" + prop.id + "' class='" + className + "' value='" + prop.value + "' />";
+		} else {
+			result += "<td>" + prop.value;
+		}
+		return result;
 	}
 };
 

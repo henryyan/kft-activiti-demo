@@ -3,7 +3,7 @@
  */
 $(function() {
 	$('.startup-process').button({
-		icons : {
+		icons: {
 			primary: 'ui-icon-play'
 		}
 	}).click(showStartupProcessDialog);
@@ -12,6 +12,7 @@ $(function() {
 /**
  * 打开启动流程
  */
+
 function showStartupProcessDialog() {
 	var $ele = $(this);
 	$('<div/>', {
@@ -36,6 +37,7 @@ function showStartupProcessDialog() {
 /**
  * 读取表单字段
  */
+
 function readFormFields(processDefinitionId) {
 	var dialog = this;
 
@@ -47,12 +49,12 @@ function readFormFields(processDefinitionId) {
 	$form.attr('action', ctx + '/form/dynamic/start-process/' + processDefinitionId);
 
 	// 读取启动时的表单
-	$.getJSON(ctx + '/form/dynamic/get-form/start/' + processDefinitionId, function(form) {
+	$.getJSON(ctx + '/form/dynamic/get-form/start/' + processDefinitionId, function(data) {
 		var trs = "";
-		$.each(form.formProperties, function() {
+		$.each(data.form.formProperties, function() {
 			var className = this.required === true ? "required" : "";
-			trs += "<tr>" + createFieldHtml(this, className)
-			if (this.required === true) {
+			trs += "<tr>" + createFieldHtml(data, this, className)
+			if(this.required === true) {
 				trs += "<span style='color:red'>*</span>";
 			}
 			trs += "</td></tr>";
@@ -78,12 +80,33 @@ function readFormFields(processDefinitionId) {
  * fp_的意思是form paremeter
  */
 var formFieldCreator = {
-	string: function(prop, className) {
+	string: function(formData, prop, className) {
 		var result = "<td width='120'>" + prop.name + "：</td><td><input type='text' id='" + prop.id + "' name='fp_" + prop.id + "' class='" + className + "' />";
 		return result;
 	},
-	date: function(prop, className) {
+	date: function(formData, prop, className) {
 		var result = "<td>" + prop.name + "：</td><td><input type='text' id='" + prop.id + "' name='fp_" + prop.id + "' class='dateISO " + className + "' />";
+		return result;
+	},
+	'enum': function(formData, prop, className) {
+		console.log(prop);
+		var result = "<td width='120'>" + prop.name + "：</td>";
+		if(prop.writable === true) {
+			result += "<td><select id='" + prop.id + "' name='fp_" + prop.id + "' class='" + className + "'>";
+			//result += "<option>" + datas + "</option>";
+			
+			$.each(formData['enum_' + prop.id], function(k, v) {
+				result += "<option value='" + k + "'>" + v + "</option>";
+			});
+			 
+			result += "</select>";
+		} else {
+			result += "<td>" + prop.value;
+		}
+		return result;
+	},
+	'users': function(formData, prop, className) {
+		var result = "<td width='120'>" + prop.name + "：</td><td><input type='text' id='" + prop.id + "' name='fp_" + prop.id + "' class='" + className + "' />";
 		return result;
 	}
 };
@@ -91,15 +114,17 @@ var formFieldCreator = {
 /**
  * 生成一个field的html代码
  */
-function createFieldHtml(prop, className) {
-	return formFieldCreator[prop.type.name](prop, className);
+
+function createFieldHtml(formData, prop, className) {
+	return formFieldCreator[prop.type.name](formData, prop, className);
 }
 
 /**
  * 发送启动流程请求
  */
+
 function sendStartupRequest() {
-	if ($(".dynamic-form").valid()) {
+	if($(".dynamic-form").valid()) {
 		$('.dynamic-form').submit();
 	}
 }

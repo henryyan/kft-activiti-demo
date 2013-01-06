@@ -81,13 +81,9 @@ public class FormKeyController {
     ModelAndView mav = new ModelAndView("/form/formkey/formkey-process-list");
 
     /*
-     * 只读取动态表单：leave-dynamic-from
+     * 只读取动态表单：leave-formkey
      */
     List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-formkey").active().list();
-
-    List<ProcessDefinition> dispatchList = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch").active().list();
-
-    list.addAll(dispatchList);
     mav.addObject("processes", list);
     return mav;
   }
