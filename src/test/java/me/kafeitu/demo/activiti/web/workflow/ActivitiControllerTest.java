@@ -13,7 +13,6 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author HenryYan
  */
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContext-test.xml" })
 public class ActivitiControllerTest extends SpringTransactionalTestCase {
 
 	@Autowired
@@ -55,15 +54,6 @@ public class ActivitiControllerTest extends SpringTransactionalTestCase {
 		assertEquals("redirect:/workflow/process-list", view);
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
 		assertEquals(4, list.size());
-	}
-
-	@Test
-	public void testLoadByDeployment() throws Exception {
-		// 部署流程定义
-		List<ProcessDefinition> list = deployAllProcess();
-
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		activitiController.loadByDeployment(list.get(0).getDeploymentId(), "leave.bpmn20.xml", response);
 	}
 
 	@Test

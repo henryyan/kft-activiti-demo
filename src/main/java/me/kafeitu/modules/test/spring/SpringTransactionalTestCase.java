@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
  * 相比Spring原基类名字更短并保存了dataSource变量.
  *   
  * 子类需要定义applicationContext文件的位置, 如:
- * @ContextConfiguration(locations = { "/applicationContext.xml" })
+ * @ContextConfiguration(locations = { "/applicationContext-test.xml" })
  * 
  * @author calvin
  */

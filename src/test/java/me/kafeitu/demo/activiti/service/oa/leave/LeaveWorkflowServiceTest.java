@@ -29,7 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
  *
  * @author HenryYan
  */
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContext-test.xml" })
 public class LeaveWorkflowServiceTest extends SpringTransactionalTestCase {
 
 	@Autowired

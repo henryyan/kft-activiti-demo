@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContext-test.xml" })
 public class JpaMappingTest extends SpringTransactionalTestCase {
 
 	private static Logger logger = LoggerFactory.getLogger(JpaMappingTest.class);
