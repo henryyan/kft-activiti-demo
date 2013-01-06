@@ -43,6 +43,9 @@
 			</li>
 		</ul>
 	</div>
+	<div id="multiInstance" class="template">
+		在填写<strong>会签参与人</strong>字段时使用用户的ID作为值，例如：<code>kafeitu,admin</code>表示两个用户，即两个任务实例被创建。
+	</div>
 	<div class="project-info template">
 		<ul>
 			<li><a target="_blank" href='https://github.com/henryyan/kft-activiti-demo'>kft-activiti-demo</a>为Activiti初学者快速入门所设计。</li>
