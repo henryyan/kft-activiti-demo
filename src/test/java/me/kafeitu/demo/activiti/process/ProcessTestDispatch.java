@@ -5,9 +5,13 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
@@ -16,11 +20,15 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.context.Context;
+import org.activiti.engine.impl.db.DbSqlSession;
+import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
@@ -46,6 +54,9 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
   @Autowired
   private FormService formService;
 
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
+
   /**
    * 100%的通过率
    */
@@ -69,6 +80,59 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
   public void testRatePercent50() throws Exception {
     testRate(50, 2);
   }
+
+  /**
+   * 加签
+   
+  @Test
+  public void testAddNewUser() throws Exception {
+    deployResources();
+
+    // 启动流程
+    Map<String, String> variableMap = new HashMap<String, String>();
+
+    variableMap.put("countersignUsers", "user1,user2,user3,user4");
+    variableMap.put("rate", "100");
+    variableMap.put("incept", "国务院");
+    variableMap.put("content", "民主制");
+
+    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch").singleResult();
+    assertNotNull(processDefinition);
+    ProcessInstance processInstance = formService.submitStartFormData(processDefinition.getId(), variableMap);
+    assertNotNull(processInstance.getId());
+
+    // 验证任务实例
+    List<Task> list = taskService.createTaskQuery().processInstanceId(processInstance.getId()).list();
+    assertEquals(4, list.size());
+    Task originTask = list.get(0);
+
+    // 验证历史任务数量
+    long count = historyService.createHistoricTaskInstanceQuery().count();
+    assertEquals(4, count);
+
+    Task newTask = taskService.newTask();
+    newTask.setAssignee("user5");
+    newTask.setName(originTask.getName());
+    taskService.saveTask(newTask);
+    
+    // 加签
+    Connection connection = jdbcTemplate.getDataSource().getConnection();
+    PreparedStatement pst = connection
+            .prepareStatement("update act_ru_task art set EXECUTION_ID_ = ?, PROC_INST_ID_ = ?, PROC_DEF_ID_  = ?, TASK_DEF_KEY_ = ?, SUSPENSION_STATE_ = ? where ID_ = ?");
+    pst.setString(1, originTask.getExecutionId());
+    pst.setString(2, originTask.getProcessInstanceId());
+    pst.setString(3, originTask.getProcessDefinitionId());
+    pst.setString(4, originTask.getTaskDefinitionKey());
+    pst.setString(5, "1");
+    pst.setString(6, newTask.getId());
+    int executeUpdate = pst.executeUpdate();
+    assertEquals(1, executeUpdate);
+
+    // 加签收验证
+    count = historyService.createHistoricTaskInstanceQuery().count();
+    assertEquals(5, count);
+
+  }*/
 
   /**
    * 测试通过率通用方法

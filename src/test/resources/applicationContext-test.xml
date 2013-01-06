@@ -74,7 +74,7 @@
 	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
 	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
 	<!-- Activiti end -->
-
+	
 	<!-- production/local development环境 -->
 	<beans profile="production,development">
 		<context:property-placeholder ignore-unresolvable="true"
