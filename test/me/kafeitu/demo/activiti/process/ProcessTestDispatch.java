@@ -5,10 +5,13 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 import me.kafeitu.modules.test.spring.SpringTransactionalTestCase;
 
@@ -17,11 +20,15 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.context.Context;
+import org.activiti.engine.impl.db.DbSqlSession;
+import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
@@ -29,7 +36,7 @@ import org.springframework.test.context.ContextConfiguration;
  * 
  * @author HenryYan
  */
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContext-test.xml" })
 public class ProcessTestDispatch extends SpringTransactionalTestCase {
 
   @Autowired
@@ -43,9 +50,12 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
 
   @Autowired
   private HistoryService historyService;
-  
+
   @Autowired
   private FormService formService;
+
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
   /**
    * 100%的通过率
@@ -72,31 +82,91 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
   }
 
   /**
+   * 加签
+   
+  @Test
+  public void testAddNewUser() throws Exception {
+    deployResources();
+
+    // 启动流程
+    Map<String, String> variableMap = new HashMap<String, String>();
+
+    variableMap.put("countersignUsers", "user1,user2,user3,user4");
+    variableMap.put("rate", "100");
+    variableMap.put("incept", "国务院");
+    variableMap.put("content", "民主制");
+
+    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch").singleResult();
+    assertNotNull(processDefinition);
+    ProcessInstance processInstance = formService.submitStartFormData(processDefinition.getId(), variableMap);
+    assertNotNull(processInstance.getId());
+
+    // 验证任务实例
+    List<Task> list = taskService.createTaskQuery().processInstanceId(processInstance.getId()).list();
+    assertEquals(4, list.size());
+    Task originTask = list.get(0);
+
+    // 验证历史任务数量
+    long count = historyService.createHistoricTaskInstanceQuery().count();
+    assertEquals(4, count);
+
+    Task newTask = taskService.newTask();
+    newTask.setAssignee("user5");
+    newTask.setName(originTask.getName());
+    taskService.saveTask(newTask);
+    
+    // 加签
+    Connection connection = jdbcTemplate.getDataSource().getConnection();
+    PreparedStatement pst = connection
+            .prepareStatement("update act_ru_task art set EXECUTION_ID_ = ?, PROC_INST_ID_ = ?, PROC_DEF_ID_  = ?, TASK_DEF_KEY_ = ?, SUSPENSION_STATE_ = ? where ID_ = ?");
+    pst.setString(1, originTask.getExecutionId());
+    pst.setString(2, originTask.getProcessInstanceId());
+    pst.setString(3, originTask.getProcessDefinitionId());
+    pst.setString(4, originTask.getTaskDefinitionKey());
+    pst.setString(5, "1");
+    pst.setString(6, newTask.getId());
+    int executeUpdate = pst.executeUpdate();
+    assertEquals(1, executeUpdate);
+
+    // 加签收验证
+    count = historyService.createHistoricTaskInstanceQuery().count();
+    assertEquals(5, count);
+
+  }*/
+
+  /**
    * 测试通过率通用方法
-   * @param rate  通过比例
-   * @param agreeCounter  通过计数器
+   * 
+   * @param rate
+   *          通过比例
+   * @param agreeCounter
+   *          通过计数器
    */
   private void testRate(Integer rate, Integer agreeCounter) throws Exception {
     deployResources();
 
     // 启动流程
-    Map<String, Object> variableMap = new HashMap<String, Object>();
+    Map<String, String> variableMap = new HashMap<String, String>();
 
-    List<String> users = Arrays.asList("user1", "user2", "user3", "user4");
-    variableMap.put("countersignUsers", users);
-    variableMap.put("rate", rate);
+    variableMap.put("countersignUsers", "user1,user2,user3,user4");
+    variableMap.put("rate", rate.toString());
+    variableMap.put("incept", "国务院");
+    variableMap.put("content", "民主制");
 
-    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("dispatch", variableMap);
+    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch").singleResult();
+    assertNotNull(processDefinition);
+    ProcessInstance processInstance = formService.submitStartFormData(processDefinition.getId(), variableMap);
     assertNotNull(processInstance.getId());
 
     // 验证任务实例
     List<Task> list = taskService.createTaskQuery().list();
-    assertEquals(users.size(), list.size());
+    assertEquals(4, list.size());
 
     // 全部通过
     for (Task task : list) {
       try {
-        taskService.complete(task.getId());
+        variableMap = new HashMap<String, String>();
+        formService.submitTaskFormData(task.getId(), variableMap);
       } catch (Exception e) {
         // 其他的三个执行完成了，所以最后一个任务（也就是第4个）会报错任务不存在，因为剩下的任务由引擎自动完成了
         // e.printStackTrace();
@@ -104,8 +174,7 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
     }
 
     long count = historyService.createHistoricTaskInstanceQuery().finished().count();
-    assertEquals(users.size(), count);
-
+    assertEquals(4, count);
     assertEquals(agreeCounter, runtimeService.getVariable(processInstance.getId(), "agreeCounter"));
 
     // 验证是否到达“下发文件”节点
@@ -122,41 +191,6 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
     FileInputStream inputStream = new FileInputStream(processFilePath);
     assertNotNull(inputStream);
     repositoryService.createDeployment().addInputStream("dispatch.bpmn20.xml", inputStream).deploy();
-    
-    // 部署form
-    String applyFormPath = this.getClass().getClassLoader().getResource("diagrams/dispatch/dispatch-apply.form").getPath();
-    inputStream = new FileInputStream(applyFormPath);
-    assertNotNull(inputStream);
-    repositoryService.createDeployment().addInputStream("dispatch-apply.form", inputStream).deploy();
-  }
-  
-  /**
-   * 启动流程并设置form的属性
-   */
-  @Test
-  public void startProcessInstanceAndSetFormFields() throws Exception {
-    deployResources();
-    
-    // 启动流程
-    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch").singleResult();
-    
-    String processDefinitionId = processDefinition.getId();
-    String users = "user1,user2,user3,user4";
-    
-    // 设置变量
-    Map<String, String> formProperties = new HashMap<String, String>();
-    formProperties.put("countersignUsers", users);
-    formProperties.put("rate", "100");
-    
-    /*Map<String, Object> formProperties = new HashMap<String, Object>();
-
-    List<String> users = Arrays.asList("user1", "user2", "user3", "user4");
-    formProperties.put("countersignUsers", users);
-    formProperties.put("rate", 100);*/
-    
-    ProcessInstance processInstance = formService.submitStartFormData(processDefinitionId, formProperties);
-    assertNotNull(processInstance.getId());
-    
   }
 
 }

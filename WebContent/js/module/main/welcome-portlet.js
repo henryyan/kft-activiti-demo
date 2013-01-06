@@ -12,6 +12,14 @@ $(function() {
 					}
 				}
 			}, {
+				title: '会签（多实例）说明',
+				content: {
+					type: 'text',
+					text: function() {
+						return $('#multiInstance').html();
+					}
+				}
+			}, {
 				title: '待办任务',
 				content: {
 					type: 'ajax',

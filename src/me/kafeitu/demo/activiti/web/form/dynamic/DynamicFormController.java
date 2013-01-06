@@ -19,7 +19,6 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.impl.form.StartFormDataImpl;
@@ -84,7 +83,8 @@ public class DynamicFormController {
      * 只读取动态表单：leave-dynamic-from
      */
     List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-dynamic-from").active().list();
-
+    List<ProcessDefinition> dispatchList = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch").active().list();
+    list.addAll(dispatchList);
     mav.addObject("processes", list);
     return mav;
   }
@@ -94,10 +94,29 @@ public class DynamicFormController {
    */
   @RequestMapping(value = "get-form/start/{processDefinitionId}")
   @ResponseBody
-  public StartFormData findStartForm(@PathVariable("processDefinitionId") String processDefinitionId) throws Exception {
+  @SuppressWarnings("unchecked")
+  public Map<String, Object> findStartForm(@PathVariable("processDefinitionId") String processDefinitionId) throws Exception {
+    Map<String, Object> result = new HashMap<String, Object>();
     StartFormDataImpl startFormData = (StartFormDataImpl) formService.getStartFormData(processDefinitionId);
     startFormData.setProcessDefinition(null);
-    return startFormData;
+
+    /*
+     * 读取enum类型数据，用于下拉框
+     */
+    List<FormProperty> formProperties = startFormData.getFormProperties();
+    for (FormProperty formProperty : formProperties) {
+      Map<String, String> values = (Map<String, String>) formProperty.getType().getInformation("values");
+      if (values != null) {
+        for (Entry<String, String> enumEntry : values.entrySet()) {
+          logger.debug("enum, key: {}, value: {}", enumEntry.getKey(), enumEntry.getValue());
+        }
+        result.put("enum_" + formProperty.getId(), values);
+      }
+    }
+
+    result.put("form", startFormData);
+
+    return result;
   }
 
   /**
@@ -231,6 +250,14 @@ public class DynamicFormController {
     tasks.addAll(list);
     tasks.addAll(list2);
 
+    List<Task> list3 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskAssignee(user.getId()).active().list();
+
+    // 为签收的任务
+    List<Task> list4 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskCandidateUser(user.getId()).active().list();
+
+    tasks.addAll(list3);
+    tasks.addAll(list4);
+
     mav.addObject("tasks", tasks);
     return mav;
   }
@@ -256,6 +283,8 @@ public class DynamicFormController {
   public ModelAndView running(Model model, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/form//running-list");
     List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").active().list();
+    List<ProcessInstance> list2 = runtimeService.createProcessInstanceQuery().processDefinitionKey("dispatch").active().list();
+    list.addAll(list2);
     mav.addObject("list", list);
     return mav;
   }
@@ -270,6 +299,8 @@ public class DynamicFormController {
   public ModelAndView finished(Model model, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/form/finished-list");
     List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").finished().list();
+    List<HistoricProcessInstance> list2 = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("dispatch").finished().list();
+    list.addAll(list2);
     mav.addObject("list", list);
     return mav;
   }

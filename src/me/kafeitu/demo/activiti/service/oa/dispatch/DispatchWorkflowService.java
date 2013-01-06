@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 发文会签流程Service
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author henryyan
  */
 @Service
-@Transactional
 public class DispatchWorkflowService {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
@@ -39,7 +37,7 @@ public class DispatchWorkflowService {
    * 是否允许结束会签（多实例）
    * 参数的含义请参考用户手册
    */
-  public boolean canComplete(Execution execution, Integer rate, Integer nrOfInstances, Integer nrOfActiveInstances, Integer nrOfCompletedInstances,
+  public Boolean canComplete(Execution execution, Integer rate, Integer nrOfInstances, Integer nrOfActiveInstances, Integer nrOfCompletedInstances,
           Integer loopCounter) {
     String agreeCounterName = "agreeCounter";
     Object agreeCounter = runtimeService.getVariable(execution.getId(), agreeCounterName);
