@@ -46,12 +46,10 @@
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
 		<jdbc.driver.version>1.3.166</jdbc.driver.version>
-		
-		<!-- jdbc mysql
-		<jdbc.driver.groupId>mysql</jdbc.driver.groupId>
-		<jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
-		<jdbc.driver.version>5.1.11</jdbc.driver.version> -->
-		
+
+		<!-- jdbc mysql <jdbc.driver.groupId>mysql</jdbc.driver.groupId> <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId> 
+			<jdbc.driver.version>5.1.11</jdbc.driver.version> -->
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -482,6 +480,45 @@
 
 		<!-- 刷新开发环境数据库 -->
 		<profile>
+			<id>initdatas</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<configuration>
+							<target>
+								<property file="src/main/resources/application.local.properties" />
+								<property file="src/main/resources/application.properties" />
+
+								<property name="sql.type" value="${sql.type}" />
+								<property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory" />
+
+								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
+								<!-- base -->
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									src="src/main/resources/sql/${sql.type}/schema.sql" onerror="continue">
+									<classpath refid="maven.test.classpath" />
+								</sql>
+
+								<!-- add init datas -->
+								<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}">
+									<dbconfig>
+										<property name="datatypeFactory" value="${dbunit.datatype}" />
+									</dbconfig>
+									<classpath refid="maven.test.classpath" />
+									<operation type="CLEAN_INSERT" src="src/test/resources/data/sample-data.xml" format="flat" transaction="true" />
+								</dbunit>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<!-- -->
+		<profile>
 			<id>refresh-db</id>
 			<build>
 				<plugins>
@@ -542,8 +579,7 @@
 										<property name="datatypeFactory" value="${dbunit.datatype}" />
 									</dbconfig>
 									<classpath refid="maven.test.classpath" />
-									<operation type="CLEAN_INSERT" src="src/test/resources/data/sample-data.xml" format="flat"
-										transaction="true" />
+									<operation type="CLEAN_INSERT" src="src/test/resources/data/sample-data.xml" format="flat" transaction="true" />
 								</dbunit>
 							</target>
 						</configuration>

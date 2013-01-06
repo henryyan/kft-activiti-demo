@@ -58,6 +58,9 @@
 			</table>
 		</form>
 		<hr />
+		<p>如果登陆失败，请初始化用户数据，在项目根目录执行：</p>
+		<p><b><code>mvn antrun:run -Pinitdatas</code></b></p>
+		<hr />
 		<table border="1">
 			<caption>用户列表(密码：000000)</caption>
 			<tr>
