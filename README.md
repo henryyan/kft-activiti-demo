@@ -38,7 +38,7 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 > activiti.rest.service.url=http://localhost:8080/activiti-rest/service/
 
 实例代码：
-<code>
+<pre>
 $.ajax({
         type: "PUT",
         url: REST_URL + 'task/' + taskId + '/claim',
@@ -52,7 +52,7 @@ $.ajax({
             }
         }
     });
-</code>
+</pre>
 
 ## Changelog
 
