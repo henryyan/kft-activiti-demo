@@ -38,36 +38,45 @@ function showStartupProcessDialog() {
 /**
  * 读取流程启动表单
  */
+
 function readForm(processDefinitionId) {
 	var dialog = this;
+	$.ajax({
+		type: "get",
+		url: REST_URL + 'process-definition/' + processDefinitionId + '/form',
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader('Authorization', BASE_64_CODE);
+		},
+		dataType: 'html',
+		success: function(form) {
+			// 获取的form是字符行，html格式直接显示在对话框内就可以了，然后用form包裹起来
+			$(dialog).html(form).wrap("<form class='formkey-form' method='post' />");
 
-	// 读取启动时的表单
-	$.get(ctx + '/form/formkey/get-form/start/' + processDefinitionId, function(form) {
-		// 获取的form是字符行，html格式直接显示在对话框内就可以了，然后用form包裹起来
-		$(dialog).html(form).wrap("<form class='formkey-form' method='post' />");
+			var $form = $('.formkey-form');
 
-		var $form = $('.formkey-form');
+			// 设置表单action
+			$form.attr('action', ctx + '/form/formkey/start-process/' + processDefinitionId);
 
-		// 设置表单action
-		$form.attr('action', ctx + '/form/formkey/start-process/' + processDefinitionId);
+			// 初始化日期组件
+			$form.find('.datetime').datetimepicker({
+				stepMinute: 5
+			});
+			$form.find('.date').datepicker();
 
-		// 初始化日期组件
-		$form.find('.datetime').datetimepicker({
-	            stepMinute: 5
-	        });
-		$form.find('.date').datepicker();
-		
-		// 表单验证
-		$form.validate($.extend({}, $.common.plugin.validator));
+			// 表单验证
+			$form.validate($.extend({}, $.common.plugin.validator));
+		}
 	});
+
 }
 
 /**
  * 提交表单
  * @return {[type]} [description]
  */
+
 function sendStartupRequest() {
-	if ($(".formkey-form").valid()) {
+	if($(".formkey-form").valid()) {
 		$('.formkey-form').submit();
 	}
 }
