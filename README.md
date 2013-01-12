@@ -1,4 +1,4 @@
-# 简介
+# 简介(REST接口版本)
 
 本项目旨在让初学者快速入门Activiti。
 
@@ -29,6 +29,30 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 * [功能演示](https://github.com/henryyan/kft-activiti-demo/wiki/%E5%8A%9F%E8%83%BD%E6%BC%94%E7%A4%BA)
  
 ![kft-activiti-demo截图](http://www.kafeitu.me/files/2012/05/kft-activiti-demo.png)
+
+# REST接口实现说明
+用下面的代码生成64位的base auth码
+> String base64Code = "Basic " + Base64.encodeToString(user.getId() + ":" + user.getPassword());
+
+在属性文件中指定：
+> activiti.rest.service.url=http://localhost:8080/activiti-rest/service/
+
+实例代码：
+<code>
+$.ajax({
+        type: "PUT",
+        url: REST_URL + 'task/' + taskId + '/claim',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', BASE_64_CODE);
+        },
+        dataType: 'json',
+        success: function(resp) {
+            if(resp.success == true) {
+                $ele.hide().next('.handle').show();
+            }
+        }
+    });
+code>
 
 ## Changelog
 
