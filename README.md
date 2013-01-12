@@ -52,7 +52,7 @@ $.ajax({
             }
         }
     });
-code>
+</code>
 
 ## Changelog
 
