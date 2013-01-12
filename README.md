@@ -31,13 +31,16 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 ![kft-activiti-demo截图](http://www.kafeitu.me/files/2012/05/kft-activiti-demo.png)
 
 # REST接口实现说明
-用下面的代码生成64位的base auth码
+
+> 外置表单模块读取表单和签收任务通过调用activiti-rest模块实现
+
+## 用下面的代码生成64位的base auth码
 > String base64Code = "Basic " + Base64.encodeToString(user.getId() + ":" + user.getPassword());
 
-在属性文件中指定：
+## 在属性文件中指定：
 > activiti.rest.service.url=http://localhost:8080/activiti-rest/service/
 
-示例代码（jQuery）：
+## 示例代码（jQuery）：
 <pre>
 $.ajax({
         type: "PUT",
