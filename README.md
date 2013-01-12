@@ -37,7 +37,7 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 在属性文件中指定：
 > activiti.rest.service.url=http://localhost:8080/activiti-rest/service/
 
-实例代码：
+示例代码（jQuery）：
 <pre>
 $.ajax({
         type: "PUT",
