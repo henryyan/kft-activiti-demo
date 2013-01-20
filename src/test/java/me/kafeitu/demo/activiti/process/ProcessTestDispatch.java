@@ -20,15 +20,11 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.impl.context.Context;
-import org.activiti.engine.impl.db.DbSqlSession;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
@@ -55,7 +51,7 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
   private FormService formService;
 
   @Autowired
-  private JdbcTemplate jdbcTemplate;
+  private DataSource dataSource;
 
   /**
    * 100%的通过率
@@ -83,7 +79,7 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
 
   /**
    * 加签
-   
+   */
   @Test
   public void testAddNewUser() throws Exception {
     deployResources();
@@ -114,9 +110,9 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
     newTask.setAssignee("user5");
     newTask.setName(originTask.getName());
     taskService.saveTask(newTask);
-    
+
     // 加签
-    Connection connection = jdbcTemplate.getDataSource().getConnection();
+    Connection connection = dataSource.getConnection();
     PreparedStatement pst = connection
             .prepareStatement("update act_ru_task art set EXECUTION_ID_ = ?, PROC_INST_ID_ = ?, PROC_DEF_ID_  = ?, TASK_DEF_KEY_ = ?, SUSPENSION_STATE_ = ? where ID_ = ?");
     pst.setString(1, originTask.getExecutionId());
@@ -132,7 +128,7 @@ public class ProcessTestDispatch extends SpringTransactionalTestCase {
     count = historyService.createHistoricTaskInstanceQuery().count();
     assertEquals(5, count);
 
-  }*/
+  }
 
   /**
    * 测试通过率通用方法
