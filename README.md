@@ -37,7 +37,7 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 > 性能提升
 
 1. 部署流程时自动把**流程图片**导出到指定目录（通过属性文件的**export.diagram.path**配置）
-2. 读取图片资源（包括：在流程定义列表查看图片，跟踪流程）时从静态服务器（apache、nginx、python的SimpleHttpServer）总读取，路径从属性文件中读取**diagram.http.url**
+2. 读取图片资源（包括：在流程定义列表查看图片，跟踪流程）时从静态服务器（apache、nginx、python的SimpleHttpServer）中读取，路径从属性文件中读取**diagram.http.url**
 3. 升级jquery-ui-portlet插件至[1.1.3](https://github.com/henryyan/jquery-ui-portlet/commit/2001c558ead1eab935c1fa841ba3bc32383c3cbf)版本
 
 > 系统默认属性：
