@@ -50,7 +50,7 @@ public class ActivitiControllerTest extends SpringTransactionalTestCase {
 
 	@Test
 	public void testRedeployAll() throws Exception {
-		String view = activitiController.redeployAll();
+		String view = activitiController.redeployAll("/tmp/kft-activiti-demo-test");
 		assertEquals("redirect:/workflow/process-list", view);
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
 		assertEquals(4, list.size());
@@ -69,7 +69,7 @@ public class ActivitiControllerTest extends SpringTransactionalTestCase {
 	}
 
 	private List<ProcessDefinition> deployAllProcess() throws Exception {
-		activitiController.redeployAll();
+		activitiController.redeployAll("/tmp/kft-activiti-demo-test");
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
 		assertEquals(4, list.size());
 		return list;

@@ -46,11 +46,13 @@
 		<c:forEach items="${list }" var="p">
 		<c:set var="pdid" value="${p.processDefinitionId }" />
 		<c:set var="activityId" value="${p.activityId }" />
+		<c:set var="pd" value='<%=ProcessDefinitionCache.get(pageContext.getAttribute("pdid").toString()) %>' />
 		<tr>
 			<td>${p.id }</td>
 			<td>${p.processInstanceId }</td>
 			<td>${p.processDefinitionId }</td>
-			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图"><%=ProcessDefinitionCache.getActivityName(pageContext.getAttribute("pdid").toString(), ObjectUtils.toString(pageContext.getAttribute("activityId"))) %></a></td>
+			<td>
+				<a class="trace" href='#' data-pid="${p.id}" data-key='${pd.key}' data-version='${pd.version}' data-dname='${pd.diagramResourceName}' title="点击查看流程图"><%=ProcessDefinitionCache.getActivityName(pageContext.getAttribute("pdid").toString(), ObjectUtils.toString(pageContext.getAttribute("activityId"))) %></a>
 			<td>${p.suspended }</td>
 		</tr>
 		</c:forEach>

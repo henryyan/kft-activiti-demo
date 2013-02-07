@@ -55,7 +55,7 @@ public class LeaveWorkflowServiceTest extends SpringTransactionalTestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		workflowProcessDefinitionService.deployAllFromClasspath();
+		workflowProcessDefinitionService.deployAllFromClasspath("/tmp/kft-activiti-demo");
 	}
 
 	/**
