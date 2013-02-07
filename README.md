@@ -32,6 +32,17 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 
 ## Changelog
 
+### 1.6.1（2013-02-07）: 
+
+> 性能提升
+
+1. 部署流程时自动把**流程图片**导出到指定目录（通过属性文件的**export.diagram.path**配置）
+2. 读取图片资源（包括：在流程定义列表查看图片，跟踪流程）时从静态服务器（apache、nginx、python的SimpleHttpServer）总读取，路径从属性文件中读取**diagram.http.url**
+
+#### 系统默认属性：
+* export.diagram.path=/tmp/kft-activiti-demo
+* diagram.http.url=http://localhost:10000
+
 ### 1.6.0（2013-01-06）:+1: 
 1. 添加多实例（发文会签）演示
 2. 添加自动部署流程定义演示
