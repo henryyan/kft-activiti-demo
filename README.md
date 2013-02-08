@@ -45,6 +45,12 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 * export.diagram.path=/tmp/kft-activiti-demo
 * diagram.http.url=http://localhost:10000
 
+> 升级提示：
+
+1. 使用apache或者nginx配置export.diagram.path属性指定的目录作为一个服务，如果是linux或者unix用户系统默认提供python，可以在该目录中输入下面的命令快速建立一个简单的HTTP服务
+<code>python -m SimpleHTTPServer 10000</code>
+2. diagram.http.url属性的值配置为静态web服务的路径
+
 ### 1.6.0（2013-01-06）:+1: 
 1. 添加多实例（发文会签）演示
 2. 添加自动部署流程定义演示
