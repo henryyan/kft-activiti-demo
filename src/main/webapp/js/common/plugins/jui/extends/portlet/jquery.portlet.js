@@ -1,14 +1,13 @@
 /*
- * jquery.portlet 1.1.3
+ * jquery.portlet 1.1.2
  *
- * Copyright (c) 2012~2013
+ * Copyright (c) 2012
  *   咖啡兔 (http://www.kafeitu.me)
  *
  * Dual licensed under the GPL (http://www.gnu.org/licenses/gpl.html)
  * and MIT (http://www.opensource.org/licenses/mit-license.php) licenses.
  *
- * Detail: http://www.kafeitu.me/jquery-ui-portlet.html
- * Demo: http://www.kafeitu.me/demo/jquery-ui-portlet
+ * See Detail: http://www.kafeitu.me/jquery-ui-portlet.html
  */
 (function($) {
     $.widget("ui.portlet", {
@@ -58,9 +57,9 @@
                     }
 
                     // event element
-                    title.prepend("<a href='#' class='ui-corner-all ui-portlet-event'><span class='ui-icon ui-icon-refresh ui-portlet-refresh'></span></a>");
-                    title.prepend("<a href='#' class='ui-corner-all ui-portlet-event'><span class='ui-icon ui-icon-minusthick ui-portlet-toggle'></span></a>");
-                    title.prepend("<a href='#' class='ui-corner-all ui-portlet-event'><span class='ui-icon ui-icon-closethick ui-portlet-close'></span></a>");
+                    title.prepend("<a href='#' class='ui-corner-all'><span class='ui-icon ui-icon-refresh ui-portlet-refresh'></span></a>");
+                    title.prepend("<a href='#' class='ui-corner-all'><span class='ui-icon ui-icon-minusthick ui-portlet-toggle'></span></a>");
+                    title.prepend("<a href='#' class='ui-corner-all'><span class='ui-icon ui-icon-closethick ui-portlet-close'></span></a>");
 
                     // content
                     var ct = $('<div/>', {
@@ -101,9 +100,7 @@
             _this._initEvents();
 
             // bind single view
-            if (o.singleView === true) {
-                _this._regSingleView();
-            }
+            _this._regSingleView();
 
             // enable/disable sortable
             _this._sortable(o.sortable);
@@ -250,23 +247,17 @@
             var _this = this;
 
             // toggle contents
-            var toggle = $(".ui-portlet-toggle", this.element).click(function(event) {
+            var toggle = $(".ui-portlet-toggle", this.element).click(function() {
                 $(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
-                $(this).parents(".ui-portlet-item:first").find(".ui-portlet-content").slideToggle();
-            }).dblclick(function(event) {
-                event.stopPropagation();
+                $(this).parents(".ui-portlet-item:first").find(".ui-portlet-content").toggle();
             });
 
             var refresh = $(".ui-portlet-refresh", this.element).click(function(event) {
                 _this.refresh.call(_this, event);
-            }).dblclick(function(event) {
-                event.stopPropagation();
             });
 
             var close = $(".ui-portlet-close", this.element).click(function(event) {
                 _this._destoryItem.call(_this, event);
-            }).dblclick(function(event) {
-                event.stopPropagation();
             });
 
             this._hoverable(toggle.parent());
