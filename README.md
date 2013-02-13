@@ -32,7 +32,7 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 
 ## Changelog
 
-### 1.6.1（2013-02-07）: 
+### 1.6.0-cache-diagram（2013-02-07）: 
 
 > 性能提升
 
