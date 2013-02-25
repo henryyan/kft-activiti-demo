@@ -119,5 +119,9 @@
 			<property name="dataSource" ref="dataSource" />
 			<property name="dataFile" value="/data/sample-data.xml" />
 		</bean>
+		
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+			<property name="dataSource" ref="dataSource" />
+		</bean>
 	</beans>
 </beans>
