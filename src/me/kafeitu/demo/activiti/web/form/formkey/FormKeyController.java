@@ -211,7 +211,7 @@ public class FormKeyController {
             + " D.KEY_ = #{processDefinitionKey} and RES.ASSIGNEE_ is null and I.TYPE_ = 'candidate'"
             + " and ( I.USER_ID_ = #{userId} or I.GROUP_ID_ IN (select g.GROUP_ID_ from ACT_ID_MEMBERSHIP g where g.USER_ID_ = #{userId} ) )"
             + " and RES.SUSPENSION_STATE_ = #{suspensionState}";
-    List<Task> tasks = taskService.createNativeTaskQuery().sql(asigneeSql + "union all " + needClaimSql).parameter("processDefinitionKey", "leave-formkey")
+    List<Task> tasks = taskService.createNativeTaskQuery().sql(asigneeSql + " union all " + needClaimSql).parameter("processDefinitionKey", "leave-formkey")
             .parameter("suspensionState", SuspensionState.ACTIVE.getStateCode()).parameter("userId", user.getId()).list();
 
     mav.addObject("tasks", tasks);
