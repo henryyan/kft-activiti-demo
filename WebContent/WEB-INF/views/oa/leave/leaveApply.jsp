@@ -43,7 +43,7 @@
 		}, 5000);
 		</script>
 	</c:if>
-	<form:form id="inputForm" modelAttribute="user" action="${ctx}/oa/leave/start" method="post" class="form-horizontal">
+	<form:form id="inputForm" action="${ctx}/oa/leave/start" method="post" class="form-horizontal">
 		<fieldset>
 			<legend><small>请假申请</small></legend>
 			<table border="1">
