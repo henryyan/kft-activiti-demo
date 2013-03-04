@@ -2,12 +2,12 @@ function graphTrace(options) {
 
     var _defaults = {
         srcEle: this,
-        pid: $(this).data('pid')
+        pid: $(this).attr('pid')
     };
     var opts = $.extend(true, _defaults, options);
 
     // 获取图片资源
-    var imageUrl = diagramHttpUrl + "/" + $(this).data('key') + "/" + $(this).data('version') + "/" + $(this).data('dname');
+    var imageUrl = ctx + "/workflow/resource/process-instance?pid=" + opts.pid + "&type=image";
     $.getJSON(ctx + '/workflow/process/trace?pid=' + opts.pid, function(infos) {
 
         var positionHtml = "";

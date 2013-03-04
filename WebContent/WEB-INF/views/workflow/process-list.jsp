@@ -30,12 +30,6 @@
     	}).click(function() {
     		$('#deployFieldset').toggle('normal');
     	});
-
-    	$('#export-diagram').button({
-    		icons: {
-    			primary: 'ui-icon-image'
-    		}
-    	});
     });
     </script>
 </head>
@@ -51,8 +45,7 @@
 	<div style="text-align: right;padding: 2px 1em 2px">
 		<div id="message" class="info" style="display:inline;"><b>提示：</b>点击xml或者png链接可以查看具体内容！</div>
 		<a id='deploy' href='#'>部署流程</a>
-		<a id='redeploy' title='重新部署所有的演示示例' href='${ctx }/workflow/redeploy/all'>重新部署流程</a>
-		<a id='export-diagram' title='导出到指定的目录中' target="_blank" href='${ctx }/workflow/export/diagrams'>手动导出流程图片</a>
+		<a id='redeploy' href='${ctx }/workflow/redeploy/all'>重新部署流程</a>
 	</div>
 	<fieldset id="deployFieldset" style="display: none">
 		<legend>部署新流程</legend>
@@ -92,7 +85,7 @@
 					<td>${process.key }</td>
 					<td>${process.version }</td>
 					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.resourceName }'>${process.resourceName }</a></td>
-					<td><a target="_blank" href='${diagramHttpUrl}/${process.key}/${process.version}/${process.diagramResourceName }'>${process.diagramResourceName }</a></td>
+					<td><a target="_blank" href='${ctx }/workflow/resource/deployment?deploymentId=${process.deploymentId}&resourceName=${process.diagramResourceName }'>${process.diagramResourceName }</a></td>
 					<td>${deployment.deploymentTime }</td>
 					<td>${isSuspended} | 
 						<c:if test="${isSuspended }">
