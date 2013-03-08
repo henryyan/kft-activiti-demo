@@ -40,7 +40,9 @@
 		<junit.version>4.10</junit.version>
 		<mockito.version>1.9.0</mockito.version>
 		<powermock.version>1.4.12</powermock.version>
-		<activiti.version>5.11</activiti.version>
+		
+		<!-- 5.12.1是我自己打包的，支持Native Query分页查询 -->
+		<activiti.version>5.12.1</activiti.version>
 
 		<!-- jdbc h2 -->
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
@@ -54,6 +56,10 @@
 	</properties>
 
 	<repositories>
+		<repository>
+			<id>henryyan-mavenrepo</id>
+			<url>https://raw.github.com/henryyan/mavenrepo/master/releases</url>
+		</repository>
 		<repository>
 			<id>Activiti</id>
 			<url>https://maven.alfresco.com/nexus/content/groups/public</url>

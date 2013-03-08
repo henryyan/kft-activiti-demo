@@ -21,7 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AfterModifyApplyContentProcessor implements TaskListener {
 	
-	@Autowired
+	private static final long serialVersionUID = 1L;
+
+  @Autowired
 	LeaveManager leaveManager;
 	
 	@Autowired
