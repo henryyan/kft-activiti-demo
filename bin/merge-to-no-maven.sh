@@ -2,8 +2,8 @@
 NO_MAVEN_DIR="../kft-activiti-demo-no-maven"
 echo "delete all files of branch no-maven"
 
-echo "delete libs"
-rm $NO_MAVEN_DIR/WebContent/WEB-INF/lib/*
+#echo "delete libs"
+#rm $NO_MAVEN_DIR/WebContent/WEB-INF/lib/*
 
 echo "delete java"
 rm -rf $NO_MAVEN_DIR/src/*
@@ -20,8 +20,8 @@ rm -rf $NO_MAVEN_DIR/WebContent/js
 rm -rf $NO_MAVEN_DIR/WebContent/WEB-INF/views
 
 echo "copying libs to no-maven"
-mvn dependency:copy-dependencies
-cp ./target/dependency/* $NO_MAVEN_DIR/WebContent/WEB-INF/lib/
+#mvn dependency:copy-dependencies
+#cp ./target/dependency/* $NO_MAVEN_DIR/WebContent/WEB-INF/lib/
 
 echo "copying java"
 cp -r src/main/java/* $NO_MAVEN_DIR/src
