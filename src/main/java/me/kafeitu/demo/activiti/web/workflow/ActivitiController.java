@@ -1,5 +1,6 @@
 package me.kafeitu.demo.activiti.web.workflow;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,26 +9,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
 import me.kafeitu.demo.activiti.service.activiti.WorkflowTraceService;
+import me.kafeitu.demo.activiti.util.Page;
+import me.kafeitu.demo.activiti.util.PageUtil;
 import me.kafeitu.demo.activiti.util.UserUtil;
+import me.kafeitu.demo.activiti.util.WorkflowUtils;
 
-import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,22 +72,28 @@ public class ActivitiController {
    * @return
    */
   @RequestMapping(value = "/process-list")
-  public ModelAndView processList() {
+  public ModelAndView processList(HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("workflow/process-list");
 
     /*
      * 保存两个对象，一个是ProcessDefinition（流程定义），一个是Deployment（流程部署）
      */
     List<Object[]> objects = new ArrayList<Object[]>();
+    
+    Page<Object[]> page = new Page<Object[]>(PageUtil.PAGE_SIZE);
+    int[] pageParams = PageUtil.init(page, request);
 
-    List<ProcessDefinition> processDefinitionList = repositoryService.createProcessDefinitionQuery().list();
+    ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+    List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(pageParams[0], pageParams[1]);
     for (ProcessDefinition processDefinition : processDefinitionList) {
       String deploymentId = processDefinition.getDeploymentId();
       Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
       objects.add(new Object[] { processDefinition, deployment });
     }
 
-    mav.addObject("objects", objects);
+    page.setTotalCount(processDefinitionQuery.count());
+    page.setResult(objects);
+    mav.addObject("page", page);
 
     return mav;
   }
@@ -93,8 +105,8 @@ public class ActivitiController {
    * @throws Exception
    */
   @RequestMapping(value = "/redeploy/all")
-  public String redeployAll() throws Exception {
-    workflowProcessDefinitionService.deployAllFromClasspath();
+  public String redeployAll(@Value("#{APP_PROPERTIES['export.diagram.path']}") String exportDir) throws Exception {
+    workflowProcessDefinitionService.deployAllFromClasspath(exportDir);
     return "redirect:/workflow/process-list";
   }
 
@@ -178,30 +190,28 @@ public class ActivitiController {
   }
 
   @RequestMapping(value = "/deploy")
-  public String deploy(@RequestParam(value = "file", required = false) MultipartFile file) {
+  public String deploy(@Value("#{APP_PROPERTIES['export.diagram.path']}") String exportDir, @RequestParam(value = "file", required = false) MultipartFile file) {
 
     String fileName = file.getOriginalFilename();
 
     try {
       InputStream fileInputStream = file.getInputStream();
+      Deployment deployment = null;
 
       String extension = FilenameUtils.getExtension(fileName);
       if (extension.equals("zip") || extension.equals("bar")) {
         ZipInputStream zip = new ZipInputStream(fileInputStream);
-        repositoryService.createDeployment().addZipInputStream(zip).deploy();
-      } else if (extension.equals("png")) {
-        repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
-      } else if (fileName.indexOf("bpmn20.xml") != -1) {
-        repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
-      } else if (extension.equals("bpmn")) {
-        /*
-         * bpmn扩展名特殊处理，转换为bpmn20.xml
-         */
-        String baseName = FilenameUtils.getBaseName(fileName);
-        repositoryService.createDeployment().addInputStream(baseName + ".bpmn20.xml", fileInputStream).deploy();
+        deployment = repositoryService.createDeployment().addZipInputStream(zip).deploy();
       } else {
-        throw new ActivitiException("no support file type of " + extension);
+        deployment = repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
       }
+
+      List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().deploymentId(deployment.getId()).list();
+
+      for (ProcessDefinition processDefinition : list) {
+        WorkflowUtils.exportDiagramToFile(repositoryService, processDefinition, exportDir);
+      }
+
     } catch (Exception e) {
       logger.error("error on deploy process, because of file input stream", e);
     }
@@ -278,6 +288,24 @@ public class ActivitiController {
       redirectAttributes.addFlashAttribute("message", "已挂起ID为[" + processDefinitionId + "]的流程定义。");
     }
     return "redirect:/workflow/process-list";
+  }
+
+  /**
+   * 导出图片文件到硬盘
+   * 
+   * @return
+   */
+  @RequestMapping(value = "export/diagrams")
+  @ResponseBody
+  public List<String> exportDiagrams(@Value("#{APP_PROPERTIES['export.diagram.path']}") String exportDir) throws IOException {
+    List<String> files = new ArrayList<String>();
+    List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
+
+    for (ProcessDefinition processDefinition : list) {
+      files.add(WorkflowUtils.exportDiagramToFile(repositoryService, processDefinition, exportDir));
+    }
+
+    return files;
   }
 
   @Autowired

@@ -4,8 +4,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import me.kafeitu.demo.activiti.util.Page;
+import me.kafeitu.demo.activiti.util.PageUtil;
+
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +28,14 @@ public class ProcessInstanceController {
   @RequestMapping(value = "running")
   public ModelAndView running(Model model, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/workflow/running-manage");
-    List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().list();
-    mav.addObject("list", list);
+    Page<ProcessInstance> page = new Page<ProcessInstance>(PageUtil.PAGE_SIZE);
+    int[] pageParams = PageUtil.init(page, request);
+    
+    ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
+    List<ProcessInstance> list = processInstanceQuery.listPage(pageParams[0], pageParams[1]);
+    page.setResult(list);
+    page.setTotalCount(processInstanceQuery.count());
+    mav.addObject("page", page);
     return mav;
   }
 
@@ -33,7 +43,8 @@ public class ProcessInstanceController {
    * 挂起、激活流程实例
    */
   @RequestMapping(value = "update/{state}/{processInstanceId}")
-  public String updateState(@PathVariable("state") String state, @PathVariable("processInstanceId") String processInstanceId, RedirectAttributes redirectAttributes) {
+  public String updateState(@PathVariable("state") String state, @PathVariable("processInstanceId") String processInstanceId,
+          RedirectAttributes redirectAttributes) {
     if (state.equals("active")) {
       redirectAttributes.addFlashAttribute("message", "已激活ID为[" + processInstanceId + "]的流程实例。");
       runtimeService.activateProcessInstanceById(processInstanceId);

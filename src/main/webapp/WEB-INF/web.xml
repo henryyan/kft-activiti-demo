@@ -12,17 +12,11 @@
 		</param-value>
 	</context-param>
 
-	<!-- 設定Spring Context的默认Profile -->
-	<context-param>
-		<param-name>spring.profiles.default</param-name>
-		<param-value>production</param-value>
-	</context-param>
-
 	<!--Spring的ApplicationContext 载入 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<!-- 配置文件Servlet -->
 	<servlet>
 		<servlet-name>PropertiesServlet</servlet-name>
@@ -83,17 +77,7 @@
 		<session-timeout>20</session-timeout>
 	</session-config>
 
-	<!-- 出错页面定义
-	<error-page>
-		<exception-type>java.lang.Throwable</exception-type>
-		<location>/WEB-INF/views/error/500.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/WEB-INF/views/error/500.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/WEB-INF/views/error/404.jsp</location>
-	</error-page> -->
+	<!-- 出错页面定义 <error-page> <exception-type>java.lang.Throwable</exception-type> <location>/WEB-INF/views/error/500.jsp</location> </error-page> 
+		<error-page> <error-code>500</error-code> <location>/WEB-INF/views/error/500.jsp</location> </error-page> <error-page> <error-code>404</error-code> 
+		<location>/WEB-INF/views/error/404.jsp</location> </error-page> -->
 </web-app>

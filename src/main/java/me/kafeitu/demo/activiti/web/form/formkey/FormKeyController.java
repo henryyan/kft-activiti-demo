@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import me.kafeitu.demo.activiti.util.Page;
+import me.kafeitu.demo.activiti.util.PageUtil;
 import me.kafeitu.demo.activiti.util.UserUtil;
 
 import org.activiti.engine.FormService;
@@ -19,10 +21,14 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.impl.persistence.entity.SuspensionState;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.runtime.ProcessInstanceQuery;
+import org.activiti.engine.task.NativeTaskQuery;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -77,14 +83,19 @@ public class FormKeyController {
    * @return
    */
   @RequestMapping(value = { "process-list", "" })
-  public ModelAndView processDefinitionList(Model model) {
+  public ModelAndView processDefinitionList(Model model, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/form/formkey/formkey-process-list");
-
+    Page<ProcessDefinition> page = new Page<ProcessDefinition>(PageUtil.PAGE_SIZE);
+    int[] pageParams = PageUtil.init(page, request);
     /*
      * 只读取动态表单：leave-formkey
      */
-    List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-formkey").active().list();
-    mav.addObject("processes", list);
+    ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-formkey").active().orderByDeploymentId().desc();
+    List<ProcessDefinition> list = query.listPage(pageParams[0], pageParams[1]);
+
+    page.setResult(list);
+    page.setTotalCount(query.count());
+    mav.addObject("page", page);
     return mav;
   }
 
@@ -197,6 +208,8 @@ public class FormKeyController {
   public ModelAndView taskList(Model model, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/form/formkey/formkey-task-list");
     User user = UserUtil.getUserFromSession(request.getSession());
+    Page<Task> page = new Page<Task>(PageUtil.PAGE_SIZE);
+    int[] pageParams = PageUtil.init(page, request);
 
     /**
      * 这里为了演示区分开自定义表单的请假流程，值读取leave-formkey
@@ -211,10 +224,15 @@ public class FormKeyController {
             + " D.KEY_ = #{processDefinitionKey} and RES.ASSIGNEE_ is null and I.TYPE_ = 'candidate'"
             + " and ( I.USER_ID_ = #{userId} or I.GROUP_ID_ IN (select g.GROUP_ID_ from ACT_ID_MEMBERSHIP g where g.USER_ID_ = #{userId} ) )"
             + " and RES.SUSPENSION_STATE_ = #{suspensionState}";
-    List<Task> tasks = taskService.createNativeTaskQuery().sql(asigneeSql + " union all " + needClaimSql).parameter("processDefinitionKey", "leave-formkey")
-            .parameter("suspensionState", SuspensionState.ACTIVE.getStateCode()).parameter("userId", user.getId()).list();
+    String sql = asigneeSql + " union all " + needClaimSql;
+    NativeTaskQuery query = taskService.createNativeTaskQuery().sql(sql)
+            .parameter("processDefinitionKey", "leave-formkey").parameter("suspensionState", SuspensionState.ACTIVE.getStateCode())
+            .parameter("userId", user.getId());
+    List<Task> tasks = query.listPage(pageParams[0], pageParams[1]);
 
-    mav.addObject("tasks", tasks);
+    page.setResult(tasks);
+    page.setTotalCount(query.sql("select count(*) from (" + sql + ")").count());
+    mav.addObject("page", page);
     return mav;
   }
 
@@ -238,8 +256,13 @@ public class FormKeyController {
   @RequestMapping(value = "process-instance/running/list")
   public ModelAndView running(Model model, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/form/running-list");
-    List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-formkey").active().list();
-    mav.addObject("list", list);
+    Page<ProcessInstance> page = new Page<ProcessInstance>(PageUtil.PAGE_SIZE);
+    int[] pageParams = PageUtil.init(page, request);
+    ProcessInstanceQuery query = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-formkey").active();
+    List<ProcessInstance> list = query.listPage(pageParams[0], pageParams[1]);
+    page.setResult(list);
+    page.setTotalCount(query.count());
+    mav.addObject("page", page);
     return mav;
   }
   /**
@@ -251,8 +274,14 @@ public class FormKeyController {
   @RequestMapping(value = "process-instance/finished/list")
   public ModelAndView finished(Model model, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("/form/finished-list");
-    List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-formkey").finished().list();
-    mav.addObject("list", list);
+    Page<HistoricProcessInstance> page = new Page<HistoricProcessInstance>(PageUtil.PAGE_SIZE);
+    int[] pageParams = PageUtil.init(page, request);
+    HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-formkey").finished();
+    List<HistoricProcessInstance> list = query.listPage(pageParams[0], pageParams[1]);
+    
+    page.setResult(list);
+    page.setTotalCount(query.count());
+    mav.addObject("page", page);
     return mav;
   }
 

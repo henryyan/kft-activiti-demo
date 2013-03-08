@@ -39,7 +39,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${leaves }" var="leave">
+			<c:forEach items="${page.result }" var="leave">
 				<c:set var="hpi" value="${leave.historicProcessInstance }" />
 				<tr id="${leave.id }" tid="${task.id }">
 					<td>${leave.leaveType }</td>
@@ -57,5 +57,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<tags:pagination page="${page}" paginationSize="${page.pageSize}"/>
 </body>
 </html>

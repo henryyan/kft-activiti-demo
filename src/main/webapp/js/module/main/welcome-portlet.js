@@ -22,6 +22,9 @@ $(function() {
 			}, {
 				title: '待办任务',
 				content: {
+					style: {
+						maxHeight: 300
+					},
 					type: 'ajax',
 					dataType: 'json',
 					url: ctx + '/workflow/task/todo/list',

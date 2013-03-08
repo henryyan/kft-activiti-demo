@@ -52,14 +52,14 @@
 			<th>操作</th>
 		</tr>
 
-		<c:forEach items="${list }" var="p">
+		<c:forEach items="${page.result }" var="p">
 		<c:set var="pdid" value="${p.processDefinitionId }" />
 		<c:set var="activityId" value="${p.activityId }" />
 		<tr>
 			<td>${p.id }</td>
 			<td>${p.processInstanceId }</td>
 			<td>${p.processDefinitionId }</td>
-			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图"><%=ProcessDefinitionCache.getActivityName(pageContext.getAttribute("pdid").toString(), pageContext.getAttribute("activityId").toString()) %></a></td>
+			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图"><%=ProcessDefinitionCache.getActivityName(pageContext.getAttribute("pdid").toString(), ObjectUtils.toString(pageContext.getAttribute("activityId"))) %></a></td>
 			<td>${p.suspended }</td>
 			<td>
 				<c:if test="${p.suspended }">
@@ -72,7 +72,7 @@
 		</tr>
 		</c:forEach>
 	</table>
-
+	<tags:pagination page="${page}" paginationSize="${page.pageSize}"/>
 	<!-- 办理任务对话框 -->
 	<div id="handleTemplate" class="template"></div>
 

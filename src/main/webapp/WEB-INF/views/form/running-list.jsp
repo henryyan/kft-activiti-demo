@@ -43,7 +43,7 @@
 			<th>是否挂起</th>
 		</tr>
 
-		<c:forEach items="${list }" var="p">
+		<c:forEach items="${page.result }" var="p">
 		<c:set var="pdid" value="${p.processDefinitionId }" />
 		<c:set var="activityId" value="${p.activityId }" />
 		<tr>
@@ -55,7 +55,7 @@
 		</tr>
 		</c:forEach>
 	</table>
-
+	<tags:pagination page="${page}" paginationSize="${page.pageSize}"/>
 	<!-- 办理任务对话框 -->
 	<div id="handleTemplate" class="template"></div>
 

@@ -12,6 +12,7 @@
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include-base-styles.jsp" %>
 	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
+	<%@ include file="/common/include-custom-styles.jsp" %>
 	<title>流程列表</title>
 
 	<script src="${ctx }/js/common/jquery-1.8.3.js" type="text/javascript"></script>
@@ -45,7 +46,7 @@
 	<div style="text-align: right;padding: 2px 1em 2px">
 		<div id="message" class="info" style="display:inline;"><b>提示：</b>点击xml或者png链接可以查看具体内容！</div>
 		<a id='deploy' href='#'>部署流程</a>
-		<a id='redeploy' href='${ctx }/workflow/redeploy/all'>重新部署流程</a>
+		<a id='redeploy' href='${ctx }/workflow/redeploy/all' style="display:none">重新部署流程</a>
 	</div>
 	<fieldset id="deployFieldset" style="display: none">
 		<legend>部署新流程</legend>
@@ -71,7 +72,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${objects }" var="object">
+			<c:forEach items="${page.result }" var="object">
 				<c:set var="process" value="${object[0] }" />
 				<c:set var="deployment" value="${object[1] }" />
 
@@ -100,5 +101,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<tags:pagination page="${page}" paginationSize="${page.pageSize}"/>
 </body>
 </html>
