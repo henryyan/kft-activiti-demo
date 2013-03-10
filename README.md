@@ -27,6 +27,7 @@
 ### 1.7.0（2013-03-10）
 1. 添加分页查询演示
 2. 添加流程定义对象(ProcessDefinition)缓存演示, see: [Tweaking the process definition cache in Activiti 5.12](http://www.jorambarrez.be/blog/2012/12/20/tweaking-process-definition-cache/)
+3. 添加activityFontName属性配置，可以解决流程图中包含中文导致生成的流程图乱码问题
 
 > 特别说明：5.12.1不是官方提供，是我自己打包的一个版本（支持Native Query分页查询功能，5.13将会直接提供此功能）
 
