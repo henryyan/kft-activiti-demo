@@ -83,7 +83,7 @@ public class ActivitiController {
     Page<Object[]> page = new Page<Object[]>(PageUtil.PAGE_SIZE);
     int[] pageParams = PageUtil.init(page, request);
 
-    ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+    ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
     List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(pageParams[0], pageParams[1]);
     for (ProcessDefinition processDefinition : processDefinitionList) {
       String deploymentId = processDefinition.getDeploymentId();

@@ -82,12 +82,12 @@ public class LeaveWorkflowService {
     List<Task> tasks = new ArrayList<Task>();
 
     // 根据当前人的ID查询
-    TaskQuery todoQuery = taskService.createTaskQuery().processDefinitionKey("leave").taskAssignee(userId).active().orderByTaskPriority().desc()
+    TaskQuery todoQuery = taskService.createTaskQuery().processDefinitionKey("leave").taskAssignee(userId).active().orderByTaskId().desc()
             .orderByTaskCreateTime().desc();
     List<Task> todoList = todoQuery.listPage(pageParams[0], pageParams[1]);
 
     // 根据当前人未签收的任务
-    TaskQuery claimQuery = taskService.createTaskQuery().processDefinitionKey("leave").taskCandidateUser(userId).active().orderByTaskPriority().desc()
+    TaskQuery claimQuery = taskService.createTaskQuery().processDefinitionKey("leave").taskCandidateUser(userId).active().orderByTaskId().desc()
             .orderByTaskCreateTime().desc();
     List<Task> unsignedTasks = claimQuery.listPage(pageParams[0], pageParams[1]);
 
@@ -120,7 +120,7 @@ public class LeaveWorkflowService {
   @Transactional(readOnly = true)
   public List<Leave> findRunningProcessInstaces(Page<Leave> page, int[] pageParams) {
     List<Leave> results = new ArrayList<Leave>();
-    ProcessInstanceQuery query = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave").active();
+    ProcessInstanceQuery query = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave").active().orderByProcessInstanceId().desc();
     List<ProcessInstance> list = query.listPage(pageParams[0], pageParams[1]);
 
     // 关联业务实体
@@ -149,7 +149,7 @@ public class LeaveWorkflowService {
   @Transactional(readOnly = true)
   public List<Leave> findFinishedProcessInstaces(Page<Leave> page, int[] pageParams) {
     List<Leave> results = new ArrayList<Leave>();
-    HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave").finished();
+    HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave").finished().orderByProcessInstanceEndTime().desc();
     List<HistoricProcessInstance> list = query.listPage(pageParams[0], pageParams[1]);
 
     // 关联业务实体

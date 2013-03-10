@@ -258,7 +258,7 @@ public class FormKeyController {
     ModelAndView mav = new ModelAndView("/form/running-list");
     Page<ProcessInstance> page = new Page<ProcessInstance>(PageUtil.PAGE_SIZE);
     int[] pageParams = PageUtil.init(page, request);
-    ProcessInstanceQuery query = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-formkey").active();
+    ProcessInstanceQuery query = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-formkey").active().orderByProcessInstanceId().desc();
     List<ProcessInstance> list = query.listPage(pageParams[0], pageParams[1]);
     page.setResult(list);
     page.setTotalCount(query.count());
@@ -276,7 +276,7 @@ public class FormKeyController {
     ModelAndView mav = new ModelAndView("/form/finished-list");
     Page<HistoricProcessInstance> page = new Page<HistoricProcessInstance>(PageUtil.PAGE_SIZE);
     int[] pageParams = PageUtil.init(page, request);
-    HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-formkey").finished();
+    HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-formkey").orderByProcessInstanceEndTime().desc().finished();
     List<HistoricProcessInstance> list = query.listPage(pageParams[0], pageParams[1]);
     
     page.setResult(list);
