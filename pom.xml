@@ -83,6 +83,13 @@
 			<artifactId>activiti-spring</artifactId>
 			<version>${activiti.version}</version>
 		</dependency>
+		
+		<!-- 支持activiti缓存 -->
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-core</artifactId>
+			<version>5.1.7.Final</version>
+		</dependency>
 
 		<!-- Jackson JSON Mapper -->
 		<!-- SpringMVC的@ResponseBody需要使用 -->

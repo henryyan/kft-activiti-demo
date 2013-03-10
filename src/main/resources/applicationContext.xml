@@ -78,6 +78,10 @@
 		<property name="history" value="full" />
 		<property name="processDefinitionCacheLimit" value="10" />
 
+		<property name="processDefinitionCache">
+			<bean class="me.kafeitu.demo.activiti.util.cache.DistributedCache" />
+		</property>
+
 		<!-- 自动部署 -->
 		<property name="deploymentResources">
 			<list>

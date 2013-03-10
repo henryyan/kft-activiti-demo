@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infinispan>
+	<global>
+		<transport>
+			<properties>
+				<property name="configurationFile" value="jgroups-tcp.xml" />
+			</properties>
+		</transport>
+	</global>
+	<default>
+		<!-- Configure a synchronous replication cache -->
+		<clustering mode="distribution">
+			<sync />
+			<hash numOwners="2" />
+		</clustering>
+	</default>
+</infinispan>
