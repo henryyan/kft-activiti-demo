@@ -4,7 +4,6 @@ import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.infinispan.notifications.Listener;
 import org.infinispan.notifications.cachelistener.annotation.CacheEntryCreated;
 import org.infinispan.notifications.cachelistener.annotation.CacheEntryEvicted;
-import org.infinispan.notifications.cachelistener.annotation.CacheEntryLoaded;
 import org.infinispan.notifications.cachelistener.annotation.CacheEntryModified;
 import org.infinispan.notifications.cachelistener.annotation.CacheEntryRemoved;
 import org.infinispan.notifications.cachelistener.event.CacheEntryCreatedEvent;
@@ -45,11 +44,6 @@ public class CacheListener {
   @CacheEntryCreated
   public void cacheEntryCreated(CacheEntryCreatedEvent<String, ProcessDefinitionEntity> event) {
     logger.info("Cache entry with key '" + event.getKey() + " added to cache (local cache size = " + event.getCache().size() + ")");
-  }
-
-  @CacheEntryLoaded
-  public void cacheEntryLoaded(CacheEntryCreatedEvent<String, ProcessDefinitionEntity> event) {
-    logger.info("Cache entry with key '" + event.getKey() + " loaded to cache (local cache size = " + event.getCache().size() + ")");
   }
 
   @CacheEntryRemoved
