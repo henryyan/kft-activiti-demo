@@ -84,6 +84,23 @@
 			<version>${activiti.version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-explorer</artifactId>
+			<version>5.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-modeler</artifactId>
+			<version>5.12</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-diagram-rest</artifactId>
+			<version>5.12</version>
+		</dependency>
+		
 		<!-- 支持activiti缓存 -->
 		<dependency>
 			<groupId>org.infinispan</groupId>
