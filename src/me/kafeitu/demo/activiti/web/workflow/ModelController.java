@@ -1,9 +1,6 @@
 package me.kafeitu.demo.activiti.web.workflow;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +16,10 @@ import org.activiti.engine.repository.Model;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +36,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/workflow/model")
 public class ModelController {
+
+  protected Logger logger = LoggerFactory.getLogger(getClass());
 
   @Autowired
   RepositoryService repositoryService;
@@ -82,10 +82,8 @@ public class ModelController {
       repositoryService.addModelEditorSource(modelData.getId(), editorNode.toString().getBytes("utf-8"));
 
       response.sendRedirect(request.getContextPath() + "/service/editor?id=" + modelData.getId());
-    } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      logger.error("创建模型失败：", e);
     }
   }
 
@@ -105,10 +103,8 @@ public class ModelController {
       String processName = modelData.getName() + ".bpmn20.xml";
       Deployment deployment = repositoryService.createDeployment().name(modelData.getName()).addString(processName, new String(bpmnBytes)).deploy();
       redirectAttributes.addFlashAttribute("message", "部署成功，部署ID=" + deployment.getId());
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      logger.error("根据模型部署流程失败：modelId={}", modelId, e);
     }
     return "redirect:/workflow/model/list";
   }
@@ -117,7 +113,7 @@ public class ModelController {
    * 导出model的xml文件
    */
   @RequestMapping(value = "export/{modelId}")
-  public File export(@PathVariable("modelId") String modelId, HttpServletResponse response) {
+  public void export(@PathVariable("modelId") String modelId, HttpServletResponse response) {
     try {
       Model modelData = repositoryService.getModel(modelId);
       BpmnJsonConverter jsonConverter = new BpmnJsonConverter();
@@ -132,9 +128,8 @@ public class ModelController {
       response.setHeader("Content-Disposition", "attachment; filename=" + filename);
       response.flushBuffer();
     } catch (Exception e) {
-      e.printStackTrace();
+      logger.error("导出model的xml文件失败：modelId={}", modelId, e);
     }
-    return null;
   }
 
 }
