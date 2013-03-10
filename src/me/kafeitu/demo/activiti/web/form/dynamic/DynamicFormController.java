@@ -253,18 +253,18 @@ public class DynamicFormController {
      */
 
     // 分配到当前登陆用户的任务
-    List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskAssignee(user.getId()).active().list();
+    List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskAssignee(user.getId()).active().orderByTaskId().desc().list();
 
     // 为签收的任务
-    List<Task> list2 = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskCandidateUser(user.getId()).active().list();
+    List<Task> list2 = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskCandidateUser(user.getId()).active().orderByTaskId().desc().list();
 
     tasks.addAll(list);
     tasks.addAll(list2);
 
-    List<Task> list3 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskAssignee(user.getId()).active().list();
+    List<Task> list3 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskAssignee(user.getId()).active().orderByTaskId().desc().list();
 
     // 为签收的任务
-    List<Task> list4 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskCandidateUser(user.getId()).active().list();
+    List<Task> list4 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskCandidateUser(user.getId()).active().orderByTaskId().desc().list();
 
     tasks.addAll(list3);
     tasks.addAll(list4);
@@ -295,9 +295,9 @@ public class DynamicFormController {
     ModelAndView mav = new ModelAndView("/form//running-list");
     Page<ProcessInstance> page = new Page<ProcessInstance>(PageUtil.PAGE_SIZE);
     int[] pageParams = PageUtil.init(page, request);
-    ProcessInstanceQuery leaveDynamicQuery = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").active();
+    ProcessInstanceQuery leaveDynamicQuery = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").orderByProcessInstanceId().desc().active();
     List<ProcessInstance> list = leaveDynamicQuery.listPage(pageParams[0], pageParams[1]);
-    ProcessInstanceQuery dispatchQuery = runtimeService.createProcessInstanceQuery().processDefinitionKey("dispatch").active();
+    ProcessInstanceQuery dispatchQuery = runtimeService.createProcessInstanceQuery().processDefinitionKey("dispatch").active().orderByProcessInstanceId().desc();
     List<ProcessInstance> list2 = dispatchQuery.listPage(pageParams[0], pageParams[1]);
     list.addAll(list2);
 
@@ -318,9 +318,9 @@ public class DynamicFormController {
     ModelAndView mav = new ModelAndView("/form/finished-list");
     Page<HistoricProcessInstance> page = new Page<HistoricProcessInstance>(PageUtil.PAGE_SIZE);
     int[] pageParams = PageUtil.init(page, request);
-    HistoricProcessInstanceQuery leaveDynamicQuery = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").finished();
+    HistoricProcessInstanceQuery leaveDynamicQuery = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").finished().orderByProcessInstanceEndTime().desc();
     List<HistoricProcessInstance> list = leaveDynamicQuery.listPage(pageParams[0], pageParams[1]);
-    HistoricProcessInstanceQuery dispatchQuery = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("dispatch").finished();
+    HistoricProcessInstanceQuery dispatchQuery = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("dispatch").finished().orderByProcessInstanceEndTime().desc();
     List<HistoricProcessInstance> list2 = dispatchQuery.listPage(pageParams[0], pageParams[1]);
     list.addAll(list2);
 
