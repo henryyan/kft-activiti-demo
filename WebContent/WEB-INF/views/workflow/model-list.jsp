@@ -1,0 +1,114 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%@ include file="/common/global.jsp"%>
+	<script>
+		var notLogon = ${empty user};
+		if (notLogon) {
+			location.href = '${ctx}/login?error=nologon';
+		}
+	</script>
+	<%@ include file="/common/meta.jsp" %>
+	<%@ include file="/common/include-base-styles.jsp" %>
+	<%@ include file="/common/include-jquery-ui-theme.jsp" %>
+	<%@ include file="/common/include-custom-styles.jsp" %>
+	<title>流程列表</title>
+
+	<script src="${ctx }/js/common/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="${ctx }/js/common/plugins/jui/jquery-ui-${themeVersion }.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(function() {
+    	$('#create').button({
+    		icons: {
+    			primary: 'ui-icon-plus'
+    		}
+    	}).click(function() {
+    		$('#createModelTemplate').dialog({
+    			modal: true,
+    			width: 500,
+    			buttons: [{
+    				text: '创建',
+    				click: function() {
+    					if (!$('#name').val()) {
+    						alert('请填写名称！');
+    						$('#name').focus();
+    						return;
+    					}
+    					setTimeout(function() {
+    						location.reload();
+    					}, 1000);
+    					window.open(ctx + '/workflow/model/create?name=' + $('#name').val() + '&description=' + $('#description').val() + '&key=' + $('#key').val());
+    				}
+    			}]
+    		});
+    	});
+    });
+    </script>
+</head>
+<body>
+	<c:if test="${not empty message}">
+	<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+				<strong>提示：</strong>${message}</p>
+			</div>
+		</div>
+	</c:if>
+	<div style="text-align: right"><button id="create">创建</button></div>
+	<table width="100%" class="need-border">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>KEY</th>
+				<th>Name</th>
+				<th>Version</th>
+				<th>创建时间</th>
+				<th>最后更新时间</th>
+				<th>元数据</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${list }" var="model">
+				<tr>
+					<td>${model.id }</td>
+					<td>${model.key }</td>
+					<td>${model.name}</td>
+					<td>${model.version}</td>
+					<td>${model.createTime}</td>
+					<td>${model.lastUpdateTime}</td>
+					<td>${model.metaInfo}</td>
+					<td>
+						<a href="${ctx}/service/editor?id=${model.id}" target="_blank">编辑</a>
+						<a href="${ctx}/workflow/model/deploy/${model.id}">部署</a>
+						<a href="${ctx}/workflow/model/export/${model.id}" target="_blank">导出</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<div id="createModelTemplate" title="创建模型" class="template">
+		<table>
+			<tr>
+				<td>名称（不支持中文）：</td>
+				<td>
+					<input id="name" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td>KEY（不支持中文）：</td>
+				<td>
+					<input id="key" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td>描述：</td>
+				<td>
+					<textarea id="description" style="width:300px;height: 50px;"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

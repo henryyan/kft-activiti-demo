@@ -76,6 +76,8 @@
 			<li>外置表单</li>
 			<li>个人待办任务汇总</li>
 			<li>分页查询(<font color='red'>New</font>)</li>
+			<li>流程定义缓存(<font color='red'>New</font>)</li>
+			<li>集成Activiti Modeler(<font color='red'>New</font>)</li>
 		</ul>
 	</div>
 

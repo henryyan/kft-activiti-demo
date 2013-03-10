@@ -2,24 +2,8 @@ $(function() {
 	$('#portlet-container').portlet({
 		sortable: true,
 		columns: [{
-			width: 500,
+			width: 450,
 			portlets: [{
-				title: '表单概念',
-				content: {
-					type: 'text',
-					text: function() {
-						return $('.forms').html();
-					}
-				}
-			}, {
-				title: '会签（多实例）说明',
-				content: {
-					type: 'text',
-					text: function() {
-						return $('#multiInstance').html();
-					}
-				}
-			}, {
 				title: '待办任务',
 				content: {
 					style: {
@@ -43,9 +27,25 @@ $(function() {
 						$('.trace').click(graphTrace);
 					}
 				}
+			}, {
+				title: '表单概念',
+				content: {
+					type: 'text',
+					text: function() {
+						return $('.forms').html();
+					}
+				}
+			}, {
+				title: '会签（多实例）说明',
+				content: {
+					type: 'text',
+					text: function() {
+						return $('#multiInstance').html();
+					}
+				}
 			}]
 		}, {
-			width: 200,
+			width: 250,
 			portlets: [{
 				title: '演示内容',
 				content: {
