@@ -43,7 +43,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${leaves }" var="leave">
+			<c:forEach items="${page.result }" var="leave">
 				<c:set var="task" value="${leave.task }" />
 				<c:set var="pi" value="${leave.processInstance }" />
 				<tr id="${leave.id }" tid="${task.id }">
@@ -62,5 +62,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<tags:pagination page="${page}" paginationSize="${page.pageSize}"/>
 </body>
 </html>

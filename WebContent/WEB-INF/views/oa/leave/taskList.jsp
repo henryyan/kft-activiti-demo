@@ -51,7 +51,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${leaves }" var="leave">
+			<c:forEach items="${page.result }" var="leave">
 				<c:set var="task" value="${leave.task }" />
 				<c:set var="pi" value="${leave.processInstance }" />
 				<tr id="${leave.id }" tid="${task.id }">
@@ -79,7 +79,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
+	<tags:pagination page="${page}" paginationSize="${page.pageSize}"/>
 	<!-- 下面是每个节点的模板，用来定义每个节点显示的内容 -->
 	<!-- 使用DIV包裹，每个DIV的ID以节点名称命名，如果不同的流程版本需要使用同一个可以自己扩展（例如：在DIV添加属性，标记支持的版本） -->
 

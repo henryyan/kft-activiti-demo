@@ -23,7 +23,7 @@
 			<th>流程结束原因</th>
 		</tr>
 
-		<c:forEach items="${list }" var="hpi">
+		<c:forEach items="${page.result }" var="hpi">
 		<tr>
 			<td>${hpi.id }</td>
 			<td>${hpi.processDefinitionId }</td>
@@ -33,7 +33,7 @@
 		</tr>
 		</c:forEach>
 	</table>
-
+	<tags:pagination page="${page}" paginationSize="${page.pageSize}"/>
 	<!-- 办理任务对话框 -->
 	<div id="handleTemplate" class="template"></div>
 
