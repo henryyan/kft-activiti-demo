@@ -10,7 +10,7 @@
 
 # 框架版本
 
-* Activiti: **5.10**
+* Activiti: **5.12.1**
 
 * Spring: **3.1.1.RELEASE**
 
@@ -31,6 +31,12 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 ![kft-activiti-demo截图](http://www.kafeitu.me/files/2012/05/kft-activiti-demo.png)
 
 ## Changelog
+
+### 1.7.0（2013-03-10）
+1. 添加分页查询演示
+2. 添加流程定义对象(ProcessDefinition)缓存演示, see: [Tweaking the process definition cache in Activiti 5.12](http://www.jorambarrez.be/blog/2012/12/20/tweaking-process-definition-cache/)
+
+> 特别说明：5.12.1不是官方提供，是我自己打包的一个版本（支持Native Query分页查询功能，5.13将会直接提供此功能）
 
 ### 1.6.0（2013-01-06）
 1. 添加多实例（发文）演示
