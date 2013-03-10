@@ -17,6 +17,10 @@ rm -rf $NO_MAVEN_DIR/WebContent/common
 rm -rf $NO_MAVEN_DIR/WebContent/css
 rm -rf $NO_MAVEN_DIR/WebContent/images
 rm -rf $NO_MAVEN_DIR/WebContent/js
+rm -rf $NO_MAVEN_DIR/WebContent/api
+rm -rf $NO_MAVEN_DIR/WebContent/editor
+rm -rf $NO_MAVEN_DIR/WebContent/explorer
+rm -rf $NO_MAVEN_DIR/WebContent/libs
 rm -rf $NO_MAVEN_DIR/WebContent/WEB-INF/views
 
 echo "copying libs to no-maven"
@@ -36,5 +40,9 @@ cp -r src/main/webapp/common $NO_MAVEN_DIR/WebContent/common
 cp -r src/main/webapp/css $NO_MAVEN_DIR/WebContent/css
 cp -r src/main/webapp/images $NO_MAVEN_DIR/WebContent/images
 cp -r src/main/webapp/js $NO_MAVEN_DIR/WebContent/js
+cp -r src/main/webapp/api $NO_MAVEN_DIR/WebContent/api
+cp -r src/main/webapp/editor $NO_MAVEN_DIR/WebContent/editor
+cp -r src/main/webapp/explorer $NO_MAVEN_DIR/WebContent/explorer
+cp -r src/main/webapp/libs $NO_MAVEN_DIR/WebContent/libs
 cp -r src/main/webapp/WEB-INF/views $NO_MAVEN_DIR/WebContent/WEB-INF/views
 cp src/main/webapp/WEB-INF/*.xml $NO_MAVEN_DIR/WebContent/WEB-INF
