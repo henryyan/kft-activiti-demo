@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 流程模型控制器
@@ -92,7 +93,7 @@ public class ModelController {
    * 根据Model部署流程
    */
   @RequestMapping(value = "deploy/{modelId}")
-  public String deploy(@PathVariable("modelId") String modelId) {
+  public String deploy(@PathVariable("modelId") String modelId, RedirectAttributes redirectAttributes) {
     try {
       Model modelData = repositoryService.getModel(modelId);
       ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
@@ -103,14 +104,13 @@ public class ModelController {
 
       String processName = modelData.getName() + ".bpmn20.xml";
       Deployment deployment = repositoryService.createDeployment().name(modelData.getName()).addString(processName, new String(bpmnBytes)).deploy();
-      System.out.println(deployment);
-      return "redirect:/workflow/process-list";
+      redirectAttributes.addFlashAttribute("message", "部署成功，部署ID=" + deployment.getId());
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return "workflow/model/list";
+    return "redirect:/workflow/model/list";
   }
 
   /**

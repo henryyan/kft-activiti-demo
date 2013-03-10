@@ -47,6 +47,14 @@
     </script>
 </head>
 <body>
+	<c:if test="${not empty message}">
+	<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+				<strong>提示：</strong>${message}</p>
+			</div>
+		</div>
+	</c:if>
 	<div style="text-align: right"><button id="create">创建</button></div>
 	<table width="100%" class="need-border">
 		<thead>
