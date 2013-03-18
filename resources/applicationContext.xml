@@ -81,10 +81,10 @@
 		<!-- 生成流程图的字体 -->
 		<property name="activityFontName" value="宋体" />
 
-		<!-- 缓存支持 -->
+		<!-- 缓存支持
 		<property name="processDefinitionCache">
 			<bean class="me.kafeitu.demo.activiti.util.cache.DistributedCache" />
-		</property>
+        </property>-->
 
 		<!-- 自动部署 -->
 		<property name="deploymentResources">
