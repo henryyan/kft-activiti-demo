@@ -80,6 +80,7 @@
 		
 		<!-- 生成流程图的字体 -->
 		<property name="activityFontName" value="宋体" />
+		<property name="labelFontName" value="宋体" />
 
 		<!-- 缓存支持
 		<property name="processDefinitionCache">
