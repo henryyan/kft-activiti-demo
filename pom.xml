@@ -57,8 +57,8 @@
 
 	<repositories>
 		<repository>
-			<id>henryyan-mavenrepo</id>
-			<url>https://raw.github.com/henryyan/mavenrepo/master/releases</url>
+			<id>kafeitu</id>
+			<url>http://server.kafeitu.me:8081/nexus/content/repositories/releases</url>
 		</repository>
 		<repository>
 			<id>Activiti</id>
