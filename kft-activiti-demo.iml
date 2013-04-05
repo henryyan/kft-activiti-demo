@@ -34,9 +34,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.activiti:activiti-engine:5.12.1" level="project" />
-    <orderEntry type="library" name="Maven: org.activiti:activiti-bpmn-converter:5.12.1" level="project" />
-    <orderEntry type="library" name="Maven: org.activiti:activiti-bpmn-model:5.12.1" level="project" />
+    <orderEntry type="library" name="Maven: org.activiti:activiti-engine:5.12.2" level="project" />
+    <orderEntry type="library" name="Maven: org.activiti:activiti-bpmn-converter:5.12.2" level="project" />
+    <orderEntry type="library" name="Maven: org.activiti:activiti-bpmn-model:5.12.2" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.4" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.6.6" level="project" />
@@ -49,7 +49,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-asm:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.activiti:activiti-spring:5.12.1" level="project" />
+    <orderEntry type="library" name="Maven: org.activiti:activiti-spring:5.12.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
@@ -59,8 +59,8 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: commons-dbcp:commons-dbcp:1.4" level="project" />
     <orderEntry type="library" name="Maven: commons-pool:commons-pool:1.5.4" level="project" />
-    <orderEntry type="library" name="Maven: org.activiti:activiti-explorer:5.12" level="project" />
-    <orderEntry type="library" name="Maven: org.activiti:activiti-json-converter:5.12" level="project" />
+    <orderEntry type="library" name="Maven: org.activiti:activiti-explorer:5.12.2" level="project" />
+    <orderEntry type="library" name="Maven: org.activiti:activiti-json-converter:5.12.2" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.9" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.7" level="project" />
     <orderEntry type="library" name="Maven: math.geom:javaGeom:0.11.0" level="project" />
@@ -73,8 +73,8 @@
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-all:2.0.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.activiti:activiti-modeler:5.12" level="project" />
-    <orderEntry type="library" name="Maven: org.activiti:activiti-common-rest:5.12" level="project" />
+    <orderEntry type="library" name="Maven: org.activiti:activiti-modeler:5.12.2" level="project" />
+    <orderEntry type="library" name="Maven: org.activiti:activiti-common-rest:5.12.2" level="project" />
     <orderEntry type="library" name="Maven: org.restlet.jee:org.restlet:2.0.15" level="project" />
     <orderEntry type="library" name="Maven: org.osgi:org.osgi.core:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.restlet.jee:org.restlet.ext.servlet:2.0.15" level="project" />
