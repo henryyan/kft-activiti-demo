@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
 
 	<description>Spring公共配置</description>
 
@@ -80,6 +80,7 @@
 		
 		<!-- 生成流程图的字体 -->
 		<property name="activityFontName" value="宋体" />
+		<property name="labelFontName" value="宋体" />
 
 		<!-- 缓存支持
 		<property name="processDefinitionCache">
