@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
 	<!-- 自动扫描且只扫描@Controller -->
@@ -24,16 +23,6 @@
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
-		p:messageConverters-ref="messageConverters"></bean>
-
-	<util:list id="messageConverters">
-		<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
-		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-		<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
-		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
-	</util:list>
 
 	<!-- 支持上传文件 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
