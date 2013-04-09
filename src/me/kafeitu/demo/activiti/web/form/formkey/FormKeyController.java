@@ -46,7 +46,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * 外置表单Controller
  * 了解不同表单请访问：http://www.kafeitu.me/activiti/2012/08/05/diff-activiti
  * -workflow-forms.html
- * 
+ *
  * @author HenryYan
  */
 @Controller
@@ -78,7 +78,7 @@ public class FormKeyController {
 
   /**
    * 动态form流程列表
-   * 
+   *
    * @param model
    * @return
    */
@@ -167,7 +167,7 @@ public class FormKeyController {
   @RequestMapping(value = "start-process/{processDefinitionId}")
   @SuppressWarnings("unchecked")
   public String submitStartFormAndStartProcessInstance(@PathVariable("processDefinitionId") String processDefinitionId, RedirectAttributes redirectAttributes,
-          HttpServletRequest request) {
+                                                       HttpServletRequest request) {
     Map<String, String> formProperties = new HashMap<String, String>();
 
     // 从request中读取参数然后转换
@@ -200,7 +200,7 @@ public class FormKeyController {
 
   /**
    * task列表
-   * 
+   *
    * @param model
    * @return
    */
@@ -220,10 +220,10 @@ public class FormKeyController {
             + " and D.KEY_ = #{processDefinitionKey} and RES.SUSPENSION_STATE_ = #{suspensionState}";
 
     // 当前人在候选人或者候选组范围之内
-    String needClaimSql = "select distinct RES.* from ACT_RU_TASK RES inner join ACT_RU_IDENTITYLINK I on I.TASK_ID_ = RES.ID_ inner join ACT_RE_PROCDEF D on RES.PROC_DEF_ID_ = D.ID_ WHERE"
-            + " D.KEY_ = #{processDefinitionKey} and RES.ASSIGNEE_ is null and I.TYPE_ = 'candidate'"
+    String needClaimSql = "select distinct RES1.* from ACT_RU_TASK RES1 inner join ACT_RU_IDENTITYLINK I on I.TASK_ID_ = RES1.ID_ inner join ACT_RE_PROCDEF D1 on RES1.PROC_DEF_ID_ = D1.ID_ WHERE"
+            + " D1.KEY_ = #{processDefinitionKey} and RES1.ASSIGNEE_ is null and I.TYPE_ = 'candidate'"
             + " and ( I.USER_ID_ = #{userId} or I.GROUP_ID_ IN (select g.GROUP_ID_ from ACT_ID_MEMBERSHIP g where g.USER_ID_ = #{userId} ) )"
-            + " and RES.SUSPENSION_STATE_ = #{suspensionState}";
+            + " and RES1.SUSPENSION_STATE_ = #{suspensionState}";
     String sql = asigneeSql + " union all " + needClaimSql;
     NativeTaskQuery query = taskService.createNativeTaskQuery().sql(sql)
             .parameter("processDefinitionKey", "leave-formkey").parameter("suspensionState", SuspensionState.ACTIVE.getStateCode())
@@ -249,7 +249,7 @@ public class FormKeyController {
 
   /**
    * 运行中的流程实例
-   * 
+   *
    * @param model
    * @return
    */
@@ -267,7 +267,7 @@ public class FormKeyController {
   }
   /**
    * 已结束的流程实例
-   * 
+   *
    * @param model
    * @return
    */
@@ -278,7 +278,7 @@ public class FormKeyController {
     int[] pageParams = PageUtil.init(page, request);
     HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-formkey").orderByProcessInstanceEndTime().desc().finished();
     List<HistoricProcessInstance> list = query.listPage(pageParams[0], pageParams[1]);
-    
+
     page.setResult(list);
     page.setTotalCount(query.count());
     mav.addObject("page", page);
