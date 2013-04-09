@@ -220,10 +220,10 @@ public class FormKeyController {
             + " and D.KEY_ = #{processDefinitionKey} and RES.SUSPENSION_STATE_ = #{suspensionState}";
 
     // 当前人在候选人或者候选组范围之内
-    String needClaimSql = "select distinct RES.* from ACT_RU_TASK RES inner join ACT_RU_IDENTITYLINK I on I.TASK_ID_ = RES.ID_ inner join ACT_RE_PROCDEF D on RES.PROC_DEF_ID_ = D.ID_ WHERE"
-            + " D.KEY_ = #{processDefinitionKey} and RES.ASSIGNEE_ is null and I.TYPE_ = 'candidate'"
+    String needClaimSql = "select distinct RES1.* from ACT_RU_TASK RES1 inner join ACT_RU_IDENTITYLINK I on I.TASK_ID_ = RES1.ID_ inner join ACT_RE_PROCDEF D1 on RES1.PROC_DEF_ID_ = D1.ID_ WHERE"
+            + " D1.KEY_ = #{processDefinitionKey} and RES1.ASSIGNEE_ is null and I.TYPE_ = 'candidate'"
             + " and ( I.USER_ID_ = #{userId} or I.GROUP_ID_ IN (select g.GROUP_ID_ from ACT_ID_MEMBERSHIP g where g.USER_ID_ = #{userId} ) )"
-            + " and RES.SUSPENSION_STATE_ = #{suspensionState}";
+            + " and RES1.SUSPENSION_STATE_ = #{suspensionState}";
     String sql = asigneeSql + " union all " + needClaimSql;
     NativeTaskQuery query = taskService.createNativeTaskQuery().sql(sql)
             .parameter("processDefinitionKey", "leave-formkey").parameter("suspensionState", SuspensionState.ACTIVE.getStateCode())
