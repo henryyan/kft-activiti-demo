@@ -83,6 +83,7 @@
 						<a href="${ctx}/service/editor?id=${model.id}" target="_blank">编辑</a>
 						<a href="${ctx}/workflow/model/deploy/${model.id}">部署</a>
 						<a href="${ctx}/workflow/model/export/${model.id}" target="_blank">导出</a>
+                        <a href="${ctx}/workflow/model/delete/${model.id}">删除</a>
 					</td>
 				</tr>
 			</c:forEach>

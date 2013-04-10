@@ -96,7 +96,10 @@
 							<a href="processdefinition/update/suspend/${process.id}">挂起</a>
 						</c:if>
 					</td>
-					<td><a href='${ctx }/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a></td>
+					<td>
+                        <a href='${ctx }/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a>
+                        <a href='${ctx }/workflow/process/convert-to-model/${process.id}'>转换为Model</a>
+                    </td>
 				</tr>
 			</c:forEach>
 		</tbody>

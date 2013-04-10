@@ -2,6 +2,8 @@ package me.kafeitu.demo.activiti.web.workflow;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +14,9 @@ import java.util.zip.ZipInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
 import me.kafeitu.demo.activiti.service.activiti.WorkflowTraceService;
@@ -20,16 +25,23 @@ import me.kafeitu.demo.activiti.util.PageUtil;
 import me.kafeitu.demo.activiti.util.UserUtil;
 import me.kafeitu.demo.activiti.util.WorkflowUtils;
 
+import org.activiti.bpmn.converter.BpmnXMLConverter;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.editor.constants.ModelDataJsonConstants;
+import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.apache.commons.io.FilenameUtils;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +57,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 流程管理控制器
- * 
+ *
  * @author HenryYan
  */
 @Controller
@@ -68,7 +80,7 @@ public class ActivitiController {
 
   /**
    * 流程定义列表
-   * 
+   *
    * @return
    */
   @RequestMapping(value = "/process-list")
@@ -79,7 +91,7 @@ public class ActivitiController {
      * 保存两个对象，一个是ProcessDefinition（流程定义），一个是Deployment（流程部署）
      */
     List<Object[]> objects = new ArrayList<Object[]>();
-    
+
     Page<Object[]> page = new Page<Object[]>(PageUtil.PAGE_SIZE);
     int[] pageParams = PageUtil.init(page, request);
 
@@ -88,7 +100,7 @@ public class ActivitiController {
     for (ProcessDefinition processDefinition : processDefinitionList) {
       String deploymentId = processDefinition.getDeploymentId();
       Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
-      objects.add(new Object[] { processDefinition, deployment });
+      objects.add(new Object[]{processDefinition, deployment});
     }
 
     page.setTotalCount(processDefinitionQuery.count());
@@ -100,7 +112,7 @@ public class ActivitiController {
 
   /**
    * 部署全部流程
-   * 
+   *
    * @return
    * @throws Exception
    */
@@ -112,17 +124,15 @@ public class ActivitiController {
 
   /**
    * 读取资源，通过部署ID
-   * 
-   * @param deploymentId
-   *          流程部署的ID
-   * @param resourceName
-   *          资源名称(foo.xml|foo.png)
+   *
+   * @param deploymentId 流程部署的ID
+   * @param resourceName 资源名称(foo.xml|foo.png)
    * @param response
    * @throws Exception
    */
   @RequestMapping(value = "/resource/deployment")
   public void loadByDeployment(@RequestParam("deploymentId") String deploymentId, @RequestParam("resourceName") String resourceName,
-          HttpServletResponse response) throws Exception {
+                               HttpServletResponse response) throws Exception {
     InputStream resourceAsStream = repositoryService.getResourceAsStream(deploymentId, resourceName);
     byte[] b = new byte[1024];
     int len = -1;
@@ -133,11 +143,9 @@ public class ActivitiController {
 
   /**
    * 读取资源，通过流程ID
-   * 
-   * @param resourceType
-   *          资源类型(xml|image)
-   * @param processInstanceId
-   *          流程实例ID
+   *
+   * @param resourceType      资源类型(xml|image)
+   * @param processInstanceId 流程实例ID
    * @param response
    * @throws Exception
    */
@@ -165,9 +173,8 @@ public class ActivitiController {
 
   /**
    * 删除部署的流程，级联删除流程实例
-   * 
-   * @param deploymentId
-   *          流程部署ID
+   *
+   * @param deploymentId 流程部署ID
    */
   @RequestMapping(value = "/process/delete")
   public String delete(@RequestParam("deploymentId") String deploymentId) {
@@ -177,7 +184,7 @@ public class ActivitiController {
 
   /**
    * 输出跟踪流程信息
-   * 
+   *
    * @param processInstanceId
    * @return
    * @throws Exception
@@ -217,6 +224,38 @@ public class ActivitiController {
     }
 
     return "redirect:/workflow/process-list";
+  }
+
+  @RequestMapping(value = "/process/convert-to-model/{processDefinitionId}")
+  public String convertToModel(@PathVariable("processDefinitionId") String processDefinitionId)
+          throws UnsupportedEncodingException, XMLStreamException {
+    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+            .processDefinitionId(processDefinitionId).singleResult();
+    InputStream bpmnStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(),
+            processDefinition.getResourceName());
+    XMLInputFactory xif = XMLInputFactory.newInstance();
+    InputStreamReader in = new InputStreamReader(bpmnStream, "UTF-8");
+    XMLStreamReader xtr = xif.createXMLStreamReader(in);
+    BpmnModel bpmnModel = new BpmnXMLConverter().convertToBpmnModel(xtr);
+
+    BpmnJsonConverter converter = new BpmnJsonConverter();
+    ObjectNode modelNode = converter.convertToJson(bpmnModel);
+    Model modelData = repositoryService.newModel();
+    modelData.setKey(processDefinition.getKey());
+    modelData.setName(processDefinition.getResourceName());
+    modelData.setCategory(processDefinition.getDeploymentId());
+
+    ObjectNode modelObjectNode = new ObjectMapper().createObjectNode();
+    modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, processDefinition.getName());
+    modelObjectNode.put(ModelDataJsonConstants.MODEL_REVISION, 1);
+    modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, processDefinition.getDescription());
+    modelData.setMetaInfo(modelObjectNode.toString());
+
+    repositoryService.saveModel(modelData);
+
+    repositoryService.addModelEditorSource(modelData.getId(), modelNode.toString().getBytes("utf-8"));
+
+    return "redirect:/workflow/model/list";
   }
 
   /**
@@ -279,7 +318,7 @@ public class ActivitiController {
    */
   @RequestMapping(value = "processdefinition/update/{state}/{processDefinitionId}")
   public String updateState(@PathVariable("state") String state, @PathVariable("processDefinitionId") String processDefinitionId,
-          RedirectAttributes redirectAttributes) {
+                            RedirectAttributes redirectAttributes) {
     if (state.equals("active")) {
       redirectAttributes.addFlashAttribute("message", "已激活ID为[" + processDefinitionId + "]的流程定义。");
       repositoryService.activateProcessDefinitionById(processDefinitionId, true, null);
@@ -292,7 +331,7 @@ public class ActivitiController {
 
   /**
    * 导出图片文件到硬盘
-   * 
+   *
    * @return
    */
   @RequestMapping(value = "export/diagrams")
