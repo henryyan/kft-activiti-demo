@@ -33,6 +33,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -194,6 +195,26 @@ public class ActivitiController {
   public List<Map<String, Object>> traceProcess(@RequestParam("pid") String processInstanceId) throws Exception {
     List<Map<String, Object>> activityInfos = traceService.traceProcess(processInstanceId);
     return activityInfos;
+  }
+
+  /**
+   * 读取带跟踪的图片
+   */
+  @RequestMapping(value = "/process/trace/auto/{executionId}")
+  public void readResource(@PathVariable("executionId") String executionId, HttpServletResponse response)
+          throws Exception {
+    System.getSecurityManager()
+    ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
+    BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
+    List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
+    InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
+
+    // 输出资源内容到相应对象
+    byte[] b = new byte[1024];
+    int len;
+    while ((len = imageStream.read(b, 0, 1024)) != -1) {
+      response.getOutputStream().write(b, 0, len);
+    }
   }
 
   @RequestMapping(value = "/deploy")
