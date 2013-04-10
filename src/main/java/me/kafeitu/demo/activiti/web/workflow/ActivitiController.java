@@ -203,7 +203,6 @@ public class ActivitiController {
   @RequestMapping(value = "/process/trace/auto/{executionId}")
   public void readResource(@PathVariable("executionId") String executionId, HttpServletResponse response)
           throws Exception {
-    System.getSecurityManager()
     ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
     BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
     List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
