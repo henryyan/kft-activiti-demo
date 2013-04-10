@@ -132,4 +132,10 @@ public class ModelController {
     }
   }
 
+  @RequestMapping(value = "delete/{modelId}")
+  public String delete(@PathVariable("modelId") String modelId) {
+     repositoryService.deleteModel(modelId);
+    return "redirect:/workflow/model/list";
+  }
+
 }

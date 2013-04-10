@@ -46,7 +46,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * 外置表单Controller
  * 了解不同表单请访问：http://www.kafeitu.me/activiti/2012/08/05/diff-activiti
  * -workflow-forms.html
- *
+ * 
  * @author HenryYan
  */
 @Controller
@@ -78,7 +78,7 @@ public class FormKeyController {
 
   /**
    * 动态form流程列表
-   *
+   * 
    * @param model
    * @return
    */
@@ -167,7 +167,7 @@ public class FormKeyController {
   @RequestMapping(value = "start-process/{processDefinitionId}")
   @SuppressWarnings("unchecked")
   public String submitStartFormAndStartProcessInstance(@PathVariable("processDefinitionId") String processDefinitionId, RedirectAttributes redirectAttributes,
-                                                       HttpServletRequest request) {
+          HttpServletRequest request) {
     Map<String, String> formProperties = new HashMap<String, String>();
 
     // 从request中读取参数然后转换
@@ -200,7 +200,7 @@ public class FormKeyController {
 
   /**
    * task列表
-   *
+   * 
    * @param model
    * @return
    */
@@ -249,7 +249,7 @@ public class FormKeyController {
 
   /**
    * 运行中的流程实例
-   *
+   * 
    * @param model
    * @return
    */
@@ -267,7 +267,7 @@ public class FormKeyController {
   }
   /**
    * 已结束的流程实例
-   *
+   * 
    * @param model
    * @return
    */
@@ -278,7 +278,7 @@ public class FormKeyController {
     int[] pageParams = PageUtil.init(page, request);
     HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-formkey").orderByProcessInstanceEndTime().desc().finished();
     List<HistoricProcessInstance> list = query.listPage(pageParams[0], pageParams[1]);
-
+    
     page.setResult(list);
     page.setTotalCount(query.count());
     mav.addObject("page", page);

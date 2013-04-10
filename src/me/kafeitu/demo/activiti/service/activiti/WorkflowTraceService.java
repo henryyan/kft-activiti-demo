@@ -151,9 +151,6 @@ public class WorkflowTraceService {
 		String roles = "";
 		for (Expression expression : candidateGroupIdExpressions) {
 			String expressionText = expression.getExpressionText();
-			if (expressionText.startsWith("$")) {
-				expressionText = expressionText.replace("${insuranceType}", "life");
-			}
 			String roleName = identityService.createGroupQuery().groupId(expressionText).singleResult().getName();
 			roles += roleName;
 		}
