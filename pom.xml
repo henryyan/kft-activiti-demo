@@ -43,7 +43,7 @@
 		
 		<!-- 5.12.1支持Native Query分页查询 -->
 		<!-- 5.12.2支持流程图的输出流显示文字功能 -->
-		<activiti.version>5.12.2</activiti.version>
+		<activiti.version>5.12.1</activiti.version>
 
 		<!-- jdbc h2 -->
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
