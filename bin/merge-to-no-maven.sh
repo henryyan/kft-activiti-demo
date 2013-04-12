@@ -3,7 +3,7 @@ NO_MAVEN_DIR="../kft-activiti-demo-no-maven"
 echo "delete all files of branch no-maven"
 
 #echo "delete libs"
-#rm $NO_MAVEN_DIR/WebContent/WEB-INF/lib/*
+rm $NO_MAVEN_DIR/WebContent/WEB-INF/lib/*
 
 echo "delete java"
 rm -rf $NO_MAVEN_DIR/src/*
@@ -24,8 +24,12 @@ rm -rf $NO_MAVEN_DIR/WebContent/libs
 rm -rf $NO_MAVEN_DIR/WebContent/WEB-INF/views
 
 echo "copying libs to no-maven"
-#mvn dependency:copy-dependencies
-#cp ./target/dependency/* $NO_MAVEN_DIR/WebContent/WEB-INF/lib/
+mvn package -Dmaven.test.skip=true
+cp ./target/kft-activiti-demo-1.7.1/WEB-INF/lib/* $NO_MAVEN_DIR/WebContent/WEB-INF/lib/
+cd $NO_MAVEN_DIR
+git checkout -- WebContent/WEB-INF/lib/junit-4.10.jar
+git checkout -- WebContent/WEB-INF/lib/servlet-api-2.5.jar
+cd -
 
 echo "copying java"
 cp -r src/main/java/* $NO_MAVEN_DIR/src
@@ -34,6 +38,12 @@ cp -r src/test/java/* $NO_MAVEN_DIR/test
 echo "copying java resources"
 cp -r src/main/resources/* $NO_MAVEN_DIR/resources
 cp target/classes/application.properties $NO_MAVEN_DIR/resources
+cd $NO_MAVEN_DIR
+git checkout -- resources/activiti.cfg.xml
+git checkout -- resources/application.test.properties
+git checkout -- resources/applicationContext-test.xml
+git checkout -- resources/data/sample-data.xml
+cd -
 
 echo "copying web resources"
 cp -r src/main/webapp/common $NO_MAVEN_DIR/WebContent/common
