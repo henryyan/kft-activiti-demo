@@ -22,7 +22,7 @@ create table ACT_HI_ACTINST (
     EXECUTION_ID_ varchar(64) not null,
     ACT_ID_ varchar(255) not null,
     TASK_ID_ varchar(64),
-   	CALL_PROC_INST_ID_ varchar(64),
+    CALL_PROC_INST_ID_ varchar(64),
     ACT_NAME_ varchar(255),
     ACT_TYPE_ varchar(255) not null,
     ASSIGNEE_ varchar(64),
@@ -44,11 +44,13 @@ create table ACT_HI_TASKINST (
     OWNER_ varchar(255),
     ASSIGNEE_ varchar(255),
     START_TIME_ timestamp not null,
+    CLAIM_TIME_ timestamp,
     END_TIME_ timestamp,
     DURATION_ bigint,
     DELETE_REASON_ varchar(4000),
     PRIORITY_ integer,
     DUE_DATE_ timestamp,
+    FORM_KEY_ varchar(255),
     primary key (ID_)
 );
 
@@ -130,3 +132,5 @@ create index ACT_IDX_HI_ACT_INST_PROCINST on ACT_HI_ACTINST(PROC_INST_ID_, ACT_I
 alter table ACT_HI_PROCINST
     add constraint ACT_UNIQ_HI_BUS_KEY
     unique(PROC_DEF_ID_, BUSINESS_KEY_);
+    
+create index ACT_IDX_HI_ACT_INST_EXEC on ACT_HI_ACTINST(EXECUTION_ID_, ACT_ID_);    

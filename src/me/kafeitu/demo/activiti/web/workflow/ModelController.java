@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -56,7 +57,7 @@ public class ModelController {
   /**
    * 创建模型
    */
-  @RequestMapping(value = "create")
+  @RequestMapping(value = "create", method = RequestMethod.POST)
   public void create(@RequestParam("name") String name, @RequestParam("key") String key, @RequestParam("description") String description,
           HttpServletRequest request, HttpServletResponse response) {
     try {

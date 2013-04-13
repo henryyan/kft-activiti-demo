@@ -1,46 +1,32 @@
 package me.kafeitu.demo.activiti.web.workflow;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipInputStream;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import me.kafeitu.demo.activiti.service.activiti.WorkflowProcessDefinitionService;
 import me.kafeitu.demo.activiti.service.activiti.WorkflowTraceService;
 import me.kafeitu.demo.activiti.util.Page;
 import me.kafeitu.demo.activiti.util.PageUtil;
 import me.kafeitu.demo.activiti.util.UserUtil;
 import me.kafeitu.demo.activiti.util.WorkflowUtils;
-
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
+import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
+import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.activiti.spring.ProcessEngineFactoryBean;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.slf4j.Logger;
@@ -55,6 +41,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipInputStream;
 
 /**
  * 流程管理控制器
@@ -78,6 +81,9 @@ public class ActivitiController {
   protected WorkflowTraceService traceService;
 
   protected static Map<String, ProcessDefinition> PROCESS_DEFINITION_CACHE = new HashMap<String, ProcessDefinition>();
+
+  @Autowired
+  ProcessEngineFactoryBean processEngine;
 
   /**
    * 流程定义列表
@@ -126,15 +132,21 @@ public class ActivitiController {
   /**
    * 读取资源，通过部署ID
    *
-   * @param deploymentId 流程部署的ID
-   * @param resourceName 资源名称(foo.xml|foo.png)
-   * @param response
+   * @param processDefinitionId 流程定义
+   * @param resourceType 资源类型(xml|image)
    * @throws Exception
    */
-  @RequestMapping(value = "/resource/deployment")
-  public void loadByDeployment(@RequestParam("deploymentId") String deploymentId, @RequestParam("resourceName") String resourceName,
+  @RequestMapping(value = "/resource/read")
+  public void loadByDeployment(@RequestParam("processDefinitionId") String processDefinitionId, @RequestParam("resourceType") String resourceType,
                                HttpServletResponse response) throws Exception {
-    InputStream resourceAsStream = repositoryService.getResourceAsStream(deploymentId, resourceName);
+    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId).singleResult();
+    String resourceName = "";
+    if (resourceType.equals("image")) {
+      resourceName = processDefinition.getDiagramResourceName();
+    } else if (resourceType.equals("xml")) {
+      resourceName = processDefinition.getResourceName();
+    }
+    InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
     byte[] b = new byte[1024];
     int len = -1;
     while ((len = resourceAsStream.read(b, 0, 1024)) != -1) {
@@ -206,6 +218,9 @@ public class ActivitiController {
     ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
     BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
     List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
+    ProcessEngineImpl defaultProcessEngine = (ProcessEngineImpl) ProcessEngines.getDefaultProcessEngine();
+    Context.setProcessEngineConfiguration(defaultProcessEngine.getProcessEngineConfiguration());
+    Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
     InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
 
     // 输出资源内容到相应对象

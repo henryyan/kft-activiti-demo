@@ -35,10 +35,10 @@
     						$('#name').focus();
     						return;
     					}
-    					setTimeout(function() {
-    						location.reload();
-    					}, 1000);
-    					window.open(ctx + '/workflow/model/create?name=' + $('#name').val() + '&description=' + $('#description').val() + '&key=' + $('#key').val());
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+    					$('#modelForm').submit();
     				}
     			}]
     		});
@@ -90,26 +90,28 @@
 		</tbody>
 	</table>
 	<div id="createModelTemplate" title="创建模型" class="template">
+        <form id="modelForm" action="${ctx}/workflow/model/create" target="_blank" method="post">
 		<table>
 			<tr>
-				<td>名称（不支持中文）：</td>
+				<td>名称：</td>
 				<td>
-					<input id="name" type="text" />
+					<input id="name" name="name" type="text" />
 				</td>
 			</tr>
 			<tr>
-				<td>KEY（不支持中文）：</td>
+				<td>KEY：</td>
 				<td>
-					<input id="key" type="text" />
+					<input id="key" name="key" type="text" />
 				</td>
 			</tr>
 			<tr>
 				<td>描述：</td>
 				<td>
-					<textarea id="description" style="width:300px;height: 50px;"></textarea>
+					<textarea id="description" name="description" style="width:300px;height: 50px;"></textarea>
 				</td>
 			</tr>
 		</table>
+        </form>
 	</div>
 </body>
 </html>
