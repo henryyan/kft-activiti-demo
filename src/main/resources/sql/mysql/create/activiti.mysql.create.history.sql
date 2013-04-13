@@ -45,11 +45,13 @@ create table ACT_HI_TASKINST (
     OWNER_ varchar(255),
     ASSIGNEE_ varchar(255),
     START_TIME_ datetime not null,
+    CLAIM_TIME_ datetime,
     END_TIME_ datetime,
     DURATION_ bigint,
     DELETE_REASON_ varchar(4000),
     PRIORITY_ integer,
     DUE_DATE_ datetime,
+    FORM_KEY_ varchar(255),
     primary key (ID_)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -127,3 +129,4 @@ create index ACT_IDX_HI_DETAIL_TASK_ID on ACT_HI_DETAIL(TASK_ID_);
 create index ACT_IDX_HI_PROCVAR_PROC_INST on ACT_HI_VARINST(PROC_INST_ID_);
 create index ACT_IDX_HI_PROCVAR_NAME_TYPE on ACT_HI_VARINST(NAME_, VAR_TYPE_);
 create index ACT_IDX_HI_ACT_INST_PROCINST on ACT_HI_ACTINST(PROC_INST_ID_, ACT_ID_);
+create index ACT_IDX_HI_ACT_INST_EXEC on ACT_HI_ACTINST(EXECUTION_ID_, ACT_ID_);

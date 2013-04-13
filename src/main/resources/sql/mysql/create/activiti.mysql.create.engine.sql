@@ -6,10 +6,10 @@ create table ACT_GE_PROPERTY (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 insert into ACT_GE_PROPERTY
-values ('schema.version', '5.11', 1);
+values ('schema.version', '5.12', 1);
 
 insert into ACT_GE_PROPERTY
-values ('schema.history', 'create(5.11)', 1);
+values ('schema.history', 'create(5.12)', 1);
 
 insert into ACT_GE_PROPERTY
 values ('next.dbid', '1', 1);
@@ -38,8 +38,8 @@ create table ACT_RE_MODEL (
     NAME_ varchar(255),
     KEY_ varchar(255),
     CATEGORY_ varchar(255),
-    CREATE_TIME_ timestamp,
-    LAST_UPDATE_TIME_ timestamp,
+    CREATE_TIME_ timestamp null,
+    LAST_UPDATE_TIME_ timestamp null,
     VERSION_ integer,
     META_INFO_ varchar(4000),
     DEPLOYMENT_ID_ varchar(64),
@@ -69,7 +69,7 @@ create table ACT_RU_EXECUTION (
 
 create table ACT_RU_JOB (
     ID_ varchar(64) NOT NULL,
-	REV_ integer,
+  REV_ integer,
     TYPE_ varchar(255) NOT NULL,
     LOCK_EXP_TIME_ timestamp NULL,
     LOCK_OWNER_ varchar(255),
@@ -130,6 +130,7 @@ create table ACT_RU_IDENTITYLINK (
     TYPE_ varchar(255),
     USER_ID_ varchar(255),
     TASK_ID_ varchar(64),
+    PROC_INST_ID_ varchar(64),
     PROC_DEF_ID_ varchar(64),    
     primary key (ID_)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;
@@ -140,7 +141,7 @@ create table ACT_RU_VARIABLE (
     TYPE_ varchar(255) not null,
     NAME_ varchar(255) not null,
     EXECUTION_ID_ varchar(64),
-	  PROC_INST_ID_ varchar(64),
+    PROC_INST_ID_ varchar(64),
     TASK_ID_ varchar(64),
     BYTEARRAY_ID_ varchar(64),
     DOUBLE_ double,
@@ -209,6 +210,11 @@ alter table ACT_RU_IDENTITYLINK
     add constraint ACT_FK_ATHRZ_PROCEDEF 
     foreign key (PROC_DEF_ID_) 
     references ACT_RE_PROCDEF(ID_);
+    
+alter table ACT_RU_IDENTITYLINK
+    add constraint ACT_FK_IDL_PROCINST
+    foreign key (PROC_INST_ID_) 
+    references ACT_RU_EXECUTION (ID_);       
     
 alter table ACT_RU_TASK
     add constraint ACT_FK_TASK_EXE
