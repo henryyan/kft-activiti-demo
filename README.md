@@ -34,6 +34,11 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 
 ## Changelog
 
+### 1.7.1（2013-04-10）
+1. 解决流程引擎自动生成的图片跟踪坐标错乱问题
+2. 使用重新打包的5.12.1，解决JDK6部署时报错问题
+3. 解决跟踪流程图时（调用引擎的图片生成工具）中文乱码
+
 ### 1.7.0（2013-03-10）
 1. 添加分页查询演示
 2. 添加流程定义对象(ProcessDefinition)缓存演示, see: [Tweaking the process definition cache in Activiti 5.12](http://www.jorambarrez.be/blog/2012/12/20/tweaking-process-definition-cache/)
