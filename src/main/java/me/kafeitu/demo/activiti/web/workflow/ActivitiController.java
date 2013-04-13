@@ -26,6 +26,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.slf4j.Logger;
@@ -131,15 +132,21 @@ public class ActivitiController {
   /**
    * 读取资源，通过部署ID
    *
-   * @param deploymentId 流程部署的ID
-   * @param resourceName 资源名称(foo.xml|foo.png)
-   * @param response
+   * @param processDefinitionId 流程定义
+   * @param resourceType 资源类型(xml|image)
    * @throws Exception
    */
-  @RequestMapping(value = "/resource/deployment")
-  public void loadByDeployment(@RequestParam("deploymentId") String deploymentId, @RequestParam("resourceName") String resourceName,
+  @RequestMapping(value = "/resource/read")
+  public void loadByDeployment(@RequestParam("processDefinitionId") String processDefinitionId, @RequestParam("resourceType") String resourceType,
                                HttpServletResponse response) throws Exception {
-    InputStream resourceAsStream = repositoryService.getResourceAsStream(deploymentId, resourceName);
+    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId).singleResult();
+    String resourceName = "";
+    if (resourceType.equals("image")) {
+      resourceName = processDefinition.getDiagramResourceName();
+    } else if (resourceType.equals("xml")) {
+      resourceName = processDefinition.getResourceName();
+    }
+    InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
     byte[] b = new byte[1024];
     int len = -1;
     while ((len = resourceAsStream.read(b, 0, 1024)) != -1) {
