@@ -12,7 +12,7 @@
 
 # 框架版本
 
-* Activiti: **5.12.2**
+* Activiti: **5.12.1-kft**
 
 * Spring: **3.1.1.RELEASE**
 
