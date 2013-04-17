@@ -97,6 +97,11 @@
                 <bean class="me.kafeitu.demo.activiti.activiti.form.UsersFormType"/>
             </list>
         </property>
+
+        <!-- 全局监听器 -->
+        <property name="globalTaskListener" >
+            <bean class="me.kafeitu.demo.activiti.activiti.listener.GlobalTaskListener" />
+        </property>
     </bean>
 
     <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
