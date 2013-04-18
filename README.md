@@ -12,7 +12,7 @@
 
 # 框架版本
 
-* Activiti: **5.12.2**
+* Activiti: **5.12.1-kft**
 
 * Spring: **3.1.1.RELEASE**
 
@@ -33,6 +33,10 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 ![kft-activiti-demo截图](http://www.kafeitu.me/files/2012/05/kft-activiti-demo.png)
 
 ## Changelog
+
+### 1.7.2（2013-04-17）
+1. 升级Activiti至5.12.1-kft版本
+2. 添加全局监听器演示
 
 ### 1.7.1（2013-04-10）
 1. 解决流程引擎自动生成的图片跟踪坐标错乱问题
