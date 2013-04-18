@@ -60,7 +60,7 @@
 	<repositories>
 		<repository>
 			<id>kafeitu</id>
-			<url>http://server.kafeitu.me:8081/nexus/content/repositories/releases</url>
+            <url>http://maven.kafeitu.me/nexus/content/groups/public</url>
 		</repository>
 		<repository>
 			<id>Activiti</id>
