@@ -219,9 +219,13 @@ public class ActivitiController {
     ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
     BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
     List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
-    ProcessEngineImpl defaultProcessEngine = (ProcessEngineImpl) ProcessEngines.getDefaultProcessEngine();
-    Context.setProcessEngineConfiguration(defaultProcessEngine.getProcessEngineConfiguration());
+    // 不使用spring请使用下面的两行代码
+//    ProcessEngineImpl defaultProcessEngine = (ProcessEngineImpl) ProcessEngines.getDefaultProcessEngine();
+//    Context.setProcessEngineConfiguration(defaultProcessEngine.getProcessEngineConfiguration());
+
+    // 使用spring注入引擎请使用下面的这行代码
     Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
+
     InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
 
     // 输出资源内容到相应对象
