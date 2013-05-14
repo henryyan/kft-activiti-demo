@@ -231,7 +231,7 @@ public class FormKeyController {
     List<Task> tasks = query.listPage(pageParams[0], pageParams[1]);
 
     page.setResult(tasks);
-    page.setTotalCount(query.sql("select count(*) from (" + sql + ")").count());
+    page.setTotalCount(query.sql("select count(*) from (" + sql + ") as CT").count());
     mav.addObject("page", page);
     return mav;
   }
