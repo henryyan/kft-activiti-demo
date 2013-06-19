@@ -40,11 +40,7 @@
 		<junit.version>4.10</junit.version>
 		<mockito.version>1.9.0</mockito.version>
 		<powermock.version>1.4.12</powermock.version>
-		
-		<!-- 支持Native Query分页查询 -->
-        <!-- 支持流程图的输出流显示文字功能 -->
-        <!-- 支持全局监听器 by 翔子 -->
-		<activiti.version>5.12.1-kft</activiti.version>
+		<activiti.version>5.13</activiti.version>
 
 		<!-- jdbc h2 -->
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
