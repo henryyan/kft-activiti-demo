@@ -10,6 +10,7 @@
 	<%@ include file="/common/include-base-styles.jsp" %>
     <%@ include file="/common/include-jquery-ui-theme.jsp" %>
     <link href="${ctx }/js/common/plugins/jui/extends/portlet/jquery.portlet.min.css?v=1.1.2" type="text/css" rel="stylesheet" />
+    <link href="${ctx }/js/common/plugins/qtip/jquery.qtip.css?v=1.1.2" type="text/css" rel="stylesheet" />
     <%@ include file="/common/include-custom-styles.jsp" %>
     <style type="text/css">
     	.template {display:none;}
