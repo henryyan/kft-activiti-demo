@@ -6,13 +6,13 @@
 
 **项目主页**：[http://www.kafeitu.me/activiti/2012/05/26/kft-activiti-demo.html](http://www.kafeitu.me/activiti/2012/05/26/kft-activiti-demo.html)
 
-**在线演示（亚马逊EC2）**：[http://demo.kafeitu.me/kft-activiti-demo](http://demo.kafeitu.me/kft-activiti-demo)
+**在线演示**：[http://demo.kafeitu.me/kft-activiti-demo](http://demo.kafeitu.me/kft-activiti-demo)
 
 **QQ群在线支持：**: 236540304
 
 # 框架版本
 
-* Activiti: **5.12.1-kft**
+* Activiti: **5.13**
 
 * Spring: **3.1.1.RELEASE**
 
