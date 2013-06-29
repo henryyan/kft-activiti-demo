@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,8 @@ public class PropertiesServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		try {
 			PropertyFileUtil.init();
+            ServletContext servletContext = config.getServletContext();
+            setParameterToServerContext(servletContext);;
 			logger.info("++++ 初始化[classpath下面的属性配置文件]完成 ++++");
 		} catch (IOException e) {
 			logger.error("初始化classpath下的属性文件失败", e);
@@ -56,6 +59,7 @@ public class PropertiesServlet extends HttpServlet {
 		if ("reload".equals(action)) { // 重载
 			try {
 				PropertyFileUtil.init();
+                setParameterToServerContext(req.getSession().getServletContext());
 				logger.info("++++ 重新初始化[classpath下面的属性配置文件]完成 ++++，{IP={}}", req.getRemoteAddr());
 				resp.getWriter().print("<b>属性文件重载成功！</b><br/>");
 				writeProperties(resp);
@@ -70,13 +74,17 @@ public class PropertiesServlet extends HttpServlet {
 		}
 	}
 
+    private void setParameterToServerContext(ServletContext servletContext) {
+        servletContext.setAttribute("prop", PropertyFileUtil.getKeyValueMap());
+    }
+
 	/**
 	 * 输出属性以及值列表到页面
 	 * @param resp
 	 * @throws IOException
 	 */
 	protected void writeProperties(HttpServletResponse resp) throws IOException {
-		Set<Object> keys = PropertyFileUtil.getKeys();
+		Set<String> keys = PropertyFileUtil.getKeys();
 		StringBuilder sb = new StringBuilder();
 		for (Object key : keys) {
 			sb.append(key + "<span style='color:red;font-weight:bold;'>=</span>" + PropertyFileUtil.get(key.toString()) + "<br/>");

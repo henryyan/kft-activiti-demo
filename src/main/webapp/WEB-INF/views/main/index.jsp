@@ -80,7 +80,7 @@ PropertyFileUtil.init();
 	<div class="footer ui-state-default">
 		<a href="http://www.kafeitu.me" target="_blank">咖啡兔</a>
 		<span class="copyright">©2008-2013</span>
-		<span class="version">Version：<%=PropertyFileUtil.get("system.version") %></span>
+		<span class="version">Version：${prop['system.version']}</span>
 	</div>
 </div>
 <%@ include file="menu.jsp" %>
