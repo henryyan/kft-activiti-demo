@@ -56,7 +56,7 @@
 
 	<div class="arch template">
 		<ul>
-			<li>Activiti版本：<%=PropertyFileUtil.get("activiti.version") %></li>
+			<li>Activiti版本：${prop['activiti.version']}</li>
 			<li>Spring版本：3.1</li>
 			<li>使用<a href="http://maven.apache.org" target="_blank">Maven</a>管理依赖</li>
 		</ul>
