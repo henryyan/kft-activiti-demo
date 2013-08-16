@@ -185,7 +185,7 @@ public class DynamicFormController {
 
     User user = UserUtil.getUserFromSession(request.getSession());
 
-    // 用户未登陆不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
+    // 用户未登录不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
     if (user == null || StringUtils.isBlank(user.getId())) {
       return "redirect:/login?timeout=true";
     }
@@ -221,7 +221,7 @@ public class DynamicFormController {
     logger.debug("start form parameters: {}", formProperties);
 
     User user = UserUtil.getUserFromSession(request.getSession());
-    // 用户未登陆不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
+    // 用户未登录不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
     if (user == null || StringUtils.isBlank(user.getId())) {
       return "redirect:/login?timeout=true";
     }
@@ -252,7 +252,7 @@ public class DynamicFormController {
      * 在FormKeyController中有使用native方式查询的例子
      */
 
-    // 分配到当前登陆用户的任务
+    // 分配到当前登录用户的任务
     List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskAssignee(user.getId()).active().orderByTaskId().desc().list();
 
     // 为签收的任务

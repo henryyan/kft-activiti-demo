@@ -13,6 +13,9 @@ $(function() {
 					dataType: 'json',
 					url: ctx + '/workflow/task/todo/list',
 					formatter: function(o, pio, data) {
+                        if (data.length == 0) {
+                            return "无待办任务！";
+                        }
 						var ct = "<ol>";
 						$.each(data, function() {
 							ct += "<li>" + this.pdname + "->PID:" + this.pid + "-><span class='ui-state-highlight ui-corner-all'>" + this.name + "</span>";
@@ -43,7 +46,15 @@ $(function() {
 						return $('#multiInstance').html();
 					}
 				}
-			}]
+			}, {
+                title: '关于作者',
+                content: {
+                    type: 'text',
+                    text: function() {
+                        return $('.aboutme').html();
+                    }
+                }
+            }]
 		}, {
 			width: 250,
 			portlets: [{
@@ -54,15 +65,7 @@ $(function() {
 						return $('.demos').html();
 					}
 				}
-			}, {
-				title: '关于作者',
-				content: {
-					type: 'text',
-					text: function() {
-						return $('.aboutme').html();
-					}
-				}
-			}]
+			}   ]
 		}, {
 			width: 500,
 			portlets: [{

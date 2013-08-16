@@ -149,7 +149,7 @@ public class FormKeyController {
 
     User user = UserUtil.getUserFromSession(request.getSession());
 
-    // 用户未登陆不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
+    // 用户未登录不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
     if (user == null || StringUtils.isBlank(user.getId())) {
       return "redirect:/login?timeout=true";
     }
@@ -185,7 +185,7 @@ public class FormKeyController {
     logger.debug("start form parameters: {}", formProperties);
 
     User user = UserUtil.getUserFromSession(request.getSession());
-    // 用户未登陆不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
+    // 用户未登录不能操作，实际应用使用权限框架实现，例如Spring Security、Shiro等
     if (user == null || StringUtils.isBlank(user.getId())) {
       return "redirect:/login?timeout=true";
     }
