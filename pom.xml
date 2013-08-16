@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.kafeitu.demo</groupId>
 	<artifactId>kft-activiti-demo</artifactId>
-	<version>1.8.0</version>
+	<version>1.8.1</version>
 	<packaging>war</packaging>
 	<name>Activiti demo</name>
 	<description>activiti demo for version 5.12</description>
@@ -35,7 +35,7 @@
 		<joda-time.version>2.1</joda-time.version>
 		<slf4j.version>1.6.6</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
-		<jetty.version>9.0.4.v20130625</jetty.version>
+		<jetty.version>8.1.10.v20130312</jetty.version>
 		<h2.version>1.3.173</h2.version>
 		<junit.version>4.10</junit.version>
 		<mockito.version>1.9.0</mockito.version>
@@ -392,7 +392,7 @@
 
 		<!-- jetty -->
 		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
+			<groupId>org.eclipse.jetty.aggregate</groupId>
 			<artifactId>jetty-webapp</artifactId>
 			<version>${jetty.version}</version>
 			<scope>test</scope>
@@ -435,7 +435,7 @@
 
 			<!-- jetty插件, 设定context path与spring profile -->
 			<plugin>
-                <groupId>org.eclipse.jetty</groupId>
+                <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
