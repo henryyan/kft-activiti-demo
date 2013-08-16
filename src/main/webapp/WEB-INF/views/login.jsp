@@ -49,20 +49,20 @@
             <h2 id="error" class="alert alert-error">用户名或密码错误！！！</h2>
         </c:if>
         <c:if test="${not empty param.timeout}">
-            <h2 id="error" class="alert alert-error">未登陆或超时！！！</h2>
+            <h2 id="error" class="alert alert-error">未登录或超时！！！</h2>
         </c:if>
 
 		<div style="text-align: center;">
             <h2>工作流引擎Activiti演示项目</h2>
             <h3>
-                <a href="https://github.com/henryyan/kft-activiti-demo" target="_blank" style="text-decoration: none;">kft-activiti-demo</a>
+                <a href="https://github.com/henryyan/kft-activiti-demo" target="_blank" style="text-decoration: none;">kft-activiti-demo（v${prop['system.version']}）</a>
                 <a href="http://www.kafeitu.me/about.html" target="_blank" style="text-decoration: none;">（By 咖啡兔）</a></h3>
 		</div>
 		<hr />
 		<form action="${ctx }/user/logon" method="get">
 			<table>
 				<tr>
-					<td width="150" style="text-align: right;">用户名：</td>
+					<td width="200" style="text-align: right;">用户名：</td>
 					<td><input id="username" name="username" class="login-input" placeholder="用户名（见下左表）" /></td>
 				</tr>
 				<tr>
@@ -119,7 +119,7 @@
 		</div>
         <hr />
         <table>
-            <caption>如果登陆失败，请初始化用户数据，在项目根目录执行：</caption>
+            <caption>如果登录失败，请初始化用户数据，在项目根目录执行：</caption>
             <thead>
             <tr>
                 <th style="text-align: center;">Maven结构</th>
