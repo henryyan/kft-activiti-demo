@@ -24,7 +24,7 @@
 		<jdk.version>1.6</jdk.version>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<hibernate.version>4.1.4.Final</hibernate.version>
-		<spring-data-jpa.version>1.1.0.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>1.3.4.RELEASE</spring-data-jpa.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<ehcache.version>2.5.2</ehcache.version>
 		<jackson.version>2.0.4</jackson.version>
@@ -35,17 +35,18 @@
 		<joda-time.version>2.1</joda-time.version>
 		<slf4j.version>1.6.6</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
-		<jetty.version>8.1.10.v20130312</jetty.version>
-		<h2.version>1.3.167</h2.version>
+		<jetty.version>9.0.4.v20130625</jetty.version>
+		<h2.version>1.3.173</h2.version>
 		<junit.version>4.10</junit.version>
 		<mockito.version>1.9.0</mockito.version>
 		<powermock.version>1.4.12</powermock.version>
 		<activiti.version>5.13</activiti.version>
+        <activiti.engine.version>5.13.1-kft</activiti.engine.version>
 
 		<!-- jdbc h2 -->
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
-		<jdbc.driver.version>1.3.166</jdbc.driver.version>
+		<jdbc.driver.version>1.3.173</jdbc.driver.version>
 
 		<!-- jdbc mysql <jdbc.driver.groupId>mysql</jdbc.driver.groupId> <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId> 
 			<jdbc.driver.version>5.1.11</jdbc.driver.version> -->
@@ -74,7 +75,7 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
-			<version>${activiti.version}</version>
+			<version>${activiti.engine.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
@@ -391,7 +392,7 @@
 
 		<!-- jetty -->
 		<dependency>
-			<groupId>org.eclipse.jetty.aggregate</groupId>
+			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-webapp</artifactId>
 			<version>${jetty.version}</version>
 			<scope>test</scope>
@@ -434,8 +435,8 @@
 
 			<!-- jetty插件, 设定context path与spring profile -->
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
 					<webAppConfig>
@@ -474,6 +475,26 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- tomcat6 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat6-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <path>/${project.artifactId}</path>
+                </configuration>
+            </plugin>
+
+            <!-- tomcat7 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <path>/${project.artifactId}</path>
+                </configuration>
             </plugin>
 		</plugins>
 	</build>

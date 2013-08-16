@@ -28,69 +28,91 @@ import org.springframework.util.PropertiesPersister;
  */
 public class PropertyFileUtil {
 
+
+    private static final String DEFAULT_ENCODING = "UTF-8";
     private static Logger logger = LoggerFactory.getLogger(PropertyFileUtil.class);
-
     private static Properties properties;
-
     private static PropertiesPersister propertiesPersister = new DefaultPropertiesPersister();
     private static ResourceLoader resourceLoader = new DefaultResourceLoader();
-    private static final String DEFAULT_ENCODING = "UTF-8";
+    private static Properties activePropertyFiles = null;
+    private static String PROFILE_ID = StringUtils.EMPTY;
+    public static boolean INITIALIZED = false; // 是否已初始化
 
     /**
      * 初始化读取配置文件，读取的文件列表位于classpath下面的application-files.properties<br/>
-     *
+     * <p/>
      * 多个配置文件会用最后面的覆盖相同属性值
      *
-     * @throws IOException	读取属性文件时
+     * @throws IOException 读取属性文件时
      */
     public static void init() throws IOException {
         String fileNames = "application-files.properties";
+        PROFILE_ID = StringUtils.EMPTY;
         innerInit(fileNames);
+        activePropertyFiles(fileNames);
+        INITIALIZED = true;
     }
 
     /**
      * 初始化读取配置文件，读取的文件列表位于classpath下面的application-[type]-files.properties<br/>
-     *
+     * <p/>
      * 多个配置文件会用最后面的覆盖相同属性值
      *
-     * @param type 配置文件类型，application-[type]-files.properties
-     *
-     * @throws IOException	读取属性文件时
+     * @param profile 配置文件类型，application-[profile]-files.properties
+     * @throws IOException 读取属性文件时
      */
-    public static void init(String type) throws IOException {
-        String fileNames = "application-" + type + "-files.properties";
-        innerInit(fileNames);
+    public static void init(String profile) throws IOException {
+        if (StringUtils.isBlank(profile)) {
+            init();
+        } else {
+            PROFILE_ID = profile;
+            String fileNames = "application-" + profile + "-files.properties";
+            innerInit(fileNames);
+        }
+        INITIALIZED = true;
     }
 
     /**
      * 内部处理
-     * @param fileNames
+     *
+     * @param fileName
      * @throws IOException
      */
-    private static void innerInit(String fileNames) throws IOException {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream resourceAsStream = loader.getResourceAsStream(fileNames);
-
-        // 默认的Properties实现使用HashMap算法，为了保持原有顺序使用有序Map
-        Properties files = new LinkedProperties();
-        files.load(resourceAsStream);
-
-        Set<Object> fileKeySet = files.keySet();
-        String[] propFiles = new String[fileKeySet.size()];
-        List<Object> fileList = new ArrayList<Object>();
-
-        fileList.addAll(files.keySet());
-        for (int i = 0; i < propFiles.length; i++) {
-            String fileKey = fileList.get(i).toString();
-            propFiles[i] = files.getProperty(fileKey);
-        }
-
-        logger.debug("读取属性文件：{}", ArrayUtils.toString(propFiles));;
+    private static void innerInit(String fileName) throws IOException {
+        String[] propFiles = activePropertyFiles(fileName);
+        logger.debug("读取属性文件：{}", ArrayUtils.toString(propFiles));
         properties = loadProperties(propFiles);
         Set<Object> keySet = properties.keySet();
         for (Object key : keySet) {
             logger.debug("property: {}, value: {}", key, properties.getProperty(key.toString()));
         }
+    }
+
+    /**
+     * 获取读取的资源文件列表
+     *
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
+    private static String[] activePropertyFiles(String fileName) throws IOException {
+        logger.info("读取" + fileName);
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream resourceAsStream = loader.getResourceAsStream(fileName);
+        // 默认的Properties实现使用HashMap算法，为了保持原有顺序使用有序Map
+        activePropertyFiles = new LinkedProperties();
+        activePropertyFiles.load(resourceAsStream);
+
+        Set<Object> fileKeySet = activePropertyFiles.keySet();
+        String[] propFiles = new String[fileKeySet.size()];
+        List<Object> fileList = new ArrayList<Object>();
+
+        fileList.addAll(activePropertyFiles.keySet());
+        for (int i = 0; i < propFiles.length; i++) {
+            String fileKey = fileList.get(i).toString();
+            propFiles[i] = activePropertyFiles.getProperty(fileKey);
+        }
+        return propFiles;
     }
 
     /**
@@ -124,6 +146,7 @@ public class PropertyFileUtil {
 
     /**
      * 获取所有的key
+     *
      * @return
      */
     public static Set<String> getKeys() {
@@ -132,6 +155,7 @@ public class PropertyFileUtil {
 
     /**
      * 获取键值对Map
+     *
      * @return
      */
     public static Map<String, String> getKeyValueMap() {
@@ -145,8 +169,9 @@ public class PropertyFileUtil {
 
     /**
      * 获取属性值
-     * @param key	键
-     * @return	值
+     *
+     * @param key 键
+     * @return 值
      */
     public static String get(String key) {
         String propertyValue = properties.getProperty(key);
@@ -156,9 +181,10 @@ public class PropertyFileUtil {
 
     /**
      * 获取属性值
-     * @param key	键
-     * @param defaultValue	默认值
-     * @return	值
+     *
+     * @param key          键
+     * @param defaultValue 默认值
+     * @return 值
      */
     public static String get(String key, String defaultValue) {
         String propertyValue = properties.getProperty(key);
@@ -169,11 +195,20 @@ public class PropertyFileUtil {
 
     /**
      * 向内存添加属性
-     * @param key		键
-     * @param value		值
+     *
+     * @param key   键
+     * @param value 值
      */
     public static void add(String key, String value) {
         properties.put(key, value);
         logger.debug("通过方法添加属性到内存：{}，值：{}", key, value);
+    }
+
+    public static Properties getActivePropertyFiles() {
+        return activePropertyFiles;
+    }
+
+    public static String getProfile() {
+        return PROFILE_ID;
     }
 }

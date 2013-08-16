@@ -43,7 +43,15 @@ $(function() {
 						return $('#multiInstance').html();
 					}
 				}
-			}]
+			}, {
+                title: '关于作者',
+                content: {
+                    type: 'text',
+                    text: function() {
+                        return $('.aboutme').html();
+                    }
+                }
+            }]
 		}, {
 			width: 250,
 			portlets: [{
@@ -54,15 +62,7 @@ $(function() {
 						return $('.demos').html();
 					}
 				}
-			}, {
-				title: '关于作者',
-				content: {
-					type: 'text',
-					text: function() {
-						return $('.aboutme').html();
-					}
-				}
-			}]
+			}   ]
 		}, {
 			width: 500,
 			portlets: [{
