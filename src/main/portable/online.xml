@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<portable-config>
+    <config-file path="WEB-INF/classes/application-files.properties">
+        <replace key="B">file:/home/henry/kad-online-demo.properties</replace>
+    </config-file>
+    <config-file path="WEB-INF/classes/applicationContext.xml">
+        <replace xpath="//property[@name='activityFontName']/@value">simsun</replace>
+        <replace xpath="//property[@name='labelFontName']/@value">simsun</replace>
+        <replace xpath="//context/:property-placeholder/@location">classpath*:/application.properties,file:/home/henry/kad-online-demo.properties</replace>
+    </config-file>
+</portable-config>

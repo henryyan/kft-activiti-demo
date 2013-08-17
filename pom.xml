@@ -625,5 +625,29 @@
 				</plugins>
 			</build>
 		</profile>
+
+        <!-- 在线Demo配置 -->
+        <profile>
+            <id>online</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.juvenxu.portable-config-maven-plugin</groupId>
+                        <artifactId>portable-config-maven-plugin</artifactId>
+                        <version>1.1.4</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>replace-package</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <portableConfig>src/main/portable/online.xml</portableConfig>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 	</profiles>
 </project>

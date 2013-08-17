@@ -13,7 +13,7 @@
     <context:property-placeholder ignore-unresolvable="true" local-override="true"
                                   location="classpath*:/application.properties,classpath*:/application.local.properties"/>
 
-    <util:properties id="APP_PROPERTIES" location="classpath:application.properties" local-override="true"/>
+    <util:properties id="APP_PROPERTIES" location="classpath:application.properties,classpath*:/application.local.properties" local-override="true"/>
 
     <!-- 数据源配置, 使用DBCP数据库连接池 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -76,8 +76,8 @@
         <property name="processDefinitionCacheLimit" value="10"/>
 
         <!-- 生成流程图的字体 -->
-        <property name="activityFontName" value="宋体"/>
-        <property name="labelFontName" value="宋体"/>
+        <property name="activityFontName" value="${diagram.activityFontName}"/>
+        <property name="labelFontName" value="${diagram.labelFontName}"/>
 
         <!-- 缓存支持
         <property name="processDefinitionCache">
