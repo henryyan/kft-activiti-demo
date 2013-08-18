@@ -13,7 +13,7 @@
     <context:property-placeholder ignore-unresolvable="true" local-override="true"
                                   location="classpath*:/application.properties,classpath*:/application.local.properties"/>
 
-    <util:properties id="APP_PROPERTIES" location="classpath:application.properties,classpath*:/application.local.properties" local-override="true"/>
+    <util:properties id="APP_PROPERTIES" location="classpath:application.properties" local-override="true"/>
 
     <!-- 数据源配置, 使用DBCP数据库连接池 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
