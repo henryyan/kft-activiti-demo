@@ -6,6 +6,6 @@
     <config-file path="WEB-INF/classes/applicationContext.xml">
         <replace xpath="//property[@name='activityFontName']/@value">simsun</replace>
         <replace xpath="//property[@name='labelFontName']/@value">simsun</replace>
-        <!--<replace xpath="//context/:property-placeholder/@location">classpath*:/application.properties,file:/home/henry/kad-online-demo.properties</replace>-->
+        <replace xpath="//context/:property-placeholder/@location">classpath*:/application.properties,file:/home/henry/kad-online-demo.properties</replace>
     </config-file>
 </portable-config>

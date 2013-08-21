@@ -634,7 +634,7 @@
                     <plugin>
                         <groupId>com.juvenxu.portable-config-maven-plugin</groupId>
                         <artifactId>portable-config-maven-plugin</artifactId>
-                        <version>1.1.4</version>
+                        <version>1.1.5-SNAPSHOT</version>
                         <executions>
                             <execution>
                                 <goals>
