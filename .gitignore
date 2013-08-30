@@ -9,3 +9,4 @@ WebContent/WEB-INF/classes
 .ant_targets
 *.iml
 .idea
+resources/application.local.properties
