@@ -66,6 +66,9 @@
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
+    <!-- 引擎内部提供的UUID生成器，依赖fastxml的java-uuid-generator模块 -->
+    <bean id="uuidGenerator" class="org.activiti.engine.impl.persistence.StrongUuidGenerator" />
+
     <!-- Activiti begin -->
     <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
         <property name="dataSource" ref="dataSource"/>
@@ -74,6 +77,10 @@
         <property name="jobExecutorActivate" value="false"/>
         <property name="history" value="full"/>
         <property name="processDefinitionCacheLimit" value="10"/>
+
+        <!-- UUID作为主键生成策略
+        <property name="idGenerator" ref="uuidGenerator" />
+        -->
 
         <!-- 生成流程图的字体 -->
         <property name="activityFontName" value="${diagram.activityFontName}"/>
