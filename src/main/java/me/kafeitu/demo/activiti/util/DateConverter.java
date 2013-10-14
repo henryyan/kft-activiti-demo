@@ -66,7 +66,7 @@ public class DateConverter implements Converter {
 			// let's try to convert the first element only
 			Object[] array = (Object[]) value;
 
-			if ((array != null) && (array.length >= 1)) {
+			if (array.length >= 1) {
 				value = array[0];
 				result = doConvertToDate(value);
 			}
