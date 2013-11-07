@@ -50,6 +50,9 @@ public class Variable {
 		String[] arrayValue = values.split(",");
 		String[] arrayType = types.split(",");
 		for (int i = 0; i < arrayKey.length; i++) {
+			if("".equals(arrayKey[i]) || "".equals(arrayValue[i]) || "".equals(arrayType[i])){
+			    continue;
+			}
 			String key = arrayKey[i];
 			String value = arrayValue[i];
 			String type = arrayType[i];
