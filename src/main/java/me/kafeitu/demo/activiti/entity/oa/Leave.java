@@ -1,197 +1,190 @@
 package me.kafeitu.demo.activiti.entity.oa;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Map;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
 import me.kafeitu.demo.activiti.entity.IdEntity;
-
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Map;
+
 /**
  * Entity: Leave
- *  
+ *
  * @author HenryYan
  */
 @Entity
 @Table(name = "OA_LEAVE")
 public class Leave extends IdEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String processInstanceId;
-	private String userId;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Date startTime;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Date endTime;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Date realityStartTime;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	private Date realityEndTime;
-	private Date applyTime;
-	private String leaveType;
-	private String reason;
-	
-	//-- 临时属性 --//
-	
-	// 流程任务
-	private Task task;
-	
-	private Map<String, Object> variables;
-	
-	// 运行中的流程实例
-	private ProcessInstance processInstance;
-	
-	// 历史的流程实例
-	private HistoricProcessInstance historicProcessInstance;
-	
-	// 流程定义
-	private ProcessDefinition processDefinition;
+    private static final long serialVersionUID = 1L;
+    private String processInstanceId;
+    private String userId;
 
-	@Column
-	public String getProcessInstanceId() {
-		return processInstanceId;
-	}
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date startTime;
 
-	public void setProcessInstanceId(String processInstanceId) {
-		this.processInstanceId = processInstanceId;
-	}
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date endTime;
 
-	@Column
-	public String getUserId() {
-		return userId;
-	}
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date realityStartTime;
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date realityEndTime;
+    private Date applyTime;
+    private String leaveType;
+    private String reason;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "START_TIME")
-	public Date getStartTime() {
-		return startTime;
-	}
+    //-- 临时属性 --//
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+    // 流程任务
+    private Task task;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "END_TIME")
-	public Date getEndTime() {
-		return endTime;
-	}
+    private Map<String, Object> variables;
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
+    // 运行中的流程实例
+    private ProcessInstance processInstance;
 
-	@Column
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getApplyTime() {
-		return applyTime;
-	}
+    // 历史的流程实例
+    private HistoricProcessInstance historicProcessInstance;
 
-	public void setApplyTime(Date applyTime) {
-		this.applyTime = applyTime;
-	}
+    // 流程定义
+    private ProcessDefinition processDefinition;
 
-	@Column
-	public String getLeaveType() {
-		return leaveType;
-	}
+    @Column
+    public String getProcessInstanceId() {
+        return processInstanceId;
+    }
 
-	public void setLeaveType(String leaveType) {
-		this.leaveType = leaveType;
-	}
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
+    }
 
-	@Column
-	public String getReason() {
-		return reason;
-	}
+    @Column
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "REALITY_START_TIME")
-	public Date getRealityStartTime() {
-		return realityStartTime;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "START_TIME")
+    public Date getStartTime() {
+        return startTime;
+    }
 
-	public void setRealityStartTime(Date realityStartTime) {
-		this.realityStartTime = realityStartTime;
-	}
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "REALITY_END_TIME")
-	public Date getRealityEndTime() {
-		return realityEndTime;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "END_TIME")
+    public Date getEndTime() {
+        return endTime;
+    }
 
-	public void setRealityEndTime(Date realityEndTime) {
-		this.realityEndTime = realityEndTime;
-	}
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
-	@Transient
-	public Task getTask() {
-		return task;
-	}
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getApplyTime() {
+        return applyTime;
+    }
 
-	public void setTask(Task task) {
-		this.task = task;
-	}
+    public void setApplyTime(Date applyTime) {
+        this.applyTime = applyTime;
+    }
 
-	@Transient
-	public Map<String, Object> getVariables() {
-		return variables;
-	}
+    @Column
+    public String getLeaveType() {
+        return leaveType;
+    }
 
-	public void setVariables(Map<String, Object> variables) {
-		this.variables = variables;
-	}
+    public void setLeaveType(String leaveType) {
+        this.leaveType = leaveType;
+    }
 
-	@Transient
-	public ProcessInstance getProcessInstance() {
-		return processInstance;
-	}
+    @Column
+    public String getReason() {
+        return reason;
+    }
 
-	public void setProcessInstance(ProcessInstance processInstance) {
-		this.processInstance = processInstance;
-	}
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 
-	@Transient
-	public HistoricProcessInstance getHistoricProcessInstance() {
-		return historicProcessInstance;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "REALITY_START_TIME")
+    public Date getRealityStartTime() {
+        return realityStartTime;
+    }
 
-	public void setHistoricProcessInstance(HistoricProcessInstance historicProcessInstance) {
-		this.historicProcessInstance = historicProcessInstance;
-	}
+    public void setRealityStartTime(Date realityStartTime) {
+        this.realityStartTime = realityStartTime;
+    }
 
-	@Transient
-	public ProcessDefinition getProcessDefinition() {
-		return processDefinition;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "REALITY_END_TIME")
+    public Date getRealityEndTime() {
+        return realityEndTime;
+    }
 
-	public void setProcessDefinition(ProcessDefinition processDefinition) {
-		this.processDefinition = processDefinition;
-	}
+    public void setRealityEndTime(Date realityEndTime) {
+        this.realityEndTime = realityEndTime;
+    }
+
+    @Transient
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    @Transient
+    public Map<String, Object> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(Map<String, Object> variables) {
+        this.variables = variables;
+    }
+
+    @Transient
+    public ProcessInstance getProcessInstance() {
+        return processInstance;
+    }
+
+    public void setProcessInstance(ProcessInstance processInstance) {
+        this.processInstance = processInstance;
+    }
+
+    @Transient
+    public HistoricProcessInstance getHistoricProcessInstance() {
+        return historicProcessInstance;
+    }
+
+    public void setHistoricProcessInstance(HistoricProcessInstance historicProcessInstance) {
+        this.historicProcessInstance = historicProcessInstance;
+    }
+
+    @Transient
+    public ProcessDefinition getProcessDefinition() {
+        return processDefinition;
+    }
+
+    public void setProcessDefinition(ProcessDefinition processDefinition) {
+        this.processDefinition = processDefinition;
+    }
 
 }
