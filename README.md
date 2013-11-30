@@ -12,9 +12,9 @@
 
 # 框架版本
 
-* Activiti: **5.13**
+* Activiti: **5.14**
 
-* Spring: **3.1.1.RELEASE**
+* Spring: **3.2.5.RELEASE**
 
 * Hibernate: **4.1.4.Final**
 

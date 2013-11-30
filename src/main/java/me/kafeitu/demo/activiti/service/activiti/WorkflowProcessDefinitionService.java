@@ -103,7 +103,7 @@ public class WorkflowProcessDefinitionService {
        */
       if (ArrayUtils.isNotEmpty(processKey)) {
         if (ArrayUtils.contains(processKey, loopProcessKey)) {
-          logger.debug("hit module of {}", processKey);
+          logger.debug("hit module of {}", (Object[])processKey);
           deploySingleProcess(resourceLoader, loopProcessKey, exportDir);
         } else {
           logger.debug("module: {} not equals process key: {}, ignore and continue find next.", loopProcessKey, processKey);
@@ -124,8 +124,6 @@ public class WorkflowProcessDefinitionService {
    *          {@link ResourceLoader}
    * @param processKey
    *          模块名称
-   * @param subModule
-   *          流程定义名称
    * @throws IOException
    *           找不到zip文件时
    */

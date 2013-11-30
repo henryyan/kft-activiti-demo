@@ -68,8 +68,8 @@
                 Activiti版本：公共版本（${prop['activiti.version']}）
                 <c:if test="${prop['activiti.version'] != prop['activiti.engine.version']}">&nbsp;引擎<strong>特定</strong>版本（${prop['activiti.engine.version']}）</c:if>
             </li>
-            <li>Spring版本：3.1</li>
-            <li>Hibernate：4.1</li>
+            <li>Spring版本：${prop['spring.version']}</li>
+            <li>Hibernate：${prop['hibernate.version']}</li>
             <li>使用<a href="http://maven.apache.org" target="_blank">Maven</a>管理依赖</li>
         </ul>
     </div>
@@ -96,13 +96,16 @@
 
     <div class="links template">
         <p>
-            <b>Wiki：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo/wiki">https://github.com/henryyan/kft-activiti-demo/wiki</a>
+            <b>Demo<span style="color: red">Wiki</span>：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo/wiki">https://github.com/henryyan/kft-activiti-demo/wiki</a>
         </p>
         <p>
-            <b>Demo源码：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo">https://github.com/henryyan/kft-activiti-demo</a>
+            <b>Demo<span style="color: red">源码</span>：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo">https://github.com/henryyan/kft-activiti-demo</a>
         </p>
         <p>
-            <b>Activiti资料：</b><a target="_blank" href="http://www.kafeitu.me/categories.html#activiti-ref">http://www.kafeitu.me/categories.html#activiti-ref</a>
+            <b>Activiti<span style="color: red">资料</span>：</b><a target="_blank" href="http://www.kafeitu.me/categories.html#activiti-ref">http://www.kafeitu.me/categories.html#activiti-ref</a>
+        </p>
+        <p>
+            <b>Activiti<span style="color: red">中文论坛</span>：</b><a target="_blank" href="http://www.activiti-cn.org">http://www.activiti-cn.org</a>
         </p>
     </div>
 
