@@ -57,6 +57,15 @@ function readFormFields(taskId) {
 	// 设置表单提交id
 	$form.attr('action', ctx + '/form/dynamic/task/complete/' + taskId);
 
+    // 添加隐藏域
+    if ($('#processType').length == 0) {
+        $('<input/>', {
+            'id': 'processType',
+            'name': 'processType',
+            'type': 'hidden'
+        }).val(processType).appendTo($form);
+    }
+
 	// 读取启动时的表单
 	$.getJSON(ctx + '/form/dynamic/get-form/task/' + taskId, function(datas) {
 		var trs = "";

@@ -19,6 +19,10 @@
 	<script src="${ctx }/js/common/plugins/validate/messages_cn.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/qtip/jquery.qtip.pack.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // 利用动态表单的功能，做一个标示
+        var processType = '${empty processType ? param.processType : processType}';
+    </script>
 	<script src="${ctx }/js/module/form/dynamic/dynamic-process-list.js" type="text/javascript"></script>
 </head>
 

@@ -1,92 +1,82 @@
 package me.kafeitu.demo.activiti.entity.account;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
 /**
  * The persistent class for the ACT_ID_USER database table.
- * 
  */
 @Entity
 @Table(name = "ACT_ID_USER")
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private String id;
-	private String email;
-	private String first;
-	private String last;
-	private String password;
-	private List<Group> actIdGroups;
+    private static final long serialVersionUID = 1L;
+    private String id;
+    private String email;
+    private String first;
+    private String last;
+    private String password;
+    private List<Group> actIdGroups;
 
-	public User() {
-	}
+    public User() {
+    }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID_")
-	public String getId() {
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID_")
+    public String getId() {
+        return this.id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	@Column(name = "EMAIL_")
-	public String getEmail() {
-		return this.email;
-	}
+    @Column(name = "EMAIL_")
+    public String getEmail() {
+        return this.email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Column(name = "FIRST_")
-	public String getFirst() {
-		return this.first;
-	}
+    @Column(name = "FIRST_")
+    public String getFirst() {
+        return this.first;
+    }
 
-	public void setFirst(String first) {
-		this.first = first;
-	}
+    public void setFirst(String first) {
+        this.first = first;
+    }
 
-	@Column(name = "LAST_")
-	public String getLast() {
-		return this.last;
-	}
+    @Column(name = "LAST_")
+    public String getLast() {
+        return this.last;
+    }
 
-	public void setLast(String last) {
-		this.last = last;
-	}
+    public void setLast(String last) {
+        this.last = last;
+    }
 
-	@Column(name = "PWD_")
-	public String getPassword() {
-		return this.password;
-	}
+    @Column(name = "PWD_")
+    public String getPassword() {
+        return this.password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	//bi-directional many-to-many association to Group
-	@ManyToMany
-	@JoinTable(name = "ACT_ID_MEMBERSHIP", joinColumns = { @JoinColumn(name = "USER_ID_") }, inverseJoinColumns = { @JoinColumn(name = "GROUP_ID_") })
-	public List<Group> getActIdGroups() {
-		return this.actIdGroups;
-	}
+    //bi-directional many-to-many association to Group
+    @ManyToMany
+    @JoinTable(name = "ACT_ID_MEMBERSHIP", joinColumns = {@JoinColumn(name = "USER_ID_")}, inverseJoinColumns = {@JoinColumn(name = "GROUP_ID_")})
+    public List<Group> getActIdGroups() {
+        return this.actIdGroups;
+    }
 
-	public void setActIdGroups(List<Group> actIdGroups) {
-		this.actIdGroups = actIdGroups;
-	}
+    public void setActIdGroups(List<Group> actIdGroups) {
+        this.actIdGroups = actIdGroups;
+    }
 
 }

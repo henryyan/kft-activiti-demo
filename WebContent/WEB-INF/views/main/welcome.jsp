@@ -50,6 +50,10 @@
             <li>
                 <b>外置表单</b>：每个用户任务对应一个单独的<b>.form</b>文件，和流程定义文件同时部署（打包为zip/bar文件）。
             </li>
+            <li>
+                <b>综合流程</b>：可以查询到所有的流程（普通、动态、外置固定查询某些流程的表单，为了演示所以单独分开）；综合流程的目的
+                在于可以启动用户上传或者设计后部署的流程定义。
+            </li>
         </ul>
     </div>
     <div id="multiInstance" class="template">
@@ -68,8 +72,8 @@
                 Activiti版本：公共版本（${prop['activiti.version']}）
                 <c:if test="${prop['activiti.version'] != prop['activiti.engine.version']}">&nbsp;引擎<strong>特定</strong>版本（${prop['activiti.engine.version']}）</c:if>
             </li>
-            <li>Spring版本：3.1</li>
-            <li>Hibernate：4.1</li>
+            <li>Spring版本：${prop['spring.version']}</li>
+            <li>Hibernate：${prop['hibernate.version']}</li>
             <li>使用<a href="http://maven.apache.org" target="_blank">Maven</a>管理依赖</li>
         </ul>
     </div>
@@ -96,13 +100,16 @@
 
     <div class="links template">
         <p>
-            <b>Wiki：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo/wiki">https://github.com/henryyan/kft-activiti-demo/wiki</a>
+            <b>Demo<span style="color: red">Wiki</span>：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo/wiki">https://github.com/henryyan/kft-activiti-demo/wiki</a>
         </p>
         <p>
-            <b>Demo源码：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo">https://github.com/henryyan/kft-activiti-demo</a>
+            <b>Demo<span style="color: red">源码</span>：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo">https://github.com/henryyan/kft-activiti-demo</a>
         </p>
         <p>
-            <b>Activiti资料：</b><a target="_blank" href="http://www.kafeitu.me/categories.html#activiti-ref">http://www.kafeitu.me/categories.html#activiti-ref</a>
+            <b>Activiti<span style="color: red">资料</span>：</b><a target="_blank" href="http://www.kafeitu.me/categories.html#activiti-ref">http://www.kafeitu.me/categories.html#activiti-ref</a>
+        </p>
+        <p>
+            <b>Activiti<span style="color: red">中文论坛</span>：</b><a target="_blank" href="http://www.activiti-cn.org">http://www.activiti-cn.org</a>
         </p>
     </div>
 
@@ -121,8 +128,9 @@
                 <b>QQ群：</b>
                 <ul>
                     <li>Activiti中文群1(<span style="color:red">已满</span>)：236540304</li>
-                    <li>Activiti中文群2(<span style="color:red">已满</span>)：139983080</li>
-                    <li>Activiti中文群3(<span style="color:green">欢迎</span>)：327913744</li>
+                    <li>Activiti中文群2(<span style="color:green;font-weight: bold">欢迎</span>)：23539326</li>
+                    <li>Activiti中文群3(<span style="color:red">已满</span>)：139983080</li>
+                    <li>Activiti中文群4(<span style="color:red">已满</span>)：327913744</li>
                 </ul>
             </li>
         </ul>

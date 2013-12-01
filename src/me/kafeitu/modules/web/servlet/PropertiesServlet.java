@@ -1,15 +1,12 @@
 package me.kafeitu.modules.web.servlet;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.Properties;
-import java.util.Set;
+import me.kafeitu.demo.activiti.util.LinkedProperties;
+import me.kafeitu.demo.activiti.util.PropertyFileUtil;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -17,13 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import me.kafeitu.demo.activiti.util.LinkedProperties;
-import me.kafeitu.demo.activiti.util.PropertyFileUtil;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.*;
+import java.util.Enumeration;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * classpath下面的属性配置文件读取初始化类

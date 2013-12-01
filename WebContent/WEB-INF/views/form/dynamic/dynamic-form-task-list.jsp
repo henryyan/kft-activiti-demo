@@ -22,6 +22,9 @@
 	<script src="${ctx }/js/common/plugins/html/jquery.outerhtml.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/plugins/blockui/jquery.blockUI.js" type="text/javascript"></script>
 	<script src="${ctx }/js/common/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var processType = '${empty processType ? param.processType : processType}';
+    </script>
 	<script src="${ctx }/js/module/activiti/workflow.js" type="text/javascript"></script>
 	<script src="${ctx }/js/module/form/dynamic/dynamic-form-handler.js" type="text/javascript"></script>
 </head>

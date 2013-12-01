@@ -81,6 +81,8 @@ function dealRoles() {
 			$('#tabs').tabs( "add", "#tabs-menu-" + tabCounter, moduleName );
 		} else {
 			$('#tabs').tabs('select', openedTabs.get(moduleName));
+            lastMenuUrl = ctx + "/" + $(this).attr('rel');
+            $('#iframe' + openedTabs.get(moduleName)).attr('src', lastMenuUrl);
 		}
 		
 		var menuNames = "";

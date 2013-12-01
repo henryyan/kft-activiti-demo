@@ -1,9 +1,9 @@
 package org.activiti.explorer.rest.application;
 
-import org.activiti.editor.rest.application.ModelerServicesInit;
-import org.activiti.rest.api.DefaultResource;
-import org.activiti.rest.application.ActivitiRestApplication;
-import org.activiti.rest.filter.JsonpFilter;
+import org.activiti.rest.common.api.DefaultResource;
+import org.activiti.rest.common.application.ActivitiRestApplication;
+import org.activiti.rest.common.filter.JsonpFilter;
+import org.activiti.rest.editor.application.ModelerServicesInit;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
 

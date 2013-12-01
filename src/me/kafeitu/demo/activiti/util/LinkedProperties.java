@@ -2,13 +2,7 @@ package me.kafeitu.demo.activiti.util;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 有序Properties

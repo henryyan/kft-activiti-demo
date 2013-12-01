@@ -24,36 +24,36 @@ import org.slf4j.LoggerFactory;
 @Listener
 public class CacheListener {
 
-  private static final Logger logger = LoggerFactory.getLogger(CacheListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(CacheListener.class);
 
-  @CacheStarted
-  public void cacheStarted(CacheStartedEvent event) {
-    logger.info("Distributed cache started");
-  }
+    @CacheStarted
+    public void cacheStarted(CacheStartedEvent event) {
+        logger.info("Distributed cache started");
+    }
 
-  @CacheStopped
-  public void cacheStopped(CacheStoppedEvent event) {
-    logger.info("Distributed cache stopped");
-  }
+    @CacheStopped
+    public void cacheStopped(CacheStoppedEvent event) {
+        logger.info("Distributed cache stopped");
+    }
 
-  @CacheEntryModified
-  public void cacheEntryModified(CacheEntryModifiedEvent<String, ProcessDefinitionEntity> event) {
-    logger.info("Cache entry with key '" + event.getKey() + " modified in cache (local cache size = " + event.getCache().size() + ")");
-  }
+    @CacheEntryModified
+    public void cacheEntryModified(CacheEntryModifiedEvent<String, ProcessDefinitionEntity> event) {
+        logger.info("Cache entry with key '" + event.getKey() + " modified in cache (local cache size = " + event.getCache().size() + ")");
+    }
 
-  @CacheEntryCreated
-  public void cacheEntryCreated(CacheEntryCreatedEvent<String, ProcessDefinitionEntity> event) {
-    logger.info("Cache entry with key '" + event.getKey() + " added to cache (local cache size = " + event.getCache().size() + ")");
-  }
+    @CacheEntryCreated
+    public void cacheEntryCreated(CacheEntryCreatedEvent<String, ProcessDefinitionEntity> event) {
+        logger.info("Cache entry with key '" + event.getKey() + " added to cache (local cache size = " + event.getCache().size() + ")");
+    }
 
-  @CacheEntryRemoved
-  public void cacheEntryRemoved(CacheEntryRemovedEvent<String, ProcessDefinitionEntity> event) {
-    logger.info("Cache entry with key '" + event.getKey() + " removed from cache (local cache size = " + event.getCache().size() + ")");
-  }
+    @CacheEntryRemoved
+    public void cacheEntryRemoved(CacheEntryRemovedEvent<String, ProcessDefinitionEntity> event) {
+        logger.info("Cache entry with key '" + event.getKey() + " removed from cache (local cache size = " + event.getCache().size() + ")");
+    }
 
-  @CacheEntryEvicted
-  public void cacheEntryEvicted(CacheEntryEvictedEvent<String, ProcessDefinitionEntity> event) {
-    logger.info("Cache entry with key '" + event.getKey() + " evicted from cache (local cache size = " + event.getCache().size() + ")");
-  }
+    @CacheEntryEvicted
+    public void cacheEntryEvicted(CacheEntryEvictedEvent<String, ProcessDefinitionEntity> event) {
+        logger.info("Cache entry with key '" + event.getKey() + " evicted from cache (local cache size = " + event.getCache().size() + ")");
+    }
 
 }
