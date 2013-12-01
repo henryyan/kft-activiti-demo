@@ -1,6 +1,7 @@
 package me.kafeitu.demo.activiti.web.form.dynamic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -73,21 +75,30 @@ public class DynamicFormController {
      * @return
      */
     @RequestMapping(value = {"process-list", ""})
-    public ModelAndView processDefinitionList(Model model, HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-process-list");
+    public ModelAndView processDefinitionList(Model model, @RequestParam(value = "processType", required = false) String processType, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-process-list", Collections.singletonMap("processType", processType));
         Page<ProcessDefinition> page = new Page<ProcessDefinition>(PageUtil.PAGE_SIZE);
         int[] pageParams = PageUtil.init(page, request);
-    /*
-     * 只读取动态表单：leave-dynamic-from
-     */
-        ProcessDefinitionQuery query1 = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-dynamic-from").active().orderByDeploymentId().desc();
-        List<ProcessDefinition> list = query1.listPage(pageParams[0], pageParams[1]);
-        ProcessDefinitionQuery query2 = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch").active().orderByDeploymentId().desc();
-        List<ProcessDefinition> dispatchList = query2.listPage(pageParams[0], pageParams[1]);
-        list.addAll(dispatchList);
 
-        page.setResult(list);
-        page.setTotalCount(query1.count() + query2.count());
+        if (!StringUtils.equals(processType, "all")) {
+            /*
+             * 只读取动态表单的流程
+             */
+            ProcessDefinitionQuery query1 = repositoryService.createProcessDefinitionQuery().processDefinitionKey("leave-dynamic-from").active().orderByDeploymentId().desc();
+            List<ProcessDefinition> list = query1.listPage(pageParams[0], pageParams[1]);
+            ProcessDefinitionQuery query2 = repositoryService.createProcessDefinitionQuery().processDefinitionKey("dispatch").active().orderByDeploymentId().desc();
+            List<ProcessDefinition> dispatchList = query2.listPage(pageParams[0], pageParams[1]);
+            list.addAll(dispatchList);
+            page.setResult(list);
+            page.setTotalCount(query1.count() + query2.count());
+        } else {
+            // 读取所有流程
+            ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery().active().orderByDeploymentId().desc();
+            List<ProcessDefinition> list = query.list();
+            page.setResult(list);
+            page.setTotalCount(query.count());
+        }
+
         mav.addObject("page", page);
         return mav;
     }
@@ -158,7 +169,8 @@ public class DynamicFormController {
      */
     @RequestMapping(value = "task/complete/{taskId}")
     @SuppressWarnings("unchecked")
-    public String completeTask(@PathVariable("taskId") String taskId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String completeTask(@PathVariable("taskId") String taskId, @RequestParam(value = "processType", required = false) String processType,
+                               RedirectAttributes redirectAttributes, HttpServletRequest request) {
         Map<String, String> formProperties = new HashMap<String, String>();
 
         // 从request中读取参数然后转换
@@ -186,7 +198,7 @@ public class DynamicFormController {
         formService.submitTaskFormData(taskId, formProperties);
 
         redirectAttributes.addFlashAttribute("message", "任务完成：taskId=" + taskId);
-        return "redirect:/form/dynamic/task/list";
+        return "redirect:/form/dynamic/task/list?processType=" + processType;
     }
 
     /**
@@ -194,7 +206,9 @@ public class DynamicFormController {
      */
     @RequestMapping(value = "start-process/{processDefinitionId}")
     @SuppressWarnings("unchecked")
-    public String submitStartFormAndStartProcessInstance(@PathVariable("processDefinitionId") String processDefinitionId, RedirectAttributes redirectAttributes,
+    public String submitStartFormAndStartProcessInstance(@PathVariable("processDefinitionId") String processDefinitionId,
+                                                         @RequestParam(value = "processType", required = false) String processType,
+                                                         RedirectAttributes redirectAttributes,
                                                          HttpServletRequest request) {
         Map<String, String> formProperties = new HashMap<String, String>();
 
@@ -223,7 +237,8 @@ public class DynamicFormController {
         logger.debug("start a processinstance: {}", processInstance);
 
         redirectAttributes.addFlashAttribute("message", "启动成功，流程ID：" + processInstance.getId());
-        return "redirect:/form/dynamic/process-list";
+
+        return "redirect:/form/dynamic/process-list?processType=" + processType;
     }
 
     /**
@@ -233,33 +248,43 @@ public class DynamicFormController {
      * @return
      */
     @RequestMapping(value = "task/list")
-    public ModelAndView taskList(Model model, HttpServletRequest request) {
+    public ModelAndView taskList(Model model, @RequestParam(value = "processType", required = false) String processType, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("/form/dynamic/dynamic-form-task-list");
         User user = UserUtil.getUserFromSession(request.getSession());
 
         List<Task> tasks = new ArrayList<Task>();
 
-        /**
-         * 这里为了演示区分开自定义表单的请假流程，值读取leave-dynamic-from
-         * 在FormKeyController中有使用native方式查询的例子
-         */
+        if (!StringUtils.equals(processType, "all")) {
+            /**
+             * 这里为了演示区分开自定义表单的请假流程，值读取leave-dynamic-from
+             * 在FormKeyController中有使用native方式查询的例子
+             */
 
-        // 分配到当前登录用户的任务
-        List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskAssignee(user.getId()).active().orderByTaskId().desc().list();
+            // 分配到当前登录用户的任务
+            List<Task> list = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskAssignee(user.getId()).active().orderByTaskId().desc().list();
 
-        // 为签收的任务
-        List<Task> list2 = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskCandidateUser(user.getId()).active().orderByTaskId().desc().list();
+            // 为签收的任务
+            List<Task> list2 = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from").taskCandidateUser(user.getId()).active().orderByTaskId().desc().list();
 
-        tasks.addAll(list);
-        tasks.addAll(list2);
+            tasks.addAll(list);
+            tasks.addAll(list2);
 
-        List<Task> list3 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskAssignee(user.getId()).active().orderByTaskId().desc().list();
+            List<Task> list3 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskAssignee(user.getId()).active().orderByTaskId().desc().list();
 
-        // 为签收的任务
-        List<Task> list4 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskCandidateUser(user.getId()).active().orderByTaskId().desc().list();
+            // 为签收的任务
+            List<Task> list4 = taskService.createTaskQuery().processDefinitionKey("dispatch").taskCandidateUser(user.getId()).active().orderByTaskId().desc().list();
 
-        tasks.addAll(list3);
-        tasks.addAll(list4);
+            tasks.addAll(list3);
+            tasks.addAll(list4);
+        } else {
+            List<Task> list1 = taskService.createTaskQuery().taskAssignee(user.getId()).active().orderByTaskId().desc().list();
+
+            // 为签收的任务
+            List<Task> list2 = taskService.createTaskQuery().taskCandidateUser(user.getId()).active().orderByTaskId().desc().list();
+
+            tasks.addAll(list1);
+            tasks.addAll(list2);
+        }
 
         mav.addObject("tasks", tasks);
         return mav;
@@ -283,18 +308,26 @@ public class DynamicFormController {
      * @return
      */
     @RequestMapping(value = "process-instance/running/list")
-    public ModelAndView running(Model model, HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView("/form//running-list");
+    public ModelAndView running(Model model, @RequestParam(value = "processType", required = false) String processType, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/form/running-list", Collections.singletonMap("processType", processType));
         Page<ProcessInstance> page = new Page<ProcessInstance>(PageUtil.PAGE_SIZE);
         int[] pageParams = PageUtil.init(page, request);
-        ProcessInstanceQuery leaveDynamicQuery = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").orderByProcessInstanceId().desc().active();
-        List<ProcessInstance> list = leaveDynamicQuery.listPage(pageParams[0], pageParams[1]);
-        ProcessInstanceQuery dispatchQuery = runtimeService.createProcessInstanceQuery().processDefinitionKey("dispatch").active().orderByProcessInstanceId().desc();
-        List<ProcessInstance> list2 = dispatchQuery.listPage(pageParams[0], pageParams[1]);
-        list.addAll(list2);
 
-        page.setResult(list);
-        page.setTotalCount(leaveDynamicQuery.count() + dispatchQuery.count());
+        if (!StringUtils.equals(processType, "all")) {
+            ProcessInstanceQuery leaveDynamicQuery = runtimeService.createProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").orderByProcessInstanceId().desc().active();
+            List<ProcessInstance> list = leaveDynamicQuery.listPage(pageParams[0], pageParams[1]);
+            ProcessInstanceQuery dispatchQuery = runtimeService.createProcessInstanceQuery().processDefinitionKey("dispatch").active().orderByProcessInstanceId().desc();
+            List<ProcessInstance> list2 = dispatchQuery.listPage(pageParams[0], pageParams[1]);
+            list.addAll(list2);
+
+            page.setResult(list);
+            page.setTotalCount(leaveDynamicQuery.count() + dispatchQuery.count());
+        } else {
+            ProcessInstanceQuery dynamicQuery = runtimeService.createProcessInstanceQuery().orderByProcessInstanceId().desc().active();
+            List<ProcessInstance> list = dynamicQuery.listPage(pageParams[0], pageParams[1]);
+            page.setResult(list);
+            page.setTotalCount(dynamicQuery.count());
+        }
         mav.addObject("page", page);
         return mav;
     }
@@ -306,18 +339,26 @@ public class DynamicFormController {
      * @return
      */
     @RequestMapping(value = "process-instance/finished/list")
-    public ModelAndView finished(Model model, HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView("/form/finished-list");
+    public ModelAndView finished(Model model, @RequestParam(value = "processType", required = false) String processType, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/form/finished-list", Collections.singletonMap("processType", processType));
         Page<HistoricProcessInstance> page = new Page<HistoricProcessInstance>(PageUtil.PAGE_SIZE);
         int[] pageParams = PageUtil.init(page, request);
-        HistoricProcessInstanceQuery leaveDynamicQuery = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").finished().orderByProcessInstanceEndTime().desc();
-        List<HistoricProcessInstance> list = leaveDynamicQuery.listPage(pageParams[0], pageParams[1]);
-        HistoricProcessInstanceQuery dispatchQuery = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("dispatch").finished().orderByProcessInstanceEndTime().desc();
-        List<HistoricProcessInstance> list2 = dispatchQuery.listPage(pageParams[0], pageParams[1]);
-        list.addAll(list2);
 
-        page.setResult(list);
-        page.setTotalCount(leaveDynamicQuery.count() + dispatchQuery.count());
+        if (!StringUtils.equals(processType, "all")) {
+            HistoricProcessInstanceQuery leaveDynamicQuery = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("leave-dynamic-from").finished().orderByProcessInstanceEndTime().desc();
+            List<HistoricProcessInstance> list = leaveDynamicQuery.listPage(pageParams[0], pageParams[1]);
+            HistoricProcessInstanceQuery dispatchQuery = historyService.createHistoricProcessInstanceQuery().processDefinitionKey("dispatch").finished().orderByProcessInstanceEndTime().desc();
+            List<HistoricProcessInstance> list2 = dispatchQuery.listPage(pageParams[0], pageParams[1]);
+            list.addAll(list2);
+            page.setResult(list);
+            page.setTotalCount(leaveDynamicQuery.count() + dispatchQuery.count());
+        } else {
+            HistoricProcessInstanceQuery dynamicQuery = historyService.createHistoricProcessInstanceQuery().finished().orderByProcessInstanceEndTime().desc();
+            List<HistoricProcessInstance> list = dynamicQuery.listPage(pageParams[0], pageParams[1]);
+            page.setResult(list);
+            page.setTotalCount(dynamicQuery.count());
+        }
+
         mav.addObject("page", page);
         return mav;
     }

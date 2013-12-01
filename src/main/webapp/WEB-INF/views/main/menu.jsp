@@ -28,6 +28,15 @@
 			<li><a rel="form/formkey/process-instance/finished/list">已结束流程(外置)</a></li>
 		</ul>
 	</li>
+    <li>
+        <a rel='#' title="不区分表单类型，可以显示设计器设计后部署的流程">综合流程</a>
+        <ul>
+            <li><a rel="form/dynamic/process-list?processType=all">流程列表</a></li>
+            <li><a rel="form/dynamic/task/list?processType=all">任务列表(综合)</a></li>
+            <li><a rel="form/dynamic/process-instance/running/list?processType=all">运行中流程表(综合)</a></li>
+            <li><a rel="form/dynamic/process-instance/finished/list?processType=all">已结束流程(综合)</a></li>
+        </ul>
+    </li>
 	<li>
 		<a rel='#'>流程管理</a>
 		<ul>

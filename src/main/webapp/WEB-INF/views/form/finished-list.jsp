@@ -29,7 +29,7 @@
 			<td>${hpi.processDefinitionId }</td>
 			<td>${hpi.startTime }</td>
 			<td>${hpi.endTime }</td>
-			<td>${hpi.deleteReason }</td>
+			<td>${empty hpi.deleteReason ? "正常结束" : hpi.deleteReason}</td>
 		</tr>
 		</c:forEach>
 	</table>
