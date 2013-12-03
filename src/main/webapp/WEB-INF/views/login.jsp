@@ -147,16 +147,17 @@
                 <h5>组件版本信息</h5>
                 <ul>
                     <li>Activiti版本：${prop['activiti.version']}</li>
-                    <li>Spring版本：3.1</li>
+                    <li>Spring版本：${prop['spring.version']}</li>
                     <li>使用<a href="http://maven.apache.org" target="_blank">Maven</a>管理依赖</li>
                 </ul>
             </div>
             <div style="float:right; width: 50%;">
                 <h5>QQ交流群</h5>
                 <ul>
-                    <li>Activiti中文群1(已满)：236540304</li>
-                    <li>Activiti中文群2(已满)：139983080</li>
-                    <li>Activiti中文群3(欢迎): 327913744</li>
+                    <li>Activiti中文群1(<span style="color:red">已满</span>)：236540304</li>
+                    <li>Activiti中文群2(<span style="color:green;font-weight: bold">欢迎</span>)：23539326</li>
+                    <li>Activiti中文群3(<span style="color:red">已满</span>)：139983080</li>
+                    <li>Activiti中文群4(<span style="color:red">已满</span>)：327913744</li>
                 </ul>
             </div>
         </div>
