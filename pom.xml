@@ -21,7 +21,7 @@
 
 	<!-- 项目属性 -->
 	<properties>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.6</jdk.version>
 		<spring.version>3.2.5.RELEASE</spring.version>
 		<hibernate.version>4.2.5.Final</hibernate.version>
 		<spring-data-jpa.version>1.3.4.RELEASE</spring-data-jpa.version>
