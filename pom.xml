@@ -112,6 +112,11 @@
 			<artifactId>activiti-modeler</artifactId>
             <version>${activiti.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-rest</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
 
 		<!-- 支持activiti缓存 -->
 		<dependency>
