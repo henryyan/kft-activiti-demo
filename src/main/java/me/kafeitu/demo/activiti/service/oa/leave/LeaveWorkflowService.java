@@ -120,6 +120,9 @@ public class LeaveWorkflowService {
         // 关联业务实体
         for (ProcessInstance processInstance : list) {
             String businessKey = processInstance.getBusinessKey();
+            if (businessKey == null) {
+                continue;
+            }
             Leave leave = leaveManager.getLeave(new Long(businessKey));
             leave.setProcessInstance(processInstance);
             leave.setProcessDefinition(getProcessDefinition(processInstance.getProcessDefinitionId()));
