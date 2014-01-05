@@ -515,6 +515,8 @@
                 </configuration>
             </plugin>
 		</plugins>
+
+        <finalName>kft-activiti-demo</finalName>
 	</build>
 
 	<profiles>
