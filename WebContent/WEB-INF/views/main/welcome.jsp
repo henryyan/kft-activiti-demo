@@ -135,5 +135,22 @@
             </li>
         </ul>
     </div>
+
+    <div class="rest template">
+        <p>在web.xml中映射了两个两个Servlet</p>
+        <dl>
+            <dt>ExplorerRestletServlet</dt>
+            <dd>
+                <p>针对Activiti Modeler的Rest接口，映射路径：/service/*</p>
+            </dd>
+            <dt>RestletServlet</dt>
+            <dd>
+                <p>官方提供的完整Rest接口</p>
+                <p>访问路径：http://localhost/yourappname/<用户手册提供的Rest地址></p>
+                <p>映射路径：/rest/*</p>
+                <p><a href="http://www.kafeitu.me/activiti/2013/01/12/kft-activiti-demo-rest.html">如何使用Activiti Rest模块</a></p>
+            </dd>
+        </dl>
+    </div>
 </body>
 </html>

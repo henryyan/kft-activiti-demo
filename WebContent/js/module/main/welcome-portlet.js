@@ -92,7 +92,15 @@ $(function() {
 						return $('.links').html();
 					}
 				}
-			}]
+			}, {
+                title: 'Rest接口',
+                content: {
+                    type: 'text',
+                    text: function() {
+                        return $('.rest').html();
+                    }
+                }
+            }]
 		}]
 	});
 });
