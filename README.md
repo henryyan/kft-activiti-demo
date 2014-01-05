@@ -34,6 +34,10 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 
 ## Changelog
 
+### 1.9.0（2014-01-01）
+1. 升级Activiti到5.14
+2. 同时支持纯Rest接口和Activiti Modeler的Rest路径映射
+
 ### 1.8.0（2013-06-22）
 1. 升级Activiti至5.13
 2. 移除了全局监听器（以后的版本会再加入）
