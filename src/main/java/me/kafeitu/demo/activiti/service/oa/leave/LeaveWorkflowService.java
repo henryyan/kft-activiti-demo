@@ -54,13 +54,18 @@ public class LeaveWorkflowService {
         logger.debug("save entity: {}", entity);
         String businessKey = entity.getId().toString();
 
-        // 用来设置启动流程的人员ID，引擎会自动把用户ID保存到activiti:initiator中
-        identityService.setAuthenticatedUserId(entity.getUserId());
+        ProcessInstance processInstance = null;
+        try {
+            // 用来设置启动流程的人员ID，引擎会自动把用户ID保存到activiti:initiator中
+            identityService.setAuthenticatedUserId(entity.getUserId());
 
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leave", businessKey, variables);
-        String processInstanceId = processInstance.getId();
-        entity.setProcessInstanceId(processInstanceId);
-        logger.debug("start process of {key={}, bkey={}, pid={}, variables={}}", new Object[]{"leave", businessKey, processInstanceId, variables});
+            processInstance = runtimeService.startProcessInstanceByKey("leave", businessKey, variables);
+            String processInstanceId = processInstance.getId();
+            entity.setProcessInstanceId(processInstanceId);
+            logger.debug("start process of {key={}, bkey={}, pid={}, variables={}}", new Object[]{"leave", businessKey, processInstanceId, variables});
+        } finally {
+            identityService.setAuthenticatedUserId(null);
+        }
         return processInstance;
     }
 
