@@ -554,11 +554,6 @@
 								<property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory" />
 
 								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
-								<!-- base -->
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
-									src="src/main/resources/sql/${sql.type}/schema.sql" onerror="continue">
-									<classpath refid="maven.test.classpath" />
-								</sql>
 
 								<!-- add init datas -->
 								<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}">
@@ -593,11 +588,6 @@
 								<property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory" />
 
 								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
-								<!-- base -->
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
-									src="src/main/resources/sql/${sql.type}/schema.sql" onerror="continue">
-									<classpath refid="maven.test.classpath" />
-								</sql>
 
 								<!-- activit start -->
 								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
