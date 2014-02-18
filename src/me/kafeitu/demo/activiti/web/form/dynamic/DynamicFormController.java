@@ -193,9 +193,12 @@ public class DynamicFormController {
         if (user == null || StringUtils.isBlank(user.getId())) {
             return "redirect:/login?timeout=true";
         }
-        identityService.setAuthenticatedUserId(user.getId());
-
-        formService.submitTaskFormData(taskId, formProperties);
+        try {
+            identityService.setAuthenticatedUserId(user.getId());
+            formService.submitTaskFormData(taskId, formProperties);
+        } finally {
+            identityService.setAuthenticatedUserId(null);
+        }
 
         redirectAttributes.addFlashAttribute("message", "任务完成：taskId=" + taskId);
         return "redirect:/form/dynamic/task/list?processType=" + processType;
@@ -231,11 +234,14 @@ public class DynamicFormController {
         if (user == null || StringUtils.isBlank(user.getId())) {
             return "redirect:/login?timeout=true";
         }
-        identityService.setAuthenticatedUserId(user.getId());
-
-        ProcessInstance processInstance = formService.submitStartFormData(processDefinitionId, formProperties);
-        logger.debug("start a processinstance: {}", processInstance);
-
+        ProcessInstance processInstance = null;
+        try {
+            identityService.setAuthenticatedUserId(user.getId());
+            processInstance = formService.submitStartFormData(processDefinitionId, formProperties);
+            logger.debug("start a processinstance: {}", processInstance);
+        } finally {
+            identityService.setAuthenticatedUserId(null);
+        }
         redirectAttributes.addFlashAttribute("message", "启动成功，流程ID：" + processInstance.getId());
 
         return "redirect:/form/dynamic/process-list?processType=" + processType;

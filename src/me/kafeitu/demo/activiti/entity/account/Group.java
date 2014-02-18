@@ -12,6 +12,7 @@ import java.util.List;
 public class Group implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
+    private Integer rev;
     private String name;
     private String type;
     private List<User> actIdUsers;
@@ -28,6 +29,15 @@ public class Group implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Column(name = "REV_")
+    public Integer getRev() {
+        return this.rev;
+    }
+
+    public void setRev(Integer rev) {
+        this.rev = rev;
     }
 
     @Column(name = "NAME_")

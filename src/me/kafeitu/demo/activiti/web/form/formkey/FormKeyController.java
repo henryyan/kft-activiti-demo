@@ -145,9 +145,13 @@ public class FormKeyController {
         if (user == null || StringUtils.isBlank(user.getId())) {
             return "redirect:/login?timeout=true";
         }
-        identityService.setAuthenticatedUserId(user.getId());
+        try {
+            identityService.setAuthenticatedUserId(user.getId());
 
-        formService.submitTaskFormData(taskId, formProperties);
+            formService.submitTaskFormData(taskId, formProperties);
+        } finally {
+            identityService.setAuthenticatedUserId(null);
+        }
 
         redirectAttributes.addFlashAttribute("message", "任务完成：taskId=" + taskId);
         return "redirect:/form/formkey/task/list";
@@ -181,12 +185,17 @@ public class FormKeyController {
         if (user == null || StringUtils.isBlank(user.getId())) {
             return "redirect:/login?timeout=true";
         }
-        identityService.setAuthenticatedUserId(user.getId());
+        try {
+            identityService.setAuthenticatedUserId(user.getId());
 
-        ProcessInstance processInstance = formService.submitStartFormData(processDefinitionId, formProperties);
-        logger.debug("start a processinstance: {}", processInstance);
+            ProcessInstance processInstance = formService.submitStartFormData(processDefinitionId, formProperties);
+            logger.debug("start a processinstance: {}", processInstance);
 
-        redirectAttributes.addFlashAttribute("message", "启动成功，流程ID：" + processInstance.getId());
+            redirectAttributes.addFlashAttribute("message", "启动成功，流程ID：" + processInstance.getId());
+        } finally {
+            identityService.setAuthenticatedUserId(null);
+        }
+
         return "redirect:/form/dynamic/process-list";
     }
 

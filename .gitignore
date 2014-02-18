@@ -10,3 +10,4 @@ WebContent/WEB-INF/classes
 *.iml
 .idea
 resources/application.local.properties
+kft-activiti-demo-no-maven.war
