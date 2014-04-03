@@ -105,6 +105,11 @@
                 <bean class="me.kafeitu.demo.activiti.activiti.form.UsersFormType"/>
             </list>
         </property>
+
+        <!-- JPA -->
+        <property name="jpaEntityManagerFactory" ref="entityManagerFactory" />
+        <property name="jpaHandleTransaction" value="false" />
+        <property name="jpaCloseEntityManager" value="false" />
     </bean>
 
     <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
