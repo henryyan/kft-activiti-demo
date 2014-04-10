@@ -28,6 +28,7 @@
 				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
 				<prop key="net.sf.ehcache.configurationResourceName">ehcache/ehcache-hibernate-local.xml</prop>
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>
@@ -108,7 +109,6 @@
 
 		<!-- 嵌入式内存中数据库 -->
 		<jdbc:embedded-database id="dataSource" type="H2">
-			<jdbc:script location="classpath:sql/h2/schema.sql" />
 			<jdbc:script location="classpath:org/activiti/db/create/activiti.h2.create.engine.sql" />
 			<jdbc:script location="classpath:org/activiti/db/create/activiti.h2.create.history.sql" />
 			<jdbc:script location="classpath:org/activiti/db/create/activiti.h2.create.identity.sql" />
