@@ -30,6 +30,16 @@ public class LeaveJpaEntity implements Serializable {
     private String leaveType;
     private String reason;
 
+    /**
+     * 部门领导是否同意
+     */
+    private String deptLeaderApproved;
+
+    /**
+     * HR是否同意
+     */
+    private String hrApproved;
+
     @Id
     @Column(name="ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -129,6 +139,24 @@ public class LeaveJpaEntity implements Serializable {
 
     public void setReportBackDate(Date reportBackDate) {
         this.reportBackDate = reportBackDate;
+    }
+
+    @Column
+    public String getDeptLeaderApproved() {
+        return deptLeaderApproved;
+    }
+
+    public void setDeptLeaderApproved(String deptLeaderApproved) {
+        this.deptLeaderApproved = deptLeaderApproved;
+    }
+
+    @Column
+    public String getHrApproved() {
+        return hrApproved;
+    }
+
+    public void setHrApproved(String hrApproved) {
+        this.hrApproved = hrApproved;
     }
 
     @Override

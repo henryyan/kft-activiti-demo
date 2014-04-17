@@ -134,7 +134,6 @@
                 <td>
                     <div>运行SQL脚本文件：</div>
                     <ul>
-                        <li><code>resources/sql/h2/schema.sql</code></li>
                         <li><code>resources/sql/h2/data.sql</code></li>
                     </ul>
                 </td>

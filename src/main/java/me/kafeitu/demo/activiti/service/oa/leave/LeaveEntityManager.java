@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * 请假实体JPA 实体管理器
  * @author: Henry Yan
  */
 @Service
@@ -30,6 +31,11 @@ public class LeaveEntityManager {
         leave.setApplyTime(new Date());
         entityManager.persist(leave);
         return leave;
+    }
+
+    @Transactional
+    public void save(LeaveJpaEntity leave) {
+        entityManager.persist(leave);
     }
 
     public LeaveJpaEntity getLeave(Long id) {

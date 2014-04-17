@@ -4,16 +4,17 @@
     <documentation>请假流程演示-JPA，把变量保存在独立的表中</documentation>
     <extensionElements>
       <activiti:executionListener event="start" expression="${execution.setVariable('leave', leaveEntityManager.newLeave(execution))}"></activiti:executionListener>
+      <activiti:executionListener event="end" delegateExpression="${leaveProcessEndListener}"></activiti:executionListener>
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="applyUserId">
       <extensionElements>
-          <activiti:formProperty id="leaveType" name="请假类型" type="enum" required="true">
-              <activiti:value id="公休" name="公休"></activiti:value>
-              <activiti:value id="病假" name="病假"></activiti:value>
-              <activiti:value id="调休" name="调休"></activiti:value>
-              <activiti:value id="事假" name="事假"></activiti:value>
-              <activiti:value id="婚假" name="婚假"></activiti:value>
-          </activiti:formProperty>
+        <activiti:formProperty id="leaveType" name="请假类型" type="enum" required="true">
+          <activiti:value id="公休" name="公休"></activiti:value>
+          <activiti:value id="病假" name="病假"></activiti:value>
+          <activiti:value id="调休" name="调休"></activiti:value>
+          <activiti:value id="事假" name="事假"></activiti:value>
+          <activiti:value id="婚假" name="婚假"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="startTime" name="请假开始日期" type="date" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
         <activiti:formProperty id="endTime" name="请假结束日期" type="date" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
         <activiti:formProperty id="reason" name="请假原因" type="string" required="true"></activiti:formProperty>
@@ -21,7 +22,7 @@
     </startEvent>
     <userTask id="deptLeaderAudit" name="部门领导审批" activiti:candidateGroups="deptLeader">
       <extensionElements>
-        <activiti:formProperty id="leaveType" name="请假类型" expression="${leave.leaveType}" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="leaveType" name="请假类型" type="string" expression="${leave.leaveType}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="startTime" name="请假开始日期" type="date" expression="${leave.startTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
         <activiti:formProperty id="endTime" name="请假结束日期" type="date" expression="${leave.endTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reason" name="请假原因" type="string" expression="${leave.reason}" writable="false"></activiti:formProperty>
@@ -34,10 +35,10 @@
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="modifyApply" name="调整申请" activiti:assignee="${leave.userId}">
       <extensionElements>
-          <activiti:formProperty id="leaveType" name="请假类型" expression="${leave.leaveType}" type="string" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="startTime" name="请假开始日期" type="date" expression="${leave.startTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="endTime" name="请假结束日期" type="date" expression="${leave.endTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="reason" name="请假原因" type="string" expression="${leave.reason}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="leaveType" name="请假类型" type="string" expression="${leave.leaveType}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="startTime" name="请假开始日期" type="date" expression="${leave.startTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="endTime" name="请假结束日期" type="date" expression="${leave.endTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="请假原因" type="string" expression="${leave.reason}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reApply" name="重新申请" type="enum" required="true">
           <activiti:value id="true" name="重新申请"></activiti:value>
           <activiti:value id="false" name="取消申请"></activiti:value>
@@ -46,10 +47,10 @@
     </userTask>
     <userTask id="hrAudit" name="人事审批" activiti:candidateGroups="hr">
       <extensionElements>
-          <activiti:formProperty id="leaveType" name="请假类型" expression="${leave.leaveType}" type="string" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="startTime" name="请假开始日期" type="date" expression="${leave.startTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="endTime" name="请假结束日期" type="date" expression="${leave.endTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="reason" name="请假原因" type="string" expression="${leave.reason}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="leaveType" name="请假类型" type="string" expression="${leave.leaveType}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="startTime" name="请假开始日期" type="date" expression="${leave.startTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="endTime" name="请假结束日期" type="date" expression="${leave.endTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="请假原因" type="string" expression="${leave.reason}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="hrApproved" name="审批意见" type="enum" required="true">
           <activiti:value id="true" name="同意"></activiti:value>
           <activiti:value id="false" name="拒绝"></activiti:value>
@@ -59,10 +60,10 @@
     <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="reportBack" name="销假" activiti:assignee="${leave.userId}">
       <extensionElements>
-          <activiti:formProperty id="leaveType" name="请假类型" expression="${leave.leaveType}" type="string" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="startTime" name="请假开始日期" type="date" expression="${leave.startTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="endTime" name="请假结束日期" type="date" expression="${leave.endTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="reason" name="请假原因" type="string" expression="${leave.reason}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="leaveType" name="请假类型" type="string" expression="${leave.leaveType}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="startTime" name="请假开始日期" type="date" expression="${leave.startTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="endTime" name="请假结束日期" type="date" expression="${leave.endTime}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="请假原因" type="string" expression="${leave.reason}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="realityStartTime" name="（实际）请假开始日期" type="date" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
         <activiti:formProperty id="realityEndTime" name="（实际）请假结束日期" type="date" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
         <activiti:formProperty id="reportBackDate" name="销假日期" type="date" default="${leave.endTime}" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
@@ -85,8 +86,8 @@
     <sequenceFlow id="flow8" name="销假" sourceRef="reportBack" targetRef="endevent1">
       <extensionElements>
         <activiti:executionListener event="take" expression="${leave.setReportBackDate(reportBackDate)}"></activiti:executionListener>
-          <activiti:executionListener event="take" expression="${leave.setRealityStartTime(realityStartTime)}"></activiti:executionListener>
-          <activiti:executionListener event="take" expression="${leave.setRealityEndTime(realityEndTime)}"></activiti:executionListener>
+        <activiti:executionListener event="take" expression="${leave.setRealityStartTime(realityStartTime)}"></activiti:executionListener>
+        <activiti:executionListener event="take" expression="${leave.setRealityEndTime(realityEndTime)}"></activiti:executionListener>
       </extensionElements>
     </sequenceFlow>
     <sequenceFlow id="flow9" name="拒绝" sourceRef="exclusivegateway6" targetRef="modifyApply">
@@ -151,14 +152,14 @@
         <omgdi:waypoint x="270.0" y="67.0"></omgdi:waypoint>
         <omgdi:waypoint x="270.0" y="108.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="11.0" width="22.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="11.0" width="22.0" x="280.0" y="67.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="290.0" y="47.0"></omgdi:waypoint>
         <omgdi:waypoint x="358.0" y="47.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="11.0" width="22.0" x="-24.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="11.0" width="22.0" x="300.0" y="30.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
@@ -169,14 +170,14 @@
         <omgdi:waypoint x="535.0" y="47.0"></omgdi:waypoint>
         <omgdi:waypoint x="590.0" y="47.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="11.0" width="22.0" x="-27.0" y="-17.0"></omgdc:Bounds>
+          <omgdc:Bounds height="11.0" width="22.0" x="534.0" y="30.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="642.0" y="75.0"></omgdi:waypoint>
         <omgdi:waypoint x="642.0" y="223.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="11.0" width="22.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="11.0" width="22.0" x="652.0" y="75.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
@@ -184,7 +185,7 @@
         <omgdi:waypoint x="514.0" y="135.0"></omgdi:waypoint>
         <omgdi:waypoint x="323.0" y="135.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="11.0" width="22.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="11.0" width="22.0" x="525.0" y="67.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
@@ -192,7 +193,7 @@
         <omgdi:waypoint x="142.0" y="239.0"></omgdi:waypoint>
         <omgdi:waypoint x="142.0" y="75.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="11.0" width="44.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="11.0" width="44.0" x="186.0" y="221.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
@@ -203,7 +204,7 @@
         <omgdi:waypoint x="290.0" y="240.0"></omgdi:waypoint>
         <omgdi:waypoint x="625.0" y="240.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="11.0" width="44.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="11.0" width="44.0" x="300.0" y="223.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">

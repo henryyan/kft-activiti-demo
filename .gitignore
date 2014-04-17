@@ -8,3 +8,4 @@
 *.iml
 .idea
 rebel.xml
+.settings
