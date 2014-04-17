@@ -59,7 +59,7 @@
 			<td>${p.id }</td>
 			<td>${p.processInstanceId }</td>
 			<td>${p.processDefinitionId }</td>
-			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图"><%=ProcessDefinitionCache.getActivityName(pageContext.getAttribute("pdid").toString(), ObjectUtils.toString(pageContext.getAttribute("activityId"))) %></a></td>
+			<td><a class="trace" href='#' pid="${p.id }" pdid="${p.processDefinitionId}" title="点击查看流程图"><%=ProcessDefinitionCache.getActivityName(pageContext.getAttribute("pdid").toString(), ObjectUtils.toString(pageContext.getAttribute("activityId"))) %></a></td>
 			<td>${p.suspended }</td>
 			<td>
 				<c:if test="${p.suspended }">
