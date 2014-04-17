@@ -30,6 +30,7 @@
           <activiti:value id="true" name="同意"></activiti:value>
           <activiti:value id="false" name="拒绝"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="complete" expression="${leave.setDeptLeaderApproved(deptLeaderApproved)}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
@@ -55,6 +56,7 @@
           <activiti:value id="true" name="同意"></activiti:value>
           <activiti:value id="false" name="拒绝"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="complete" expression="${leave.setHrApproved(hrApproved)}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
@@ -67,6 +69,9 @@
         <activiti:formProperty id="realityStartTime" name="（实际）请假开始日期" type="date" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
         <activiti:formProperty id="realityEndTime" name="（实际）请假结束日期" type="date" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
         <activiti:formProperty id="reportBackDate" name="销假日期" type="date" default="${leave.endTime}" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
+          <activiti:taskListener event="complete" expression="${leave.setReportBackDate(reportBackDate)}"></activiti:taskListener>
+          <activiti:taskListener event="complete" expression="${leave.setRealityStartTime(realityStartTime)}"></activiti:taskListener>
+          <activiti:taskListener event="complete" expression="${leave.setRealityEndTime(realityEndTime)}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -84,11 +89,6 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${hrApproved == 'true'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow8" name="销假" sourceRef="reportBack" targetRef="endevent1">
-      <extensionElements>
-        <activiti:executionListener event="take" expression="${leave.setReportBackDate(reportBackDate)}"></activiti:executionListener>
-        <activiti:executionListener event="take" expression="${leave.setRealityStartTime(realityStartTime)}"></activiti:executionListener>
-        <activiti:executionListener event="take" expression="${leave.setRealityEndTime(realityEndTime)}"></activiti:executionListener>
-      </extensionElements>
     </sequenceFlow>
     <sequenceFlow id="flow9" name="拒绝" sourceRef="exclusivegateway6" targetRef="modifyApply">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${hrApproved == 'false'}]]></conditionExpression>
