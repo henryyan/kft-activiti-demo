@@ -2,7 +2,7 @@ package me.kafeitu.demo.activiti.service.oa.leave;
 
 import me.kafeitu.demo.activiti.dao.ActivitiDao;
 import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.JavaDelegate;
+import org.activiti.engine.delegate.ExecutionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class LeaveProcessEndListener implements JavaDelegate {
+public class LeaveProcessEndListener implements ExecutionListener {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -24,7 +24,7 @@ public class LeaveProcessEndListener implements JavaDelegate {
     ActivitiDao activitiDao;
 
     @Override
-    public void execute(DelegateExecution execution) throws Exception {
+    public void notify(DelegateExecution execution) throws Exception {
         String processInstanceId = execution.getProcessInstanceId();
 
         int i = activitiDao.deleteFormPropertyByProcessInstanceId(processInstanceId);
