@@ -53,7 +53,7 @@
 					<td>${leave.startTime }</td>
 					<td>${leave.endTime }</td>
 					<td>
-						<a class="trace" href='#' pid="${pi.id }" title="点击查看流程图">${task.name }</a>
+						<a class="trace" href='#' pid="${pi.id }" pdid="${pi.processDefinitionId}" title="点击查看流程图">${task.name }</a>
 					</td>
 					<td>${task.createTime }</td>
 					<td>${pi.suspended ? "已挂起" : "正常" }；<b title='流程版本号'>V: ${leave.processDefinition.version }</b></td>

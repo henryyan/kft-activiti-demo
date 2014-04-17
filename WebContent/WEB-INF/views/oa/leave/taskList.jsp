@@ -61,7 +61,7 @@
 					<td>${leave.startTime }</td>
 					<td>${leave.endTime }</td>
 					<td>
-						<a class="trace" href='#' pid="${pi.id }" title="点击查看流程图">${task.name }</a>
+						<a class="trace" href='#' pid="${pi.id }" pdid="${pi.processDefinitionId}" title="点击查看流程图">${task.name }</a>
 					</td>
 					<%--<td><a target="_blank" href='${ctx }/workflow/resource/process-instance?pid=${pi.id }&type=xml'>${task.name }</a></td> --%>
 					<td>${task.createTime }</td>
