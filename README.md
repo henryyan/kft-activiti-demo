@@ -12,7 +12,7 @@
 
 # 框架版本
 
-* Activiti: **5.14**
+* Activiti: **5.15.1-kft**
 
 * Spring: **3.2.5.RELEASE**
 
@@ -33,6 +33,12 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 ![kft-activiti-demo截图](http://www.kafeitu.me/files/2012/05/kft-activiti-demo.png)
 
 ## Changelog
+
+### 1.10.0（2014-04-18）
+1. 集成了diagram-viewer，目前提供了三种流程跟踪方式
+2. 添加了针对JPA的演示
+3. 添加了全局监听的演示
+4. 使用5.15.1-kft版本（修复了5.15版本中查询待办任务<包含指定到人、候选人、候选组>方法的Bug）
 
 ### 1.9.0（2014-01-01）
 1. 升级Activiti到5.14
