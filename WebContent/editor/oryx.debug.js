@@ -22,6 +22,22 @@
  **/
 
 /**
+ * Fixed http://forums.activiti.org/content/activiti-modeler-doesnt-work-chrome-v34
+ */
+ if (!Document.prototype.createAttributeNS) {
+  Document.prototype.createAttributeNS = function(namespaceURI, qualifiedName) {
+    var dummy = this.createElement('dummy');
+    dummy.setAttributeNS(namespaceURI, qualifiedName, '');
+    var attr = dummy.attributes[0];
+    dummy.removeAttributeNode(attr);
+    return attr;
+  };
+}
+if (!Element.prototype.setAttributeNodeNS) {
+  Element.prototype.setAttributeNodeNS = Element.prototype.setAttributeNode;
+}
+
+/**
  * @namespace Oryx name space for different utility methods
  * @name ORYX.Utils
 */
