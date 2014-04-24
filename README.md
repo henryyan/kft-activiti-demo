@@ -8,6 +8,8 @@
 
 **在线演示**：[http://demo.kafeitu.me/kft-activiti-demo](http://demo.kafeitu.me/kft-activiti-demo)
 
+<span style='color:red'><strong>Wiki文档: </strong></span>[https://github.com/henryyan/kft-activiti-demo/wiki](https://github.com/henryyan/kft-activiti-demo/wiki)
+
 **QQ群在线支持：**: 236540304
 
 # 框架版本
