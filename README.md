@@ -6,6 +6,10 @@
 > 如果你还不会使用Maven，真的希望能花点时间学习一下，跟随时代的脚步，轻轻松松耍Demo，让不会Maven的一边哭去。。。
 ----
 
+**Wiki文档**: [https://github.com/henryyan/kft-activiti-demo/wiki](https://github.com/henryyan/kft-activiti-demo/wiki)
+
+**QQ群在线支持：**: 23539326
+
 # 框架版本
 
 * Activiti: **5.12.1**
