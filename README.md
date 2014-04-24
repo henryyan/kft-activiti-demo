@@ -2,7 +2,7 @@
 
 本项目旨在让初学者快速入门Activiti。
 
-**作者**：[咖啡兔|http://www.kafeitu.me]
+**作者**：[咖啡兔](http://www.kafeitu.me)
 
 **项目主页**：[http://www.kafeitu.me/activiti/2012/05/26/kft-activiti-demo.html](http://www.kafeitu.me/activiti/2012/05/26/kft-activiti-demo.html)
 
