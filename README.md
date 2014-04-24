@@ -34,6 +34,9 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 
 ## Changelog
 
+### 1.10.1（2014-04-23）
+1. 修复在最新版本Chrome（V34）不能运行Activiti Modeler问题
+
 ### 1.10.0（2014-04-18）
 1. 集成了diagram-viewer，目前提供了三种流程跟踪方式
 2. 添加了针对JPA的演示
