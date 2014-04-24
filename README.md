@@ -1,12 +1,10 @@
 # 简介--(no-maven分支)
 
-本项目旨在让初学者快速入门Activiti。
+本项目旨在让初学者快速入门Activiti。**作者**：[咖啡兔](http://www.kafeitu.me)
 
 ----
 > 如果你还不会使用Maven，真的希望能花点时间学习一下，跟随时代的脚步，轻轻松松耍Demo，让不会Maven的一边哭去。。。
 ----
-
-**作者**：[咖啡兔|http://www.kafeitu.me]
 
 # 框架版本
 
