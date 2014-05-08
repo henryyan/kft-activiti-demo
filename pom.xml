@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.kafeitu.demo</groupId>
 	<artifactId>kft-activiti-demo</artifactId>
-	<version>1.10.1</version>
+	<version>1.10.2</version>
 	<packaging>war</packaging>
 	<name>Activiti demo</name>
 	<description>activiti demo for version 5.14</description>
@@ -41,7 +41,7 @@
 		<mockito.version>1.9.0</mockito.version>
 		<powermock.version>1.4.12</powermock.version>
 		<activiti.version>5.15.1-kft</activiti.version>
-    <activiti.engine.version>5.15.1-kft</activiti.engine.version>
+        <activiti.engine.version>5.15.1-kft</activiti.engine.version>
 
 		<!-- jdbc h2 -->
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
