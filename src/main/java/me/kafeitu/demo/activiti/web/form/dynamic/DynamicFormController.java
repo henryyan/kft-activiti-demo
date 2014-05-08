@@ -276,7 +276,6 @@ public class DynamicFormController {
 
             List<Task> dynamicFormTasks = taskService.createTaskQuery().processDefinitionKey("leave-dynamic-from")
                     .taskCandidateOrAssigned(user.getId()).active().orderByTaskId().desc().list();
-            tasks.addAll(dynamicFormTasks);
 
             List<Task> dispatchTasks = taskService.createTaskQuery().processDefinitionKey("dispatch")
                     .taskCandidateOrAssigned(user.getId()).active().orderByTaskId().desc().list();
