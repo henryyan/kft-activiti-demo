@@ -2,13 +2,13 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.kafeitu.me/demo/activiti/leave">
   <process id="leave-formkey" name="请假流程-外置表单">
     <documentation>请假流程演示</documentation>
-    <startEvent id="startevent1" name="Start" activiti:formKey="start.form" activiti:initiator="applyUserId"></startEvent>
-    <userTask id="deptLeaderAudit" name="部门领导审批" activiti:candidateGroups="deptLeader" activiti:formKey="dept-leader-audit.form"></userTask>
+    <startEvent id="startevent1" name="Start" activiti:formKey="start.ftl" activiti:initiator="applyUserId"></startEvent>
+    <userTask id="deptLeaderAudit" name="部门领导审批" activiti:candidateGroups="deptLeader" activiti:formKey="dept-leader-audit.ftl"></userTask>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="modifyApply" name="调整申请" activiti:assignee="${applyUserId}" activiti:formKey="modify-apply.form"></userTask>
-    <userTask id="hrAudit" name="人事审批" activiti:candidateGroups="hr" activiti:formKey="hr-audit.form"></userTask>
+    <userTask id="modifyApply" name="调整申请" activiti:assignee="${applyUserId}" activiti:formKey="modify-apply.ftl"></userTask>
+    <userTask id="hrAudit" name="人事审批" activiti:candidateGroups="hr" activiti:formKey="hr-audit.ftl"></userTask>
     <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="reportBack" name="销假" activiti:assignee="${applyUserId}" activiti:formKey="report-back.form"></userTask>
+    <userTask id="reportBack" name="销假" activiti:assignee="${applyUserId}" activiti:formKey="report-back.ftl"></userTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <exclusiveGateway id="exclusivegateway7" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" name="" sourceRef="startevent1" targetRef="deptLeaderAudit"></sequenceFlow>

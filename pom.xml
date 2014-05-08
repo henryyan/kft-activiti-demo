@@ -87,6 +87,11 @@
             <artifactId>activiti-json-converter</artifactId>
             <version>${activiti.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.20</version>
+        </dependency>
 
 		<dependency>
 			<groupId>org.activiti</groupId>

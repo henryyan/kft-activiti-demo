@@ -106,6 +106,13 @@
             </list>
         </property>
 
+        <!-- 自定义表单引擎 -->
+        <property name="customFormEngines">
+            <list>
+                <bean class="me.kafeitu.demo.activiti.activiti.form.FreemarkerForEngine" />
+            </list>
+        </property>
+
         <!-- JPA -->
         <property name="jpaEntityManagerFactory" ref="entityManagerFactory" />
         <property name="jpaHandleTransaction" value="false" />

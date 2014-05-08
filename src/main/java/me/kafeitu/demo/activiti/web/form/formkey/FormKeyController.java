@@ -99,7 +99,7 @@ public class FormKeyController {
     public Object findStartForm(@PathVariable("processDefinitionId") String processDefinitionId) throws Exception {
 
         // 根据流程定义ID读取外置表单
-        Object startForm = formService.getRenderedStartForm(processDefinitionId);
+        Object startForm = formService.getRenderedStartForm(processDefinitionId, "freemarker");
 
         return startForm;
     }
@@ -110,7 +110,7 @@ public class FormKeyController {
     @RequestMapping(value = "get-form/task/{taskId}")
     @ResponseBody
     public Object findTaskForm(@PathVariable("taskId") String taskId) throws Exception {
-        Object renderedTaskForm = formService.getRenderedTaskForm(taskId);
+        Object renderedTaskForm = formService.getRenderedTaskForm(taskId, "freemarker");
         return renderedTaskForm;
     }
 
