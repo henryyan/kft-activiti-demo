@@ -81,6 +81,12 @@
         <!--<property name="history" value="full"/>-->
         <property name="processDefinitionCacheLimit" value="10"/>
 
+        <!-- mail -->
+        <property name="mailServerHost" value="localhost"/>
+        <property name="mailServerUsername" value="kafeitu"/>
+        <property name="mailServerPassword" value="000000"/>
+        <property name="mailServerPort" value="2025"/>
+
         <!-- UUID作为主键生成策略
         <property name="idGenerator" ref="uuidGenerator" />
         -->
@@ -138,5 +144,5 @@
     <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
     <!-- Activiti end -->
 
-    <jaxws:endpoint id="helloWorld" implementor="me.kafeitu.demo.activiti.webservice.LeaveWebServiceImpl" address="leave"/>
+    <jaxws:endpoint id="leaveWebService" implementor="me.kafeitu.demo.activiti.webservice.LeaveWebServiceImpl" address="/leave"/>
 </beans>
