@@ -10,7 +10,7 @@
 
 **Wiki文档**: [https://github.com/henryyan/kft-activiti-demo/wiki](https://github.com/henryyan/kft-activiti-demo/wiki)
 
-**QQ群在线支持：**: 23539326
+**QQ群在线支持：**: 236540304
 
 # 框架版本
 
