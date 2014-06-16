@@ -38,4 +38,7 @@
     <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
     <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
 
+    <bean id="testDubbo" class="me.kafeitu.dubbo.TestDubboImpl">
+        <property name="managementService" ref="managementService" />
+    </bean>
 </beans>

@@ -9,12 +9,5 @@
 
     <dubbo:registry address="redis://127.0.0.1:6379" />
 
-    <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-    <dubbo:reference interface="org.activiti.engine.RepositoryService" id="repositoryService" />
-    <dubbo:reference interface="org.activiti.engine.RuntimeService" id="runtimeService" />
-    <dubbo:reference interface="org.activiti.engine.FormService" id="formService" />
-    <dubbo:reference interface="org.activiti.engine.IdentityService" id="identityService" />
-    <dubbo:reference interface="org.activiti.engine.TaskService" id="taskService" />
-    <dubbo:reference interface="org.activiti.engine.HistoryService" id="historyService" />
-    <dubbo:reference interface="org.activiti.engine.ManagementService" id="managementService" />
+    <dubbo:reference interface="me.kafeitu.dubbo.TestDubbo" id="testDubbo" />
 </beans>
