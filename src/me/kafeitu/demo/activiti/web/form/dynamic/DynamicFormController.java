@@ -298,11 +298,13 @@ public class DynamicFormController {
      * 签收任务
      */
     @RequestMapping(value = "task/claim/{id}")
-    public String claim(@PathVariable("id") String taskId, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String claim(@PathVariable("id") String taskId, HttpSession session,
+                        HttpServletRequest request,
+                        RedirectAttributes redirectAttributes) {
         String userId = UserUtil.getUserFromSession(session).getId();
         taskService.claim(taskId, userId);
         redirectAttributes.addFlashAttribute("message", "任务已签收");
-        return "redirect:/form/dynamic/task/list";
+        return "redirect:/form/dynamic/task/list?processType=" + StringUtils.defaultString(request.getParameter("processType"));
     }
 
     /**

@@ -68,7 +68,7 @@
 			<td>${task.owner }</td>
 			<td>
 				<c:if test="${empty task.assignee }">
-					<a class="claim" href="${ctx }/form/dynamic/task/claim/${task.id}">签收</a>
+					<a class="claim" href="${ctx }/form/dynamic/task/claim/${task.id}?processType=${param.processType}">签收</a>
 				</c:if>
 				<c:if test="${not empty task.assignee }">
 					<%-- 此处用tkey记录当前节点的名称 --%>
