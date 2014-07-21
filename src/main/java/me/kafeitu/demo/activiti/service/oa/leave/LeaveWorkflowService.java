@@ -1,8 +1,16 @@
 package me.kafeitu.demo.activiti.service.oa.leave;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import me.kafeitu.demo.activiti.entity.oa.Leave;
 import me.kafeitu.demo.activiti.util.Page;
-import org.activiti.engine.*;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -15,10 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 请假流程Service
@@ -78,21 +82,10 @@ public class LeaveWorkflowService {
     @Transactional(readOnly = true)
     public List<Leave> findTodoTasks(String userId, Page<Leave> page, int[] pageParams) {
         List<Leave> results = new ArrayList<Leave>();
-        List<Task> tasks = new ArrayList<Task>();
 
         // 根据当前人的ID查询
-        TaskQuery todoQuery = taskService.createTaskQuery().processDefinitionKey("leave").taskAssignee(userId).active().orderByTaskId().desc()
-                .orderByTaskCreateTime().desc();
-        List<Task> todoList = todoQuery.listPage(pageParams[0], pageParams[1]);
-
-        // 根据当前人未签收的任务
-        TaskQuery claimQuery = taskService.createTaskQuery().processDefinitionKey("leave").taskCandidateUser(userId).active().orderByTaskId().desc()
-                .orderByTaskCreateTime().desc();
-        List<Task> unsignedTasks = claimQuery.listPage(pageParams[0], pageParams[1]);
-
-        // 合并
-        tasks.addAll(todoList);
-        tasks.addAll(unsignedTasks);
+        TaskQuery taskQuery = taskService.createTaskQuery().taskCandidateOrAssigned(userId);
+        List<Task> tasks = taskQuery.list();
 
         // 根据流程的业务ID查询实体并关联
         for (Task task : tasks) {
@@ -109,7 +102,7 @@ public class LeaveWorkflowService {
             results.add(leave);
         }
 
-        page.setTotalCount(todoQuery.count() + claimQuery.count());
+        page.setTotalCount(taskQuery.count());
         page.setResult(results);
         return results;
     }
