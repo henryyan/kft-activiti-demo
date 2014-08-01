@@ -33,7 +33,6 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.User;
-import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.repository.Deployment;
@@ -228,7 +227,7 @@ public class ActivitiController {
         // 使用spring注入引擎请使用下面的这行代码
         Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
 
-        InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
+        InputStream imageStream = null;//ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
 
         // 输出资源内容到相应对象
         byte[] b = new byte[1024];
@@ -281,7 +280,7 @@ public class ActivitiController {
         BpmnModel bpmnModel = new BpmnXMLConverter().convertToBpmnModel(xtr);
 
         BpmnJsonConverter converter = new BpmnJsonConverter();
-        ObjectNode modelNode = converter.convertToJson(bpmnModel);
+        com.fasterxml.jackson.databind.node.ObjectNode modelNode = converter.convertToJson(bpmnModel);
         Model modelData = repositoryService.newModel();
         modelData.setKey(processDefinition.getKey());
         modelData.setName(processDefinition.getResourceName());
