@@ -7,7 +7,7 @@
 	<version>1.12</version>
 	<packaging>war</packaging>
 	<name>Activiti demo</name>
-	<description>activiti demo for version 5.15</description>
+	<description>activiti demo for version 5.16</description>
 
 	<developers>
 		<developer>
