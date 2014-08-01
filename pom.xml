@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.kafeitu.demo</groupId>
 	<artifactId>kft-activiti-demo</artifactId>
-	<version>1.11.1</version>
+	<version>1.12</version>
 	<packaging>war</packaging>
 	<name>Activiti demo</name>
 	<description>activiti demo for version 5.15</description>
@@ -24,19 +24,18 @@
 		<jdk.version>1.6</jdk.version>
 		<spring.version>4.0.6.RELEASE</spring.version>
 		<hibernate.version>4.2.5.Final</hibernate.version>
-		<spring-data-jpa.version>1.3.4.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>1.6.2.RELEASE</spring-data-jpa.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
-		<ehcache.version>2.5.2</ehcache.version>
 		<jackson.version>2.0.4</jackson.version>
 		<spymemcached.version>2.8.1</spymemcached.version>
-		<guava.version>12.0</guava.version>
+		<guava.version>17.0</guava.version>
 		<commons-lang3.version>3.1</commons-lang3.version>
 		<commons-io.version>2.4</commons-io.version>
 		<joda-time.version>2.1</joda-time.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<jetty.version>8.1.15.v20140411</jetty.version>
-		<h2.version>1.3.173</h2.version>
+		<h2.version>1.4.180</h2.version>
 		<junit.version>4.10</junit.version>
 		<mockito.version>1.9.0</mockito.version>
 		<powermock.version>1.4.12</powermock.version>
@@ -246,11 +245,6 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<version>1.0.1.Final</version>
@@ -313,20 +307,13 @@
 			<version>1.2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
 		<!-- WEB end -->
-
-		<!-- CACHE -->
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache-core</artifactId>
-			<version>${ehcache.version}</version>
-		</dependency>
 
 		<!-- LOGGING begin -->
 		<dependency>
