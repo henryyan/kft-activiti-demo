@@ -127,8 +127,8 @@
             <li>
                 <b>QQ群：</b>
                 <ul>
-                    <li>Activiti中文群1(<span style="color:red">已满</span>)：236540304</li>
-                    <li>Activiti中文群2(<span style="color:green;font-weight: bold">欢迎</span>)：23539326</li>
+                    <li>Activiti中文群1(<span style="color:green;font-weight: bold">欢迎</span>)：236540304</li>
+                    <li>Activiti中文群2(<span style="color:red">已满</span>)：23539326</li>
                     <li>Activiti中文群3(<span style="color:red">已满</span>)：139983080</li>
                     <li>Activiti中文群4(<span style="color:red">已满</span>)：327913744</li>
                 </ul>
