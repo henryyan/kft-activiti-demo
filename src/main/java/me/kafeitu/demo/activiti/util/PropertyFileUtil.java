@@ -1,5 +1,15 @@
 package me.kafeitu.demo.activiti.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -10,10 +20,6 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.DefaultPropertiesPersister;
 import org.springframework.util.PropertiesPersister;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.*;
 
 /**
  * 系统属性工具类
@@ -22,7 +28,6 @@ import java.util.*;
  */
 public class PropertyFileUtil {
 
-
     private static final String DEFAULT_ENCODING = "UTF-8";
     private static Logger logger = LoggerFactory.getLogger(PropertyFileUtil.class);
     private static Properties properties;
@@ -30,7 +35,7 @@ public class PropertyFileUtil {
     private static ResourceLoader resourceLoader = new DefaultResourceLoader();
     private static Properties activePropertyFiles = null;
     private static String PROFILE_ID = StringUtils.EMPTY;
-    public static boolean INITIALIZED = false; // 是否已初始化
+    public static boolean initialized = false; // 是否已初始化
 
     /**
      * 初始化读取配置文件，读取的文件列表位于classpath下面的application-files.properties<br/>
@@ -44,7 +49,7 @@ public class PropertyFileUtil {
         PROFILE_ID = StringUtils.EMPTY;
         innerInit(fileNames);
         activePropertyFiles(fileNames);
-        INITIALIZED = true;
+        initialized = true;
     }
 
     /**
@@ -63,7 +68,7 @@ public class PropertyFileUtil {
             String fileNames = "application-" + profile + "-files.properties";
             innerInit(fileNames);
         }
-        INITIALIZED = true;
+        initialized = true;
     }
 
     /**
@@ -120,6 +125,9 @@ public class PropertyFileUtil {
 
         for (String location : resourcesPaths) {
 
+            // 剔除classpath路径协议
+            location = location.replace("classpath*:/", "");
+
             logger.debug("Loading properties file from:" + location);
 
             InputStream is = null;
@@ -168,8 +176,17 @@ public class PropertyFileUtil {
      * @return 值
      */
     public static String get(String key) {
+        if (!initialized) {
+            try {
+                init();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         String propertyValue = properties.getProperty(key);
-        logger.debug("获取属性：{}，值：{}", key, propertyValue);
+        if (logger.isDebugEnabled()) {
+            logger.debug("获取属性：{}，值：{}", key, propertyValue);
+        }
         return propertyValue;
     }
 
@@ -181,10 +198,30 @@ public class PropertyFileUtil {
      * @return 值
      */
     public static String get(String key, String defaultValue) {
+        if (!initialized) {
+            try {
+                init();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         String propertyValue = properties.getProperty(key);
         String value = StringUtils.defaultString(propertyValue, defaultValue);
-        logger.debug("获取属性：{}，值：{}", key, value);
+        if (logger.isDebugEnabled()) {
+            logger.debug("获取属性：{}，值：{}", key, value);
+        }
         return value;
+    }
+
+    /**
+     * 判断key对应的value是否和期待的一致
+     * @param key
+     * @param expectValue
+     * @return
+     */
+    public static boolean equalsWith(String key, String expectValue) {
+        String value = get(key);
+        return StringUtils.equals(value, expectValue);
     }
 
     /**

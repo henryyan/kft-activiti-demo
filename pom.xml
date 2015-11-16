@@ -42,17 +42,15 @@
         <activiti.version>5.19.0</activiti.version>
         <activiti.engine.version>5.19.0</activiti.engine.version>
 
-        <!-- jdbc h2 -->
+        <!-- jdbc h2
         <jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
         <jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
         <jdbc.driver.version>1.4.190</jdbc.driver.version>
-
+-->
         <!-- jdbc mysql -->
-        <!--
         <jdbc.driver.groupId>mysql</jdbc.driver.groupId>
         <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
         <jdbc.driver.version>5.1.11</jdbc.driver.version>
-        -->
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

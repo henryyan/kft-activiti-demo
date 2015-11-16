@@ -117,7 +117,11 @@ public class ModelController {
         try {
             Model modelData = repositoryService.getModel(modelId);
             BpmnJsonConverter jsonConverter = new BpmnJsonConverter();
-            JsonNode editorNode = new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
+            byte[] modelEditorSource = repositoryService.getModelEditorSource(modelData.getId());
+
+//            System.out.println(new String(modelEditorSource));
+
+            JsonNode editorNode = new ObjectMapper().readTree(modelEditorSource);
             BpmnModel bpmnModel = jsonConverter.convertToBpmnModel(editorNode);
             BpmnXMLConverter xmlConverter = new BpmnXMLConverter();
             byte[] bpmnBytes = xmlConverter.convertToXML(bpmnModel);
