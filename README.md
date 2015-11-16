@@ -20,11 +20,9 @@
 
 # 框架版本
 
-* Activiti: **5.15.1-kft**
+* Activiti: **5.19.0**
 
-* Spring: **3.2.5.RELEASE**
-
-* Hibernate: **4.1.4.Final**
+* Spring: **4.1.5.RELEASE**
 
 # 分支选择
 
