@@ -1,116 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>me.kafeitu.demo</groupId>
-	<artifactId>kft-activiti-demo</artifactId>
-	<version>1.12</version>
-	<packaging>war</packaging>
-	<name>Activiti demo</name>
-	<description>activiti demo for version 5.16</description>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>me.kafeitu.demo</groupId>
+    <artifactId>kft-activiti-demo</artifactId>
+    <version>1.13-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>Activiti demo</name>
+    <description>activiti demo for version 5.19</description>
 
-	<developers>
-		<developer>
-			<id>henryyan</id>
-			<name>Henry Yan</name>
-			<email>yanhonglei@gmail.com</email>
-			<url>http://www.kafeitu.me</url>
-			<timezone>8</timezone>
-		</developer>
-	</developers>
+    <developers>
+        <developer>
+            <id>henryyan</id>
+            <name>Henry Yan</name>
+            <email>yanhonglei@gmail.com</email>
+            <url>http://www.kafeitu.me</url>
+            <timezone>8</timezone>
+        </developer>
+    </developers>
 
-	<!-- 项目属性 -->
-	<properties>
-		<jdk.version>1.6</jdk.version>
-		<spring.version>4.0.6.RELEASE</spring.version>
-		<hibernate.version>4.2.5.Final</hibernate.version>
-		<spring-data-jpa.version>1.6.2.RELEASE</spring-data-jpa.version>
-		<commons-dbcp.version>1.4</commons-dbcp.version>
-		<jackson.version>2.0.4</jackson.version>
-		<spymemcached.version>2.8.1</spymemcached.version>
-		<guava.version>17.0</guava.version>
-		<commons-lang3.version>3.3.2</commons-lang3.version>
-		<commons-io.version>2.4</commons-io.version>
-		<joda-time.version>2.1</joda-time.version>
-		<slf4j.version>1.7.5</slf4j.version>
-		<log4j.version>1.2.17</log4j.version>
-		<jetty.version>8.1.15.v20140411</jetty.version>
-		<h2.version>1.4.180</h2.version>
-		<junit.version>4.10</junit.version>
-		<mockito.version>1.9.0</mockito.version>
-		<powermock.version>1.4.12</powermock.version>
-		<activiti.version>5.16</activiti.version>
-        <activiti.engine.version>5.16</activiti.engine.version>
+    <!-- 项目属性 -->
+    <properties>
+        <jdk.version>1.7</jdk.version>
+        <spring.version>4.1.5.RELEASE</spring.version>
+        <hibernate.version>4.2.5.Final</hibernate.version>
+        <spring-data-jpa.version>1.9.1.RELEASE</spring-data-jpa.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <jackson.version>2.0.4</jackson.version>
+        <spymemcached.version>2.8.1</spymemcached.version>
+        <guava.version>17.0</guava.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <commons-io.version>2.4</commons-io.version>
+        <joda-time.version>2.1</joda-time.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <jetty.version>8.1.15.v20140411</jetty.version>
+        <h2.version>1.4.180</h2.version>
+        <junit.version>4.10</junit.version>
+        <mockito.version>1.9.0</mockito.version>
+        <powermock.version>1.4.12</powermock.version>
+        <activiti.version>5.19.0</activiti.version>
+        <activiti.engine.version>5.19.0</activiti.engine.version>
 
-		<!-- jdbc h2 -->
-		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
-		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
-		<jdbc.driver.version>1.3.173</jdbc.driver.version>
+        <!-- jdbc h2 -->
+        <jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
+        <jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
+        <jdbc.driver.version>1.4.190</jdbc.driver.version>
 
-		<!-- jdbc mysql <jdbc.driver.groupId>mysql</jdbc.driver.groupId> <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId> 
-			<jdbc.driver.version>5.1.11</jdbc.driver.version> -->
+        <!-- jdbc mysql -->
+        <!--
+        <jdbc.driver.groupId>mysql</jdbc.driver.groupId>
+        <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
+        <jdbc.driver.version>5.1.11</jdbc.driver.version>
+        -->
 
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<repositories>
-		<repository>
-			<id>kafeitu</id>
-            <url>http://maven.kafeitu.me/nexus/content/groups/public</url>
-		</repository>
-		<repository>
-			<id>Activiti</id>
-			<url>https://maven.alfresco.com/nexus/content/groups/public</url>
-		</repository>
-		<repository>
-			<id>Codehaus</id>
-			<url>http://repository.codehaus.org</url>
-		</repository>
-	</repositories>
+    <!-- 依赖项定义 -->
+    <dependencies>
 
-	<!-- 依赖项定义 -->
-	<dependencies>
-		<!-- activiti -->
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-engine</artifactId>
-			<version>${activiti.engine.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.5.4</version>
+        </dependency>
+
+        <!-- activiti -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>${activiti.engine.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-json-converter</artifactId>
             <version>${activiti.version}</version>
         </dependency>
 
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-explorer</artifactId>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-explorer</artifactId>
             <version>${activiti.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>vaadin</artifactId>
-					<groupId>com.vaadin</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>dcharts-widget</artifactId>
-					<groupId>org.vaadin.addons</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>activiti-simple-workflow</artifactId>
-					<groupId>org.activiti</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-modeler</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>vaadin</artifactId>
+                    <groupId>com.vaadin</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dcharts-widget</artifactId>
+                    <groupId>org.vaadin.addons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>activiti-simple-workflow</artifactId>
+                    <groupId>org.activiti</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-modeler</artifactId>
             <version>${activiti.version}</version>
-		</dependency>
+        </dependency>
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-rest</artifactId>
@@ -150,162 +146,154 @@
             <version>2.7.6</version>
         </dependency>
 
-		<!-- 支持activiti缓存 -->
-		<dependency>
-			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-core</artifactId>
-			<version>5.1.7.Final</version>
-		</dependency>
+        <!-- 支持activiti缓存 -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
+            <version>5.1.7.Final</version>
+        </dependency>
 
-		<!-- Jackson JSON Mapper -->
-		<!-- SpringMVC的@ResponseBody需要使用 -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.7</version>
-		</dependency>
+        <!-- UTILS -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
 
-		<!-- UTILS -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons-io.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.2</version>
-		</dependency>
+        <!-- SPRING begin -->
+        <!-- spring basic -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.6.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.6.9</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+        <!-- SPRING end -->
 
-		<!-- SPRING begin -->
-		<!-- spring basic -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>1.6.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.6.9</version>
-		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>2.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm</artifactId>
-			<version>3.3.1</version>
-		</dependency>
-		<!-- SPRING end -->
+        <!-- PERSISTENCE begin -->
+        <!-- hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
 
-		<!-- PERSISTENCE begin -->
-		<!-- hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>1.0.1.Final</version>
-		</dependency>
+        <!-- spring data access -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit-dep</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<!-- spring data access -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring-data-jpa.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit-dep</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<!-- dbcp connection pool -->
+        <!-- dbcp connection pool -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
             <version>2.0.1</version>
         </dependency>
 
-		<!-- jdbc driver -->
-		<dependency>
-			<groupId>${jdbc.driver.groupId}</groupId>
-			<artifactId>${jdbc.driver.artifactId}</artifactId>
-			<version>${jdbc.driver.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<!-- PERSISTENCE end -->
+        <!-- jdbc driver -->
+        <dependency>
+            <groupId>${jdbc.driver.groupId}</groupId>
+            <artifactId>${jdbc.driver.artifactId}</artifactId>
+            <version>${jdbc.driver.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- PERSISTENCE end -->
 
-		<!-- WEB begin -->
+        <!-- WEB begin -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -313,64 +301,64 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
-		<!-- WEB end -->
+        <!-- WEB end -->
 
-		<!-- LOGGING begin -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<!-- LOGGING end -->
+        <!-- LOGGING begin -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <!-- LOGGING end -->
 
-		<!-- GENERAL UTILS begin -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.8.3</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <!-- GENERAL UTILS begin -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jodd</groupId>
-			<artifactId>jodd</artifactId>
-			<version>3.3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${joda-time.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time.version}</version>
+        </dependency>
 
         <!-- UUID -->
         <dependency>
@@ -378,137 +366,137 @@
             <artifactId>java-uuid-generator</artifactId>
             <version>3.1.3</version>
         </dependency>
-		<!-- GENERAL UTILS end -->
+        <!-- GENERAL UTILS end -->
 
-		<!-- TEST begin -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
+        <!-- TEST begin -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito.version}</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.mockito</groupId>
-					<artifactId>mockito-all</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>mockito-all</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>${h2.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-			<version>2.4.8</version>
-		</dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.4.8</version>
+        </dependency>
 
-		<!-- jetty -->
-		<dependency>
-			<groupId>org.eclipse.jetty.aggregate</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>${jetty.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-jsp</artifactId>
-			<version>${jetty.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- TEST end -->
-	</dependencies>
+        <!-- jetty -->
+        <dependency>
+            <groupId>org.eclipse.jetty.aggregate</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-jsp</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- TEST end -->
+    </dependencies>
 
-	<build>
+    <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
-		<plugins>
-			<!-- compiler插件, 设定JDK版本 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-					<showWarnings>true</showWarnings>
-				</configuration>
-			</plugin>
+        <plugins>
+            <!-- compiler插件, 设定JDK版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
 
-			<!-- eclipse插件, 设定wtp版本并添加springIDE nature -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<wtpversion>2.0</wtpversion>
-					<additionalProjectnatures>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-					</additionalProjectnatures>
-				</configuration>
-			</plugin>
+            <!-- eclipse插件, 设定wtp版本并添加springIDE nature -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <wtpversion>2.0</wtpversion>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                </configuration>
+            </plugin>
 
-			<!-- jetty插件, 设定context path与spring profile -->
-			<plugin>
+            <!-- jetty插件, 设定context path与spring profile -->
+            <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-				<version>${jetty.version}</version>
-				<configuration>
-					<webAppConfig>
-						<contextPath>/${project.artifactId}</contextPath>
-					</webAppConfig>
-				</configuration>
-			</plugin>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <webAppConfig>
+                        <contextPath>/${project.artifactId}</contextPath>
+                    </webAppConfig>
+                </configuration>
+            </plugin>
 
-			<!-- resource插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<nonFilteredFileExtensions>
-						<!-- 过滤流程定义资源文件 -->
-						<nonFilteredFileExtension>zip</nonFilteredFileExtension>
-						<nonFilteredFileExtension>bar</nonFilteredFileExtension>
-						<nonFilteredFileExtension>png</nonFilteredFileExtension>
-						<nonFilteredFileExtension>bpmn</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
+            <!-- resource插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <!-- 过滤流程定义资源文件 -->
+                        <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>bar</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>png</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>bpmn</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
 
             <!-- tomcat6 -->
             <plugin>
@@ -529,127 +517,145 @@
                     <path>/${project.artifactId}</path>
                 </configuration>
             </plugin>
-		</plugins>
+        </plugins>
 
         <finalName>kft-activiti-demo</finalName>
-	</build>
+    </build>
 
-	<profiles>
-		<!-- 开发环境 -->
-		<profile>
-			<id>kft-activiti-demo</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources</directory>
-						<filtering>true</filtering>
-					</resource>
-				</resources>
-			</build>
-		</profile>
+    <profiles>
+        <!-- 开发环境 -->
+        <profile>
+            <id>kft-activiti-demo</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
 
-		<!-- 刷新开发环境数据库 -->
-		<profile>
-			<id>initdatas</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>1.7</version>
-						<configuration>
-							<target>
-								<property file="src/main/resources/application.local.properties" />
-								<property file="src/main/resources/application.properties" />
+        <!-- 刷新开发环境数据库 -->
+        <profile>
+            <id>initdatas</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <configuration>
+                            <target>
+                                <property file="src/main/resources/application.local.properties"/>
+                                <property file="src/main/resources/application.properties"/>
 
-								<property name="sql.type" value="${sql.type}" />
-								<property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory" />
+                                <property name="sql.type" value="${sql.type}"/>
+                                <property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory"/>
 
-								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
+                                <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
+                                         classpathref="maven.test.classpath"/>
 
-								<!-- add init datas -->
-								<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}">
-									<dbconfig>
-										<property name="datatypeFactory" value="${dbunit.datatype}" />
-									</dbconfig>
-									<classpath refid="maven.test.classpath" />
-									<operation type="CLEAN_INSERT" src="src/test/resources/data/sample-data.xml" format="flat" transaction="true" />
-								</dbunit>
-							</target>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+                                <!-- add init datas -->
+                                <dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+                                        password="${jdbc.password}">
+                                    <dbconfig>
+                                        <property name="datatypeFactory" value="${dbunit.datatype}"/>
+                                    </dbconfig>
+                                    <classpath refid="maven.test.classpath"/>
+                                    <operation type="CLEAN_INSERT" src="src/test/resources/data/sample-data.xml"
+                                               format="flat" transaction="true"/>
+                                </dbunit>
+                            </target>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-		<!-- -->
-		<profile>
-			<id>refresh-db</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>1.7</version>
-						<configuration>
-							<target>
-								<property file="src/main/resources/application.local.properties" />
-								<property file="src/main/resources/application.properties" />
+        <!-- -->
+        <profile>
+            <id>refresh-db</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <configuration>
+                            <target>
+                                <property file="src/main/resources/application.local.properties"/>
+                                <property file="src/main/resources/application.properties"/>
 
-								<property name="sql.type" value="${sql.type}" />
-								<property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory" />
+                                <property name="sql.type" value="${sql.type}"/>
+                                <property name="dbunit.datatype" value="org.dbunit.ext.h2.H2DataTypeFactory"/>
 
-								<taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="maven.test.classpath" />
+                                <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
+                                         classpathref="maven.test.classpath"/>
 
-								<!-- activit start -->
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
-									src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.engine.sql" onerror="continue">
-									<classpath refid="maven.test.classpath" />
-								</sql>
+                                <!-- activit start -->
+                                <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+                                     password="${jdbc.password}"
+                                     src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.engine.sql"
+                                     onerror="continue">
+                                    <classpath refid="maven.test.classpath"/>
+                                </sql>
 
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
-									src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.history.sql" onerror="continue">
-									<classpath refid="maven.test.classpath" />
-								</sql>
+                                <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+                                     password="${jdbc.password}"
+                                     src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.history.sql"
+                                     onerror="continue">
+                                    <classpath refid="maven.test.classpath"/>
+                                </sql>
 
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
-									src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.identity.sql" onerror="continue">
-									<classpath refid="maven.test.classpath" />
-								</sql>
+                                <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+                                     password="${jdbc.password}"
+                                     src="src/main/resources/sql/${sql.type}/drop/activiti.${sql.type}.drop.identity.sql"
+                                     onerror="continue">
+                                    <classpath refid="maven.test.classpath"/>
+                                </sql>
 
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
-									src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.engine.sql" onerror="continue">
-									<classpath refid="maven.test.classpath" />
-								</sql>
+                                <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+                                     password="${jdbc.password}"
+                                     src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.engine.sql"
+                                     onerror="continue">
+                                    <classpath refid="maven.test.classpath"/>
+                                </sql>
 
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
-									src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.history.sql" onerror="continue">
-									<classpath refid="maven.test.classpath" />
-								</sql>
+                                <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+                                     password="${jdbc.password}"
+                                     src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.history.sql"
+                                     onerror="continue">
+                                    <classpath refid="maven.test.classpath"/>
+                                </sql>
 
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
-									src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.identity.sql" onerror="continue">
-									<classpath refid="maven.test.classpath" />
-								</sql>
-								<!-- activit end -->
+                                <sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+                                     password="${jdbc.password}"
+                                     src="src/main/resources/sql/${sql.type}/create/activiti.${sql.type}.create.identity.sql"
+                                     onerror="continue">
+                                    <classpath refid="maven.test.classpath"/>
+                                </sql>
+                                <!-- activit end -->
 
-								<!-- add init datas -->
-								<dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}">
-									<dbconfig>
-										<property name="datatypeFactory" value="${dbunit.datatype}" />
-									</dbconfig>
-									<classpath refid="maven.test.classpath" />
-									<operation type="CLEAN_INSERT" src="src/test/resources/data/sample-data.xml" format="flat" transaction="true" />
-								</dbunit>
-							</target>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+                                <!-- add init datas -->
+                                <dbunit driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
+                                        password="${jdbc.password}">
+                                    <dbconfig>
+                                        <property name="datatypeFactory" value="${dbunit.datatype}"/>
+                                    </dbconfig>
+                                    <classpath refid="maven.test.classpath"/>
+                                    <operation type="CLEAN_INSERT" src="src/test/resources/data/sample-data.xml"
+                                               format="flat" transaction="true"/>
+                                </dbunit>
+                            </target>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
         <!-- 在线Demo配置 -->
         <profile>
@@ -659,7 +665,7 @@
                     <plugin>
                         <groupId>com.juvenxu.portable-config-maven-plugin</groupId>
                         <artifactId>portable-config-maven-plugin</artifactId>
-                        <version>1.1.5-SNAPSHOT</version>
+                        <version>1.1.5</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -674,5 +680,5 @@
                 </plugins>
             </build>
         </profile>
-	</profiles>
+    </profiles>
 </project>

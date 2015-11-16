@@ -17,53 +17,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-    <!-- 注册WebService -->
-    <servlet>
-        <servlet-name>CXFServlet</servlet-name>
-        <display-name>CXF Servlet</display-name>
-        <servlet-class>
-            org.apache.cxf.transport.servlet.CXFServlet
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>CXFServlet</servlet-name>
-        <url-pattern>/services/*</url-pattern>
-    </servlet-mapping>
-
-	<!-- 配置文件Servlet -->
-	<servlet>
-		<servlet-name>PropertiesServlet</servlet-name>
-		<servlet-class>me.kafeitu.modules.web.servlet.PropertiesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PropertiesServlet</servlet-name>
-		<url-pattern>/servlet/properties</url-pattern>
-	</servlet-mapping>
-	
-	<!-- Restlet adapter, used to expose modeler functionality through REST -->
-    <servlet>
-        <servlet-name>ExplorerRestletServlet</servlet-name>
-        <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
-        <init-param>
-            <!-- Application class name -->
-            <param-name>org.restlet.application</param-name>
-            <param-value>org.activiti.explorer.rest.ExplorerRestApplication</param-value>
-        </init-param>
-    </servlet>
-
-    <servlet>
-        <servlet-name>RestletServlet</servlet-name>
-        <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
-        <init-param>
-            <!-- Application class name -->
-            <param-name>org.restlet.application</param-name>
-            <param-value>org.activiti.rest.service.application.ActivitiRestServicesApplication</param-value>
-        </init-param>
-    </servlet>
-
 	<!-- Filter 定义 -->
 	<!-- Character Encoding filter -->
 	<filter>
@@ -93,6 +46,41 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- JSONP -->
+	<filter>
+		<filter-name>JSONPFilter</filter-name>
+		<filter-class>org.activiti.explorer.servlet.JsonpCallbackFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>JSONPFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+    <!-- 注册WebService -->
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>
+            org.apache.cxf.transport.servlet.CXFServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+	<!-- 配置文件Servlet -->
+	<servlet>
+		<servlet-name>PropertiesServlet</servlet-name>
+		<servlet-class>me.kafeitu.modules.web.servlet.PropertiesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PropertiesServlet</servlet-name>
+		<url-pattern>/servlet/properties</url-pattern>
+	</servlet-mapping>
+
 	<!-- Spring MVC Servlet -->
 	<servlet>
 		<servlet-name>springServlet</servlet-name>
@@ -107,17 +95,20 @@
 		<servlet-name>springServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	<!-- Catch all service requests -->
+
+	<servlet>
+		<servlet-name>ModelRestServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc-modeler.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<servlet-mapping>
-		<servlet-name>ExplorerRestletServlet</servlet-name>
+		<servlet-name>ModelRestServlet</servlet-name>
 		<url-pattern>/service/*</url-pattern>
 	</servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>RestletServlet</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
-    </servlet-mapping>
 
 	<!-- session超时定义,单位为分钟 -->
 	<session-config>

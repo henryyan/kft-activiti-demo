@@ -35,7 +35,7 @@
     </bean>
 
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-    <context:component-scan base-package="me.kafeitu.demo.activiti">
+    <context:component-scan base-package="me.kafeitu.demo.activiti,org.activiti.conf,org.activiti.rest.editor">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
