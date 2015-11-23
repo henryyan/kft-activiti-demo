@@ -34,6 +34,14 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 * **maven**分支：对应与git的`master`分支，便于安装和数据库初始化
 * **no-maven**分支：直接是一个eclipse工程，包含eclipse的项目配置文件和WEB-INF/lib下面的所有的jar文件
 
+## Maven方式运行
+
+> mvn clean jetty:run
+
+在 **pom.xml** 中配置了 **h2** 数据库与 **mysql** 数据库，默认启用 **h2** 数据库配置方式，如果使用 **mysql** 请启用mysql的配置(使用下面的命令)。
+
+> mvn clean jetty:run -Pmysql
+
 # 演示说明文档
 
 * [配置说明](https://github.com/henryyan/kft-activiti-demo/wiki/%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
@@ -42,6 +50,13 @@ Demo提供Maven版本和no-maven版本，分别适用于会用mavne和不会用m
 ![kft-activiti-demo截图](http://www.kafeitu.me/files/2012/05/kft-activiti-demo.png)
 
 ## Changelog
+
+### 1.13.0（2015-11-23）
+1. 集成基于5.17+的流程设计器(Activiti Modeler,很漂亮),demo依赖的版本支持5.17以上
+2. 数据库配置属性转移到pom.xml里面,可以直接修改`pom.xml`文件的参数,也可以在运行时通过`-Djdbc.password=111111`参数覆盖
+
+### 1.11~1.12(unknown)
+1. 内部消耗掉了，不要问我...
 
 ### 1.10.1（2014-04-23）
 1. 修复在最新版本Chrome（V34）不能运行Activiti Modeler问题

@@ -106,6 +106,9 @@
             </div>
             <div style="float:right; width: 50%;">
                 <dl>
+                    <dt>《Activiti实战》：</dt>
+                    <dd><a target="_blank" href="http://www.kafeitu.me/activiti-in-action.html">http://www.kafeitu.me/activiti-in-action.html</a></dd>
+
                     <dt>Wiki：</dt>
                     <dd><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo/wiki">https://github.com/henryyan/kft-activiti-demo/wiki</a></dd>
 
@@ -114,32 +117,10 @@
 
                     <dt>Activiti资料：</dt>
                     <dd><a target="_blank" href="http://www.kafeitu.me/categories.html#activiti-ref">http://www.kafeitu.me/categories.html#activiti-ref</a></dd>
+
                 </dl>
             </div>
 		</div>
-        <hr />
-        <table>
-            <caption>如果登录失败，请初始化用户数据，在项目根目录执行：</caption>
-            <thead>
-            <tr>
-                <th style="text-align: center;">Maven结构</th>
-                <th style="text-align: center;">传统Web结构（no-maven）</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <b><code>mvn antrun:run -Pinitdatas</code></b>
-                </td>
-                <td>
-                    <div>运行SQL脚本文件：</div>
-                    <ul>
-                        <li><code>resources/sql/h2/data.sql</code></li>
-                    </ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
         <hr />
         <div>
             <div style="float:left; width: 50%;">
@@ -147,6 +128,7 @@
                 <ul>
                     <li>Activiti版本：${prop['activiti.version']}</li>
                     <li>Spring版本：${prop['spring.version']}</li>
+                    <li>Database：${prop['db.type']}</li>
                     <li>使用<a href="http://maven.apache.org" target="_blank">Maven</a>管理依赖</li>
                 </ul>
             </div>
@@ -159,6 +141,10 @@
                     <li>Activiti中文群4(<span style="color:red">已满</span>)：327913744</li>
                 </ul>
             </div>
+        </div>
+        <hr />
+        <div>
+            <a href="http://www.kafeitu.me/activiti-in-action.html" target="_blank"><img src="images/activiti-in-action.jpg" alt=""></a>
         </div>
     </div>
 </body>
