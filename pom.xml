@@ -39,10 +39,22 @@
         <junit.version>4.10</junit.version>
         <mockito.version>1.9.0</mockito.version>
         <powermock.version>1.4.12</powermock.version>
-        <activiti.version>5.17.0</activiti.version>
+        <activiti.version>5.19.0</activiti.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <repositories>
+        <!-- 推荐使用oschina仓库 -->
+        <repository>
+            <id>nexus-osc</id>
+            <url>http://maven.oschina.net/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>nexus-osc-thirdparty</id>
+            <url>http://maven.oschina.net/content/repositories/thirdparty/</url>
+        </repository>
+    </repositories>
 
     <!-- 依赖项定义 -->
     <dependencies>
