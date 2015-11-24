@@ -15,7 +15,7 @@
 **《Activiti实战》**：Activiti项目Team Leader **Tijs Rademakers**认可并推荐，详情访问 [http://www.kafeitu.me/activiti-in-action.html](http://www.kafeitu.me/activiti-in-action.html)
 
 ----
-![](https://raw.githubusercontent.com/henryyan/kft-activiti-demo/master/activiti-in-action.png)
+![](https://raw.githubusercontent.com/henryyan/kft-activiti-demo/master/src/main/webapp/images/activiti-in-action.jpg)
 
 ----
 去 <a href="http://product.china-pub.com/3770832" style="font-size:17pt;color:red">China-Pub</a>| <a href="http://item.jd.com/11599588.html" style="font-size:17pt;color:red">京东</a>| <a href="http://product.dangdang.com/23622065.html" style="font-size:17pt;color:red">当当网</a>| <a href="http://www.amazon.cn/Activiti%E5%AE%9E%E6%88%98-%E9%97%AB%E6%B4%AA%E7%A3%8A/dp/B00RRCOYAQ/ref=sr_1_4?ie=UTF8&qid=1420773978&sr=8-4&keywords=activiti" style="font-size:17pt;color:red">亚马逊</a> 购买
