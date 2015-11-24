@@ -144,7 +144,7 @@
         </div>
         <hr />
         <div>
-            <a href="http://www.kafeitu.me/activiti-in-action.html" target="_blank"><img src="images/activiti-in-action.jpg" alt=""></a>
+            <a href="http://www.kafeitu.me/activiti-in-action.html" target="_blank"><img src="${ctx}/images/activiti-in-action.jpg" alt=""></a>
         </div>
     </div>
 </body>
