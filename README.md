@@ -6,7 +6,7 @@
 
 **项目主页**：[http://www.kafeitu.me/activiti/2012/05/26/kft-activiti-demo.html](http://www.kafeitu.me/activiti/2012/05/26/kft-activiti-demo.html)
 
-**在线演示**：[http://demo.kafeitu.me/kft-activiti-demo](http://demo.kafeitu.me/kft-activiti-demo)
+**在线演示**：[http://demo.kafeitu.me:8080/kft-activiti-demo](http://demo.kafeitu.me:8080/kft-activiti-demo)
 
 **Wiki文档**: [https://github.com/henryyan/kft-activiti-demo/wiki](https://github.com/henryyan/kft-activiti-demo/wiki)
 
