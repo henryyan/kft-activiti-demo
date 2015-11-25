@@ -190,7 +190,7 @@ public class DemoDataInitConfig {
             repositoryService.saveModel(model);
 
             try {
-                InputStream svgStream = this.getClass().getClassLoader().getResourceAsStream("org/activiti/explorer/demo/model/test.svg");
+                InputStream svgStream = this.getClass().getClassLoader().getResourceAsStream("models/leave.model.svg");
                 repositoryService.addModelEditorSourceExtra(model.getId(), IOUtils.toByteArray(svgStream));
             } catch (Exception e) {
                 LOGGER.warn("Failed to read SVG", e);

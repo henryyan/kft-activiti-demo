@@ -2,7 +2,7 @@ $(function() {
 	$('#portlet-container').portlet({
 		sortable: true,
 		columns: [{
-			width: 450,
+			width: 400,
 			portlets: [{
 				title: '待办任务',
 				content: {
@@ -56,7 +56,7 @@ $(function() {
                 }
             }]
 		}, {
-			width: 250,
+			width: 350,
 			portlets: [{
 				title: '演示内容',
 				content: {
@@ -67,7 +67,7 @@ $(function() {
 				}
 			}   ]
 		}, {
-			width: 500,
+			width: 450,
 			portlets: [{
 				title: '项目说明',
 				content: {

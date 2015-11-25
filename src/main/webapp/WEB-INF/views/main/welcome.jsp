@@ -68,10 +68,7 @@
 
     <div class="arch template">
         <ul>
-            <li>
-                Activiti版本：公共版本（${prop['activiti.version']}）
-                <c:if test="${prop['activiti.version'] != prop['activiti.engine.version']}">&nbsp;引擎<strong>特定</strong>版本（${prop['activiti.engine.version']}）</c:if>
-            </li>
+            <li>Activiti版本：${prop['activiti.version']}</li>
             <li>Spring版本：${prop['spring.version']}</li>
             <li>Hibernate：${prop['hibernate.version']}</li>
             <li>使用<a href="http://maven.apache.org" target="_blank">Maven</a>管理依赖</li>
@@ -92,9 +89,13 @@
             <li>动态表单</li>
             <li>外置表单</li>
             <li>个人待办任务汇总</li>
-            <li>分页查询(<font color='red'>New</font>)</li>
-            <li>流程定义缓存(<font color='red'>New</font>)</li>
-            <li>集成Activiti Modeler(<font color='red'>New</font>)</li>
+            <li>分页查询</li>
+            <li>流程定义缓存</li>
+            <li>集成Activiti Modeler[5.17+](<font color='red'>New</font>)</li>
+            <li>引擎参数(<font color='red'>New</font>)</li>
+            <li>引擎数据库查看(<font color='red'>New</font>)</li>
+            <li>引擎内置用户与组(<font color='red'>New</font>)</li>
+            <li>定时作业管理(启动timerExample流程)(<font color='red'>New</font>)</li>
         </ul>
     </div>
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="timerExample" name="启动流程30秒后会设置流程变量TIMER_OK" isExecutable="true">
+    <startEvent id="timerstartevent1" name="Timer start"></startEvent>
+    <serviceTask id="setResult" name="设置变量" activiti:expression="${execution.setVariable('TIMER_OK', execution.getProcessInstanceId())}"></serviceTask>
+    <sequenceFlow id="flow1" sourceRef="timerstartevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow3" sourceRef="setResult" targetRef="endevent1"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT30S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow4" sourceRef="timerintermediatecatchevent1" targetRef="setResult"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>流程启动后等待30秒再执行</text>
+    </textAnnotation>
+    <association id="association1" sourceRef="textannotation1" targetRef="timerintermediatecatchevent1"></association>
+    <textAnnotation id="textannotation2">
+      <text>设置变量TIMER_OK后流程结束</text>
+    </textAnnotation>
+    <association id="association2" sourceRef="textannotation2" targetRef="setResult"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_timerExample">
+    <bpmndi:BPMNPlane bpmnElement="timerExample" id="BPMNPlane_timerExample">
+      <bpmndi:BPMNShape bpmnElement="timerstartevent1" id="BPMNShape_timerstartevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="setResult" id="BPMNShape_setResult">
+        <omgdc:Bounds height="55.0" width="105.0" x="190.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="360.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="91.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="125.0" x="280.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="65.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="110.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="295.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="145.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="190.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
+        <omgdi:waypoint x="141.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="127.0" y="135.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
+        <omgdi:waypoint x="342.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="242.0" y="145.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

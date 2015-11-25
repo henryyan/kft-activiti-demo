@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<%@ include file="/common/global.jsp"%>
-	<title>登录页</title>
+	<title>KAD登录页 - 咖啡兔(闫洪磊)</title>
 	<script>
 		var logon = ${not empty user};
 		if (logon) {

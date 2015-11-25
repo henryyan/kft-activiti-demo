@@ -38,11 +38,20 @@
         </ul>
     </li>
 	<li>
-		<a rel='#'>流程管理</a>
+		<a rel="#">管理模块</a>
 		<ul>
-			<li><a rel='workflow/process-list'>流程定义及部署管理</a></li>
-			<li><a rel='workflow/processinstance/running'>运行中流程</a></li>
-			<li><a rel='workflow/model/list'>模型工作区</a></li>
+			<li>
+				<a rel='#'>流程管理</a>
+				<ul>
+					<li><a rel='workflow/process-list'>流程定义及部署管理</a></li>
+					<li><a rel='workflow/processinstance/running'>运行中流程</a></li>
+					<li><a rel='workflow/model/list'>模型工作区</a></li>
+				</ul>
+			</li>
+			<li><a href="#" rel='management/engine'>引擎属性</a></li>
+			<li><a href="#" rel='management/database'>引擎数据库</a></li>
+			<li><a href="#" rel='management/job/list'>作业管理</a></li>
+			<li><a href="#" rel='management/identity/user/list'>用户与组</a></li>
 		</ul>
 	</li>
 </ul>
