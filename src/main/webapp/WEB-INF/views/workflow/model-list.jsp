@@ -44,6 +44,10 @@
     		});
     	});
     });
+
+		function showSvgTip() {
+			alert('点击"编辑"链接,在打开的页面中打开控制台执行\njQuery(".ORYX_Editor *").filter("svg")\n即可看到svg标签的内容.');
+		}
     </script>
 </head>
 <body>
@@ -82,7 +86,9 @@
 					<td>
 						<a href="${ctx}/modeler.html?modelId=${model.id}" target="_blank">编辑</a>
 						<a href="${ctx}/workflow/model/deploy/${model.id}">部署</a>
-						<a href="${ctx}/workflow/model/export/${model.id}" target="_blank">导出</a>
+						导出(<a href="${ctx}/workflow/model/export/${model.id}/bpmn" target="_blank">BPMN</a>
+						|&nbsp;<a href="${ctx}/workflow/model/export/${model.id}/json" target="_blank">JSON</a>
+						|&nbsp;<a href="javascript:;" onclick='showSvgTip()'>SVG</a>)
                         <a href="${ctx}/workflow/model/delete/${model.id}">删除</a>
 					</td>
 				</tr>

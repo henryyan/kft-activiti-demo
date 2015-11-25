@@ -100,7 +100,7 @@
 
     <div class="links template">
         <p>
-            <b>Demo<span style="color: red">Wiki</span>：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo/wiki">https://github.com/henryyan/kft-activiti-demo/wiki</a>
+            <b><span style="color: red">《Activiti实战》</span></b>：<a target="_blank" href="http://www.kafeitu.me/activiti-in-action.html">http://www.kafeitu.me/activiti-in-action.html</a>
         </p>
         <p>
             <b>Demo<span style="color: red">源码</span>：</b><a target="_blank" href="https://github.com/henryyan/kft-activiti-demo">https://github.com/henryyan/kft-activiti-demo</a>
