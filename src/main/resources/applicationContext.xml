@@ -35,7 +35,7 @@
     </bean>
 
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-    <context:component-scan base-package="me.kafeitu.demo.activiti,org.activiti.conf,org.activiti.rest.editor">
+    <context:component-scan base-package="me.kafeitu.demo.activiti,org.activiti.conf,org.activiti.rest.editor,org.activiti.rest.service">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -66,6 +66,9 @@
 
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <!-- 单例json对象 -->
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
 
     <!-- 引擎内部提供的UUID生成器，依赖fastxml的java-uuid-generator模块 -->
     <bean id="uuidGenerator" class="org.activiti.engine.impl.persistence.StrongUuidGenerator" />

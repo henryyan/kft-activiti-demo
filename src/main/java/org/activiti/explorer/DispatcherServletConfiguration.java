@@ -1,4 +1,4 @@
-package org.activiti.explorer.servlet;
+package org.activiti.explorer;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 @Configuration
-@ComponentScan({"org.activiti.rest.editor", "org.activiti.rest.diagram"})
+@ComponentScan({"org.activiti.rest,org.activiti.conf"})
 @EnableAsync
 public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 

@@ -54,4 +54,15 @@
 			<li><a href="#" rel='management/identity/user/list'>用户与组</a></li>
 		</ul>
 	</li>
+	<li>
+		<a rel="#">Rest示例</a>
+		<ul>
+			<li><a href="${ctx}/rest/management/properties" target="_blank">引擎属性</a></li>
+			<li><a href="${ctx}/rest/runtime/tasks" target="_blank">我的任务</a></li>
+			<li><a href="${ctx}/rest/runtime/executions" target="_blank">我参与的流程</a></li>
+			<li><a href="${ctx}/rest/management/tables" target="_blank">数据库表</a></li>
+			<li><a href="${ctx}/rest/identity/users" target="_blank">用户</a></li>
+			<li><a href="${ctx}/rest/identity/groups" target="_blank">组</a></li>
+		</ul>
+	</li>
 </ul>

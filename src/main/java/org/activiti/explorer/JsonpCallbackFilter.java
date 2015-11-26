@@ -1,4 +1,4 @@
-package org.activiti.explorer.servlet;
+package org.activiti.explorer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

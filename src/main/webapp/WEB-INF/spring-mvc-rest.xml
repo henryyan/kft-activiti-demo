@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
 	<!-- 自动扫描且只扫描@Controller -->
-	<context:component-scan base-package="org.activiti.rest.editor,org.activiti.rest.diagram">
+	<context:component-scan base-package="org.activiti.rest">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 

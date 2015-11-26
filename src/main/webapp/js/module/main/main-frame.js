@@ -68,6 +68,8 @@ function dealRoles() {
 	$('#css3menu a').click(function() {
 		if ($(this).attr('rel') == '#') {
 			return false;
+		} else if (!$(this).attr('rel')) {
+			return true;
 		}
 		$('.active').removeClass('active');
 		$(this).addClass('active');

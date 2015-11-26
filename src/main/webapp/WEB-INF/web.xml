@@ -49,11 +49,25 @@
 	<!-- JSONP -->
 	<filter>
 		<filter-name>JSONPFilter</filter-name>
-		<filter-class>org.activiti.explorer.servlet.JsonpCallbackFilter</filter-class>
+		<filter-class>org.activiti.explorer.JsonpCallbackFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>JSONPFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>
+			org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/rest/*</url-pattern>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
     <!-- 注册WebService -->
@@ -96,6 +110,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- Modeler的Rest服务 -->
 	<servlet>
 		<servlet-name>ModelRestServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -108,6 +123,21 @@
 	<servlet-mapping>
 		<servlet-name>ModelRestServlet</servlet-name>
 		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Rest接口 -->
+	<servlet>
+		<servlet-name>RestServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc-rest.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RestServlet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- session超时定义,单位为分钟 -->
