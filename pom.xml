@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.kafeitu.demo</groupId>
     <artifactId>kft-activiti-demo</artifactId>
-    <version>1.14.0</version>
+    <version>1.14.1</version>
     <packaging>war</packaging>
     <name>Activiti demo</name>
     <description>activiti demo for version 5.17+</description>
@@ -566,7 +566,7 @@
 
                 <!-- driver configs -->
                 <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-                <jdbc.url>jdbc:mysql://localhost:3306/kad?useUnicode=true&amp;characterEncoding=utf-8</jdbc.url>
+                <jdbc.url><![CDATA[jdbc:mysql://localhost:3306/kad?useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
                 <jdbc.username>root</jdbc.username>
                 <jdbc.password>root</jdbc.password>
                 <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
