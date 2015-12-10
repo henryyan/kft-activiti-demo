@@ -9,10 +9,6 @@
     <!-- 引擎内部提供的UUID生成器，依赖fastxml的java-uuid-generator模块 -->
     <bean id="uuidGenerator" class="org.activiti.engine.impl.persistence.StrongUuidGenerator" />
 
-    <bean id="restResponseFactory" class="org.activiti.rest.service.api.RestResponseFactory" />
-
-    <bean id="contentTypeResolver" class="org.activiti.rest.common.application.DefaultContentTypeResolver" />
-
     <!-- Activiti begin -->
     <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
         <property name="dataSource" ref="dataSource"/>
@@ -76,6 +72,7 @@
         <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
     </bean>
 
+    <!-- 7大接口 -->
     <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
     <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
     <bean id="formService" factory-bean="processEngine" factory-method="getFormService"/>
@@ -83,5 +80,9 @@
     <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
     <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
     <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
+
+    <!-- 集成REST服务需要的bean -->
+    <bean id="restResponseFactory" class="org.activiti.rest.service.api.RestResponseFactory" />
+    <bean id="contentTypeResolver" class="org.activiti.rest.common.application.DefaultContentTypeResolver" />
 
 </beans>
