@@ -7,9 +7,7 @@
 	<!-- Spring ApplicationContext配置文件的路径,可使用通配符,多个路径用,号分隔 此参数用于后面的Spring Context Loader -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			classpath*:/applicationContext.xml
-		</param-value>
+		<param-value>classpath*:/beans/beans-*.xml</param-value>
 	</context-param>
 
 	<!--Spring的ApplicationContext 载入 -->

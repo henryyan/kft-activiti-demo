@@ -36,11 +36,11 @@ public class DatabaseController {
 
         // 读取表
         Map<String, Long> tableCount = managementService.getTableCount();
-        List<String> keys = new ArrayList<>();
+        List<String> keys = new ArrayList<String>();
         keys.addAll(tableCount.keySet());
         Collections.sort(keys);
 
-        TreeMap<String, Long> sortedTableCount = new TreeMap<>();
+        TreeMap<String, Long> sortedTableCount = new TreeMap<String, Long>();
 
         for (String key : keys) {
             sortedTableCount.put(key, tableCount.get(key));
@@ -52,7 +52,7 @@ public class DatabaseController {
         if (StringUtils.isNotBlank(tableName)) {
             TableMetaData tableMetaData = managementService.getTableMetaData(tableName);
             mav.addObject("tableMetaData", tableMetaData);
-            Page<Map<String, Object>> page = new Page<>(10);
+            Page<Map<String, Object>> page = new Page<Map<String, Object>>(10);
             int[] pageParams = PageUtil.init(page, request);
             TablePage tablePages = managementService.createTablePageQuery().tableName(tableName).listPage(pageParams[0], pageParams[1]);
 

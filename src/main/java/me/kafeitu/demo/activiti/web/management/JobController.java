@@ -51,7 +51,7 @@ public class JobController {
         ModelAndView mav = new ModelAndView("management/job-list");
         JobQuery jobQuery = managementService.createJobQuery();
 
-        Page<Job> page = new Page<>(PageUtil.PAGE_SIZE);
+        Page<Job> page = new Page<Job>(PageUtil.PAGE_SIZE);
         int[] pageParams = PageUtil.init(page, request);
         List<Job> jobList = jobQuery.listPage(pageParams[0], pageParams[1]);
 

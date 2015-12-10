@@ -112,8 +112,9 @@ public class ModelController {
 
     /**
      * 导出model对象为指定类型
+     *
      * @param modelId 模型ID
-     * @param type 导出文件类型(bpmn\json)
+     * @param type    导出文件类型(bpmn\json)
      */
     @RequestMapping(value = "export/{modelId}/{type}")
     public void export(@PathVariable("modelId") String modelId,
@@ -140,22 +141,17 @@ public class ModelController {
 
             String mainProcessId = bpmnModel.getMainProcess().getId();
 
-            switch (type) {
-                case "bpmn": {
+            if (type.equals("bpmn")) {
 
-                    BpmnXMLConverter xmlConverter = new BpmnXMLConverter();
-                    exportBytes = xmlConverter.convertToXML(bpmnModel);
+                BpmnXMLConverter xmlConverter = new BpmnXMLConverter();
+                exportBytes = xmlConverter.convertToXML(bpmnModel);
 
-                    filename = mainProcessId + ".bpmn20.xml";
-                    break;
-                }
+                filename = mainProcessId + ".bpmn20.xml";
+            } else if (type.equals("json")) {
 
-                case "json": {
+                exportBytes = modelEditorSource;
+                filename = mainProcessId + ".json";
 
-                    exportBytes = modelEditorSource;
-                    filename = mainProcessId + ".json";
-
-                }
             }
 
             ByteArrayInputStream in = new ByteArrayInputStream(exportBytes);
