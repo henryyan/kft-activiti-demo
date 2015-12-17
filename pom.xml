@@ -45,17 +45,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <!--<repositories>-->
-        <!--&lt;!&ndash; 推荐使用oschina仓库 &ndash;&gt;-->
-        <!--<repository>-->
-            <!--<id>nexus-osc</id>-->
-            <!--<url>http://maven.oschina.net/content/groups/public/</url>-->
-        <!--</repository>-->
-        <!--<repository>-->
-            <!--<id>nexus-osc-thirdparty</id>-->
-            <!--<url>http://maven.oschina.net/content/repositories/thirdparty/</url>-->
-        <!--</repository>-->
-    <!--</repositories>-->
+    <repositories>
+        <!-- 推荐使用oschina仓库 -->
+        <repository>
+            <id>nexus-osc</id>
+            <url>http://maven.oschina.net/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>nexus-osc-thirdparty</id>
+            <url>http://maven.oschina.net/content/repositories/thirdparty/</url>
+        </repository>
+    </repositories>
 
     <!-- 依赖项定义 -->
     <dependencies>
