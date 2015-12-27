@@ -477,6 +477,8 @@
                     <webAppConfig>
                         <contextPath>/${project.artifactId}</contextPath>
                     </webAppConfig>
+                    <stopKey>kad</stopKey>
+                    <stopPort>9999</stopPort>
                 </configuration>
             </plugin>
 
@@ -494,16 +496,6 @@
                         <nonFilteredFileExtension>bpmn</nonFilteredFileExtension>
                     </nonFilteredFileExtensions>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-
-            <!-- tomcat6 -->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat6-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <path>/${project.artifactId}</path>
                 </configuration>
             </plugin>
 
