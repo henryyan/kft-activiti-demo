@@ -474,9 +474,9 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
-                    <webAppConfig>
+                    <webApp>
                         <contextPath>/${project.artifactId}</contextPath>
-                    </webAppConfig>
+                    </webApp>
                     <stopKey>kad</stopKey>
                     <stopPort>9999</stopPort>
                 </configuration>
