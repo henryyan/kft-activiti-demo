@@ -506,6 +506,9 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/${project.artifactId}</path>
+                    <systemProperties>
+                        <JAVA_OPTS>-Xms1024m -Xmx2048m -XX:PermSize=512m -XX:MaxPermSize=1024m -Dfile.encoding=UTF-8</JAVA_OPTS>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>
