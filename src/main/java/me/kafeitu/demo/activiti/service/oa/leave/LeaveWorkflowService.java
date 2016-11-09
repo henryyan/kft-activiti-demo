@@ -91,6 +91,9 @@ public class LeaveWorkflowService {
         for (Task task : tasks) {
             String processInstanceId = task.getProcessInstanceId();
             ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).active().singleResult();
+            if (processInstance == null) {
+                continue;
+            }
             String businessKey = processInstance.getBusinessKey();
             if (businessKey == null) {
                 continue;
