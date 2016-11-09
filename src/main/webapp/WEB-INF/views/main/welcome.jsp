@@ -117,7 +117,7 @@
     <div class="aboutme template">
         <ul>
             <li>
-                <b>作者：</b><a target="_blnak" href="http://www.kafeitu.me/?f=kad">咖啡兔</a>
+                <b>作者：</b><a target="_blnak" href="http://www.kafeitu.me/?f=kad">咖啡兔(闫洪磊)</a>
             </li>
             <li>
                 <b>QQ：</b>576525789
