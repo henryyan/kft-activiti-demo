@@ -21,7 +21,7 @@
 
     <!-- 项目属性 -->
     <properties>
-        <jdk.version>1.6</jdk.version>
+        <jdk.version>1.7</jdk.version>
         <spring.version>4.1.5.RELEASE</spring.version>
         <hibernate.version>4.2.5.Final</hibernate.version>
         <spring-data-jpa.version>1.9.1.RELEASE</spring-data-jpa.version>
@@ -39,7 +39,7 @@
         <junit.version>4.10</junit.version>
         <mockito.version>1.9.0</mockito.version>
         <powermock.version>1.4.12</powermock.version>
-        <activiti.version>5.19.0</activiti.version>
+        <activiti.version>5.22.0</activiti.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -121,6 +121,11 @@
             <artifactId>activiti-cxf</artifactId>
             <version>${activiti.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>juli</artifactId>
+            <version>6.0.47</version>
+        </dependency>
 
         <!-- cxf的http支持 -->
         <dependency>
@@ -143,6 +148,11 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
             <version>2.7.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.2.11</version>
         </dependency>
 
         <!-- 支持activiti缓存 -->

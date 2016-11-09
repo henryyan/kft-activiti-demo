@@ -23,6 +23,12 @@
         <!--<property name="history" value="full"/>-->
         <property name="processDefinitionCacheLimit" value="10"/>
 
+        <!--<property name="configurators">
+            <list>
+                <bean class="me.kafeitu.demo.activiti.activiti.DbInitConfigurator" />
+            </list>
+        </property>-->
+
         <!-- mail -->
         <property name="mailServerHost" value="localhost"/>
         <property name="mailServerUsername" value="kafeitu"/>
