@@ -1,0 +1,22 @@
+<definitions 
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:activiti="http://activiti.org/bpmn"
+  targetNamespace="Examples">
+
+  <process id="extLogExample" >
+
+    <startEvent id="theStart" />
+    <sequenceFlow sourceRef="theStart" targetRef="logDetail" />
+    
+    <serviceTask id="logDetail" activiti:type="log">
+      <extensionElements>
+        <activiti:field name="content" expression="Hello ${name}" />
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow sourceRef="logDetail" targetRef="theEnd" />
+    
+    <endEvent id="theEnd" />
+
+  </process>
+
+</definitions>
