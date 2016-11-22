@@ -99,7 +99,7 @@ public class ModelController {
             byte[] bpmnBytes = null;
 
             BpmnModel model = new BpmnJsonConverter().convertToBpmnModel(modelNode);
-            bpmnBytes = new BpmnXMLConverter().convertToXML(model);
+            bpmnBytes = new BpmnXMLConverter().convertToXML(model,"GBK");
 
             String processName = modelData.getName() + ".bpmn20.xml";
             Deployment deployment = repositoryService.createDeployment().name(modelData.getName()).addString(processName, new String(bpmnBytes)).deploy();
